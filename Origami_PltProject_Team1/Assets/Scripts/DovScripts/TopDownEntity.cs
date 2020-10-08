@@ -192,7 +192,8 @@ public class TopDownEntity : MonoBehaviour
     {
         float horizontal = player.GetAxisRaw("Move Horizontal");
         float vertical = player.GetAxisRaw("Move Vertical");
-        _orientDir = new Vector3(-horizontal, 0f, -vertical).normalized;
+        _orientDir = new Vector3(-vertical, 0f, -horizontal).normalized;
+        _orientDir = CartesianToIsometric(_orientDir);
         _moveDir = _orientDir;
 
         if (_orientDir.magnitude >= 0.1f)
@@ -202,6 +203,7 @@ public class TopDownEntity : MonoBehaviour
             transform.rotation = Quaternion.Euler(0f, angle, 0f);
 
         }
+
         /*float startAngle = Vector2.SignedAngle(Vector2.right, orientSprite.transform.right);
         float endAngle = startAngle + Vector2.SignedAngle(orientSprite.transform.right, _orientDir);
 
@@ -210,6 +212,12 @@ public class TopDownEntity : MonoBehaviour
         Vector3 eulerAngles = orientSprite.transform.eulerAngles;
         eulerAngles.z = angle;
         orientSprite.transform.eulerAngles = eulerAngles;*/
+    }
+
+    private Vector3 CartesianToIsometric(Vector3 cartesian)
+    {
+        cartesian = new Vector3((cartesian.x + cartesian.z) / 2, 0f, cartesian.x - cartesian.z);
+        return cartesian;
     }
 
     #endregion

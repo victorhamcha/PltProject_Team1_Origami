@@ -12,13 +12,7 @@ public class TopDownController : MonoBehaviour
 
     void Update()
     {
-
         entity.Move(moveDir);
-
-
-
-
-
 
 
         //controller.Move(direction * speed * Time.deltaTime);
