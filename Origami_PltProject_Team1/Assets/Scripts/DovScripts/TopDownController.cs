@@ -15,15 +15,16 @@ public class TopDownController : MonoBehaviour
         entity.Move(moveDir);
 
 
-        //controller.Move(direction * speed * Time.deltaTime);
-
-        //if (!keyboardActive) {
-        //    if (Input.GetMouseButton(0)) {
-        //        Vector3 worldMousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        //        entity.MoveToDestination(worldMousePosition);
-        //    } else {
-        //        entity.MoveStop();
-        //    }
+        //if (Input.GetMouseButton(0))
+        //{
+        //    //Raycast --> ScreenPointToRay --> Input.mousePosition.x, 0f, Input.mousePosition.z
+        //    Vector3 worldMousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        //    entity.MoveToDestination(worldMousePosition);
         //}
+        //else
+        //{
+        //    entity.MoveStop();
+        //}
+
     }
 }

@@ -14,7 +14,7 @@ public class TopDownEntity : MonoBehaviour
     public Vector3 _moveDir = Vector3.zero;
 
     //Destination
-    /*[Header("Movement Destination")]
+    [Header("Movement Destination")]
     public float moveDestinationStartSlowdownRange = 2f;
     public float moveDestinationSpeedMin = 1f;
     private Vector3 _moveDestination = Vector3.zero;
@@ -23,7 +23,7 @@ public class TopDownEntity : MonoBehaviour
     private float _moveDestinationSpeed = 0f;
 
     private float _moveDestinationRefreshDirDuration = 0.1f;
-    private float _moveDestinationRefreshDirCountdown = -1f;*/
+    private float _moveDestinationRefreshDirCountdown = -1f;
 
     //Frictions
     [Header("Frictions")]
@@ -75,8 +75,8 @@ public class TopDownEntity : MonoBehaviour
         GUILayout.BeginVertical();
         GUILayout.Label(gameObject.name, debugStyle);
         GUILayout.Label("Move Dir = " + _moveDir, debugStyle);
-        //GUILayout.Label("Move Destination Speed = " + _moveDestinationSpeed, debugStyle);
-        //GUILayout.Label("Move Destination = " + _moveDestination, debugStyle);
+        GUILayout.Label("Move Destination Speed = " + _moveDestinationSpeed, debugStyle);
+        GUILayout.Label("Move Destination = " + _moveDestination, debugStyle);
         GUILayout.Label("Velocity = " + _velocity, debugStyle);
         GUILayout.EndVertical();
     }
@@ -97,45 +97,52 @@ public class TopDownEntity : MonoBehaviour
     public void MoveStop()
     {
         _moveDir = Vector3.zero;
-        //_isMovingToDestination = false;
+        _isMovingToDestination = false;
     }
 
-    /*public void MoveToDestination(Vector3 destination)
+    public void MoveToDestination(Vector3 destination)
     {
         _moveDestination = destination;
-        _moveDestination.z = 0f;
+        _moveDestination.y = 0f;
         _isMovingToDestination = true;
         _moveDestinationRefreshDirCountdown = -1f;
-    }*/
+    }
 
     private void _UpdateMove()
     {
         #region scriptsouris
-        /*if (_isMovingToDestination) {
+        if (_isMovingToDestination)
+        {
             bool hasReachedDestination = false;
             float distFromDestination = (_moveDestination - transform.position).magnitude;
-            if (distFromDestination <= _moveDestinationRange) {
+            if (distFromDestination <= _moveDestinationRange)
+            {
                 hasReachedDestination = true;
             }
             Vector3 dirFromDestination = (_moveDestination - transform.position).normalized;
-            if (Vector3.Dot(_moveDir, dirFromDestination) < 0f) {
+            if (Vector3.Dot(_moveDir, dirFromDestination) < 0f)
+            {
                 hasReachedDestination = true;
             }
 
-            if (hasReachedDestination) {
+            if (hasReachedDestination)
+            {
                 //Entity has reached destination
                 Move(Vector3.zero);
                 _velocity = Vector3.zero;
                 _isMovingToDestination = false;
-            } else {
+            }
+            else
+            {
                 _moveDestinationRefreshDirCountdown -= Time.fixedDeltaTime;
-                if (_moveDestinationRefreshDirCountdown <= 0f) {
+                if (_moveDestinationRefreshDirCountdown <= 0f)
+                {
                     Vector3 moveDir = (_moveDestination - transform.position).normalized;
                     Move(moveDir);
                     _moveDestinationRefreshDirCountdown = _moveDestinationRefreshDirDuration;
                 }
             }
-        }*/
+        }
         #endregion
 
         if (_moveDir != Vector3.zero)
@@ -168,19 +175,24 @@ public class TopDownEntity : MonoBehaviour
             }
         }
 
-        /*if (_isMovingToDestination) {
+        if (_isMovingToDestination)
+        {
             float distFromDestination = (_moveDestination - transform.position).magnitude;
-            if (distFromDestination <= moveDestinationStartSlowdownRange) {
+            if (distFromDestination <= moveDestinationStartSlowdownRange)
+            {
                 float ratio = distFromDestination / moveDestinationStartSlowdownRange;
                 float speed = Mathf.Lerp(0f, _moveDestinationSpeed, ratio);
                 _velocity = _velocity.normalized * speed;
-            } else {
+            }
+            else
+            {
                 _moveDestinationSpeed = _velocity.magnitude;
-                if (_moveDestinationSpeed < moveDestinationSpeedMin) {
+                if (_moveDestinationSpeed < moveDestinationSpeedMin)
+                {
                     _moveDestinationSpeed = moveDestinationSpeedMin;
                 }
             }
-        }*/
+        }
     }
 
     #endregion
@@ -203,15 +215,6 @@ public class TopDownEntity : MonoBehaviour
             transform.rotation = Quaternion.Euler(0f, angle, 0f);
 
         }
-
-        /*float startAngle = Vector2.SignedAngle(Vector2.right, orientSprite.transform.right);
-        float endAngle = startAngle + Vector2.SignedAngle(orientSprite.transform.right, _orientDir);
-
-        float angle = Mathf.Lerp(startAngle, endAngle, Time.deltaTime * orientSpeed);
-
-        Vector3 eulerAngles = orientSprite.transform.eulerAngles;
-        eulerAngles.z = angle;
-        orientSprite.transform.eulerAngles = eulerAngles;*/
     }
 
     private Vector3 CartesianToIsometric(Vector3 cartesian)

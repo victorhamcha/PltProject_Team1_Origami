@@ -552,7 +552,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1634783139}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.7683985, y: 0.37, z: 0.10430346}
+  m_LocalPosition: {x: 0, y: -9, z: 0}
   m_LocalScale: {x: 200, y: 0.06, z: 200}
   m_Children: []
   m_Father: {fileID: 0}
@@ -591,6 +591,8 @@ MonoBehaviour:
   acceleration: 1000
   speedMax: 30
   _moveDir: {x: 0, y: 0, z: 0}
+  moveDestinationStartSlowdownRange: 2
+  moveDestinationSpeedMin: 1
   friction: 100
   turnFriction: 0
   _rigidbody: {fileID: 2001829085}
@@ -602,7 +604,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2001829082}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 8.39, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 4, y: 4, z: 4}
   m_Children:
   - {fileID: 30890671}
