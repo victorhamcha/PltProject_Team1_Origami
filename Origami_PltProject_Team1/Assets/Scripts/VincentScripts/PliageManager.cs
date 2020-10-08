@@ -58,19 +58,12 @@ public class PliageManager : MonoBehaviour
         if (valueStick <= 0 && _animator.GetCurrentAnimatorStateInfo(0).normalizedTime == 0)
         {
             valueStick = 0;
-            _pointSelectedOrigami.GetCursorSprite().SetActive(true);
-            _pointSelectedOrigami.SetBoolChangePos(true);
         }else if (_animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
         {
             maxValueStick = valueStick;
         }
-        else if (_pointSelectedOrigami.IsGoodSelections())
-        {
-            _pointSelectedOrigami.GetCursorSprite().SetActive(false);
-            _pointSelectedOrigami.SetBoolChangePos(false);
-        }
 
-        if (_pointSelectedOrigami.IsGoodSelections())
+        if (_pointSelectedOrigami.PointIsSelected())
         {
             _animator.PlayInFixedTime(currentPliage.animToPlay.name, -1 , currentPliage.animToPlay.frameRate);
             _lastValueStick = valueStick;
@@ -79,7 +72,6 @@ public class PliageManager : MonoBehaviour
         }
         else if (valueStick > 0)
         {
-            StartCoroutine("SwitchColor");
             valueStick = _lastValueStick;
             _animator.speed = 0;
         }
@@ -103,14 +95,6 @@ public class PliageManager : MonoBehaviour
             }
         }
 
-    }
-
-    IEnumerator SwitchColor()
-    {
-        SpriteRenderer _spriteRenderer = _pointSelectedOrigami.GetCursorSprite().GetComponent<SpriteRenderer>();
-        _spriteRenderer.color = Color.red;
-        yield return new WaitForSeconds(1f);
-        _spriteRenderer.color = Color.green;
     }
 
 }

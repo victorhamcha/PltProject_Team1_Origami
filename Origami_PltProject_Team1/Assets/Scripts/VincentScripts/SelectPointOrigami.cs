@@ -1,4 +1,5 @@
 ﻿using Rewired;
+using System.Collections;
 using UnityEngine;
 
 public class SelectPointOrigami : MonoBehaviour
@@ -10,8 +11,9 @@ public class SelectPointOrigami : MonoBehaviour
     private Transform[] _pointSelections = null;
     private Transform _goodPointSelections = null;
     private Player _rewiredPlayer = null;
+    private SpriteRenderer _spriteRenderer = null;
 
-    private bool _pointIsSelected = true;
+    private bool _pointIsSelected = false;
     private int _indiceVertices = 0;
     private float _timerSwitchChoise = 0.2f;
 
@@ -24,12 +26,28 @@ public class SelectPointOrigami : MonoBehaviour
         {
             _cursorSprite.transform.position = _pointSelections[_indiceVertices].position;
         }
+        _spriteRenderer = _cursorSprite.GetComponent<SpriteRenderer>();
     }
 
     private void Update()
     {
         float moveHorizontal = _rewiredPlayer.GetAxis("SelectPoint");
-        //bool trySelection = _rewiredPlayer.GetButton("SelectPoint");
+        bool trySelection = _rewiredPlayer.GetButton("Validation");
+
+        if (trySelection && IsGoodSelections())
+        {
+            _canChangePos = false;
+            _cursorSprite.SetActive(false);
+            _pointIsSelected = true;
+        }else if (trySelection && !IsGoodSelections())
+        {
+            _spriteRenderer.color = Color.red;
+        }
+        else if (_spriteRenderer.color == Color.red) {
+            _spriteRenderer.color = Color.green;
+        }
+
+        Debug.Log(trySelection);
 
         _timerSwitchChoise -= Time.deltaTime;
 
@@ -77,16 +95,14 @@ public class SelectPointOrigami : MonoBehaviour
         return _cursorSprite;
     }
 
-    public void SetBoolChangePos(bool canChangePos)
-    {
-        _canChangePos = canChangePos;
-    }
-
     public void SetPointSelection(Transform[] pointSelections)
     {
         _pointSelections = pointSelections;
         _indiceVertices = 0;
         _cursorSprite.transform.position = _pointSelections[_indiceVertices].position;
+        _canChangePos = true;
+        _cursorSprite.SetActive(true);
+        _pointIsSelected = false;
     }
 
     public void SetPointGoodSelection(Transform pointSelections)
@@ -96,12 +112,19 @@ public class SelectPointOrigami : MonoBehaviour
 
     public bool IsGoodSelections()
     {
-        return _pointSelections[_indiceVertices] == _goodPointSelections && PointIsSelected();
+        return _pointSelections[_indiceVertices] == _goodPointSelections;
     }
 
     public bool PointIsSelected()
     {
         return _pointIsSelected;
+    }
+
+    IEnumerator SwitchColor()
+    {
+
+        yield return new WaitForSeconds(1f);
+        _spriteRenderer.color = Color.green;
     }
 
 }
