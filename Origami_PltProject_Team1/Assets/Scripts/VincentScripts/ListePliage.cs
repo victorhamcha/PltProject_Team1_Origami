@@ -1,5 +1,4 @@
-﻿using Rewired;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -28,14 +27,9 @@ public class ListePliage : MonoBehaviour
         }
     }
 
-    public int GetSizeAllPliageToDo()
-    {
-        return allPliageToDo.Count;
-    }
-
     public bool CanGoToNextPliage(int indexNextPliage)
     {
-        if (GetSizeAllPliageToDo() < indexNextPliage + 1)
+        if (allPliageToDo.Count < indexNextPliage + 1)
         {
             return false;
         }

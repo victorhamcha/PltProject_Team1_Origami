@@ -15,12 +15,18 @@ public class SelectPointOrigami : MonoBehaviour
 
     private bool _pointIsSelected = false;
     private int _indiceVertices = 0;
-    private float _timerSwitchChoise = 0.2f;
+
+    [SerializeField]
+    private float timerSwitchChoise = 0.2f;
+
+    private float _timerChoise = 0f;
 
     private bool _canChangePos = true;
 
     void Start()
     {
+        _timerChoise = timerSwitchChoise;
+
         _rewiredPlayer = ReInput.players.GetPlayer("Player0");
         if (_pointSelections.Length > 0)
         {
@@ -33,66 +39,59 @@ public class SelectPointOrigami : MonoBehaviour
     {
         float moveHorizontal = _rewiredPlayer.GetAxis("SelectPoint");
         bool trySelection = _rewiredPlayer.GetButton("Validation");
+        _timerChoise -= Time.deltaTime;
 
-        if (trySelection && IsGoodSelections())
+        if (trySelection)
         {
-            _canChangePos = false;
-            _cursorSprite.SetActive(false);
-            _pointIsSelected = true;
-        }else if (trySelection && !IsGoodSelections())
-        {
-            _spriteRenderer.color = Color.red;
+            if (IsGoodSelections())
+            {
+                _canChangePos = false;
+                _cursorSprite.SetActive(false);
+                _pointIsSelected = true;
+            }
+            else
+            {
+                _spriteRenderer.color = Color.red;
+            }
         }
         else if (_spriteRenderer.color == Color.red) {
             _spriteRenderer.color = Color.green;
         }
 
-        Debug.Log(trySelection);
-
-        _timerSwitchChoise -= Time.deltaTime;
-
-        if (moveHorizontal == 1 && _timerSwitchChoise <= 0f && _canChangePos)
+        if (_timerChoise <= 0f && _canChangePos)
         {
-            //Debug.Log(ReInput.mapping.GetAction("SelectPoint").positiveDescriptiveName);
-            _timerSwitchChoise = 0.2f;
-            if (_indiceVertices == _pointSelections.Length - 1)
+            if (moveHorizontal == 1)
             {
-                _indiceVertices = 0;
+                _timerChoise = timerSwitchChoise;
+                if (_indiceVertices == _pointSelections.Length - 1)
+                {
+                    _indiceVertices = 0;
+                }
+                else
+                {
+                    _indiceVertices++;
+                }
+                _cursorSprite.transform.position = _pointSelections[_indiceVertices].position;
             }
-            else
+            else if (moveHorizontal == -1)
             {
-                _indiceVertices++;
+                _timerChoise = 0.2f;
+                if (_indiceVertices == 0)
+                {
+                    _indiceVertices = _pointSelections.Length - 1;
+                }
+                else
+                {
+                    _indiceVertices--;
+                }
+                _cursorSprite.transform.position = _pointSelections[_indiceVertices].position;
             }
-            _cursorSprite.transform.position = _pointSelections[_indiceVertices].position;
         }
-        else if (moveHorizontal == -1 && _timerSwitchChoise <= 0f && _canChangePos)
+        
+        if (moveHorizontal == 0)
         {
-            //Debug.Log(ReInput.mapping.GetAction("SelectPoint").negativeDescriptiveName);
-            _timerSwitchChoise = 0.2f;
-            if (_indiceVertices == 0)
-            {
-                _indiceVertices = _pointSelections.Length - 1;
-            }
-            else
-            {
-                _indiceVertices--;
-            }
-            _cursorSprite.transform.position = _pointSelections[_indiceVertices].position;
+            _timerChoise = 0;
         }
-        else if (moveHorizontal == 0)
-        {
-            _timerSwitchChoise = 0;
-        }
-    }
-
-    public int GetIndiceVertices()
-    {
-        return _indiceVertices;
-    }
-
-    public GameObject GetCursorSprite()
-    {
-        return _cursorSprite;
     }
 
     public void SetPointSelection(Transform[] pointSelections)
@@ -118,13 +117,6 @@ public class SelectPointOrigami : MonoBehaviour
     public bool PointIsSelected()
     {
         return _pointIsSelected;
-    }
-
-    IEnumerator SwitchColor()
-    {
-
-        yield return new WaitForSeconds(1f);
-        _spriteRenderer.color = Color.green;
     }
 
 }

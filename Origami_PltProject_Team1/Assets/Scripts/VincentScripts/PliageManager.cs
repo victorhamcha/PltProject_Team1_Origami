@@ -14,11 +14,11 @@ public class PliageManager : MonoBehaviour
 
     private Player _rewiredPlayer = null;
 
+    [SerializeField]
+    private float speedDownAnim = 50f;
+
     private float valueStick = 0f;
-    private float valueDivision = 50f;
-    private float _lastValueStick;
     private int indexPliage = 0;
-    private float maxValueStick = 10f;
 
     private void Start()
     {
@@ -38,7 +38,6 @@ public class PliageManager : MonoBehaviour
 
         _animator.speed = 0;
         _animator.Play(currentPliage.animToPlay.name);
-        _lastValueStick = 0;
 
     }
 
@@ -46,37 +45,21 @@ public class PliageManager : MonoBehaviour
     {
         float moveHorizontal = _rewiredPlayer.GetAxis(actionName: "PliagePapier");
 
-        if (valueStick < maxValueStick)
-        {
-            valueStick += moveHorizontal / 2 * Time.deltaTime;
-        }
-        else
-        {
-            valueStick = maxValueStick;
-        }
-
-        if (valueStick <= 0 && _animator.GetCurrentAnimatorStateInfo(0).normalizedTime == 0)
-        {
-            valueStick = 0;
-        }else if (_animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
-        {
-            maxValueStick = valueStick;
-        }
-
         if (_pointSelectedOrigami.PointIsSelected())
         {
-            _animator.PlayInFixedTime(currentPliage.animToPlay.name, -1 , currentPliage.animToPlay.frameRate);
-            _lastValueStick = valueStick;
-            _animator.speed = valueStick / valueDivision;
+             valueStick += moveHorizontal / 2 * Time.deltaTime;
+
+            if (valueStick < 0)
+            {
+                valueStick = 0;
+            }
+
+            _animator.PlayInFixedTime(currentPliage.animToPlay.name, -1, currentPliage.animToPlay.frameRate);
+            _animator.speed = valueStick / speedDownAnim;
 
         }
-        else if (valueStick > 0)
-        {
-            valueStick = _lastValueStick;
-            _animator.speed = 0;
-        }
 
-        if (_animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
+        if (CurrentAnimIsFinish())
         {
             indexPliage++;
             if (_listePliage.CanGoToNextPliage(indexPliage))
@@ -86,7 +69,6 @@ public class PliageManager : MonoBehaviour
                 _pointSelectedOrigami.SetPointGoodSelection(currentPliage.goodPointSelection);
                 _animator.speed = 0;
                 _animator.Play(currentPliage.animToPlay.name);
-                _lastValueStick = 0;
                 valueStick = 0;
             }
             else
@@ -94,7 +76,14 @@ public class PliageManager : MonoBehaviour
                 Debug.Log("Origami Fini");
             }
         }
-
     }
 
+    public bool CurrentAnimIsFinish()
+    {
+        if (_animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
+        {
+            return true;
+        }
+        return false;
+    }
 }
