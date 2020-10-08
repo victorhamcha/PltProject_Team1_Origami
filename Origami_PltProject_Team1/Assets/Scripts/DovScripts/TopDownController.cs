@@ -7,29 +7,21 @@ using Rewired;
 public class TopDownController : MonoBehaviour
 {
     public TopDownEntity entity;
+    private Vector3 moveDir = Vector3.zero;
 
 
     void Update()
     {
-        Vector3 moveDir = Vector3.zero;
-        if (Input.GetKey(KeyCode.LeftArrow)) {
-            moveDir.x = -1f;
-            //keyboardActive = true;
-        } else if (Input.GetKey(KeyCode.RightArrow)) {
-            moveDir.x = 1f;
-            //keyboardActive = true;
-        }
-
-        if (Input.GetKey(KeyCode.UpArrow)) {
-            moveDir.y = 1f;
-            //keyboardActive = true;
-        } else if (Input.GetKey(KeyCode.DownArrow)) {
-            moveDir.y = -1f;
-            //keyboardActive = true;
-        }
 
         entity.Move(moveDir);
 
+
+
+
+
+
+
+        //controller.Move(direction * speed * Time.deltaTime);
 
         //if (!keyboardActive) {
         //    if (Input.GetMouseButton(0)) {

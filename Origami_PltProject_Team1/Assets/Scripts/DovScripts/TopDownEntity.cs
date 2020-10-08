@@ -11,7 +11,7 @@ public class TopDownEntity : MonoBehaviour
     [Header("Movement")]
     public float acceleration = 5f;
     public float speedMax = 10f;
-    private Vector3 _moveDir = Vector3.zero;
+    public Vector3 _moveDir = Vector3.zero;
 
     //Destination
     /*[Header("Movement Destination")]
@@ -33,15 +33,15 @@ public class TopDownEntity : MonoBehaviour
     //Speed
     private Vector3 _velocity = Vector3.zero;
 
-    private Rigidbody _rigidbody = null;
+    public Rigidbody _rigidbody = null;
 
     private Player player;
     private int playerID = 0;
 
     //Orient
     [Header("Orient")]
-   public GameObject orientSprite = null;
-   public float orientSpeed = 20f;
+   //public GameObject orientSprite = null;
+   //public float orientSpeed = 20f;
    private Vector3 _orientDir = Vector3.right;
    private float turnSmoothTime = 0.1f;
    private float turnSmoothVelocity;
@@ -55,11 +55,6 @@ public class TopDownEntity : MonoBehaviour
         player = ReInput.players.GetPlayer(playerID);
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
 
     private void FixedUpdate()
     {
@@ -67,7 +62,6 @@ public class TopDownEntity : MonoBehaviour
         _ApplySpeed();
     }
 
-    // Update is called once per frame
     private void Update()
     {
         _UpdateSpriteOrient();
@@ -116,6 +110,7 @@ public class TopDownEntity : MonoBehaviour
 
     private void _UpdateMove()
     {
+        #region scriptsouris
         /*if (_isMovingToDestination) {
             bool hasReachedDestination = false;
             float distFromDestination = (_moveDestination - transform.position).magnitude;
@@ -141,6 +136,7 @@ public class TopDownEntity : MonoBehaviour
                 }
             }
         }*/
+        #endregion
 
         if (_moveDir != Vector3.zero)
         {
@@ -196,11 +192,12 @@ public class TopDownEntity : MonoBehaviour
     {
         float horizontal = player.GetAxisRaw("Move Horizontal");
         float vertical = player.GetAxisRaw("Move Vertical");
-        Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
+        _orientDir = new Vector3(horizontal, 0f, vertical).normalized;
+        _moveDir = _orientDir;
 
-        if (direction.magnitude >= 0.1f)
+        if (_orientDir.magnitude >= 0.1f)
         {
-            float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
+            float targetAngle = Mathf.Atan2(_orientDir.x, _orientDir.z) * Mathf.Rad2Deg;
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
             transform.rotation = Quaternion.Euler(0f, angle, 0f);
 
