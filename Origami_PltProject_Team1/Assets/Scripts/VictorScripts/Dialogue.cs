@@ -12,7 +12,7 @@ using UnityEditor;
 public class Dialogue : ScriptableObject
 {
     [Header("VISUEL")]
-    [TextArea(1, 1)] public string name;
+    [TextArea(1, 1)] public string chrName;
     
     
     [Space(10)]

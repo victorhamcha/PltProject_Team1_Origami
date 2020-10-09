@@ -26,7 +26,10 @@ public class UpdateDialogues : ScriptableObject
             bool create = true;
             for (int i = 0; i < dialogues.Count; i++)
             {
-                if (dialogue.name == dialogues[i].name)
+                
+                Debug.Log("Excel : " + dialogue.name);
+                Debug.Log("Unity : " + dialogues[i].chrName);
+                if (dialogue.name+"_" + dialogue.iD == dialogues[i].chrName+"_" + dialogue.iD)
                 {
                     create = false;
                     break;
@@ -34,27 +37,27 @@ public class UpdateDialogues : ScriptableObject
             }
             if (create)
             {
-                if (!Directory.Exists("Assets/Dialogues/" + dialogue.name + "/" + dialogue.name))
+                if (!Directory.Exists("Assets/Prefab/Dialogues/" + dialogue.eventName))
                 {
                     //if it doesn't, create it
-                    Directory.CreateDirectory("Assets/Dialogues/" + dialogue.name + "/" + dialogue.name);
+                    Directory.CreateDirectory("Assets/Prefab/Dialogues/" + dialogue.eventName);
                 }
                 Dialogue asset = ScriptableObject.CreateInstance<Dialogue>();
 
 #if UNITY_EDITOR
 
-                AssetDatabase.CreateAsset(asset, "Assets/Dialogues/" + dialogue.name + "/" + dialogue.name + "/" + dialogue.name + ".asset");
+                AssetDatabase.CreateAsset(asset, "Assets/Prefab/Dialogues/" + dialogue.eventName + "/" + dialogue.name +"_"+dialogue.iD+ ".asset");
                 AssetDatabase.SaveAssets();
 
                 EditorUtility.FocusProjectWindow();
 
                 Selection.activeObject = asset;
 #endif
-                //cards.Add(asset);
-                //if(card.iD!=cards.Count-1)
-                //{
-                //dialogues.Insert(dialogue.iD, asset);
-                //}
+                dialogues.Add(asset);
+                if (dialogue.iD != dialogues.Count - 1)
+                {
+                    dialogues.Insert(dialogue.iD, asset);
+                }
             }
 
 
@@ -79,7 +82,7 @@ public class UpdateDialogues : ScriptableObject
             
             for (int i = 0; i < dialogues.Count; i++)
             {
-                if (dialogue.name == dialogues[i].name)
+                if (dialogue.name + "_" + dialogue.iD == dialogues[i].name)
                 {
                     update = true;
                     change = dialogues[i];
@@ -88,34 +91,20 @@ public class UpdateDialogues : ScriptableObject
             }
             if (update)
             {
-//                change._title = dialogue.titreCarte;
-//#if UNITY_EDITOR
-//                change._image = (Sprite)AssetDatabase.LoadAssetAtPath("Assets/AssetsGraphiques/Cards_Game/" + dialogue.sprite + ".png", typeof(Sprite));
-//#endif
-//                change._description = dialogue.description;
-//                change._placeEnum = (EnumPlaceGame._enumPlace)Enum.Parse(typeof(EnumPlaceGame._enumPlace), dialogue.place);
-//                change._cardID = dialogue.iD;
+                
+
+                change.chrName = dialogue.name;
+                change.sentence = dialogue.sentence;
                 
                
 
 
 
 
-                   
 
-                   
-                    
-#if UNITY_EDITOR
-                    //if (dialogue.hasVFX)
-                    //{
 
-                    //    change._specialVFX = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/AssetsGraphiques/" + dialogue.sprite + ".png", typeof(GameObject));
 
-                    //}
-                    
-                  
-#endif
-                }
+            }
 #if UNITY_EDITOR
                 EditorUtility.SetDirty(change);
 #endif
@@ -126,22 +115,9 @@ public class UpdateDialogues : ScriptableObject
 
     
 
-    public void VerifyThings()
-    {
-        //for(int i=0;i<dialogues.Count;i++)
-        //{
-        //    if(dialogues[i]._image==null)
-        //    {
-        //        Debug.Log("No sprite on : " + dialogues[i].name);
-        //    }
-        //    else if(dialogues[i]._image.name== "Card_Background")
-        //    {
-        //        Debug.Log("Sprite is background for : " + dialogues[i].name);
-        //    }
-        //}
-    }
+  
 
-    //asset._image = (Sprite)AssetDatabase.LoadAssetAtPath("Assets/AssetsGraphiques/" + card.imageName+".png", typeof(Sprite)); 
+    
 }
 #if UNITY_EDITOR
 [CustomEditor(typeof(UpdateDialogues))]
@@ -168,10 +144,7 @@ public class CardsEditor : Editor
         }
 
        
-        if (GUILayout.Button("Verify cards"))
-        {
-           
-        }
+       
     }
 }
 #endif

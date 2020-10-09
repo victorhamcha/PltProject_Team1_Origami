@@ -17,27 +17,31 @@ public class DataSheetDialogue{
 
 namespace DataSheetDialogueTypes{
 	public class Feuille1{
+		public string eventName;
+		public int iD;
 		public string name;
 		public string sentence;
 		public string color;
 
 		public Feuille1(){}
 
-		public Feuille1(string name, string sentence, string color){
+		public Feuille1(string eventName, int iD, string name, string sentence, string color){
+			this.eventName = eventName;
+			this.iD = iD;
 			this.name = name;
 			this.sentence = sentence;
 			this.color = color;
 		}
 	}
 	public class SheetFeuille1: IEnumerable{
-		public System.DateTime updated = new System.DateTime(2020,10,7,23,0,30);
-		public readonly string[] labels = new string[]{"Name","Sentence","Color"};
+		public System.DateTime updated = new System.DateTime(2020,10,8,7,32,1);
+		public readonly string[] labels = new string[]{"EventName","iD","Name","Sentence","Color"};
 		private Feuille1[] _rows = new Feuille1[3];
 		public void Init() {
 			_rows = new Feuille1[]{
-					new Feuille1("Richard","Va te faire voire","Bleu"),
-					new Feuille1("Marie","J'aime les fraises","Rouge"),
-					new Feuille1("Paul-Antoine","Vous êtes ou ouesh ?","")
+					new Feuille1("TestGS",0,"Richard","Va te faire voire","Bleu"),
+					new Feuille1("TestGS",1,"Marie","J'aime les fraises","Rouge"),
+					new Feuille1("TestGS",2,"Paul-Antoine","Vous êtes ou ouesh ?","Noir")
 				};
 		}
 			
@@ -76,14 +80,14 @@ namespace DataSheetDialogueTypes{
 		public Feuille1 this[string id]{
 			get{
 				for (int i = 0; i < _rows.Length; i++) {
-					if( _rows[i].name == id){ return _rows[i]; }
+					if( _rows[i].eventName == id){ return _rows[i]; }
 				}
 				return null;
 			}
 		}
 		public bool ContainsKey(string key){
 			for (int i = 0; i < _rows.Length; i++) {
-				if( _rows[i].name == key){ return true; }
+				if( _rows[i].eventName == key){ return true; }
 			}
 			return false;
 		}
@@ -94,9 +98,9 @@ namespace DataSheetDialogueTypes{
 			return _rows[ UnityEngine.Random.Range(0, _rows.Length) ];
 		}
 
-		public Feuille1 richard{	get{ return _rows[0]; } }
-		public Feuille1 marie{	get{ return _rows[1]; } }
-		public Feuille1 paulAntoine{	get{ return _rows[2]; } }
+		public Feuille1 testGS{	get{ return _rows[0]; } }
+		public Feuille1 testGS01{	get{ return _rows[1]; } }
+		public Feuille1 testGS02{	get{ return _rows[2]; } }
 
 	}
 }

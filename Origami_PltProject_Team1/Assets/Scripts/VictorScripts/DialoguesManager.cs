@@ -14,6 +14,7 @@ public class DialoguesManager : MonoBehaviour
     private int lastDialogue;
     private int nextdialogue;
     bool inDialogue = false;
+    bool inTag = false;
     void Start()
     {
        
@@ -41,7 +42,7 @@ public class DialoguesManager : MonoBehaviour
             lastDialogue = lastdialogue;
             dialogueGui.SetActive(true);
             dialogueGui.GetComponent<Image>().color = dialogues[nextDialogue].chrColor;
-            nameTxt.text = dialogues[nextDialogue].name;
+            nameTxt.text = dialogues[nextDialogue].chrName;
             StartCoroutine(TypeSentence(dialogues[nextDialogue].sentence));
         }
        
@@ -56,7 +57,7 @@ public class DialoguesManager : MonoBehaviour
             lastDialogue = nextDialogue;
             dialogueGui.SetActive(true);
             dialogueGui.GetComponent<Image>().color = dialogues[nextdialogue].chrColor;
-            nameTxt.text = dialogues[nextDialogue].name;
+            nameTxt.text = dialogues[nextDialogue].chrName;
             StopAllCoroutines();
             StartCoroutine(TypeSentence(dialogues[nextDialogue].sentence));
         }
@@ -70,7 +71,7 @@ public class DialoguesManager : MonoBehaviour
         if(nextdialogue<=lastDialogue)
         {
             dialogueGui.GetComponent<Image>().color = dialogues[nextdialogue].chrColor;
-            nameTxt.text = dialogues[nextdialogue].name;
+            nameTxt.text = dialogues[nextdialogue].chrName;
             StopAllCoroutines();
             StartCoroutine(TypeSentence(dialogues[nextdialogue].sentence));
         }
@@ -88,10 +89,47 @@ public class DialoguesManager : MonoBehaviour
     IEnumerator TypeSentence(string sentence)
     {
         sentenceTxt.text = "";
-        foreach(char letter in sentence.ToCharArray())
+        string tag = "<";
+        foreach (char letter in sentence.ToCharArray())
         {
-            sentenceTxt.text += letter;
-            yield return new WaitForSeconds(0.05f);
+            if(!inTag)
+            {
+                if (letter == '<')
+                {
+
+                    inTag = true;
+                    Debug.Log("entering");
+                }
+                else
+                {
+                    sentenceTxt.text += letter;
+                    yield return new WaitForSeconds(0.05f);
+                }
+            }
+            else
+            {
+                if (letter == '>')
+                {
+
+                    inTag = false;
+                    Debug.Log("exiting");
+                }
+                else
+                {
+                    //prendre tout ce qu'il y a marqué 
+                }
+            }
+            
+            
+        }
+    }
+
+    private void VerifyTag(string sentences,ref string tag,int index)
+    {
+        char endBalise = '<';
+        while(endBalise!='>')
+        {
+
         }
     }
 
