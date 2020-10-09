@@ -72,13 +72,13 @@ public class TopDownEntity : MonoBehaviour
         GUIStyle debugStyle = new GUIStyle();
         debugStyle.normal.textColor = Color.white;
         debugStyle.fontSize = 48;
-        GUILayout.BeginVertical();
-        GUILayout.Label(gameObject.name, debugStyle);
-        GUILayout.Label("Move Dir = " + _moveDir, debugStyle);
-        GUILayout.Label("Move Destination Speed = " + _moveDestinationSpeed, debugStyle);
-        GUILayout.Label("Move Destination = " + _moveDestination, debugStyle);
-        GUILayout.Label("Velocity = " + _velocity, debugStyle);
-        GUILayout.EndVertical();
+        //GUILayout.BeginVertical();
+        //GUILayout.Label(gameObject.name, debugStyle);
+        //GUILayout.Label("Move Dir = " + _moveDir, debugStyle);
+        //GUILayout.Label("Move Destination Speed = " + _moveDestinationSpeed, debugStyle);
+        //GUILayout.Label("Move Destination = " + _moveDestination, debugStyle);
+        //GUILayout.Label("Velocity = " + _velocity, debugStyle);
+        //GUILayout.EndVertical();
     }
 
     #endregion
