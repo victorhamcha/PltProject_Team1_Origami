@@ -114,7 +114,7 @@ public class DialoguesManager : MonoBehaviour
                     inTag = false;
                     Debug.Log("exiting");
                     Debug.Log(tag);
-                    //fonctions du parser 
+                    //fonctions du parser ICI
                     tag = "";
                 }
                 else
@@ -127,13 +127,6 @@ public class DialoguesManager : MonoBehaviour
         }
     }
 
-    private void VerifyTag(string sentences,ref string tag,int index)
-    {
-        char endBalise = '<';
-        while(endBalise!='>')
-        {
-
-        }
-    }
+   
 
 }
