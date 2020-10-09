@@ -20,6 +20,8 @@ public class PliageManager : MonoBehaviour
     private float valueStick = 0f;
     private int indexPliage = 0;
 
+    private bool _pliageIsFinish = false;
+
     private void Start()
     {
         _pointSelectedOrigami = GetComponent<SelectPointOrigami>();
@@ -45,7 +47,7 @@ public class PliageManager : MonoBehaviour
     {
         float moveHorizontal = _rewiredPlayer.GetAxis(actionName: "PliagePapier");
 
-        if (_pointSelectedOrigami.PointIsSelected())
+        if (_pointSelectedOrigami.PointIsSelected() && !PliageIsFinish())
         {
              valueStick += moveHorizontal / 2 * Time.deltaTime;
 
@@ -59,7 +61,7 @@ public class PliageManager : MonoBehaviour
 
         }
 
-        if (CurrentAnimIsFinish())
+        if (CurrentAnimIsFinish() && !PliageIsFinish())
         {
             indexPliage++;
             if (_listePliage.CanGoToNextPliage(indexPliage))
@@ -74,8 +76,14 @@ public class PliageManager : MonoBehaviour
             else
             {
                 Debug.Log("Origami Fini");
+                _pliageIsFinish = true;
             }
         }
+    }
+
+    public bool PliageIsFinish()
+    {
+        return _pliageIsFinish;
     }
 
     public bool CurrentAnimIsFinish()
