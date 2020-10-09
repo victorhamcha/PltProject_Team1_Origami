@@ -8,7 +8,8 @@ public class testSwitchModePlayer : MonoBehaviour
 
 
     [SerializeField] private GameObject pliageBoat;
-    [SerializeField] private Transform cam;
+    [SerializeField] private GameObject targerSprite;
+    [SerializeField] private Transform posPliage;
 
 
     private bool _onModeOrigami = false;
@@ -27,10 +28,11 @@ public class testSwitchModePlayer : MonoBehaviour
         {
             _onModeOrigami = !_onModeOrigami;
             pliageBoat.SetActive(_onModeOrigami);
-            pliageBoat.transform.rotation = cam.rotation;
+            pliageBoat.transform.position = posPliage.position;
+            pliageBoat.transform.rotation = posPliage.rotation;
+            targerSprite.transform.rotation = posPliage.rotation;
             _rewiredPlayer.controllers.maps.LoadMap(ControllerType.Joystick, 0, "Default", "Default", !_onModeOrigami);
             _rewiredPlayer.controllers.maps.LoadMap(ControllerType.Joystick, 0, "Default", "Origami", _onModeOrigami);
         }
-            pliageBoat.transform.position = cam.position;
     }
 }

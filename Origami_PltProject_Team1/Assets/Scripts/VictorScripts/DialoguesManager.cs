@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Rewired;
+
 public class DialoguesManager : MonoBehaviour
 {
     [SerializeField]
@@ -11,26 +13,40 @@ public class DialoguesManager : MonoBehaviour
     private TextMeshProUGUI nameTxt, sentenceTxt;
     [SerializeField]
     private GameObject dialogueGui;
+
+    private Player _rewiredPlayer = null;
+    private float timerSwitchDialogue = 0.5f;
+
     private int lastDialogue;
     private int nextdialogue;
     bool inDialogue = false;
     bool inTag = false;
     void Start()
     {
-       
+        _rewiredPlayer = ReInput.players.GetPlayer("Player0");
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.F))
+        timerSwitchDialogue -= Time.deltaTime;
+        if (_rewiredPlayer.GetButton("ActionDialogue") && timerSwitchDialogue <= 0)
         {
-            StartDialogue(0, 2);
+            timerSwitchDialogue = 0.5f;
+            if (inDialogue)
+            {
+                NextDialogue();
+            }
+            else
+            {
+                StartDialogue(0, 2);
+            }
+
         }
-        if (Input.GetKeyDown(KeyCode.J))
+        /*if (Input.GetKeyDown(KeyCode.J))
         {
             StartDialogue(1);
-        }
+        }*/
     }
 
     public void StartDialogue(int nextDialogue, int lastdialogue)

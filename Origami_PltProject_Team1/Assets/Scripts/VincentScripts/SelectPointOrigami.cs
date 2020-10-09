@@ -39,6 +39,9 @@ public class SelectPointOrigami : MonoBehaviour
     {
         float moveHorizontal = _rewiredPlayer.GetAxis("SelectPoint");
         bool trySelection = _rewiredPlayer.GetButton("Validation");
+
+
+
         _timerChoise -= Time.deltaTime;
 
         if (trySelection)
