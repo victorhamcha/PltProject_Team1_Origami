@@ -89,7 +89,7 @@ public class DialoguesManager : MonoBehaviour
     IEnumerator TypeSentence(string sentence)
     {
         sentenceTxt.text = "";
-        string tag = "<";
+        string tag = "";
         foreach (char letter in sentence.ToCharArray())
         {
             if(!inTag)
@@ -113,10 +113,13 @@ public class DialoguesManager : MonoBehaviour
 
                     inTag = false;
                     Debug.Log("exiting");
+                    Debug.Log(tag);
+                    //fonctions du parser 
+                    tag = "";
                 }
                 else
                 {
-                    //prendre tout ce qu'il y a marqué 
+                    tag += letter;
                 }
             }
             
