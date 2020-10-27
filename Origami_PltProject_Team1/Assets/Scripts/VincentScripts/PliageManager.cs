@@ -1,6 +1,4 @@
-﻿using Rewired;
-using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(SelectPointOrigami))]
 [RequireComponent(typeof(ListePliage))]
@@ -11,8 +9,6 @@ public class PliageManager : MonoBehaviour
     private Pliage currentPliage = null;
 
     private Animator _animator = null;
-
-    private Player _rewiredPlayer = null;
 
     [SerializeField]
     private float speedDownAnim = 50f;
@@ -30,11 +26,8 @@ public class PliageManager : MonoBehaviour
         currentPliage = _listePliage.GetPliage(indexPliage);
         _animator = _listePliage.GetAnimator();
 
-        _rewiredPlayer = ReInput.players.GetPlayer("Player0");
-
         if (currentPliage != null)
         {
-            _pointSelectedOrigami.SetPointSelection(currentPliage.pointSelections);
             _pointSelectedOrigami.SetPointGoodSelection(currentPliage.goodPointSelection);
         }
 
@@ -45,9 +38,10 @@ public class PliageManager : MonoBehaviour
 
     private void Update()
     {
-        float moveHorizontal = _rewiredPlayer.GetAxis(actionName: "PliagePapier");
+        //float moveHorizontal = _rewiredPlayer.GetAxis(actionName: "PliagePapier");
+        float moveHorizontal = 1;
 
-        if (_pointSelectedOrigami.PointIsSelected() && !PliageIsFinish())
+        if (_pointSelectedOrigami.IsGoodSelections() && !PliageIsFinish())
         {
              valueStick += moveHorizontal / 2 * Time.deltaTime;
 
@@ -67,7 +61,6 @@ public class PliageManager : MonoBehaviour
             if (_listePliage.CanGoToNextPliage(indexPliage))
             {
                 currentPliage = _listePliage.GetPliage(indexPliage);
-                _pointSelectedOrigami.SetPointSelection(currentPliage.pointSelections);
                 _pointSelectedOrigami.SetPointGoodSelection(currentPliage.goodPointSelection);
                 _animator.speed = 0;
                 _animator.Play(currentPliage.animToPlay.name);
