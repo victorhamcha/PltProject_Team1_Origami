@@ -6,44 +6,46 @@ public class SelectPointOrigami : MonoBehaviour
 {
 
     [SerializeField]
-    private GameObject _cursorSprite = null;
-    [SerializeField]
     private Transform[] _pointSelections = null;
     private Transform _goodPointSelections = null;
-    private Player _rewiredPlayer = null;
-    private SpriteRenderer _spriteRenderer = null;
+
+    private GameObject _pointSelected = null;
 
     private bool _pointIsSelected = false;
     private int _indiceVertices = 0;
-
-    [SerializeField]
-    private float timerSwitchChoise = 0.2f;
-
-    private float _timerChoise = 0f;
 
     private bool _canChangePos = true;
 
     void Start()
     {
-        _timerChoise = timerSwitchChoise;
-
-        _rewiredPlayer = ReInput.players.GetPlayer("Player0");
-        if (_pointSelections.Length > 0)
-        {
-            _cursorSprite.transform.position = _pointSelections[_indiceVertices].position;
-        }
-        _spriteRenderer = _cursorSprite.GetComponent<SpriteRenderer>();
+        
     }
 
     private void Update()
     {
-        float moveHorizontal = _rewiredPlayer.GetAxis("SelectPoint");
-        bool trySelection = _rewiredPlayer.GetButton("Validation");
+        if (Input.touchCount > 0)
+        {
+            Touch touch = Input.GetTouch(0);
 
+            Vector3 touchPos = new Vector3(touch.position.x, touch.position.y, 0);
+            Ray ray = Camera.main.ScreenPointToRay(touchPos);
 
+            RaycastHit hit;
+            // Does the ray intersect any objects excluding the player layer
+            if (Physics.Raycast(ray.origin, ray.direction, out hit, Mathf.Infinity))
+            {
+                Debug.DrawRay(ray.origin, ray.direction * hit.distance, Color.green);
+                Debug.Log("Did Hit");
+                _pointSelected = hit.collider.transform.gameObject;
+                Debug.Log(_pointSelected.name);
+            }
+            else
+            {
+                Debug.Log("Did not Hit");
+            }
 
-        _timerChoise -= Time.deltaTime;
-
+        }
+        /*
         if (trySelection)
         {
             if (IsGoodSelections())
@@ -94,16 +96,16 @@ public class SelectPointOrigami : MonoBehaviour
         if (moveHorizontal == 0)
         {
             _timerChoise = 0;
-        }
+        }*/
     }
 
     public void SetPointSelection(Transform[] pointSelections)
     {
         _pointSelections = pointSelections;
         _indiceVertices = 0;
-        _cursorSprite.transform.position = _pointSelections[_indiceVertices].position;
+        //_cursorSprite.transform.position = _pointSelections[_indiceVertices].position;
         _canChangePos = true;
-        _cursorSprite.SetActive(true);
+        //_cursorSprite.SetActive(true);
         _pointIsSelected = false;
     }
 

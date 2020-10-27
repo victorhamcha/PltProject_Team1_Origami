@@ -11,6 +11,7 @@ public class testSwitchModePlayer : MonoBehaviour
     [SerializeField] private GameObject targerSprite;
     [SerializeField] private Transform posPliage;
 
+    public bool _activePliage = false;
 
     private bool _onModeOrigami = false;
 
@@ -24,8 +25,9 @@ public class testSwitchModePlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (_rewiredPlayer.GetButtonDown("GoToPliage"))
+        if (_activePliage)
         {
+            _activePliage = false;
             _onModeOrigami = !_onModeOrigami;
             pliageBoat.SetActive(_onModeOrigami);
             pliageBoat.transform.position = posPliage.position;
