@@ -6,8 +6,9 @@ using UnityEngine;
 [Serializable]
 public class Pliage
 {
-    public Transform[] pointSelections = null;
+    //public Transform[] pointSelections = null;
     public Transform goodPointSelection = null;
+    public Transform endPointSelection = null;
     public AnimationClip animToPlay = null;
 }
 

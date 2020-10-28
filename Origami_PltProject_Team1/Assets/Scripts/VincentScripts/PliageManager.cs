@@ -10,8 +10,8 @@ public class PliageManager : MonoBehaviour
 
     private Animator _animator = null;
 
-    [SerializeField]
-    private float speedDownAnim = 50f;
+    [SerializeField]private float speedDownAnim = 50f;
+    [SerializeField] private int _timeVibrationEndPliage = 50;
 
     private float valueStick = 0f;
     private int indexPliage = 0;
@@ -39,6 +39,14 @@ public class PliageManager : MonoBehaviour
     private void Update()
     {
         //float moveHorizontal = _rewiredPlayer.GetAxis(actionName: "PliagePapier");
+        float prctAvancementSlide = GetPourcentageAvancementSlide();
+        Debug.Log(prctAvancementSlide);
+
+        if (prctAvancementSlide > 95f)
+        {
+            Vibration.Vibrate(_timeVibrationEndPliage);
+        }
+
         float moveHorizontal = 1;
 
         if (_pointSelectedOrigami.IsGoodSelections() && !PliageIsFinish())
@@ -97,5 +105,15 @@ public class PliageManager : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    public float GetPourcentageAvancementSlide()
+    {
+        Vector3 posHitOrigami = _pointSelectedOrigami.GetPosHitOrigami();
+
+        float prctAvancementX = Mathf.InverseLerp(currentPliage.goodPointSelection.position.x, currentPliage.endPointSelection.position.x, posHitOrigami.x);
+        float prctAvancementY = Mathf.InverseLerp(currentPliage.goodPointSelection.position.y, currentPliage.endPointSelection.position.y, posHitOrigami.y);
+        float prctAvancementZ = Mathf.InverseLerp(currentPliage.goodPointSelection.position.z, currentPliage.endPointSelection.position.z, posHitOrigami.z);
+        return (prctAvancementX + prctAvancementY + prctAvancementZ) / 3 * 100;
     }
 }
