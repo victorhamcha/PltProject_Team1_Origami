@@ -79,6 +79,17 @@ public class PliageManager : MonoBehaviour
         return _pliageIsFinish;
     }
 
+    public void ResetPliage()
+    {
+        indexPliage = 0;
+        currentPliage = _listePliage.GetPliage(indexPliage);
+        _pointSelectedOrigami.SetPointGoodSelection(currentPliage.goodPointSelection);
+        _animator.speed = 0;
+        _animator.Play(currentPliage.animToPlay.name);
+        valueStick = 0;
+        _pliageIsFinish = false;
+    }
+
     public bool CurrentAnimIsFinish()
     {
         if (_animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)

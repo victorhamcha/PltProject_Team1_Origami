@@ -365,8 +365,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c22b8387cea2d484996d1d308326a364, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Text: {fileID: 622841610}
-  cube: {fileID: 185444499}
 --- !u!1 &209094152
 GameObject:
   m_ObjectHideFlags: 0
@@ -799,10 +797,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49afb7568732d76488b52efcc0ed380e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pliageBoat: {fileID: 1027325075}
-  targerSprite: {fileID: 1299216296}
-  posPliage: {fileID: 833395332}
-  _activePliage: 0
+  _pliageBoat: {fileID: 1027325075}
+  _posPliage: {fileID: 833395332}
+  _pliageManager: {fileID: 1027325079}
+  _activeModeOrigami: 0
 --- !u!1 &833395331
 GameObject:
   m_ObjectHideFlags: 0
@@ -1141,6 +1139,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1027325074}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1027325079 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 157730848155068041, guid: fe96ad0374440024e8c9f7a50e0b3923,
+    type: 3}
+  m_PrefabInstance: {fileID: 1027325074}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1027325075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a49eaf1cb4a497148adddad7a873e8cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1167320733
 GameObject:
   m_ObjectHideFlags: 0

@@ -676,7 +676,6 @@ GameObject:
   - component: {fileID: 157730848155068041}
   - component: {fileID: 157730848155068023}
   - component: {fileID: 157730848155068040}
-  - component: {fileID: 157730848155068018}
   m_Layer: 0
   m_Name: PliageBateau
   m_TagString: Untagged
@@ -778,21 +777,6 @@ MonoBehaviour:
     - {fileID: 8794197944781421707}
     goodPointSelection: {fileID: 8794197944687451023}
     animToPlay: {fileID: 7400000, guid: bc2fde3fdd6695e40b510832168a5b91, type: 2}
---- !u!114 &157730848155068018
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 157730848155068019}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 49afb7568732d76488b52efcc0ed380e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pliageBoat: {fileID: 0}
-  posPliage: {fileID: 0}
-  _activeModeOrigami: 0
 --- !u!1 &157730848425238724
 GameObject:
   m_ObjectHideFlags: 0
