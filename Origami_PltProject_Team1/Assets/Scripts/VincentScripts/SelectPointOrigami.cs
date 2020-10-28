@@ -2,8 +2,14 @@
 
 public class SelectPointOrigami : MonoBehaviour
 {
+    public GameObject cubeTest;
+
     private Transform _goodPointSelections = null;
     private Transform _pointSelected = null;
+
+    private Vector3 posHitOrigami = Vector3.zero;
+
+    [SerializeField] private int _timeVibration = 50;
 
     private void Update()
     {
@@ -17,11 +23,16 @@ public class SelectPointOrigami : MonoBehaviour
 
             if (Physics.Raycast(ray.origin, ray.direction, out hit, Mathf.Infinity))
             {
-                _pointSelected = hit.collider.transform;
-            }
-            else
-            {
-                _pointSelected = null;
+                if (_pointSelected == null)
+                {
+                    _pointSelected = hit.collider.transform;
+                    if (IsGoodSelections())
+                    {
+                        Vibration.Vibrate(_timeVibration);
+                    }
+                }
+                posHitOrigami = hit.point;
+                cubeTest.transform.position = posHitOrigami;
             }
         }
         else if (_pointSelected != null)
@@ -40,6 +51,16 @@ public class SelectPointOrigami : MonoBehaviour
     public bool IsGoodSelections()
     {
         return _pointSelected == _goodPointSelections;
+    }
+
+    public Transform GetPointSelected()
+    {
+        return _pointSelected;
+    }
+
+    public Vector3 GetPosHitOrigami()
+    {
+        return posHitOrigami;
     }
 
 }
