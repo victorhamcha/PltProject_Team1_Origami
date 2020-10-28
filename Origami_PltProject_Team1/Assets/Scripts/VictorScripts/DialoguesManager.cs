@@ -13,27 +13,29 @@ public class DialoguesManager : MonoBehaviour
     private TextMeshProUGUI nameTxt, sentenceTxt;
     [SerializeField]
     private GameObject dialogueGui;
-
-    private Player _rewiredPlayer = null;
+    [SerializeField]
+    private Image arrow;
+    [SerializeField]
+    private Image point;
     private float timerSwitchDialogue = 0.5f;
 
     private int lastDialogue;
     private int nextdialogue;
-    bool inDialogue = false;
+    bool inTyping = false;
     bool inTag = false;
     void Start()
     {
-        _rewiredPlayer = ReInput.players.GetPlayer("Player0");
+
     }
 
     // Update is called once per frame
     void Update()
     {
         timerSwitchDialogue -= Time.deltaTime;
-        if (_rewiredPlayer.GetButton("ActionDialogue") && timerSwitchDialogue <= 0)
+        if (Input.GetKeyDown(KeyCode.H) && timerSwitchDialogue <= 0)
         {
             timerSwitchDialogue = 0.5f;
-            if (inDialogue)
+            if (inTyping)
             {
                 NextDialogue();
             }
@@ -43,6 +45,13 @@ public class DialoguesManager : MonoBehaviour
             }
 
         }
+        if(Input.GetMouseButtonDown(0))
+        {
+            if (inTyping)
+                ShowFullDialogue();
+            else
+                NextDialogue();
+        }
         /*if (Input.GetKeyDown(KeyCode.J))
         {
             StartDialogue(1);
@@ -51,9 +60,11 @@ public class DialoguesManager : MonoBehaviour
 
     public void StartDialogue(int nextDialogue, int lastdialogue)
     {
-        if(!inDialogue)
+        if(!inTyping)
         {
-            inDialogue = true;
+            arrow.gameObject.SetActive(true);
+            point.gameObject.SetActive(false);
+            inTyping = true;
             nextdialogue = nextDialogue;
             lastDialogue = lastdialogue;
             dialogueGui.SetActive(true);
@@ -66,9 +77,11 @@ public class DialoguesManager : MonoBehaviour
     }
     public void StartDialogue(int nextDialogue)
     {
-        if (!inDialogue)
+        if (!inTyping)
         {
-            inDialogue = true;
+            arrow.gameObject.SetActive(true);
+            point.gameObject.SetActive(false);
+            inTyping = true;
             nextdialogue = nextDialogue;
             lastDialogue = nextDialogue;
             dialogueGui.SetActive(true);
@@ -84,23 +97,77 @@ public class DialoguesManager : MonoBehaviour
     {
        
         nextdialogue++;
+        inTyping = true;
         if(nextdialogue<=lastDialogue)
         {
             dialogueGui.GetComponent<Image>().color = dialogues[nextdialogue].chrColor;
             nameTxt.text = dialogues[nextdialogue].chrName;
             StopAllCoroutines();
             StartCoroutine(TypeSentence(dialogues[nextdialogue].sentence));
+            if(nextdialogue==lastDialogue)
+            {
+                arrow.gameObject.SetActive(false);
+                point.gameObject.SetActive(true);
+            }
+            
         }
         else
         {
             StopAllCoroutines();
             dialogueGui.SetActive(false);
-            inDialogue = false;
+            inTyping = false;
             
         }
        
         
     }
+
+    public void ShowFullDialogue()
+    {
+        StopAllCoroutines();
+
+        string sentences= dialogues[nextdialogue].sentence;
+        string tag = "";
+        foreach (char letter in sentences.ToCharArray())
+        {
+            if (!inTag)
+            {
+                if (letter == '<')
+                {
+
+                    inTag = true;
+                    Debug.Log("entering");
+                }
+                else
+                {
+                    sentenceTxt.text += letter;
+                    
+                }
+            }
+            else
+            {
+                if (letter == '>')
+                {
+
+                    inTag = false;
+                    Debug.Log("exiting");
+                    Debug.Log(tag);
+                    //fonctions du parser ICI
+                    StartFunction(tag);
+                    tag = "";
+                }
+                else
+                {
+                    tag += letter;
+                }
+            }
+
+
+        }
+        inTyping = false;
+    }
+
+
 
     IEnumerator TypeSentence(string sentence)
     {
@@ -131,6 +198,7 @@ public class DialoguesManager : MonoBehaviour
                     Debug.Log("exiting");
                     Debug.Log(tag);
                     //fonctions du parser ICI
+                    StartFunction(tag);
                     tag = "";
                 }
                 else
@@ -141,8 +209,23 @@ public class DialoguesManager : MonoBehaviour
             
             
         }
+
+        inTyping = false;
     }
 
-   
+
+    public void StartFunction(string function)
+    {
+        switch (function)
+        {
+            case "biger" :
+                Debug.Log("bigerFuction");
+                break;
+
+            case "typo":
+                Debug.Log("typoFunction");
+                break;
+        }
+    }
 
 }
