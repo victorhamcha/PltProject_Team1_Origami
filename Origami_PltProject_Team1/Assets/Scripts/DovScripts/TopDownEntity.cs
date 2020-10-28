@@ -35,12 +35,12 @@ public class TopDownEntity : MonoBehaviour
     private int playerID = 0;
 
     //Orient
-    [Header("Orient")]
+   //[Header("Orient")]
    //public GameObject orientSprite = null;
    //public float orientSpeed = 20f;
-   private Vector3 _orientDir = Vector3.right;
-   private float turnSmoothTime = 0.1f;
-   private float turnSmoothVelocity;
+   //private Vector3 _orientDir = Vector3.right;
+   //private float turnSmoothTime = 0.1f;
+   //private float turnSmoothVelocity;
 
 
     #region Functions Unity Callbacks
@@ -70,9 +70,9 @@ public class TopDownEntity : MonoBehaviour
         debugStyle.fontSize = 48;
         //GUILayout.BeginVertical();
         //GUILayout.Label(gameObject.name, debugStyle);
-        //GUILayout.Label("Move Dir = " + _moveDir, debugStyle);
+        GUILayout.Label("Move Dir = " + _moveDir, debugStyle);
         //GUILayout.Label("Move Destination Speed = " + _moveDestinationSpeed, debugStyle);
-        //GUILayout.Label("Move Destination = " + _moveDestination, debugStyle);
+        GUILayout.Label("Move Destination = " + _moveDestination, debugStyle);
         //GUILayout.Label("Velocity = " + _velocity, debugStyle);
         //GUILayout.EndVertical();
     }
@@ -156,7 +156,7 @@ public class TopDownEntity : MonoBehaviour
                 _velocity = _velocity.normalized * speedMax;
             }
 
-            _orientDir = _moveDir;
+            //_orientDir = _moveDir;
         }
         else
         {
@@ -198,26 +198,27 @@ public class TopDownEntity : MonoBehaviour
 
     private void _UpdateSpriteOrient()
     {
-        float horizontal = player.GetAxisRaw("Move Horizontal");
-        float vertical = player.GetAxisRaw("Move Vertical");
-        _orientDir = new Vector3(-vertical, 0f, -horizontal).normalized;
-        _orientDir = CartesianToIsometric(_orientDir);
-        _moveDir = _orientDir;
+        Vector3 vectorToTarget = _moveDestination - transform.position;
+        float direction = Vector3.Angle(transform.forward, vectorToTarget);
+        //_orientDir = new Vector3( direction, 0f, direction).normalized;
+        //_orientDir = CartesianToIsometric(_orientDir);
+        Quaternion rotation = Quaternion.FromToRotation(transform.forward, vectorToTarget);
+        transform.rotation = rotation;
 
-        if (_orientDir.magnitude >= 0.1f)
-        {
-            float targetAngle = Mathf.Atan2(_orientDir.x, _orientDir.z) * Mathf.Rad2Deg;
-            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
-            transform.rotation = Quaternion.Euler(0f, angle, 0f);
+        //if (_orientDir.magnitude >= 0.1f)
+        //{
+        //    float targetAngle = Mathf.Atan2(_orientDir.x, _orientDir.z) * Mathf.Rad2Deg;
+        //    float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
+        //    transform.rotation = Quaternion.Euler(0f, angle, 0f);
 
-        }
+        //}
     }
 
-    private Vector3 CartesianToIsometric(Vector3 cartesian)
-    {
-        cartesian = new Vector3((cartesian.x + cartesian.z) / 2, 0f, cartesian.x - cartesian.z);
-        return cartesian;
-    }
+    //private Vector3 CartesianToIsometric(Vector3 cartesian)
+    //{
+    //    cartesian = new Vector3((cartesian.x + cartesian.z) / 2, 0f, cartesian.x - cartesian.z);
+    //    return cartesian;
+    //}
 
     #endregion
 

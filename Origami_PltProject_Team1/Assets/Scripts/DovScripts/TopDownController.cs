@@ -12,7 +12,7 @@ public class TopDownController : MonoBehaviour
 
     void Update()
     {
-        entity.Move(moveDir);
+        //entity.Move(moveDir);
 
 
         if (Input.touchCount > 0)
