@@ -10,16 +10,13 @@ public class PliageManager : MonoBehaviour
 
     private Animator _animator = null;
 
-    [SerializeField] private float speedDownAnim = 50f;
     [SerializeField] private int _timeVibrationEndPliage = 50;
     [SerializeField] private GameObject _cursorSelectPoint = null;
 
-    //private SkinnedMeshRenderer _meshRendere = null;
-
-    private float valueStick = 0f;
     private int indexPliage = 0;
 
     private bool _pliageIsFinish = false;
+    private bool _reverseAnim = false;
 
     void Start()
     {
@@ -44,36 +41,25 @@ public class PliageManager : MonoBehaviour
     void Update()
     {
         float prctAvancementSlide = GetPourcentageAvancementSlide();
-        Debug.DrawLine(currentPliage.goodPointSelection.position, GetPosAvancementSlideByPrct(prctAvancementSlide),Color.red);
-
+        //Debug.DrawLine(currentPliage.goodPointSelection.position, GetPosAvancementSlideByPrct(prctAvancementSlide),Color.red);
         Debug.Log(prctAvancementSlide);
+        Debug.Log(_reverseAnim);
 
         if (prctAvancementSlide > 95f)
         {
             Vibration.Vibrate(_timeVibrationEndPliage);
         }
 
-        float moveHorizontal = 1;
-
-        if (_pointSelectedOrigami.IsGoodSelections() && !PliageIsFinish())
+        if (_pointSelectedOrigami.GetTouchPhase() == TouchPhase.Ended)
         {
-
-            _cursorSelectPoint.SetActive(false);
-
-             valueStick += moveHorizontal / 2 * Time.deltaTime;
-
-            if (valueStick < 0)
-            {
-                valueStick = 0;
-            }
-
-            _animator.Play(currentPliage.animToPlay.name, -1, GetPourcentageAvancementSlide() / 100);
-            _animator.speed = valueStick / speedDownAnim;
-        }
-        else
-        {
+            _animator.Play(currentPliage.animToPlay.name + "_reverse", -1, prctAvancementSlide / 100);
+            _reverseAnim = true;
             _cursorSelectPoint.SetActive(true);
-            _animator.speed = 0;
+        } else if (_pointSelectedOrigami.IsGoodSelections() && !PliageIsFinish())
+        {
+            _animator.Play(currentPliage.animToPlay.name, -1, prctAvancementSlide / 100);
+            _animator.speed = 1;
+            _cursorSelectPoint.SetActive(false);
         }
 
         if (CurrentAnimIsFinish() && !PliageIsFinish())
@@ -87,7 +73,6 @@ public class PliageManager : MonoBehaviour
                 _cursorSelectPoint.transform.rotation = currentPliage.goodPointSelection.rotation;
                 _animator.speed = 0;
                 _animator.Play(currentPliage.animToPlay.name);
-                valueStick = 0;
             }
             else
             {
@@ -110,13 +95,12 @@ public class PliageManager : MonoBehaviour
         _cursorSelectPoint.transform.rotation = currentPliage.goodPointSelection.rotation;
         _animator.speed = 0;
         _animator.Play(currentPliage.animToPlay.name);
-        valueStick = 0;
         _pliageIsFinish = false;
     }
 
     public bool CurrentAnimIsFinish()
     {
-        if (_animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
+        if (_animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1 && !_reverseAnim)
         {
             return true;
         }

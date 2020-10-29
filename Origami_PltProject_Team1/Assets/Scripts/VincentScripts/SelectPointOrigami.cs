@@ -9,6 +9,7 @@ public class SelectPointOrigami : MonoBehaviour
     private Transform _pointSelected = null;
 
     private Vector3 posHitOrigami = Vector3.zero;
+    private TouchPhase _touchPhase;
 
     [SerializeField] private int _timeVibration = 50;
 
@@ -17,6 +18,7 @@ public class SelectPointOrigami : MonoBehaviour
         if (Input.touchCount > 0)
         {
             Touch touch = Input.GetTouch(0);
+            _touchPhase = touch.phase;
 
             Vector3 touchPos = new Vector3(touch.position.x, touch.position.y, 0);
             Ray ray = Camera.main.ScreenPointToRay(touchPos);
@@ -27,20 +29,29 @@ public class SelectPointOrigami : MonoBehaviour
                 if (_pointSelected == null)
                 {
                     _pointSelected = hit.collider.transform;
-                    if (IsGoodSelections())
-                    {
-                        Vibration.Vibrate(_timeVibration);
-                    }
                 }
                 posHitOrigami = hit.point;
                 cubeTest.SetActive(true);
                 cubeTest.transform.position = posHitOrigami;
             }
+
+            //Debut du touch
+            if (_touchPhase == TouchPhase.Began && IsGoodSelections())
+            {
+                Vibration.Vibrate(_timeVibration);
+            }
+
+            //Fin du touch
+            if (_touchPhase == TouchPhase.Ended)
+            {
+                //posHitOrigami = _goodPointSelections.position;
+                _pointSelected = null;
+                cubeTest.SetActive(false);
+            }
         }
-        else if (_pointSelected != null)
+        else
         {
-            _pointSelected = null;
-            cubeTest.SetActive(false);
+            _touchPhase = TouchPhase.Canceled;
         }
        
     }
@@ -64,8 +75,12 @@ public class SelectPointOrigami : MonoBehaviour
 
     public Vector3 GetPosHitOrigami()
     {
-
         return posHitOrigami;
+    }
+
+    public TouchPhase GetTouchPhase()
+    {
+        return _touchPhase;
     }
 
 }
