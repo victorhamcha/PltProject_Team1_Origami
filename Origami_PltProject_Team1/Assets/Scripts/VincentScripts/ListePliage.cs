@@ -14,8 +14,7 @@ public class Pliage
 
 public class ListePliage : MonoBehaviour
 {
-    [SerializeField]
-    private Animator _animator = null;
+   [SerializeField] private Animator _animator = null;
 
     [SerializeField]
     private List<Pliage> allPliageToDo = null;

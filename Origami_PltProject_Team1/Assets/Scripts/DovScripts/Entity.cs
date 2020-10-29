@@ -22,7 +22,7 @@ public class Entity : MonoBehaviour
 
     //Speed
     [Header("Speed")]
-    [SerializeField] private float _speedMax = 5f;
+    [SerializeField] public float _speedMax = 5f;
     private Vector3 _velocity = Vector3.zero;
 
     //Acceleration 
@@ -178,7 +178,6 @@ public class Entity : MonoBehaviour
                     float angle = Vector3.Angle(_previousMoveDir, _moveDir);
                     if (angle > _turnAngleMin) {
                         _StartTurn(angle);
-                        Debug.Log(angle);
                     }
                 }
             } else {

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class SelectPointOrigami : MonoBehaviour
 {
@@ -32,12 +33,14 @@ public class SelectPointOrigami : MonoBehaviour
                     }
                 }
                 posHitOrigami = hit.point;
+                cubeTest.SetActive(true);
                 cubeTest.transform.position = posHitOrigami;
             }
         }
         else if (_pointSelected != null)
         {
             _pointSelected = null;
+            cubeTest.SetActive(false);
         }
        
     }
@@ -46,6 +49,7 @@ public class SelectPointOrigami : MonoBehaviour
     {
         _goodPointSelections = pointSelections;
         _pointSelected = null;
+        posHitOrigami = _goodPointSelections.position;
     }
 
     public bool IsGoodSelections()
@@ -60,6 +64,7 @@ public class SelectPointOrigami : MonoBehaviour
 
     public Vector3 GetPosHitOrigami()
     {
+
         return posHitOrigami;
     }
 
