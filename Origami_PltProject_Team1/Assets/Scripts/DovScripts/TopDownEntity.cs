@@ -31,16 +31,10 @@ public class TopDownEntity : MonoBehaviour
 
     public Rigidbody _rigidbody = null;
 
-    private Player player;
-    private int playerID = 0;
 
     //Orient
-   //[Header("Orient")]
-   //public GameObject orientSprite = null;
-   //public float orientSpeed = 20f;
-   //private Vector3 _orientDir = Vector3.right;
-   //private float turnSmoothTime = 0.1f;
-   //private float turnSmoothVelocity;
+   [Header("Orient")]
+   public float orientSpeed = 2f;
 
 
     #region Functions Unity Callbacks
@@ -48,7 +42,6 @@ public class TopDownEntity : MonoBehaviour
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
-        player = ReInput.players.GetPlayer(playerID);
     }
 
 
@@ -199,12 +192,13 @@ public class TopDownEntity : MonoBehaviour
     private void _UpdateSpriteOrient()
     {
         Vector3 vectorToTarget = _moveDestination - transform.position;
-        float direction = Vector3.Angle(transform.forward, vectorToTarget);
-        //_orientDir = new Vector3( direction, 0f, direction).normalized;
-        //_orientDir = CartesianToIsometric(_orientDir);
-        Quaternion rotation = Quaternion.FromToRotation(transform.forward, vectorToTarget);
-        transform.rotation = rotation;
+        Quaternion rotation = Quaternion.LookRotation(vectorToTarget.normalized);
+        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * orientSpeed);
 
+
+        //float direction = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg;
+        //float direction = Vector3.Angle(transform.forward, vectorToTarget);
+        //Quaternion rotation = Quaternion.FromToRotation(transform.forward, vectorToTarget);
         //if (_orientDir.magnitude >= 0.1f)
         //{
         //    float targetAngle = Mathf.Atan2(_orientDir.x, _orientDir.z) * Mathf.Rad2Deg;

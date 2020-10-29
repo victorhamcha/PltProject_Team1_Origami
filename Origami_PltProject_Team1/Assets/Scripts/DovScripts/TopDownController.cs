@@ -6,7 +6,7 @@ using Rewired;
 
 public class TopDownController : MonoBehaviour
 {
-    public TopDownEntity entity;
+    public Entity entity;
     private Vector3 moveDir = Vector3.zero;
 
 
