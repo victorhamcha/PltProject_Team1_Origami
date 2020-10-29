@@ -8,15 +8,13 @@ public class testSwitchModePlayer : MonoBehaviour
     [SerializeField] private bool _activeModeOrigami = false;
     private bool _onModeOrigami = false;
 
-    private TopDownEntity _movementPlayer;
-    private float _acceleration = 0f;
+    private Entity _movementPlayer;
     private float _speedMax = 0f;
 
     void Start()
     {
-        _movementPlayer = GetComponent<TopDownEntity>();
-        _acceleration = _movementPlayer.acceleration;
-        _speedMax = _movementPlayer.speedMax;
+        _movementPlayer = GetComponent<Entity>();
+        _speedMax = _movementPlayer._speedMax;
     }
 
     void Update()
@@ -24,8 +22,8 @@ public class testSwitchModePlayer : MonoBehaviour
 
         if (_pliageManager.PliageIsFinish())
         {
-            _activeModeOrigami = true;
-            _pliageManager.ResetPliage();
+            //_activeModeOrigami = true;
+            //_pliageManager.ResetPliage();
         }
 
         if (_activeModeOrigami)
@@ -34,17 +32,16 @@ public class testSwitchModePlayer : MonoBehaviour
             _onModeOrigami = !_onModeOrigami;
             if (_onModeOrigami)
             {
-                _movementPlayer.acceleration = 0f;
-                _movementPlayer.speedMax = 0f;
+                _movementPlayer._speedMax = 0f;
             }
             else
             {
-                _movementPlayer.acceleration = _acceleration;
-                _movementPlayer.speedMax = _speedMax;
+                _movementPlayer._speedMax = _speedMax;
             }
             _pliageBoat.SetActive(_onModeOrigami);
             _pliageBoat.transform.position = _posPliage.position;
             _pliageBoat.transform.rotation = _posPliage.rotation;
         }
+
     }
 }
