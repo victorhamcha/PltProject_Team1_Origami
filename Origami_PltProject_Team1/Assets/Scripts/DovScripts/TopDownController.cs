@@ -7,6 +7,7 @@ using Rewired;
 public class TopDownController : MonoBehaviour
 {
     public Entity entity;
+    public LayerMask playerMask;
     private Vector3 moveDir = Vector3.zero;
 
 
@@ -24,7 +25,7 @@ public class TopDownController : MonoBehaviour
 
             RaycastHit hit;
             // Does the ray intersect any objects excluding the player layer
-            if (Physics.Raycast(ray.origin, ray.direction, out hit, Mathf.Infinity))
+            if (Physics.Raycast(ray.origin, ray.direction, out hit, Mathf.Infinity, playerMask))
             {
                 Debug.DrawRay(ray.origin, ray.direction * hit.distance, Color.green);
                 entity.MoveToDestination(hit.point);
