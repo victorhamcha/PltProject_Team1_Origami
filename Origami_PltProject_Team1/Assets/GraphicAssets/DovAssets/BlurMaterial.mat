@@ -10,7 +10,7 @@ Material:
   m_Name: BlurMaterial
   m_Shader: {fileID: -6465566751694194690, guid: e77a8406bc164af44ac8e82362cf73da,
     type: 3}
-  m_ShaderKeywords: 
+  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -53,6 +53,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - BlurValue: 0
     - Vector1_26356AE2: 0
     - _AlphaClip: 0
     - _Blend: 0
