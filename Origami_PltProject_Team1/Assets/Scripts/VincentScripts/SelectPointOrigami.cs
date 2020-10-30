@@ -73,6 +73,11 @@ public class SelectPointOrigami : MonoBehaviour
         return _pointSelected;
     }
 
+    public void SetPointSelected(Transform point_selected)
+    {
+        _pointSelected = point_selected;
+    }
+
     public Vector3 GetPosHitOrigami()
     {
         return posHitOrigami;
