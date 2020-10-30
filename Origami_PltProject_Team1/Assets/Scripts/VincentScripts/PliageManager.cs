@@ -65,6 +65,7 @@ public class PliageManager : MonoBehaviour
                 _pointSelectedOrigami.SetPointGoodSelection(currentPliage.goodPointSelection);
                 _cursorSelectPoint.transform.position = currentPliage.goodPointSelection.position;
                 _cursorSelectPoint.transform.rotation = currentPliage.goodPointSelection.rotation;
+                _cursorSelectPoint.SetActive(true);
                 _animator.speed = 0;
                 _animator.Play(currentPliage.animToPlay.name);
             }
@@ -74,7 +75,7 @@ public class PliageManager : MonoBehaviour
             }
         }
 
-        if (_pointSelectedOrigami.GetTouchPhase() == TouchPhase.Ended)
+        if (_pointSelectedOrigami.GetTouchPhase() == TouchPhase.Ended && _pointSelectedOrigami.AsStartesGoodSelection() && !PliageIsFinish())
         {
             _animator.Play(currentPliage.animToPlay.name + "_reverse", -1, 1 - prctAvancementSlide / 100);
             _animator.speed = speedReverseAnim;

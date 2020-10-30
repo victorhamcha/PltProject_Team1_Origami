@@ -12,6 +12,7 @@ public class SelectPointOrigami : MonoBehaviour
     private TouchPhase _touchPhase;
 
     [SerializeField] private int _timeVibration = 50;
+    private bool _startWithGoodSelection = false;
 
     private void Update()
     {
@@ -38,7 +39,11 @@ public class SelectPointOrigami : MonoBehaviour
             //Debut du touch
             if (_touchPhase == TouchPhase.Began && IsGoodSelections())
             {
+                _startWithGoodSelection = true;
                 Vibration.Vibrate(_timeVibration);
+            }else if (_touchPhase == TouchPhase.Began)
+            {
+                _startWithGoodSelection = false;
             }
 
             //Fin du touch
@@ -60,6 +65,7 @@ public class SelectPointOrigami : MonoBehaviour
     {
         _goodPointSelections = pointSelections;
         _pointSelected = null;
+        _startWithGoodSelection = false;
         posHitOrigami = _goodPointSelections.position;
     }
 
@@ -86,6 +92,11 @@ public class SelectPointOrigami : MonoBehaviour
     public TouchPhase GetTouchPhase()
     {
         return _touchPhase;
+    }
+
+    public bool AsStartesGoodSelection()
+    {
+        return _startWithGoodSelection;
     }
 
 }
