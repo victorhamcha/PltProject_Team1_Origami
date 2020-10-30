@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7384846687720814210}
   - component: {fileID: 7384846687720814211}
   - component: {fileID: 369570202}
+  - component: {fileID: 705030069}
   m_Layer: 0
   m_Name: Player entity
   m_TagString: Untagged
@@ -27,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 7384846687720814212}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 4, y: 4, z: 4}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7384846688971100401}
   m_Father: {fileID: 0}
@@ -195,6 +196,26 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   _guiDebug: 0
+--- !u!114 &705030069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7384846687720814212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49afb7568732d76488b52efcc0ed380e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _pliageBoat: {fileID: 0}
+  _posPliage: {fileID: 0}
+  _pliageManager: {fileID: 0}
+  _activeModeOrigami: 0
+  _origamiePos: {fileID: 0}
+  _animator: {fileID: 0}
+  _animFadeIn: {fileID: 7400000, guid: d25b576f1e9e9d143bfc43a1741a5077, type: 2}
+  _blurMat: {fileID: 2100000, guid: 4c98f200583f31c4a881880308964fec, type: 2}
 --- !u!1 &7384846688971100402
 GameObject:
   m_ObjectHideFlags: 0
@@ -291,17 +312,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 5cfa5d6a996e53f4d8a4e2dc98e2b422,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5cfa5d6a996e53f4d8a4e2dc98e2b422,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5cfa5d6a996e53f4d8a4e2dc98e2b422,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 5cfa5d6a996e53f4d8a4e2dc98e2b422,
         type: 3}
