@@ -60,7 +60,15 @@ public class Entity : MonoBehaviour
    [Header("Orient")]
    public float orientSpeed = 2f;
     private Vector3 _orientDir = Vector3.right;
-    [SerializeField] private GameObject _orientModel = null;
+
+    //Rotator
+    [Header("Rotator")]
+    public float period = 0.05f;
+    public float offset = 0.5f;
+    private float _timer = 0f;
+    private float _offsetvalue = 0f;
+    [SerializeField] private AnimationCurve _rotatorCurve = AnimationCurve.Linear(0f, 0f, 1f, 1f);
+
 
     //Debug
     [Header("Debug")]
@@ -82,6 +90,11 @@ public class Entity : MonoBehaviour
         _UpdateMove();
         _ApplyVelocity();
         _UpdateModelOrient();
+    }
+
+    private void Update()
+    {
+        _UpdateRotator();
     }
 
     private void OnGUI()
@@ -333,6 +346,27 @@ public class Entity : MonoBehaviour
         }
 
         return velocity;
+    }
+
+    private void _UpdateRotator()
+    {
+        if (_isMovingToDestination)
+        {
+            _timer += Time.deltaTime;
+
+            float t = Mathf.PingPong(_timer, period);
+            float r = t / period;
+
+            Vector3 eulerAngles = transform.eulerAngles;
+
+            eulerAngles.z = _offsetvalue;
+            _offsetvalue = Mathf.Lerp(-offset, offset, r);
+            eulerAngles.z += _offsetvalue;
+            eulerAngles.x -= _rotatorCurve.Evaluate(_timer);
+
+            transform.localEulerAngles = eulerAngles;
+
+        }
     }
 
     #endregion
