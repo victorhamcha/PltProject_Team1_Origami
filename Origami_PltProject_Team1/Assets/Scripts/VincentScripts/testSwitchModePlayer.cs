@@ -5,7 +5,7 @@ public class testSwitchModePlayer : MonoBehaviour
     [SerializeField] private GameObject _pliageBoat = null;
     [SerializeField] private Transform _posPliage = null;
     [SerializeField] private PliageManager _pliageManager = null;
-    [SerializeField] private bool _activeModeOrigami = false;
+    public bool _activeModeOrigami = false;
 
     [SerializeField] private GameObject _origamiePos = null;
     [SerializeField] private Animator _animator = null;
@@ -67,6 +67,7 @@ public class testSwitchModePlayer : MonoBehaviour
 
             if (_onModeOrigami)
             {
+                _movementPlayer._isMovingToDestination = false;
                 _movementPlayer._speedMax = 0f;
                 _animator.Play(_animFadeIn.name, -1, 0);
                 _pliageBoat.SetActive(true);
@@ -81,5 +82,10 @@ public class testSwitchModePlayer : MonoBehaviour
             }
         }
 
+    }
+
+    public void ActiveMode()
+    {
+        _activeModeOrigami = true;
     }
 }

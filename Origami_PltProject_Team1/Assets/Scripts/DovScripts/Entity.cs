@@ -13,7 +13,7 @@ public class Entity : MonoBehaviour
     public float moveDestinationStartSlowdownRange = 2f;
     public float moveDestinationSpeedMin = 1f;
     private Vector3 _moveDestination = Vector3.zero;
-    private bool _isMovingToDestination = false;
+    public bool _isMovingToDestination = false;
     private float _moveDestinationRange = 0.25f;
     private float _moveDestinationSpeed = 0f;
 
