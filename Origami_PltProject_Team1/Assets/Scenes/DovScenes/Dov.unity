@@ -230,6 +230,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1550921868, guid: 6fdfa3207973704449ff05eb63712168, type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 1047
+      objectReference: {fileID: 0}
     - target: {fileID: 1373722584682801418, guid: 6fdfa3207973704449ff05eb63712168,
         type: 3}
       propertyPath: m_Name
@@ -449,7 +453,7 @@ GameObject:
   - component: {fileID: 1634783142}
   - component: {fileID: 1634783141}
   - component: {fileID: 1634783140}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -750,6 +754,11 @@ PrefabInstance:
       propertyPath: entity
       value: 
       objectReference: {fileID: 369570202}
+    - target: {fileID: 2617010158252357727, guid: 4da0208d64983c140b330d229ca8d35c,
+        type: 3}
+      propertyPath: playerMask.m_Bits
+      value: 1024
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4da0208d64983c140b330d229ca8d35c, type: 3}
 --- !u!1001 &7384846688973802078
@@ -759,6 +768,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1671007940139459154, guid: 0bc1af0164357a149a3b43fa33190f8f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 7384846687720814210, guid: 0bc1af0164357a149a3b43fa33190f8f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -818,6 +832,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player entity
+      objectReference: {fileID: 0}
+    - target: {fileID: 7384846687720814212, guid: 0bc1af0164357a149a3b43fa33190f8f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7384846688971100402, guid: 0bc1af0164357a149a3b43fa33190f8f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7691399662573312651, guid: 0bc1af0164357a149a3b43fa33190f8f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0bc1af0164357a149a3b43fa33190f8f, type: 3}
