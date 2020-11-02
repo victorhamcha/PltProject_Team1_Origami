@@ -3,63 +3,72 @@ using UnityEngine;
 
 [RequireComponent(typeof(SelectPointOrigami))]
 [RequireComponent(typeof(ListePliage))]
+[RequireComponent(typeof(Animator))]
 public class PliageManager : MonoBehaviour
 {
+
+    //Lien des scripts
     private SelectPointOrigami _pointSelectedOrigami = null;
     private ListePliage _listePliage = null;
+
+    //Informations du pliage en cours d'executions
     private Pliage currentPliage = null;
 
+    //Animator qui va jouez les animations de pliage
     private Animator _animator = null;
 
+    //Timer de la durée de la vibrations une fois qu'un pliage est fini
     [SerializeField] private int _timeVibrationEndPliage = 50;
+    //Gameobject utilisez pour montrez qu'elle partie doit ètre selectionnez pour le debut du pliage en cours
     [SerializeField] private GameObject _cursorSelectPoint = null;
+    //Vitesse de l'animations du pliage lorsque l'on relache le pliage
     [SerializeField] [Range(0, 1)] private float speedReverseAnim = 1f; 
 
-    //[SerializeField] private TextMeshProUGUI textDebug1 = null;
-    //[SerializeField] private TextMeshProUGUI textDebug2 = null;
-
+    //Indicateur du nombre de pliage effectuez pour parcourir la liste de tout les pliages à faires
     private int indexPliage = 0;
 
-    private bool _pliageIsFinish = false;
+    private bool _origamiIsFinish = false;
     private bool _reverseAnim = false;
 
     void Start()
     {
         _pointSelectedOrigami = GetComponent<SelectPointOrigami>();
         _listePliage = GetComponent<ListePliage>();
+        _animator = GetComponent<Animator>();
 
+        //Récup des infos du premier pliage
         currentPliage = _listePliage.GetPliage(indexPliage);
-        _animator = _listePliage.GetAnimator();
 
         if (currentPliage != null)
         {
+            //Initialisation du premier pliage
             _pointSelectedOrigami.SetPointGoodSelection(currentPliage.goodPointSelection);
             _cursorSelectPoint.transform.position = currentPliage.goodPointSelection.position;
             _cursorSelectPoint.transform.rotation = currentPliage.goodPointSelection.rotation;
+            _animator.Play(currentPliage.animToPlay.name);
         }
 
+        //Set de la speed de l'animator à 0 pour évitez que l'animations se joue dés le debuts
         _animator.speed = 0;
-        _animator.Play(currentPliage.animToPlay.name);
-
     }
 
     void Update()
     {
+        //Récupération du pourcentage d'avancement entre le point de début et le point de fin du pliage actuel en cours en fontion du point ou l'on click
         float prctAvancementSlide = GetPourcentageAvancementSlide();
-        //Debug.DrawLine(currentPliage.goodPointSelection.position, GetPosAvancementSlideByPrct(prctAvancementSlide),Color.red);
-        //textDebug1.text = "Prct avancement : " + prctAvancementSlide;
-        //textDebug2.text = "NormalizedTime : " + _animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
-        //Debug.Log(_reverseAnim);
 
-        if (prctAvancementSlide > 95f)
+        //Si le pliage en cours est fini et que l'origami n'est pas fini
+        //      Alors on fait vibrez le télephone
+        //            on passe au pliage suivant
+        //      Si il y à bien un prochain pliage
+        //          Alors on réinitialise les variables et on charges les nouvelles informations du prochain pliage
+        //      Sinon on dit que l'origami est fini
+        //
+        if (CurrentFoldsIsFinish() && !OrigamiIsFinish())
         {
             Vibration.Vibrate(_timeVibrationEndPliage);
-        }
-
-        if (CurrentAnimIsFinish() && !PliageIsFinish())
-        {
             indexPliage++;
-            if (_listePliage.CanGoToNextPliage(indexPliage))
+            if (_listePliage.CanGoToFolding(indexPliage))
             {
                 currentPliage = _listePliage.GetPliage(indexPliage);
                 _pointSelectedOrigami.SetPointGoodSelection(currentPliage.goodPointSelection);
@@ -71,28 +80,34 @@ public class PliageManager : MonoBehaviour
             }
             else
             {
-                _pliageIsFinish = true;
+                _origamiIsFinish = true;
             }
         }
 
-        if (_pointSelectedOrigami.GetTouchPhase() == TouchPhase.Ended && _pointSelectedOrigami.AsStartesGoodSelection() && !PliageIsFinish())
+        //Si on arrètes de touchez l'écran ET qu'on avais bien sélectionnez le bont point de l'origamie ET que l'origamie n'est pas fini
+        //      Alors on joue l'animation du pliage en cours à l'envers en calculant son bon point de départs pour que les deux animations soit sans discontinuité
+        //Sinon Si on à le bont point de sélection ET que l'origamie n'est pas fini
+        //      Alors on joue l'animations du pliage en cours en fonction du pourcentage d'avancement de notre doigts sur l'écran
+        //
+        if (_pointSelectedOrigami.GetTouchPhase() == TouchPhase.Ended && _pointSelectedOrigami.AsStartesGoodSelection() && !OrigamiIsFinish())
         {
-            _animator.Play(currentPliage.animToPlay.name + "_reverse", -1, 1 - prctAvancementSlide / 100);
+            _animator.Play(currentPliage.animToPlay.name + "_reverse", -1, 1 - prctAvancementSlide);
             _animator.speed = speedReverseAnim;
             _reverseAnim = true;
             _cursorSelectPoint.SetActive(true);
-        } else if (_pointSelectedOrigami.IsGoodSelections() && !PliageIsFinish())
+        } 
+        else if (_pointSelectedOrigami.IsGoodSelections() && !OrigamiIsFinish())
         {
-            _animator.Play(currentPliage.animToPlay.name, -1, prctAvancementSlide / 100);
+            _animator.Play(currentPliage.animToPlay.name, -1, prctAvancementSlide);
             _animator.speed = 1;
             _reverseAnim = false;
             _cursorSelectPoint.SetActive(false);
         }
     }
 
-    public bool PliageIsFinish()
+    public bool OrigamiIsFinish()
     {
-        return _pliageIsFinish;
+        return _origamiIsFinish;
     }
 
     public void ResetPliage()
@@ -104,16 +119,12 @@ public class PliageManager : MonoBehaviour
         _cursorSelectPoint.transform.rotation = currentPliage.goodPointSelection.rotation;
         _animator.speed = 0;
         _animator.Play(currentPliage.animToPlay.name);
-        _pliageIsFinish = false;
+        _origamiIsFinish = false;
     }
 
-    public bool CurrentAnimIsFinish()
+    public bool CurrentFoldsIsFinish()
     {
-        if (GetPourcentageAvancementSlide() > 98f && !_reverseAnim)
-        {
-            return true;
-        }
-        return false;
+        return GetPourcentageAvancementSlide() > 0.98f && !_reverseAnim;
     }
 
     public float GetPourcentageAvancementSlide()
@@ -123,11 +134,11 @@ public class PliageManager : MonoBehaviour
         float prctAvancementX = Mathf.InverseLerp(currentPliage.goodPointSelection.position.x, currentPliage.endPointSelection.position.x, posHitOrigami.x);
         float prctAvancementY = Mathf.InverseLerp(currentPliage.goodPointSelection.position.y, currentPliage.endPointSelection.position.y, posHitOrigami.y);
         float prctAvancementZ = Mathf.InverseLerp(currentPliage.goodPointSelection.position.z, currentPliage.endPointSelection.position.z, posHitOrigami.z);
-        return (prctAvancementX + prctAvancementY + prctAvancementZ) / 3 * 100f;
+        return (prctAvancementX + prctAvancementY + prctAvancementZ) / 3;
     }
 
     public Vector3 GetPosAvancementSlideByPrct(float prctAvancement)
     {
-        return Vector3.Lerp(currentPliage.goodPointSelection.position, currentPliage.endPointSelection.position, prctAvancement / 100f);
+        return Vector3.Lerp(currentPliage.goodPointSelection.position, currentPliage.endPointSelection.position, prctAvancement);
     }
 }

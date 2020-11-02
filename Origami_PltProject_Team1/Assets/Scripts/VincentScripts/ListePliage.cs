@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
+//Déf d'un pliage et ce dont il à besoin
 [Serializable]
 public class Pliage
 {
-    //public Transform[] pointSelections = null;
     public Transform goodPointSelection = null;
     public Transform endPointSelection = null;
     public AnimationClip animToPlay = null;
@@ -14,8 +13,6 @@ public class Pliage
 
 public class ListePliage : MonoBehaviour
 {
-   [SerializeField] private Animator _animator = null;
-
     [SerializeField]
     private List<Pliage> allPliageToDo = null;
 
@@ -27,7 +24,7 @@ public class ListePliage : MonoBehaviour
         }
     }
 
-    public bool CanGoToNextPliage(int indexNextPliage)
+    public bool CanGoToFolding(int indexNextPliage)
     {
         if (allPliageToDo.Count < indexNextPliage + 1)
         {
@@ -38,17 +35,12 @@ public class ListePliage : MonoBehaviour
 
     public Pliage GetPliage(int index)
     {
-        if (!CanGoToNextPliage(index))
+        if (!CanGoToFolding(index))
         {
-            Debug.LogError("Out off bound liste pliage");
+            Debug.LogError("/!\\ Out off bound liste pliage");
             return null;
         }
         return allPliageToDo[index];
-    }
-
-    public Animator GetAnimator()
-    {
-        return _animator;
     }
 
 }

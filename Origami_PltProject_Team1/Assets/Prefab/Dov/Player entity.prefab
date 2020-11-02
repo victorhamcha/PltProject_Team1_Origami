@@ -64,6 +64,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveDestinationStartSlowdownRange: 2
   moveDestinationSpeedMin: 1
+  _isMovingToDestination: 0
   _speedMax: 30
   _accelerationDuration: 1
   _accelerationCurve:
@@ -208,14 +209,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49afb7568732d76488b52efcc0ed380e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pliageBoat: {fileID: 0}
-  _posPliage: {fileID: 0}
-  _pliageManager: {fileID: 0}
-  _activeModeOrigami: 0
-  _origamiePos: {fileID: 0}
-  _animator: {fileID: 0}
+  _animatorFadeOrigami: {fileID: 0}
+  _pliageToDo: {fileID: 0}
+  _origamie: {fileID: 0}
+  _posPliageToFaceCam: {fileID: 0}
   _animFadeIn: {fileID: 7400000, guid: d25b576f1e9e9d143bfc43a1741a5077, type: 2}
-  _blurMat: {fileID: 2100000, guid: 4c98f200583f31c4a881880308964fec, type: 2}
+  _blurMaterial: {fileID: 2100000, guid: 4c98f200583f31c4a881880308964fec, type: 2}
 --- !u!1 &7384846688971100402
 GameObject:
   m_ObjectHideFlags: 0

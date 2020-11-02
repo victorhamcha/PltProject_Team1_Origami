@@ -8498,9 +8498,9 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 548000482}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &553523006 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2682033411727859387, guid: 18e15444221144545a18dc324530c6ed,
+--- !u!4 &553523007 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2682033411727859386, guid: 18e15444221144545a18dc324530c6ed,
     type: 3}
   m_PrefabInstance: {fileID: 2682033412255680901}
   m_PrefabAsset: {fileID: 0}
@@ -10953,25 +10953,25 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 705030069, guid: 0bc1af0164357a149a3b43fa33190f8f, type: 3}
-      propertyPath: _pliageBoat
-      value: 
-      objectReference: {fileID: 2079342813}
-    - target: {fileID: 705030069, guid: 0bc1af0164357a149a3b43fa33190f8f, type: 3}
-      propertyPath: _posPliage
-      value: 
-      objectReference: {fileID: 833395332}
-    - target: {fileID: 705030069, guid: 0bc1af0164357a149a3b43fa33190f8f, type: 3}
       propertyPath: _pliageManager
       value: 
       objectReference: {fileID: 2079342815}
     - target: {fileID: 705030069, guid: 0bc1af0164357a149a3b43fa33190f8f, type: 3}
-      propertyPath: _origamiePos
-      value: 
-      objectReference: {fileID: 553523006}
-    - target: {fileID: 705030069, guid: 0bc1af0164357a149a3b43fa33190f8f, type: 3}
-      propertyPath: _animator
+      propertyPath: _animatorFadeOrigami
       value: 
       objectReference: {fileID: 1686573299}
+    - target: {fileID: 705030069, guid: 0bc1af0164357a149a3b43fa33190f8f, type: 3}
+      propertyPath: _pliageToDo
+      value: 
+      objectReference: {fileID: 2079342813}
+    - target: {fileID: 705030069, guid: 0bc1af0164357a149a3b43fa33190f8f, type: 3}
+      propertyPath: _origamie
+      value: 
+      objectReference: {fileID: 553523007}
+    - target: {fileID: 705030069, guid: 0bc1af0164357a149a3b43fa33190f8f, type: 3}
+      propertyPath: _posPliageToFaceCam
+      value: 
+      objectReference: {fileID: 833395332}
     - target: {fileID: 7384846687720814210, guid: 0bc1af0164357a149a3b43fa33190f8f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -22259,8 +22259,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1046397943}
-        m_TargetAssemblyTypeName: testSwitchModePlayer, Assembly-CSharp
-        m_MethodName: ActiveMode
+        m_TargetAssemblyTypeName: SwitchModePlayerOrigami, Assembly-CSharp
+        m_MethodName: SwitchMode
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -27521,6 +27521,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a49eaf1cb4a497148adddad7a873e8cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &2079342816 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 7182383527880823905, guid: 18e15444221144545a18dc324530c6ed,
+    type: 3}
+  m_PrefabInstance: {fileID: 2682033412255680901}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2080334428
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -28446,6 +28452,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1913366355187751459, guid: 18e15444221144545a18dc324530c6ed,
+        type: 3}
+      propertyPath: _animator
+      value: 
+      objectReference: {fileID: 2079342816}
     - target: {fileID: 2682033411727859386, guid: 18e15444221144545a18dc324530c6ed,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -28504,7 +28515,12 @@ PrefabInstance:
     - target: {fileID: 2682033411727859387, guid: 18e15444221144545a18dc324530c6ed,
         type: 3}
       propertyPath: m_Name
-      value: PosOrigami
+      value: Origami
+      objectReference: {fileID: 0}
+    - target: {fileID: 2682033412734032247, guid: 18e15444221144545a18dc324530c6ed,
+        type: 3}
+      propertyPath: m_Name
+      value: AnimFadeOrigami
       objectReference: {fileID: 0}
     - target: {fileID: 3633024436614099089, guid: 18e15444221144545a18dc324530c6ed,
         type: 3}

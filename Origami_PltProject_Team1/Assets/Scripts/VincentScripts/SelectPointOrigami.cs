@@ -3,19 +3,25 @@ using UnityEngine;
 
 public class SelectPointOrigami : MonoBehaviour
 {
-    public GameObject cubeTest;
-
     private Transform _goodPointSelections = null;
     private Transform _pointSelected = null;
 
+    //Point du click sur l'origami
     private Vector3 posHitOrigami = Vector3.zero;
     private TouchPhase _touchPhase;
 
+    //Timer de la vibrations quand l'on prend le bon coin de l'origamie
     [SerializeField] private int _timeVibration = 50;
+    //Pour savoir si on à commencez par touchez le bon coin de l'origamie dans notre slide sur l'écran 
     private bool _startWithGoodSelection = false;
 
     private void Update()
     {
+        //Si on touche l'écran
+        //      Alors on récupère les infos de notre doigts sur l'écran
+        //            on fais un Raycast avec notre caméra et la position de notre doigts sur l'écran pour récupérez le point de notre doigts dans le monde 3D
+        //Sinon
+        //      On met la touche fase à une valeur qu'on dira que c'est la valeur comme null
         if (Input.touchCount > 0)
         {
             Touch touch = Input.GetTouch(0);
@@ -32,11 +38,9 @@ public class SelectPointOrigami : MonoBehaviour
                     _pointSelected = hit.collider.transform;
                 }
                 posHitOrigami = hit.point;
-                cubeTest.SetActive(true);
-                cubeTest.transform.position = posHitOrigami;
             }
 
-            //Debut du touch
+            //Debut du touch avec ou sans bonne selection du coin de l'origamie
             if (_touchPhase == TouchPhase.Began && IsGoodSelections())
             {
                 _startWithGoodSelection = true;
@@ -49,9 +53,7 @@ public class SelectPointOrigami : MonoBehaviour
             //Fin du touch
             if (_touchPhase == TouchPhase.Ended)
             {
-                //posHitOrigami = _goodPointSelections.position;
                 _pointSelected = null;
-                cubeTest.SetActive(false);
             }
         }
         else
@@ -72,16 +74,6 @@ public class SelectPointOrigami : MonoBehaviour
     public bool IsGoodSelections()
     {
         return _pointSelected == _goodPointSelections;
-    }
-
-    public Transform GetPointSelected()
-    {
-        return _pointSelected;
-    }
-
-    public void SetPointSelected(Transform point_selected)
-    {
-        _pointSelected = point_selected;
     }
 
     public Vector3 GetPosHitOrigami()
