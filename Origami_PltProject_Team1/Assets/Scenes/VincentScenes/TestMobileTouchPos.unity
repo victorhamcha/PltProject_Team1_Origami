@@ -10953,10 +10953,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 705030069, guid: 0bc1af0164357a149a3b43fa33190f8f, type: 3}
-      propertyPath: _pliageManager
-      value: 
-      objectReference: {fileID: 2079342815}
-    - target: {fileID: 705030069, guid: 0bc1af0164357a149a3b43fa33190f8f, type: 3}
       propertyPath: _animatorFadeOrigami
       value: 
       objectReference: {fileID: 1686573299}
@@ -27509,18 +27505,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 2682033412255680901}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2079342815 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1913366355187751459, guid: 18e15444221144545a18dc324530c6ed,
-    type: 3}
-  m_PrefabInstance: {fileID: 2682033412255680901}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2079342813}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a49eaf1cb4a497148adddad7a873e8cf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!95 &2079342816 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 7182383527880823905, guid: 18e15444221144545a18dc324530c6ed,
