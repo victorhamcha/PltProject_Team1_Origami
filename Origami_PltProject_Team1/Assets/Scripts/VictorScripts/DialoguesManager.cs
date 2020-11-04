@@ -8,15 +8,15 @@ using Rewired;
 public class DialoguesManager : MonoBehaviour
 {
     [SerializeField]
-    private List<Dialogue> dialogues;
+    private List<Dialogue> dialogues = null;
     [SerializeField]
-    private TextMeshProUGUI nameTxt, sentenceTxt;
+    private TextMeshProUGUI nameTxt = null, sentenceTxt = null;
     [SerializeField]
-    private GameObject dialogueGui;
+    private GameObject dialogueGui = null;
     [SerializeField]
-    private Image arrow;
+    private Image arrow = null;
     [SerializeField]
-    private Image point;
+    private Image point = null;
     private float timerSwitchDialogue = 0.5f;
 
     private int lastDialogue;

@@ -11,6 +11,7 @@ public class Pliage
     public AnimationClip animToPlay = null;
     public bool isConfirmationPliage = false;
     public AnimationClip handAnim = null;
+    public AnimationClip boundaryAnim = null;
 }
 
 public class ListePliage : MonoBehaviour

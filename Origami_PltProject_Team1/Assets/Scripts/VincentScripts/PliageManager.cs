@@ -33,6 +33,7 @@ public class PliageManager : MonoBehaviour
     [SerializeField] private Animator _handAnimator = null;
     [SerializeField] private GameObject _handGO = null;
 
+    [SerializeField] private Animator _boundaryAnimator = null;
 
     void Start()
     {
@@ -52,6 +53,14 @@ public class PliageManager : MonoBehaviour
             _cursorSelectPoint.transform.position = currentPliage.goodPointSelection.position;
             _cursorSelectPoint.transform.rotation = currentPliage.goodPointSelection.rotation;
             _animator.Play(currentPliage.animToPlay.name);
+            if (currentPliage.boundaryAnim != null)
+            {
+                _boundaryAnimator.Play(currentPliage.boundaryAnim.name);
+            }
+            else
+            {
+                _boundaryAnimator.Play("Boundary");
+            }
         }
 
         //Set de la speed de l'animator à 0 pour évitez que l'animations se joue dés le debuts
@@ -85,6 +94,14 @@ public class PliageManager : MonoBehaviour
                 _cursorSelectPoint.SetActive(true);
                 _animator.speed = 0;
                 _animator.Play(currentPliage.animToPlay.name);
+                if (currentPliage.boundaryAnim != null)
+                {
+                    _boundaryAnimator.Play(currentPliage.boundaryAnim.name);
+                }
+                else
+                {
+                    _boundaryAnimator.Play("Boundary");
+                }
 
                 if (currentPliage.isConfirmationPliage)
                 {
@@ -93,12 +110,12 @@ public class PliageManager : MonoBehaviour
 
                     // Enable hand's animation
                     _handAnimator.Play(currentPliage.handAnim.name);
-                    Debug.Log(currentPliage.handAnim.name);
-
                 }
+                
             }
             else
             {
+                _boundaryAnimator.Play("Boundary");
                 _origamiIsFinish = true;
             }
         }
@@ -145,7 +162,7 @@ public class PliageManager : MonoBehaviour
 
     public bool CurrentFoldsIsFinish()
     {
-        return GetPourcentageAvancementSlide() > 0.98f && !_reverseAnim;
+        return GetPourcentageAvancementSlide() > 0.99f && !_reverseAnim;
     }
 
     public float GetPourcentageAvancementSlide()

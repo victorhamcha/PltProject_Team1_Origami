@@ -9,10 +9,10 @@ public class ButtonBehaviour : MonoBehaviour, IPointerEnterHandler, IPointerExit
 {
     [HideInInspector] public static bool usingMouse = false;
 
-    [SerializeField] private TextMeshProUGUI playText;
-    [SerializeField] private TextMeshProUGUI settingsText;
-    [SerializeField] private TextMeshProUGUI creditsText;
-    [SerializeField] private TextMeshProUGUI quitText;
+    [SerializeField] private TextMeshProUGUI playText = null;
+    [SerializeField] private TextMeshProUGUI settingsText = null;
+    [SerializeField] private TextMeshProUGUI creditsText = null;
+    [SerializeField] private TextMeshProUGUI quitText = null;
 
 
     // Start is called before the first frame update

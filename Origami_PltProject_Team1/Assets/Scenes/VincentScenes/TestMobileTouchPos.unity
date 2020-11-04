@@ -1687,6 +1687,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 160926219}
   m_PrefabAsset: {fileID: 0}
+--- !u!20 &169851709 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 1373722586243731216, guid: 6fdfa3207973704449ff05eb63712168,
+    type: 3}
+  m_PrefabInstance: {fileID: 2131192454}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &185444499
 GameObject:
   m_ObjectHideFlags: 0
@@ -10968,6 +10974,18 @@ PrefabInstance:
       propertyPath: _posPliageToFaceCam
       value: 
       objectReference: {fileID: 833395332}
+    - target: {fileID: 705030069, guid: 0bc1af0164357a149a3b43fa33190f8f, type: 3}
+      propertyPath: _maxBlurValue
+      value: 0.005
+      objectReference: {fileID: 0}
+    - target: {fileID: 705030069, guid: 0bc1af0164357a149a3b43fa33190f8f, type: 3}
+      propertyPath: mainCam
+      value: 
+      objectReference: {fileID: 169851709}
+    - target: {fileID: 705030069, guid: 0bc1af0164357a149a3b43fa33190f8f, type: 3}
+      propertyPath: blurCam
+      value: 
+      objectReference: {fileID: 593545717}
     - target: {fileID: 7384846687720814210, guid: 0bc1af0164357a149a3b43fa33190f8f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -27505,12 +27523,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 2682033412255680901}
   m_PrefabAsset: {fileID: 0}
---- !u!95 &2079342816 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 7182383527880823905, guid: 18e15444221144545a18dc324530c6ed,
-    type: 3}
-  m_PrefabInstance: {fileID: 2682033412255680901}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2080334428
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -27944,12 +27956,28 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 513801450, guid: 6fdfa3207973704449ff05eb63712168, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 593545715, guid: 6fdfa3207973704449ff05eb63712168, type: 3}
       propertyPath: target
       value: 
       objectReference: {fileID: 7384846688358519091}
+    - target: {fileID: 1550921868, guid: 6fdfa3207973704449ff05eb63712168, type: 3}
+      propertyPath: m_ClearFlags
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1550921868, guid: 6fdfa3207973704449ff05eb63712168, type: 3}
+      propertyPath: m_BackGroundColor.r
+      value: 0.57254905
+      objectReference: {fileID: 0}
+    - target: {fileID: 1550921868, guid: 6fdfa3207973704449ff05eb63712168, type: 3}
+      propertyPath: m_BackGroundColor.g
+      value: 0.7372549
+      objectReference: {fileID: 0}
+    - target: {fileID: 1550921868, guid: 6fdfa3207973704449ff05eb63712168, type: 3}
+      propertyPath: m_BackGroundColor.b
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1373722584682801418, guid: 6fdfa3207973704449ff05eb63712168,
         type: 3}
       propertyPath: m_Name
@@ -28436,11 +28464,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1913366355187751459, guid: 18e15444221144545a18dc324530c6ed,
-        type: 3}
-      propertyPath: _animator
-      value: 
-      objectReference: {fileID: 2079342816}
     - target: {fileID: 2682033411727859386, guid: 18e15444221144545a18dc324530c6ed,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -28501,16 +28524,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Origami
       objectReference: {fileID: 0}
-    - target: {fileID: 2682033412734032247, guid: 18e15444221144545a18dc324530c6ed,
-        type: 3}
-      propertyPath: m_Name
-      value: AnimFadeOrigami
-      objectReference: {fileID: 0}
-    - target: {fileID: 3633024436614099089, guid: 18e15444221144545a18dc324530c6ed,
-        type: 3}
-      propertyPath: cubeTest
-      value: 
-      objectReference: {fileID: 185444499}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 18e15444221144545a18dc324530c6ed, type: 3}
 --- !u!4 &7384846688358519091 stripped
