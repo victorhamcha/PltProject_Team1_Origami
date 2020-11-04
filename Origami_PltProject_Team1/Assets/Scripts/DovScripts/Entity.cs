@@ -132,6 +132,12 @@ public class Entity : MonoBehaviour
         _moveDir = moveDir;
     }
 
+    public void MoveStop()
+    {
+        _moveDestination = Vector3.zero;
+        _isMovingToDestination = false;
+    }
+
     public void MoveToDestination(Vector3 destination)
     {
         _moveDestination = destination;
@@ -161,7 +167,6 @@ public class Entity : MonoBehaviour
             if (hasReachedDestination)
             {
                 isMoving = false;
-                //Entity has reached destination
                 Move(Vector3.zero);
                 _velocity = Vector3.zero;
                 _isMovingToDestination = false;
@@ -179,22 +184,16 @@ public class Entity : MonoBehaviour
         }
 
         if (isMoving) {
-            //Here we check if velocity is set
-            //If entity already has velocity, we need to check if we need to turn
             if (_velocity != Vector3.zero) {
-                //Check if previous move dir is opposite to current move dir
-                //If move dirs are opposite, we force entity to turn around
                 if (Vector3.Dot(_previousMoveDir, _moveDir) < 0f) {
                     _StartTurnAround();
                 } else {
-                    //Otherwise we calculate angle between the two directions and we force entity to turn with some delay
                     float angle = Vector3.Angle(_previousMoveDir, _moveDir);
                     if (angle > _turnAngleMin) {
                         _StartTurn(angle);
                     }
                 }
             } else {
-                //Otherwise we start the acceleration timer
                 _StartAcceleration();
             }
 
@@ -203,14 +202,11 @@ public class Entity : MonoBehaviour
             } else {
                 Vector3 velocity = _ApplyAcceleration();
                 _velocity = _ApplyTurn(velocity);
-                //Update Orient dir only when entity is moving
                 _orientDir = _velocity.normalized;
             }
 
-            //Store previous move dir to check when entity changes direction
             _previousMoveDir = _moveDir;
         } else {
-            //Start friction if entity was moving on the previous frame
             if (_wasMoving) {
                 _StartFrictions();
             }
@@ -234,11 +230,9 @@ public class Entity : MonoBehaviour
                     }
                 }
             }
-            //Reset turns states
             _isTurning = false;
             _isTurningAround = false;
 
-            //Apply frictions
             _velocity = _ApplyFrictions(_velocity);
         }
 
@@ -258,7 +252,6 @@ public class Entity : MonoBehaviour
         Vector3 velocity = Vector3.zero;
         _accelerationTimer += Time.deltaTime;
         if (_accelerationTimer < _accelerationDuration) {
-            //Calculate acceleration according to timer and curve
             float ratio = _accelerationTimer / _accelerationDuration;
             ratio = _accelerationCurve.Evaluate(ratio);
             float speed = Mathf.Lerp(0f, _speedMax, ratio);
@@ -272,10 +265,7 @@ public class Entity : MonoBehaviour
     private void _StartFrictions()
     {
         float currentSpeed = _velocity.magnitude;
-        //Solution 1 : Inverse Lerp
         float frictionTimerRatio = Mathf.InverseLerp(0f, _speedMax, currentSpeed);
-        //Solution 2 : Calculate ratio manually
-        //float frictionTimer = _speedMax / currentSpeed;
         _frictionsTimer = Mathf.Lerp(_frictionsDuration, 0f, frictionTimerRatio);
     }
 
@@ -283,7 +273,6 @@ public class Entity : MonoBehaviour
     {
         _frictionsTimer += Time.deltaTime;
         if (_frictionsTimer < _frictionsDuration) {
-            //Calculate Frictions according to timer and curve
             float ratio = _frictionsTimer / _frictionsDuration;
             ratio = _frictonsCurve.Evaluate(ratio);
             float speed = Mathf.Lerp(_speedMax, 0f, ratio);
@@ -308,7 +297,6 @@ public class Entity : MonoBehaviour
     {
         _turnAroundTimer += Time.deltaTime;
         if (_turnAroundTimer < _turnAroundDuration) {
-            //Calculate TurnAround according to timer and curve
             float ratio = _turnAroundTimer / _turnAroundDuration;
             ratio = _turnAroundCurve.Evaluate(ratio);
             float speed = Mathf.Lerp(_speedMax, 0f, ratio);
@@ -334,7 +322,6 @@ public class Entity : MonoBehaviour
     private Vector3 _ApplyTurn(Vector3 velocity)
     {
         if (_isTurning) {
-            //Turn Entity until timer is finished
             _turnTimer += Time.deltaTime;
             if (_turnTimer < _turnDuration) {
                 float turnRatio = _turnTimer / _turnDuration;
@@ -376,14 +363,9 @@ public class Entity : MonoBehaviour
 
     private void _UpdateModelOrient()
     {
-        //Vector3 vectorToTarget = _moveDestination - transform.position;
         Quaternion rotation = Quaternion.LookRotation(_orientDir.normalized);
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * orientSpeed);
 
-        /*float angle = Vector3.SignedAngle(vectorToTarget, _orientDir, Vector3.forward);
-        Vector3 eulerAngles = _orientModel.transform.localEulerAngles;
-        eulerAngles.y = angle;
-        _orientModel.transform.localEulerAngles = eulerAngles;*/
     }
 
     #endregion
@@ -400,4 +382,5 @@ public class Entity : MonoBehaviour
     }
 
     #endregion
+
 }
