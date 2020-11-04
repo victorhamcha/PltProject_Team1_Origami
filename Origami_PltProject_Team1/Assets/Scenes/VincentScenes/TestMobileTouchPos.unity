@@ -27958,6 +27958,31 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 513801451, guid: 6fdfa3207973704449ff05eb63712168, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -17.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 513801451, guid: 6fdfa3207973704449ff05eb63712168, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 47.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 513801452, guid: 6fdfa3207973704449ff05eb63712168, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 066b0d08d4d505a47b8ab6f5a17793a4,
+        type: 3}
+    - target: {fileID: 513801452, guid: 6fdfa3207973704449ff05eb63712168, type: 3}
+      propertyPath: m_Size.x
+      value: 0.16
+      objectReference: {fileID: 0}
+    - target: {fileID: 513801452, guid: 6fdfa3207973704449ff05eb63712168, type: 3}
+      propertyPath: m_Size.y
+      value: 0.16
+      objectReference: {fileID: 0}
+    - target: {fileID: 513801452, guid: 6fdfa3207973704449ff05eb63712168, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 593545715, guid: 6fdfa3207973704449ff05eb63712168, type: 3}
       propertyPath: target
       value: 
@@ -28523,6 +28548,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Origami
+      objectReference: {fileID: 0}
+    - target: {fileID: 9093960782221016547, guid: 18e15444221144545a18dc324530c6ed,
+        type: 3}
+      propertyPath: m_BlendShapeWeights.Array.data[1]
+      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 18e15444221144545a18dc324530c6ed, type: 3}
