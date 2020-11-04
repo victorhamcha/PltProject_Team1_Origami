@@ -10,12 +10,8 @@ public class TopDownController : MonoBehaviour
     public LayerMask playerMask;
     private Vector3 moveDir = Vector3.zero;
 
-
     void Update()
     {
-        //entity.Move(moveDir);
-
-
         if (Input.touchCount > 0)
         {
             Touch touch = Input.GetTouch(0);
@@ -37,10 +33,7 @@ public class TopDownController : MonoBehaviour
             }
 
         }
-        //else
-        //{
-        //    entity.MoveStop();
-        //}
 
     }
+
 }
