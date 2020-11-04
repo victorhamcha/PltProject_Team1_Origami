@@ -9,6 +9,8 @@ public class Pliage
     public Transform goodPointSelection = null;
     public Transform endPointSelection = null;
     public AnimationClip animToPlay = null;
+    public bool isConfirmationPliage = false;
+    public AnimationClip handAnim = null;
 }
 
 public class ListePliage : MonoBehaviour
