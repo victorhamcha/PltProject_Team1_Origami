@@ -30,11 +30,17 @@ public class PliageManager : MonoBehaviour
     private bool _origamiIsFinish = false;
     private bool _reverseAnim = false;
 
+    [SerializeField] private Animator _handAnimator = null;
+    [SerializeField] private GameObject _handGO = null;
+
+
     void Start()
     {
         _pointSelectedOrigami = GetComponent<SelectPointOrigami>();
         _listePliage = GetComponent<ListePliage>();
         _animator = GetComponent<Animator>();
+        //_handAnimator = GetComponentInChildren<Animator>();
+
 
         //Récup des infos du premier pliage
         currentPliage = _listePliage.GetPliage(indexPliage);
@@ -70,13 +76,26 @@ public class PliageManager : MonoBehaviour
             indexPliage++;
             if (_listePliage.CanGoToFolding(indexPliage))
             {
+                
                 currentPliage = _listePliage.GetPliage(indexPliage);
+
                 _pointSelectedOrigami.SetPointGoodSelection(currentPliage.goodPointSelection);
                 _cursorSelectPoint.transform.position = currentPliage.goodPointSelection.position;
                 _cursorSelectPoint.transform.rotation = currentPliage.goodPointSelection.rotation;
                 _cursorSelectPoint.SetActive(true);
                 _animator.speed = 0;
                 _animator.Play(currentPliage.animToPlay.name);
+
+                if (currentPliage.isConfirmationPliage)
+                {
+                    // Enable hand's Gameobject
+                    _handGO.SetActive(true);
+
+                    // Enable hand's animation
+                    _handAnimator.Play(currentPliage.handAnim.name);
+                    Debug.Log(currentPliage.handAnim.name);
+
+                }
             }
             else
             {
@@ -98,6 +117,8 @@ public class PliageManager : MonoBehaviour
         } 
         else if (_pointSelectedOrigami.IsGoodSelections() && !OrigamiIsFinish())
         {
+            // Disable hand's gameobject
+            _handGO.SetActive(false);
             _animator.Play(currentPliage.animToPlay.name, -1, prctAvancementSlide);
             _animator.speed = 1;
             _reverseAnim = false;
