@@ -17,6 +17,7 @@ public class PliageManager : MonoBehaviour
     //Animator qui va jouez les animations de pliage
     private Animator _animator = null;
 
+    [Header("Custom OrigamiManager")]
     //Timer de la durée de la vibrations une fois qu'un pliage est fini
     [SerializeField] private int _timeVibrationEndPliage = 50;
     //Gameobject utilisez pour montrez qu'elle partie doit ètre selectionnez pour le debut du pliage en cours
@@ -29,28 +30,19 @@ public class PliageManager : MonoBehaviour
 
     private bool _origamiIsFinish = false;
     private bool _reverseAnim = false;
+    private bool _currentFoldIsFinish = false;
 
+    [Header("TUTO")]
     [SerializeField] private Animator _handAnimator = null;
     [SerializeField] private GameObject _handGO = null;
 
     [SerializeField] private Animator _boundaryAnimator = null;
 
-    void Start()
+    void Awake()
     {
         _pointSelectedOrigami = GetComponent<SelectPointOrigami>();
         _listePliage = GetComponent<ListePliage>();
         _animator = GetComponent<Animator>();
-        //_handAnimator = GetComponentInChildren<Animator>();
-
-
-        //Récup des infos du premier pliage
-        currentPliage = _listePliage.GetPliage(indexPliage);
-
-        if (currentPliage != null)
-        {
-            //Initialisation du premier pliage
-            SetUpCurrentPliage();
-        }
 
         //Set de la speed de l'animator à 0 pour évitez que l'animations se joue dés le debuts
         _animator.speed = 0;
@@ -58,9 +50,7 @@ public class PliageManager : MonoBehaviour
 
     void Update()
     {
-        //Récupération du pourcentage d'avancement entre le point de début et le point de fin du pliage actuel en cours en fontion du point ou l'on click
-        float prctAvancementSlide = GetPourcentageAvancementSlide();
-
+        //TODO UPDATE COM
         //Si le pliage en cours est fini et que l'origami n'est pas fini
         //      Alors on fait vibrez le télephone
         //            on passe au pliage suivant
@@ -70,11 +60,18 @@ public class PliageManager : MonoBehaviour
         //
         if (CurrentFoldsIsFinish() && !OrigamiIsFinish())
         {
+            currentPliage.boundarySprite.color = currentPliage.colorValidationPliage;
+            _animator.speed = currentPliage.speedAnimAutoComplete;
+            _currentFoldIsFinish = true;
+            
+        }
+
+        if (_currentFoldIsFinish && CurrentAnimIsFinish() && !OrigamiIsFinish())
+        {
             Vibration.Vibrate(_timeVibrationEndPliage);
             indexPliage++;
             if (_listePliage.CanGoToFolding(indexPliage))
             {
-                currentPliage = _listePliage.GetPliage(indexPliage);
                 SetUpCurrentPliage();
             }
             else
@@ -84,26 +81,29 @@ public class PliageManager : MonoBehaviour
             }
         }
 
-        //Si on arrètes de touchez l'écran ET qu'on avais bien sélectionnez le bont point de l'origamie ET que l'origamie n'est pas fini
+        //Récupération du pourcentage d'avancement entre le point de début et le point de fin du pliage actuel en cours en fontion du point ou l'on click
+        float prctAvancementSlide = GetPourcentageAvancementSlide();
+
+        //Si on arrète de touché l'écran ET qu'on avais bien sélectionnez le bont point de l'origamie ET que l'origamie n'est pas fini
         //      Alors on joue l'animation du pliage en cours à l'envers en calculant son bon point de départs pour que les deux animations soit sans discontinuité
         //Sinon Si on à le bont point de sélection ET que l'origamie n'est pas fini
         //      Alors on joue l'animations du pliage en cours en fonction du pourcentage d'avancement de notre doigts sur l'écran
         //
-        if (_pointSelectedOrigami.GetTouchPhase() == TouchPhase.Ended && _pointSelectedOrigami.AsStartesGoodSelection() && !OrigamiIsFinish())
+        if (!_currentFoldIsFinish && _pointSelectedOrigami.GetTouchPhase() == TouchPhase.Ended && _pointSelectedOrigami.AsStartesGoodSelection() && !OrigamiIsFinish())
         {
             _animator.Play(currentPliage.animToPlay.name + "_reverse", -1, 1 - prctAvancementSlide);
             _animator.speed = speedReverseAnim;
             _reverseAnim = true;
-            _cursorSelectPoint.SetActive(true);
+            SetActiveCursor(true);
         } 
-        else if (_pointSelectedOrigami.IsGoodSelections() && !OrigamiIsFinish())
+        else if (!_currentFoldIsFinish && _pointSelectedOrigami.IsGoodSelections() && !OrigamiIsFinish())
         {
             // Disable hand's gameobject
             _handGO.SetActive(false);
             _animator.Play(currentPliage.animToPlay.name, -1, prctAvancementSlide);
-            _animator.speed = 1;
+            _animator.speed = currentPliage.speedAnimAutoComplete;
             _reverseAnim = false;
-            _cursorSelectPoint.SetActive(false);
+            SetActiveCursor(false);
         }
     }
 
@@ -114,12 +114,24 @@ public class PliageManager : MonoBehaviour
 
     public void SetUpCurrentPliage()
     {
+        if (OrigamiIsFinish())
+        {
+            _animator.Play(currentPliage.animToPlay.name, -1 , 1);
+            _boundaryAnimator.Play("Boundary");
+            _handGO.SetActive(false);
+            SetActiveCursor(false);
+            _animator.speed = 0;
+            return;
+        }
+        currentPliage = _listePliage.GetPliage(indexPliage);
         _pointSelectedOrigami.SetPointGoodSelection(currentPliage.goodPointSelection);
         _cursorSelectPoint.transform.position = currentPliage.goodPointSelection.position;
         _cursorSelectPoint.transform.rotation = currentPliage.goodPointSelection.rotation;
-        _cursorSelectPoint.SetActive(true);
+        SetActiveCursor(true);
         _animator.speed = 0;
         _animator.Play(currentPliage.animToPlay.name);
+        currentPliage.boundarySprite.color = currentPliage.colorBoundary;
+        _currentFoldIsFinish = false;
         if (currentPliage.boundaryAnim != null)
         {
             _boundaryAnimator.Play(currentPliage.boundaryAnim.name);
@@ -149,11 +161,23 @@ public class PliageManager : MonoBehaviour
         _animator.speed = 0;
         _animator.Play(currentPliage.animToPlay.name);
         _origamiIsFinish = false;
+        currentPliage.boundarySprite.color = currentPliage.colorBoundary;
+        _currentFoldIsFinish = false;
+    }
+
+    public void SetActiveCursor(bool value)
+    {
+        _cursorSelectPoint.SetActive(currentPliage.drawPointSelection && value);
+    }
+
+    public bool CurrentAnimIsFinish()
+    {
+        return _animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1;
     }
 
     public bool CurrentFoldsIsFinish()
     {
-        return GetPourcentageAvancementSlide() > 0.99f && !_reverseAnim;
+        return GetPourcentageAvancementSlide() > currentPliage.prctMinValueToCompleteFold && !_reverseAnim && _pointSelectedOrigami.AsStartesGoodSelection();
     }
 
     public float GetPourcentageAvancementSlide()
