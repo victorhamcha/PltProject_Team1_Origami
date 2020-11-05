@@ -70,8 +70,7 @@ public class SwitchModePlayerOrigami : MonoBehaviour
             {
                 _origamie.position = _posPliageToFaceCam.position;
                 _pliageToDo.transform.rotation = _posPliageToFaceCam.rotation;
-                _movementPlayer._isMovingToDestination = false;
-                _movementPlayer._speedMax = 0f;
+                _movementPlayer.MoveStop();
                 _animatorFadeOrigami.Play(_animFadeIn.name, -1, 0);
                 _animatorFadeOrigami.speed = 1;
                 _pliageToDo.SetActive(true);
@@ -82,8 +81,7 @@ public class SwitchModePlayerOrigami : MonoBehaviour
             }
             else
             {
-                _movementPlayer.MoveStop();
-                _movementPlayer._speedMax = _speedMax;
+                _movementPlayer.MovePlay();
                 _animatorFadeOrigami.Play(_animFadeIn.name+"_reverse", -1, 0);
                 _isOnReverseAnim = true;
             }

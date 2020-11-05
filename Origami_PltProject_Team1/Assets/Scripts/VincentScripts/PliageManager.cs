@@ -25,7 +25,7 @@ public class PliageManager : MonoBehaviour
     [SerializeField] [Range(0, 1)] private float speedReverseAnim = 1f; 
 
     //Indicateur du nombre de pliage effectuez pour parcourir la liste de tout les pliages à faires
-    private int indexPliage = 0;
+    public int indexPliage = 0;
 
     private bool _origamiIsFinish = false;
     private bool _reverseAnim = false;
@@ -35,22 +35,11 @@ public class PliageManager : MonoBehaviour
 
     [SerializeField] private Animator _boundaryAnimator = null;
 
-    void Start()
+    void Awake()
     {
         _pointSelectedOrigami = GetComponent<SelectPointOrigami>();
         _listePliage = GetComponent<ListePliage>();
         _animator = GetComponent<Animator>();
-        //_handAnimator = GetComponentInChildren<Animator>();
-
-
-        //Récup des infos du premier pliage
-        currentPliage = _listePliage.GetPliage(indexPliage);
-
-        if (currentPliage != null)
-        {
-            //Initialisation du premier pliage
-            SetUpCurrentPliage();
-        }
 
         //Set de la speed de l'animator à 0 pour évitez que l'animations se joue dés le debuts
         _animator.speed = 0;
@@ -74,7 +63,6 @@ public class PliageManager : MonoBehaviour
             indexPliage++;
             if (_listePliage.CanGoToFolding(indexPliage))
             {
-                currentPliage = _listePliage.GetPliage(indexPliage);
                 SetUpCurrentPliage();
             }
             else
@@ -114,6 +102,7 @@ public class PliageManager : MonoBehaviour
 
     public void SetUpCurrentPliage()
     {
+        currentPliage = _listePliage.GetPliage(indexPliage);
         _pointSelectedOrigami.SetPointGoodSelection(currentPliage.goodPointSelection);
         _cursorSelectPoint.transform.position = currentPliage.goodPointSelection.position;
         _cursorSelectPoint.transform.rotation = currentPliage.goodPointSelection.rotation;
@@ -153,7 +142,7 @@ public class PliageManager : MonoBehaviour
 
     public bool CurrentFoldsIsFinish()
     {
-        return GetPourcentageAvancementSlide() > 0.99f && !_reverseAnim;
+        return GetPourcentageAvancementSlide() > 0.99f && !_reverseAnim && _pointSelectedOrigami.AsStartesGoodSelection();
     }
 
     public float GetPourcentageAvancementSlide()
