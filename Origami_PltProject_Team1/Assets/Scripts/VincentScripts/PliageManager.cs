@@ -17,6 +17,7 @@ public class PliageManager : MonoBehaviour
     //Animator qui va jouez les animations de pliage
     private Animator _animator = null;
 
+    [Header("Custom OrigamiManager")]
     //Timer de la durée de la vibrations une fois qu'un pliage est fini
     [SerializeField] private int _timeVibrationEndPliage = 50;
     //Gameobject utilisez pour montrez qu'elle partie doit ètre selectionnez pour le debut du pliage en cours
@@ -25,11 +26,13 @@ public class PliageManager : MonoBehaviour
     [SerializeField] [Range(0, 1)] private float speedReverseAnim = 1f; 
 
     //Indicateur du nombre de pliage effectuez pour parcourir la liste de tout les pliages à faires
-    public int indexPliage = 0;
+    private int indexPliage = 0;
 
     private bool _origamiIsFinish = false;
     private bool _reverseAnim = false;
+    private bool _currentFoldIsFinish = false;
 
+    [Header("TUTO")]
     [SerializeField] private Animator _handAnimator = null;
     [SerializeField] private GameObject _handGO = null;
 
@@ -50,6 +53,7 @@ public class PliageManager : MonoBehaviour
         //Récupération du pourcentage d'avancement entre le point de début et le point de fin du pliage actuel en cours en fontion du point ou l'on click
         float prctAvancementSlide = GetPourcentageAvancementSlide();
 
+        //TODO UPDATE COM
         //Si le pliage en cours est fini et que l'origami n'est pas fini
         //      Alors on fait vibrez le télephone
         //            on passe au pliage suivant
@@ -57,41 +61,47 @@ public class PliageManager : MonoBehaviour
         //          Alors on réinitialise les variables et on charges les nouvelles informations du prochain pliage
         //      Sinon on dit que l'origami est fini
         //
-        if (CurrentFoldsIsFinish() && !OrigamiIsFinish())
+        if ((CurrentFoldsIsFinish() || _currentFoldIsFinish) && !OrigamiIsFinish())
         {
-            Vibration.Vibrate(_timeVibrationEndPliage);
-            indexPliage++;
-            if (_listePliage.CanGoToFolding(indexPliage))
+            currentPliage.boundarySprite.color = currentPliage.colorValidationPliage;
+            _animator.speed = currentPliage.speedAnimAutoComplete;
+            _currentFoldIsFinish = true;
+            if (CurrentAnimIsFinish())
             {
-                SetUpCurrentPliage();
-            }
-            else
-            {
-                _boundaryAnimator.Play("Boundary");
-                _origamiIsFinish = true;
+                Vibration.Vibrate(_timeVibrationEndPliage);
+                indexPliage++;
+                if (_listePliage.CanGoToFolding(indexPliage))
+                {
+                    SetUpCurrentPliage();
+                }
+                else
+                {
+                    _boundaryAnimator.Play("Boundary");
+                    _origamiIsFinish = true;
+                }
             }
         }
 
-        //Si on arrètes de touchez l'écran ET qu'on avais bien sélectionnez le bont point de l'origamie ET que l'origamie n'est pas fini
+        //Si on arrète de touché l'écran ET qu'on avais bien sélectionnez le bont point de l'origamie ET que l'origamie n'est pas fini
         //      Alors on joue l'animation du pliage en cours à l'envers en calculant son bon point de départs pour que les deux animations soit sans discontinuité
         //Sinon Si on à le bont point de sélection ET que l'origamie n'est pas fini
         //      Alors on joue l'animations du pliage en cours en fonction du pourcentage d'avancement de notre doigts sur l'écran
         //
-        if (_pointSelectedOrigami.GetTouchPhase() == TouchPhase.Ended && _pointSelectedOrigami.AsStartesGoodSelection() && !OrigamiIsFinish())
+        if (!_currentFoldIsFinish && _pointSelectedOrigami.GetTouchPhase() == TouchPhase.Ended && _pointSelectedOrigami.AsStartesGoodSelection() && !OrigamiIsFinish())
         {
             _animator.Play(currentPliage.animToPlay.name + "_reverse", -1, 1 - prctAvancementSlide);
             _animator.speed = speedReverseAnim;
             _reverseAnim = true;
-            _cursorSelectPoint.SetActive(true);
+            SetActiveCursor(true);
         } 
-        else if (_pointSelectedOrigami.IsGoodSelections() && !OrigamiIsFinish())
+        else if (!_currentFoldIsFinish && _pointSelectedOrigami.IsGoodSelections() && !OrigamiIsFinish())
         {
             // Disable hand's gameobject
             _handGO.SetActive(false);
             _animator.Play(currentPliage.animToPlay.name, -1, prctAvancementSlide);
-            _animator.speed = 1;
+            _animator.speed = currentPliage.speedAnimAutoComplete;
             _reverseAnim = false;
-            _cursorSelectPoint.SetActive(false);
+            SetActiveCursor(false);
         }
     }
 
@@ -106,9 +116,11 @@ public class PliageManager : MonoBehaviour
         _pointSelectedOrigami.SetPointGoodSelection(currentPliage.goodPointSelection);
         _cursorSelectPoint.transform.position = currentPliage.goodPointSelection.position;
         _cursorSelectPoint.transform.rotation = currentPliage.goodPointSelection.rotation;
-        _cursorSelectPoint.SetActive(true);
+        SetActiveCursor(true);
         _animator.speed = 0;
         _animator.Play(currentPliage.animToPlay.name);
+        currentPliage.boundarySprite.color = currentPliage.colorBoundary;
+        _currentFoldIsFinish = false;
         if (currentPliage.boundaryAnim != null)
         {
             _boundaryAnimator.Play(currentPliage.boundaryAnim.name);
@@ -138,11 +150,23 @@ public class PliageManager : MonoBehaviour
         _animator.speed = 0;
         _animator.Play(currentPliage.animToPlay.name);
         _origamiIsFinish = false;
+        currentPliage.boundarySprite.color = currentPliage.colorBoundary;
+        _currentFoldIsFinish = false;
+    }
+
+    public void SetActiveCursor(bool value)
+    {
+        _cursorSelectPoint.SetActive(currentPliage.drawPointSelection && value);
+    }
+
+    public bool CurrentAnimIsFinish()
+    {
+        return _animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1;
     }
 
     public bool CurrentFoldsIsFinish()
     {
-        return GetPourcentageAvancementSlide() > 0.99f && !_reverseAnim && _pointSelectedOrigami.AsStartesGoodSelection();
+        return GetPourcentageAvancementSlide() > currentPliage.prctMinValueToCompleteFold && !_reverseAnim && _pointSelectedOrigami.AsStartesGoodSelection();
     }
 
     public float GetPourcentageAvancementSlide()

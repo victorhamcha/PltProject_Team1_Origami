@@ -124,6 +124,12 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!212 &955796 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 7307688660726701865, guid: 18e15444221144545a18dc324530c6ed,
+    type: 3}
+  m_PrefabInstance: {fileID: 2682033412255680901}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8134056
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -213,6 +219,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: 822078195004afa42af778bb527817b9,
     type: 3}
   m_PrefabInstance: {fileID: 8134056}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &25142618 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 1857253557999553183, guid: 18e15444221144545a18dc324530c6ed,
+    type: 3}
+  m_PrefabInstance: {fileID: 2682033412255680901}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &32775673
 PrefabInstance:
@@ -25951,6 +25963,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1952516792}
   m_PrefabAsset: {fileID: 0}
+--- !u!212 &1962921598 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 3877472542041872829, guid: 18e15444221144545a18dc324530c6ed,
+    type: 3}
+  m_PrefabInstance: {fileID: 2682033412255680901}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1963157930
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -27939,6 +27957,10 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 7384846688358519091}
+    - target: {fileID: 593545715, guid: 6fdfa3207973704449ff05eb63712168, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1373722584682801418, guid: 6fdfa3207973704449ff05eb63712168,
         type: 3}
       propertyPath: m_Name
@@ -28004,7 +28026,8 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 7384846688358519091}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 593545715, guid: 6fdfa3207973704449ff05eb63712168, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 6fdfa3207973704449ff05eb63712168, type: 3}
 --- !u!1001 &2131900424
 PrefabInstance:
@@ -28405,6 +28428,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1913366355187751459, guid: 18e15444221144545a18dc324530c6ed,
+        type: 3}
+      propertyPath: prctMinValueToCompleteFold
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1913366355187751459, guid: 18e15444221144545a18dc324530c6ed,
+        type: 3}
+      propertyPath: speedAnimAutoComplete
+      value: 0.27
+      objectReference: {fileID: 0}
     - target: {fileID: 2682033411727859386, guid: 18e15444221144545a18dc324530c6ed,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -28464,6 +28497,76 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Origami
+      objectReference: {fileID: 0}
+    - target: {fileID: 2858537368415808029, guid: 18e15444221144545a18dc324530c6ed,
+        type: 3}
+      propertyPath: allPliageToDo.Array.data[0].speedAnimAutoComplete
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2858537368415808029, guid: 18e15444221144545a18dc324530c6ed,
+        type: 3}
+      propertyPath: allPliageToDo.Array.data[1].drawPointSelection
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2858537368415808029, guid: 18e15444221144545a18dc324530c6ed,
+        type: 3}
+      propertyPath: allPliageToDo.Array.data[3].drawPointSelection
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2858537368415808029, guid: 18e15444221144545a18dc324530c6ed,
+        type: 3}
+      propertyPath: allPliageToDo.Array.data[0].prctMinValueToCompleteFold
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 2858537368415808029, guid: 18e15444221144545a18dc324530c6ed,
+        type: 3}
+      propertyPath: allPliageToDo.Array.data[1].prctMinValueToCompleteFold
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 2858537368415808029, guid: 18e15444221144545a18dc324530c6ed,
+        type: 3}
+      propertyPath: allPliageToDo.Array.data[2].prctMinValueToCompleteFold
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 2858537368415808029, guid: 18e15444221144545a18dc324530c6ed,
+        type: 3}
+      propertyPath: allPliageToDo.Array.data[0].boundarySprite
+      value: 
+      objectReference: {fileID: 1962921598}
+    - target: {fileID: 2858537368415808029, guid: 18e15444221144545a18dc324530c6ed,
+        type: 3}
+      propertyPath: allPliageToDo.Array.data[1].boundarySprite
+      value: 
+      objectReference: {fileID: 955796}
+    - target: {fileID: 2858537368415808029, guid: 18e15444221144545a18dc324530c6ed,
+        type: 3}
+      propertyPath: allPliageToDo.Array.data[2].boundarySprite
+      value: 
+      objectReference: {fileID: 25142618}
+    - target: {fileID: 2858537368415808029, guid: 18e15444221144545a18dc324530c6ed,
+        type: 3}
+      propertyPath: allPliageToDo.Array.data[3].boundarySprite
+      value: 
+      objectReference: {fileID: 955796}
+    - target: {fileID: 2858537368415808029, guid: 18e15444221144545a18dc324530c6ed,
+        type: 3}
+      propertyPath: allPliageToDo.Array.data[3].prctMinValueToCompleteFold
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 2858537368415808029, guid: 18e15444221144545a18dc324530c6ed,
+        type: 3}
+      propertyPath: allPliageToDo.Array.data[3].speedAnimAutoComplete
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2858537368415808029, guid: 18e15444221144545a18dc324530c6ed,
+        type: 3}
+      propertyPath: allPliageToDo.Array.data[2].speedAnimAutoComplete
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2858537368415808029, guid: 18e15444221144545a18dc324530c6ed,
+        type: 3}
+      propertyPath: allPliageToDo.Array.data[1].speedAnimAutoComplete
+      value: 0.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 18e15444221144545a18dc324530c6ed, type: 3}
