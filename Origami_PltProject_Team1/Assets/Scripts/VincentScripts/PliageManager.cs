@@ -112,6 +112,15 @@ public class PliageManager : MonoBehaviour
 
     public void SetUpCurrentPliage()
     {
+        if (OrigamiIsFinish())
+        {
+            _animator.Play(currentPliage.animToPlay.name, -1 , 1);
+            _boundaryAnimator.Play("Boundary");
+            _handGO.SetActive(false);
+            SetActiveCursor(false);
+            _animator.speed = 0;
+            return;
+        }
         currentPliage = _listePliage.GetPliage(indexPliage);
         _pointSelectedOrigami.SetPointGoodSelection(currentPliage.goodPointSelection);
         _cursorSelectPoint.transform.position = currentPliage.goodPointSelection.position;
