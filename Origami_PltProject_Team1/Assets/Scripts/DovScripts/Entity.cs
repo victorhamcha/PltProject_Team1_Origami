@@ -145,9 +145,11 @@ public class Entity : MonoBehaviour
 
     public void MoveStop()
     {
-        _moveDestination = Vector3.zero;
-        _isMovingToDestination = false;
         moveModeOn = false;
+    }
+    public void MovePlay()
+    {
+        moveModeOn = true;
     }
 
     public void MoveToDestination(Vector3 destination)
