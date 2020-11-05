@@ -14,12 +14,14 @@ public class TopDownController : MonoBehaviour
     {
         if (entity.moveModeOn)
         {
+            Vector3 touchPos = Vector3.zero;
+
             if (Input.touchCount > 0)
             {
                 Touch touch = Input.GetTouch(0);
 
-                Vector3 touchPos = new Vector3(touch.position.x, touch.position.y, 0);
-                Ray ray = Camera.main.ScreenPointToRay(touchPos);
+                touchPos = new Vector3(touch.position.x, touch.position.y, 0);
+            Ray ray = Camera.main.ScreenPointToRay(touchPos);
 
                 RaycastHit hit;
                 // Does the ray intersect any objects excluding the player layer
@@ -33,8 +35,9 @@ public class TopDownController : MonoBehaviour
                     Debug.DrawRay(ray.origin, ray.direction * 1000, Color.red);
                     Debug.Log("Did not Hit");
                 }
-
             }
+
+            
         }
 
     }
