@@ -49,18 +49,7 @@ public class PliageManager : MonoBehaviour
         if (currentPliage != null)
         {
             //Initialisation du premier pliage
-            _pointSelectedOrigami.SetPointGoodSelection(currentPliage.goodPointSelection);
-            _cursorSelectPoint.transform.position = currentPliage.goodPointSelection.position;
-            _cursorSelectPoint.transform.rotation = currentPliage.goodPointSelection.rotation;
-            _animator.Play(currentPliage.animToPlay.name);
-            if (currentPliage.boundaryAnim != null)
-            {
-                _boundaryAnimator.Play(currentPliage.boundaryAnim.name);
-            }
-            else
-            {
-                _boundaryAnimator.Play("Boundary");
-            }
+            SetUpCurrentPliage();
         }
 
         //Set de la speed de l'animator à 0 pour évitez que l'animations se joue dés le debuts
@@ -85,33 +74,8 @@ public class PliageManager : MonoBehaviour
             indexPliage++;
             if (_listePliage.CanGoToFolding(indexPliage))
             {
-                
                 currentPliage = _listePliage.GetPliage(indexPliage);
-
-                _pointSelectedOrigami.SetPointGoodSelection(currentPliage.goodPointSelection);
-                _cursorSelectPoint.transform.position = currentPliage.goodPointSelection.position;
-                _cursorSelectPoint.transform.rotation = currentPliage.goodPointSelection.rotation;
-                _cursorSelectPoint.SetActive(true);
-                _animator.speed = 0;
-                _animator.Play(currentPliage.animToPlay.name);
-                if (currentPliage.boundaryAnim != null)
-                {
-                    _boundaryAnimator.Play(currentPliage.boundaryAnim.name);
-                }
-                else
-                {
-                    _boundaryAnimator.Play("Boundary");
-                }
-
-                if (currentPliage.isConfirmationPliage)
-                {
-                    // Enable hand's Gameobject
-                    _handGO.SetActive(true);
-
-                    // Enable hand's animation
-                    _handAnimator.Play(currentPliage.handAnim.name);
-                }
-                
+                SetUpCurrentPliage();
             }
             else
             {
@@ -146,6 +110,33 @@ public class PliageManager : MonoBehaviour
     public bool OrigamiIsFinish()
     {
         return _origamiIsFinish;
+    }
+
+    public void SetUpCurrentPliage()
+    {
+        _pointSelectedOrigami.SetPointGoodSelection(currentPliage.goodPointSelection);
+        _cursorSelectPoint.transform.position = currentPliage.goodPointSelection.position;
+        _cursorSelectPoint.transform.rotation = currentPliage.goodPointSelection.rotation;
+        _cursorSelectPoint.SetActive(true);
+        _animator.speed = 0;
+        _animator.Play(currentPliage.animToPlay.name);
+        if (currentPliage.boundaryAnim != null)
+        {
+            _boundaryAnimator.Play(currentPliage.boundaryAnim.name);
+        }
+        else
+        {
+            _boundaryAnimator.Play("Boundary");
+        }
+
+        if (currentPliage.isConfirmationPliage)
+        {
+            // Enable hand's Gameobject
+            _handGO.SetActive(true);
+
+            // Enable hand's animation
+            _handAnimator.Play(currentPliage.handAnim.name);
+        }
     }
 
     public void ResetPliage()

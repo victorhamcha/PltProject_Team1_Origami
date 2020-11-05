@@ -13,6 +13,8 @@ public class SwitchModePlayerOrigami : MonoBehaviour
     [SerializeField] private float _maxBlurValue = 0.01f;
     [SerializeField] private float _minBlurValue = 0f;
 
+    private PliageManager _pliageManager = null;
+
     private bool _switchModeOrigami = false;
     private bool _isOnModeOrigami = false;
     private bool _isOnReverseAnim = false;
@@ -27,6 +29,12 @@ public class SwitchModePlayerOrigami : MonoBehaviour
     {
         _movementPlayer = GetComponent<Entity>();
         _blurMaterial.SetFloat("BlurValue", 0);
+
+        _pliageManager = _pliageToDo.GetComponent<PliageManager>();
+        if (_pliageManager == null)
+        {
+            Debug.LogError("PliageManager not found on ''PliageToDo'' object.");
+        }
 
         _speedMax = _movementPlayer._speedMax;
         _animatorFadeOrigami.speed = 0;
@@ -68,9 +76,13 @@ public class SwitchModePlayerOrigami : MonoBehaviour
                 _animatorFadeOrigami.speed = 1;
                 _pliageToDo.SetActive(true);
                 _isOnReverseAnim = false;
+
+                _pliageManager.SetUpCurrentPliage();
+
             }
             else
             {
+                _movementPlayer.MoveStop();
                 _movementPlayer._speedMax = _speedMax;
                 _animatorFadeOrigami.Play(_animFadeIn.name+"_reverse", -1, 0);
                 _isOnReverseAnim = true;

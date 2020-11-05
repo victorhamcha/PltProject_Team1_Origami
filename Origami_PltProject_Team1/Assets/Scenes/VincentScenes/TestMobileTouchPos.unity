@@ -1687,12 +1687,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 160926219}
   m_PrefabAsset: {fileID: 0}
---- !u!20 &169851709 stripped
-Camera:
-  m_CorrespondingSourceObject: {fileID: 1373722586243731216, guid: 6fdfa3207973704449ff05eb63712168,
-    type: 3}
-  m_PrefabInstance: {fileID: 2131192454}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &185444499
 GameObject:
   m_ObjectHideFlags: 0
@@ -10958,34 +10952,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 705030069, guid: 0bc1af0164357a149a3b43fa33190f8f, type: 3}
+    - target: {fileID: 1105344191, guid: 0bc1af0164357a149a3b43fa33190f8f, type: 3}
       propertyPath: _animatorFadeOrigami
       value: 
       objectReference: {fileID: 1686573299}
-    - target: {fileID: 705030069, guid: 0bc1af0164357a149a3b43fa33190f8f, type: 3}
+    - target: {fileID: 1105344191, guid: 0bc1af0164357a149a3b43fa33190f8f, type: 3}
       propertyPath: _pliageToDo
       value: 
       objectReference: {fileID: 2079342813}
-    - target: {fileID: 705030069, guid: 0bc1af0164357a149a3b43fa33190f8f, type: 3}
+    - target: {fileID: 1105344191, guid: 0bc1af0164357a149a3b43fa33190f8f, type: 3}
       propertyPath: _origamie
       value: 
       objectReference: {fileID: 553523007}
-    - target: {fileID: 705030069, guid: 0bc1af0164357a149a3b43fa33190f8f, type: 3}
+    - target: {fileID: 1105344191, guid: 0bc1af0164357a149a3b43fa33190f8f, type: 3}
       propertyPath: _posPliageToFaceCam
       value: 
       objectReference: {fileID: 833395332}
-    - target: {fileID: 705030069, guid: 0bc1af0164357a149a3b43fa33190f8f, type: 3}
-      propertyPath: _maxBlurValue
-      value: 0.005
-      objectReference: {fileID: 0}
-    - target: {fileID: 705030069, guid: 0bc1af0164357a149a3b43fa33190f8f, type: 3}
-      propertyPath: mainCam
-      value: 
-      objectReference: {fileID: 169851709}
-    - target: {fileID: 705030069, guid: 0bc1af0164357a149a3b43fa33190f8f, type: 3}
-      propertyPath: blurCam
-      value: 
-      objectReference: {fileID: 593545717}
     - target: {fileID: 7384846687720814210, guid: 0bc1af0164357a149a3b43fa33190f8f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -14588,11 +14570,6 @@ PrefabInstance:
       propertyPath: entity
       value: 
       objectReference: {fileID: 7384846688358519095}
-    - target: {fileID: 2617010158252357727, guid: 4da0208d64983c140b330d229ca8d35c,
-        type: 3}
-      propertyPath: playerMask.m_Bits
-      value: 1024
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4da0208d64983c140b330d229ca8d35c, type: 3}
 --- !u!1001 &1011487141
@@ -14955,18 +14932,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1035471064}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1046397943 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 705030069, guid: 0bc1af0164357a149a3b43fa33190f8f,
-    type: 3}
-  m_PrefabInstance: {fileID: 705030065}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 49afb7568732d76488b52efcc0ed380e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1050058752
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22272,7 +22237,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1046397943}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: SwitchModePlayerOrigami, Assembly-CSharp
         m_MethodName: SwitchMode
         m_Mode: 1
@@ -27954,55 +27919,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 513801450, guid: 6fdfa3207973704449ff05eb63712168, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 513801451, guid: 6fdfa3207973704449ff05eb63712168, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -17.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 513801451, guid: 6fdfa3207973704449ff05eb63712168, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 47.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 513801452, guid: 6fdfa3207973704449ff05eb63712168, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 066b0d08d4d505a47b8ab6f5a17793a4,
-        type: 3}
-    - target: {fileID: 513801452, guid: 6fdfa3207973704449ff05eb63712168, type: 3}
-      propertyPath: m_Size.x
-      value: 0.16
-      objectReference: {fileID: 0}
-    - target: {fileID: 513801452, guid: 6fdfa3207973704449ff05eb63712168, type: 3}
-      propertyPath: m_Size.y
-      value: 0.16
-      objectReference: {fileID: 0}
-    - target: {fileID: 513801452, guid: 6fdfa3207973704449ff05eb63712168, type: 3}
-      propertyPath: m_WasSpriteAssigned
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 593545715, guid: 6fdfa3207973704449ff05eb63712168, type: 3}
       propertyPath: target
       value: 
       objectReference: {fileID: 7384846688358519091}
-    - target: {fileID: 1550921868, guid: 6fdfa3207973704449ff05eb63712168, type: 3}
-      propertyPath: m_ClearFlags
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1550921868, guid: 6fdfa3207973704449ff05eb63712168, type: 3}
-      propertyPath: m_BackGroundColor.r
-      value: 0.57254905
-      objectReference: {fileID: 0}
-    - target: {fileID: 1550921868, guid: 6fdfa3207973704449ff05eb63712168, type: 3}
-      propertyPath: m_BackGroundColor.g
-      value: 0.7372549
-      objectReference: {fileID: 0}
-    - target: {fileID: 1550921868, guid: 6fdfa3207973704449ff05eb63712168, type: 3}
-      propertyPath: m_BackGroundColor.b
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1373722584682801418, guid: 6fdfa3207973704449ff05eb63712168,
         type: 3}
       propertyPath: m_Name
@@ -28062,26 +27982,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1373722586243731216, guid: 6fdfa3207973704449ff05eb63712168,
-        type: 3}
-      propertyPath: m_ClearFlags
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1373722586243731216, guid: 6fdfa3207973704449ff05eb63712168,
-        type: 3}
-      propertyPath: m_BackGroundColor.r
-      value: 0.5707547
-      objectReference: {fileID: 0}
-    - target: {fileID: 1373722586243731216, guid: 6fdfa3207973704449ff05eb63712168,
-        type: 3}
-      propertyPath: m_BackGroundColor.g
-      value: 0.7376834
-      objectReference: {fileID: 0}
-    - target: {fileID: 1373722586243731216, guid: 6fdfa3207973704449ff05eb63712168,
-        type: 3}
-      propertyPath: m_BackGroundColor.b
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1373722586243731219, guid: 6fdfa3207973704449ff05eb63712168,
         type: 3}
@@ -28548,11 +28448,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Origami
-      objectReference: {fileID: 0}
-    - target: {fileID: 9093960782221016547, guid: 18e15444221144545a18dc324530c6ed,
-        type: 3}
-      propertyPath: m_BlendShapeWeights.Array.data[1]
-      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 18e15444221144545a18dc324530c6ed, type: 3}
