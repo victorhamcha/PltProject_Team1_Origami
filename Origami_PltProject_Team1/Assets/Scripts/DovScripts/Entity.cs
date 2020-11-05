@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.AI;
 
 public class Entity : MonoBehaviour
 {
@@ -71,6 +74,10 @@ public class Entity : MonoBehaviour
 
     //Pathfinding
     [SerializeField] private bool usePathFinding = false;
+    [SerializeField] private float refreshPathDuration = 0f;
+    [SerializeField] private float refreshPathCountDown = 0f;
+    [SerializeField] private int followPathIndex = 0;
+    private NavMeshPath path;
 
     //Debug
     [Header("Debug")]
