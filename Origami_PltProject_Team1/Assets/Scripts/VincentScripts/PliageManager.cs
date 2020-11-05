@@ -50,9 +50,6 @@ public class PliageManager : MonoBehaviour
 
     void Update()
     {
-        //Récupération du pourcentage d'avancement entre le point de début et le point de fin du pliage actuel en cours en fontion du point ou l'on click
-        float prctAvancementSlide = GetPourcentageAvancementSlide();
-
         //TODO UPDATE COM
         //Si le pliage en cours est fini et que l'origami n'est pas fini
         //      Alors on fait vibrez le télephone
@@ -61,26 +58,31 @@ public class PliageManager : MonoBehaviour
         //          Alors on réinitialise les variables et on charges les nouvelles informations du prochain pliage
         //      Sinon on dit que l'origami est fini
         //
-        if ((CurrentFoldsIsFinish() || _currentFoldIsFinish) && !OrigamiIsFinish())
+        if (CurrentFoldsIsFinish() && !OrigamiIsFinish())
         {
             currentPliage.boundarySprite.color = currentPliage.colorValidationPliage;
             _animator.speed = currentPliage.speedAnimAutoComplete;
             _currentFoldIsFinish = true;
-            if (CurrentAnimIsFinish())
+            
+        }
+
+        if (_currentFoldIsFinish && CurrentAnimIsFinish() && !OrigamiIsFinish())
+        {
+            Vibration.Vibrate(_timeVibrationEndPliage);
+            indexPliage++;
+            if (_listePliage.CanGoToFolding(indexPliage))
             {
-                Vibration.Vibrate(_timeVibrationEndPliage);
-                indexPliage++;
-                if (_listePliage.CanGoToFolding(indexPliage))
-                {
-                    SetUpCurrentPliage();
-                }
-                else
-                {
-                    _boundaryAnimator.Play("Boundary");
-                    _origamiIsFinish = true;
-                }
+                SetUpCurrentPliage();
+            }
+            else
+            {
+                _boundaryAnimator.Play("Boundary");
+                _origamiIsFinish = true;
             }
         }
+
+        //Récupération du pourcentage d'avancement entre le point de début et le point de fin du pliage actuel en cours en fontion du point ou l'on click
+        float prctAvancementSlide = GetPourcentageAvancementSlide();
 
         //Si on arrète de touché l'écran ET qu'on avais bien sélectionnez le bont point de l'origamie ET que l'origamie n'est pas fini
         //      Alors on joue l'animation du pliage en cours à l'envers en calculant son bon point de départs pour que les deux animations soit sans discontinuité
