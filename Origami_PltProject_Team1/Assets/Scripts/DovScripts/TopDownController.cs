@@ -12,26 +12,29 @@ public class TopDownController : MonoBehaviour
 
     void Update()
     {
-        if (Input.touchCount > 0)
+        if (entity.moveModeOn)
         {
-            Touch touch = Input.GetTouch(0);
-
-            Vector3 touchPos = new Vector3(touch.position.x, touch.position.y, 0);
-            Ray ray = Camera.main.ScreenPointToRay(touchPos);
-
-            RaycastHit hit;
-            // Does the ray intersect any objects excluding the player layer
-            if (Physics.Raycast(ray.origin, ray.direction, out hit, Mathf.Infinity, playerMask))
+            if (Input.touchCount > 0)
             {
-                Debug.DrawRay(ray.origin, ray.direction * hit.distance, Color.green);
-                entity.MoveToDestination(hit.point);
-            }
-            else
-            {
-                Debug.DrawRay(ray.origin, ray.direction * 1000, Color.red);
-                Debug.Log("Did not Hit");
-            }
+                Touch touch = Input.GetTouch(0);
 
+                Vector3 touchPos = new Vector3(touch.position.x, touch.position.y, 0);
+                Ray ray = Camera.main.ScreenPointToRay(touchPos);
+
+                RaycastHit hit;
+                // Does the ray intersect any objects excluding the player layer
+                if (Physics.Raycast(ray.origin, ray.direction, out hit, Mathf.Infinity, playerMask))
+                {
+                    Debug.DrawRay(ray.origin, ray.direction * hit.distance, Color.green);
+                    entity.MoveToDestination(hit.point);
+                }
+                else
+                {
+                    Debug.DrawRay(ray.origin, ray.direction * 1000, Color.red);
+                    Debug.Log("Did not Hit");
+                }
+
+            }
         }
 
     }

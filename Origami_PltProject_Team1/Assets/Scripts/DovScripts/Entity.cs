@@ -69,12 +69,16 @@ public class Entity : MonoBehaviour
     private float _offsetvalue = 0f;
     [SerializeField] private AnimationCurve _rotatorCurve = AnimationCurve.Linear(0f, 0f, 1f, 1f);
 
+    //Pathfinding
+    [SerializeField] private bool usePathFinding = false;
 
     //Debug
     [Header("Debug")]
     [SerializeField] private bool _guiDebug = true;
 
     private Rigidbody _rigidbody = null;
+    public bool moveModeOn = true;
+
 
     #endregion
 
@@ -136,6 +140,7 @@ public class Entity : MonoBehaviour
     {
         _moveDestination = Vector3.zero;
         _isMovingToDestination = false;
+        moveModeOn = false;
     }
 
     public void MoveToDestination(Vector3 destination)
