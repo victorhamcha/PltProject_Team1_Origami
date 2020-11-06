@@ -136,9 +136,9 @@ public class Entity : MonoBehaviour
         if (_accelerationTimer < _accelerationDuration) {
             GUILayout.Label("Acceleration Timer = " + _accelerationTimer, guiStyle);
         }
-        if (_frictionsTimer < _frictionsDuration) {
-            GUILayout.Label("Frictions Timer = " + _accelerationTimer, guiStyle);
-        }
+        //if (_frictionsTimer < _frictionsDuration) {
+        //    GUILayout.Label("Frictions Timer = " + _accelerationTimer, guiStyle);
+        //}
     }
 
     #endregion
@@ -234,9 +234,7 @@ public class Entity : MonoBehaviour
                     RefreshPath();
                 }
 
-
-                //if (IsNearPoint(path.corners[followPathIndex], pathRange))
-                if(Vector3.Distance(path.corners[followPathIndex], transform.position) < 1f)
+                if(Vector3.Distance(path.corners[followPathIndex], transform.position) < 2f)
                 {
                     followPathIndex++;
                     if (followPathIndex < path.corners.Length)
@@ -259,11 +257,11 @@ public class Entity : MonoBehaviour
         if (isMoving) {
             if (_velocity != Vector3.zero) {
                 if (Vector3.Dot(_previousMoveDir, _moveDir) < 0f) {
-                    _StartTurnAround();
+                    //_StartTurnAround();
                 } else {
                     float angle = Vector3.Angle(_previousMoveDir, _moveDir);
                     if (angle > _turnAngleMin) {
-                        _StartTurn(angle);
+                        //_StartTurn(angle);
                     }
                 }
             } else {
@@ -271,7 +269,7 @@ public class Entity : MonoBehaviour
             }
 
             if (_isTurningAround) {
-                _velocity = _ApplyTurnAround(_velocity);
+                //_velocity = _ApplyTurnAround(_velocity);
             } else {
                 Vector3 velocity = _ApplyAcceleration();
                 _velocity = _ApplyTurn(velocity);
@@ -280,9 +278,9 @@ public class Entity : MonoBehaviour
 
             _previousMoveDir = _moveDir;
         } else {
-            if (_wasMoving) {
+            /*if (_wasMoving) {
                 _StartFrictions();
-            }
+            }*/
 
 
             if (_isMovingToDestination)
@@ -307,7 +305,7 @@ public class Entity : MonoBehaviour
             _isTurning = false;
             _isTurningAround = false;
 
-            _velocity = _ApplyFrictions(_velocity);
+            //_velocity = _ApplyFrictions(_velocity);
         }
 
         _wasMoving = isMoving;
