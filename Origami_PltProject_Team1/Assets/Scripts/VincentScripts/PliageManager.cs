@@ -24,6 +24,7 @@ public class PliageManager : MonoBehaviour
     [SerializeField] private int _timeVibrationEndPliage = 50;
     //Gameobject utilisez pour montrez qu'elle partie doit ètre selectionnez pour le debut du pliage en cours
     [SerializeField] private GameObject _cursorSelectPoint = null;
+    [SerializeField] private GameObject _cursorEndPointSelect = null;
     //Vitesse de l'animations du pliage lorsque l'on relache le pliage
     [SerializeField] [Range(0, 1)] private float speedReverseAnim = 1f;
 
@@ -40,7 +41,10 @@ public class PliageManager : MonoBehaviour
 
     [Header("Boundary Manager")]
     [SerializeField] private Animator _boundaryAnimator = null;
-    
+
+    [Header("Feedback Origami")]
+    [SerializeField] private Animator _animatorOrigami = null;
+    [SerializeField] private AnimationClip _animFeedBack = null;
 
     [Header("Séquenceur")]
     [SerializeField] private float _fixingTimer = 1.0f;
@@ -65,8 +69,8 @@ public class PliageManager : MonoBehaviour
         //Si le pliage en cours est fini et que l'origami n'est pas fini
         //      Alors on fait vibrez le télephone
         //            on passe au pliage suivant
-        //      Si il y à bien un prochain pliage
-        //          Alors on réinitialise les variables et on charges les nouvelles informations du prochain pliage
+        //      Si il y a bien un prochain pliage
+        //          Alors on réinitialise les variables et on charge les nouvelles informations du prochain pliage
         //      Sinon on dit que l'origami est fini
         //
 
@@ -77,11 +81,16 @@ public class PliageManager : MonoBehaviour
             currentPliage.boundarySprite.color = currentPliage.colorValidationPliage;
             _animator.speed = currentPliage.speedAnimAutoComplete;
             _currentFoldIsFinish = true;
-
-            if(!currentPliage.playedParticleOnce && !currentPliage.isConfirmationPliage)
+            _cursorEndPointSelect.SetActive(false);
+            if (!currentPliage.playedParticleOnce && !currentPliage.isConfirmationPliage)
             {
                 StartCoroutine("BoundariesFeedback");
                 currentPliage.playedParticleOnce = true;
+            }
+            if (currentPliage.playedBounceOnce)
+            {
+                currentPliage.playedBounceOnce = false;
+                _animatorOrigami.Play(_animFeedBack.name, -1, 0);
             }
             
         }
@@ -153,6 +162,8 @@ public class PliageManager : MonoBehaviour
         _pointSelectedOrigami.SetPointGoodSelection(currentPliage.goodPointSelection);
         _cursorSelectPoint.transform.position = currentPliage.goodPointSelection.position;
         _cursorSelectPoint.transform.rotation = currentPliage.goodPointSelection.rotation;
+        _cursorEndPointSelect.transform.position = currentPliage.endPointSelection.position;
+        _cursorEndPointSelect.transform.rotation = currentPliage.endPointSelection.rotation;
         SetActiveCursor(true);
         _animator.speed = 0;
         _animator.Play(currentPliage.animToPlay.name);
@@ -184,6 +195,8 @@ public class PliageManager : MonoBehaviour
         _pointSelectedOrigami.SetPointGoodSelection(currentPliage.goodPointSelection);
         _cursorSelectPoint.transform.position = currentPliage.goodPointSelection.position;
         _cursorSelectPoint.transform.rotation = currentPliage.goodPointSelection.rotation;
+        _cursorEndPointSelect.transform.position = currentPliage.endPointSelection.position;
+        _cursorEndPointSelect.transform.rotation = currentPliage.endPointSelection.rotation;
         _animator.speed = 0;
         _animator.Play(currentPliage.animToPlay.name);
         _origamiIsFinish = false;
@@ -194,6 +207,7 @@ public class PliageManager : MonoBehaviour
     public void SetActiveCursor(bool value)
     {
         _cursorSelectPoint.SetActive(currentPliage.drawPointSelection && value);
+        _cursorEndPointSelect.SetActive(currentPliage.drawPointSelection && !value);
     }
 
     public bool CurrentAnimIsFinish()

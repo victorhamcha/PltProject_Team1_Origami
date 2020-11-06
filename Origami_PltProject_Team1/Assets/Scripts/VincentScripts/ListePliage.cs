@@ -23,6 +23,7 @@ public class Pliage
     [Header("Particle Manager")]
     public List<ParticleSystem> listBoundaryParticle = new List<ParticleSystem>();
     public bool playedParticleOnce = false;
+    public bool playedBounceOnce = false;
 
     [Header("Auto Complete")]
     //Pourcentage to auto complete le pliage en cours
