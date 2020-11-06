@@ -34,6 +34,7 @@ public class TopDownController : MonoBehaviour
                 {
                     Debug.DrawRay(ray.origin, ray.direction * 1000, Color.red);
                     Debug.Log("Did not Hit");
+                    entity.MoveStop2();
                 }
             }
 

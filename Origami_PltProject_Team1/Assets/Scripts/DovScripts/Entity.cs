@@ -155,6 +155,12 @@ public class Entity : MonoBehaviour
         moveModeOn = false;
         _moveDestination = Vector3.zero;
     }
+
+    public void MoveStop2()
+    {
+        _moveDestination = Vector3.zero;
+        _velocity = Vector3.zero;
+    }
     public void MovePlay()
     {
         moveModeOn = true;
@@ -433,7 +439,8 @@ public class Entity : MonoBehaviour
         else
         {
             _isMovingToDestination = false;
-            Move(Vector3.zero);
+            //Move(Vector3.zero);
+            _velocity = Vector3.zero;
             path.ClearCorners();
             Debug.LogWarning("Path not found");
         }
