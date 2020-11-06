@@ -20,6 +20,11 @@ public class Pliage
     public Color colorBoundary = Color.red;
     public bool drawPointSelection = true;
 
+    [Header("Particle Manager")]
+    public List<ParticleSystem> listBoundaryParticle = new List<ParticleSystem>();
+    public bool playedParticleOnce = false;
+
+    [Header("Auto Complete")]
     //Pourcentage to auto complete le pliage en cours
     [Range(0, 1)] public float prctMinValueToCompleteFold = 0.5f;
     //Vitesse de l'auto Complete

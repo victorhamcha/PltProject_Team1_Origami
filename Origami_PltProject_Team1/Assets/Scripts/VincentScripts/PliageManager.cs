@@ -38,9 +38,14 @@ public class PliageManager : MonoBehaviour
     [SerializeField] private Animator _handAnimator = null;
     [SerializeField] private GameObject _handGO = null;
 
+    [Header("Boundary Manager")]
     [SerializeField] private Animator _boundaryAnimator = null;
-    [SerializeField] private List<ParticleSystem> listBoundaryParticle = new List<ParticleSystem>();
-    private bool playedParticleOnce = false;
+    
+
+    [Header("Séquenceur")]
+    [SerializeField] private float _fixingTimer = 1.0f;
+    private float _decrementingTimer = 0.0f;
+    
 
     void Awake()
     {
@@ -51,6 +56,7 @@ public class PliageManager : MonoBehaviour
 
         //Set de la speed de l'animator à 0 pour évitez que l'animations se joue dés le debuts
         _animator.speed = 0;
+        _decrementingTimer = _fixingTimer;
     }
 
     void Update()
@@ -63,22 +69,31 @@ public class PliageManager : MonoBehaviour
         //          Alors on réinitialise les variables et on charges les nouvelles informations du prochain pliage
         //      Sinon on dit que l'origami est fini
         //
+
+        
         if (CurrentFoldsIsFinish() && !OrigamiIsFinish())
         {
+            
             currentPliage.boundarySprite.color = currentPliage.colorValidationPliage;
             _animator.speed = currentPliage.speedAnimAutoComplete;
             _currentFoldIsFinish = true;
 
-            if(!playedParticleOnce)
+            if(!currentPliage.playedParticleOnce && !currentPliage.isConfirmationPliage)
             {
                 StartCoroutine("BoundariesFeedback");
-                playedParticleOnce = true;
+                currentPliage.playedParticleOnce = true;
             }
             
         }
 
-        if (_currentFoldIsFinish && CurrentAnimIsFinish() && !OrigamiIsFinish())
+        if(_currentFoldIsFinish && !OrigamiIsFinish())
         {
+            _decrementingTimer -= Time.deltaTime;
+        }
+
+        if (_currentFoldIsFinish && CurrentAnimIsFinish() && !OrigamiIsFinish() && _decrementingTimer <= 0.0f)
+        {
+            _decrementingTimer = _fixingTimer;
             Vibration.Vibrate(_timeVibrationEndPliage);
             indexPliage++;
             if (_listePliage.CanGoToFolding(indexPliage))
@@ -208,11 +223,16 @@ public class PliageManager : MonoBehaviour
 
     IEnumerator BoundariesFeedback()
     {
-        for (int i = 0; i < listBoundaryParticle.Count; i++)
+       
+        Debug.Log(currentPliage);
+        for (int i = 0; i < currentPliage.listBoundaryParticle.Count; i++)
         {
-            listBoundaryParticle[i].Play();
-            Debug.Log(listBoundaryParticle[i].name);
+            currentPliage.listBoundaryParticle[i].Play();
+            
         }
-        yield return new WaitForSeconds(0.0f);
+        
+        currentPliage.playedParticleOnce = false;
+        yield return new WaitForSeconds(0.1f);
+
     }
 }
