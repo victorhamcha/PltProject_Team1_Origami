@@ -1,4 +1,6 @@
-﻿using TMPro;
+﻿using System.Collections;
+using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 [RequireComponent(typeof(SelectPointOrigami))]
@@ -23,7 +25,7 @@ public class PliageManager : MonoBehaviour
     //Gameobject utilisez pour montrez qu'elle partie doit ètre selectionnez pour le debut du pliage en cours
     [SerializeField] private GameObject _cursorSelectPoint = null;
     //Vitesse de l'animations du pliage lorsque l'on relache le pliage
-    [SerializeField] [Range(0, 1)] private float speedReverseAnim = 1f; 
+    [SerializeField] [Range(0, 1)] private float speedReverseAnim = 1f;
 
     //Indicateur du nombre de pliage effectuez pour parcourir la liste de tout les pliages à faires
     private int indexPliage = 0;
@@ -37,9 +39,12 @@ public class PliageManager : MonoBehaviour
     [SerializeField] private GameObject _handGO = null;
 
     [SerializeField] private Animator _boundaryAnimator = null;
+    [SerializeField] private List<ParticleSystem> listBoundaryParticle = new List<ParticleSystem>();
+    private bool playedParticleOnce = false;
 
     void Awake()
     {
+        
         _pointSelectedOrigami = GetComponent<SelectPointOrigami>();
         _listePliage = GetComponent<ListePliage>();
         _animator = GetComponent<Animator>();
@@ -63,6 +68,12 @@ public class PliageManager : MonoBehaviour
             currentPliage.boundarySprite.color = currentPliage.colorValidationPliage;
             _animator.speed = currentPliage.speedAnimAutoComplete;
             _currentFoldIsFinish = true;
+
+            if(!playedParticleOnce)
+            {
+                StartCoroutine("BoundariesFeedback");
+                playedParticleOnce = true;
+            }
             
         }
 
@@ -193,5 +204,15 @@ public class PliageManager : MonoBehaviour
     public Vector3 GetPosAvancementSlideByPrct(float prctAvancement)
     {
         return Vector3.Lerp(currentPliage.goodPointSelection.position, currentPliage.endPointSelection.position, prctAvancement);
+    }
+
+    IEnumerator BoundariesFeedback()
+    {
+        for (int i = 0; i < listBoundaryParticle.Count; i++)
+        {
+            listBoundaryParticle[i].Play();
+            Debug.Log(listBoundaryParticle[i].name);
+        }
+        yield return new WaitForSeconds(0.0f);
     }
 }
