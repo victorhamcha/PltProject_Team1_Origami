@@ -21,7 +21,7 @@ public class TopDownController : MonoBehaviour
                 Touch touch = Input.GetTouch(0);
 
                 touchPos = new Vector3(touch.position.x, touch.position.y, 0);
-            Ray ray = Camera.main.ScreenPointToRay(touchPos);
+                Ray ray = Camera.main.ScreenPointToRay(touchPos);
 
                 RaycastHit hit;
                 // Does the ray intersect any objects excluding the player layer
@@ -34,7 +34,6 @@ public class TopDownController : MonoBehaviour
                 {
                     Debug.DrawRay(ray.origin, ray.direction * 1000, Color.red);
                     Debug.Log("Did not Hit");
-                    entity.MoveStop2();
                 }
             }
 
