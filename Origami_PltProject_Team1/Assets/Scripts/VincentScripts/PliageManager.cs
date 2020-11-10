@@ -41,6 +41,7 @@ public class PliageManager : MonoBehaviour
 
     [Header("Boundary Manager")]
     [SerializeField] private Animator _boundaryAnimator = null;
+    [SerializeField] private Transform _maskSprite = null;
 
     [Header("Feedback Origami")]
     [SerializeField] private Animator _animatorOrigami = null;
@@ -49,11 +50,10 @@ public class PliageManager : MonoBehaviour
     [Header("Séquenceur")]
     [SerializeField] private float _fixingTimer = 1.0f;
     private float _decrementingTimer = 0.0f;
-    
+
 
     void Awake()
     {
-        
         _pointSelectedOrigami = GetComponent<SelectPointOrigami>();
         _listePliage = GetComponent<ListePliage>();
         _animator = GetComponent<Animator>();
@@ -73,11 +73,8 @@ public class PliageManager : MonoBehaviour
         //          Alors on réinitialise les variables et on charge les nouvelles informations du prochain pliage
         //      Sinon on dit que l'origami est fini
         //
-
-        
         if (CurrentFoldsIsFinish() && !OrigamiIsFinish())
         {
-            
             currentPliage.boundarySprite.color = currentPliage.colorValidationPliage;
             _animator.speed = currentPliage.speedAnimAutoComplete;
             _currentFoldIsFinish = true;
@@ -92,12 +89,13 @@ public class PliageManager : MonoBehaviour
                 currentPliage.playedBounceOnce = false;
                 _animatorOrigami.Play(_animFeedBack.name, -1, 0);
             }
-            
         }
 
-        if(_currentFoldIsFinish && !OrigamiIsFinish())
+        if (_currentFoldIsFinish && !OrigamiIsFinish())
         {
             _decrementingTimer -= Time.deltaTime;
+            _maskSprite.localScale = new Vector3(Mathf.Lerp(1, currentPliage.maxSizeSpriteMask, _animator.GetCurrentAnimatorStateInfo(0).normalizedTime), 1, 1);
+            currentPliage.boundarySprite.color = Color.Lerp(currentPliage.colorBoundary, currentPliage.colorValidationPliage, _animator.GetCurrentAnimatorStateInfo(0).normalizedTime);
         }
 
         if (_currentFoldIsFinish && CurrentAnimIsFinish() && !OrigamiIsFinish() && _decrementingTimer <= 0.0f)
@@ -119,6 +117,12 @@ public class PliageManager : MonoBehaviour
         //Récupération du pourcentage d'avancement entre le point de début et le point de fin du pliage actuel en cours en fontion du point ou l'on click
         float prctAvancementSlide = GetPourcentageAvancementSlide();
 
+        if (_reverseAnim && !OrigamiIsFinish() && !_currentFoldIsFinish)
+        {
+            _maskSprite.localScale = new Vector3(Mathf.Lerp(currentPliage.maxSizeSpriteMask, 1, _animator.GetCurrentAnimatorStateInfo(0).normalizedTime), 1, 1);
+            currentPliage.boundarySprite.color = Color.Lerp(currentPliage.colorValidationPliage, currentPliage.colorBoundary, _animator.GetCurrentAnimatorStateInfo(0).normalizedTime);
+        }
+
         //Si on arrète de touché l'écran ET qu'on avais bien sélectionnez le bont point de l'origamie ET que l'origamie n'est pas fini
         //      Alors on joue l'animation du pliage en cours à l'envers en calculant son bon point de départs pour que les deux animations soit sans discontinuité
         //Sinon Si on à le bont point de sélection ET que l'origamie n'est pas fini
@@ -130,7 +134,7 @@ public class PliageManager : MonoBehaviour
             _animator.speed = speedReverseAnim;
             _reverseAnim = true;
             SetActiveCursor(true);
-        } 
+        }
         else if (!_currentFoldIsFinish && _pointSelectedOrigami.IsGoodSelections() && !OrigamiIsFinish())
         {
             // Disable hand's gameobject
@@ -139,6 +143,9 @@ public class PliageManager : MonoBehaviour
             _animator.speed = currentPliage.speedAnimAutoComplete;
             _reverseAnim = false;
             SetActiveCursor(false);
+            _maskSprite.localScale = new Vector3(Mathf.Lerp(1, currentPliage.maxSizeSpriteMask, prctAvancementSlide), 1, 1);
+            currentPliage.boundarySprite.color = Color.Lerp(currentPliage.colorBoundary, currentPliage.colorValidationPliage, prctAvancementSlide);
+            Debug.Log(Color.Lerp(currentPliage.colorBoundary, currentPliage.colorValidationPliage, prctAvancementSlide));
         }
     }
 
@@ -151,7 +158,7 @@ public class PliageManager : MonoBehaviour
     {
         if (OrigamiIsFinish())
         {
-            _animator.Play(currentPliage.animToPlay.name, -1 , 1);
+            _animator.Play(currentPliage.animToPlay.name, -1, 1);
             _boundaryAnimator.Play("Boundary");
             _handGO.SetActive(false);
             SetActiveCursor(false);
@@ -237,14 +244,14 @@ public class PliageManager : MonoBehaviour
 
     IEnumerator BoundariesFeedback()
     {
-       
+
         Debug.Log(currentPliage);
         for (int i = 0; i < currentPliage.listBoundaryParticle.Count; i++)
         {
             currentPliage.listBoundaryParticle[i].Play();
-            
+
         }
-        
+
         currentPliage.playedParticleOnce = false;
         yield return new WaitForSeconds(0.1f);
 

@@ -10,15 +10,16 @@ public class Pliage
     public Transform goodPointSelection = null;
     public Transform endPointSelection = null;
     public AnimationClip animToPlay = null;
-
-    [Header("Custom FX")]
     public bool isConfirmationPliage = false;
+    public bool drawPointSelection = true;
+
+    [Header("Custom Boundary")]
     public AnimationClip handAnim = null;
     public AnimationClip boundaryAnim = null;
     public SpriteRenderer boundarySprite = null;
+    public float maxSizeSpriteMask = 1f;
     public Color colorValidationPliage = Color.green;
     public Color colorBoundary = Color.red;
-    public bool drawPointSelection = true;
 
     [Header("Particle Manager")]
     public List<ParticleSystem> listBoundaryParticle = new List<ParticleSystem>();
