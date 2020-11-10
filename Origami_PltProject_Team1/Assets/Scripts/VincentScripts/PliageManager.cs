@@ -145,7 +145,6 @@ public class PliageManager : MonoBehaviour
             SetActiveCursor(false);
             _maskSprite.localScale = new Vector3(Mathf.Lerp(1, currentPliage.maxSizeSpriteMask, prctAvancementSlide), 1, 1);
             currentPliage.boundarySprite.color = Color.Lerp(currentPliage.colorBoundary, currentPliage.colorValidationPliage, prctAvancementSlide);
-            Debug.Log(Color.Lerp(currentPliage.colorBoundary, currentPliage.colorValidationPliage, prctAvancementSlide));
         }
     }
 
