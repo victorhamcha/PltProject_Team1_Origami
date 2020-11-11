@@ -909,6 +909,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 369570202, guid: 0bc1af0164357a149a3b43fa33190f8f, type: 3}
+      propertyPath: usePathFinding
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3331882220876530232, guid: 0bc1af0164357a149a3b43fa33190f8f,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 3331882220876530232, guid: 0bc1af0164357a149a3b43fa33190f8f,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 3331882220876530232, guid: 0bc1af0164357a149a3b43fa33190f8f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -90
+      objectReference: {fileID: 0}
     - target: {fileID: 7384846687720814210, guid: 0bc1af0164357a149a3b43fa33190f8f,
         type: 3}
       propertyPath: m_LocalPosition.x

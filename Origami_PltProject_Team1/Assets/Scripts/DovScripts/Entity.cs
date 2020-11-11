@@ -115,7 +115,8 @@ public class Entity : MonoBehaviour
 
     private void Update()
     {
-        _UpdateRotator();
+        //_UpdateRotator();
+        //_animator.Play(animClip.name);
     }
 
     private void OnGUI()
@@ -180,7 +181,6 @@ public class Entity : MonoBehaviour
             {
                 Vector3 moveDir = (path.corners[followPathIndex] - transform.position).normalized;
                 Move(moveDir.Overwrite(Tools.OverwriteType.Y));
-                _animator.Play(animClip.name);
             }
         }
     }
