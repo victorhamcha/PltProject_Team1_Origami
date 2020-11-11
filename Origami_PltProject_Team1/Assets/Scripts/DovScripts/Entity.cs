@@ -87,6 +87,9 @@ public class Entity : MonoBehaviour
     private Rigidbody _rigidbody = null;
     public bool moveModeOn = true;
 
+    [SerializeField] private Animator _animator;
+    public AnimationClip animClip;
+
     public Vector2 Position
     {
         get { return transform.position.To2D(); }
@@ -177,6 +180,7 @@ public class Entity : MonoBehaviour
             {
                 Vector3 moveDir = (path.corners[followPathIndex] - transform.position).normalized;
                 Move(moveDir.Overwrite(Tools.OverwriteType.Y));
+                _animator.Play(animClip.name);
             }
         }
     }
