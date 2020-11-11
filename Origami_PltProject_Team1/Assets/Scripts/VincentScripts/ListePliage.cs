@@ -13,6 +13,7 @@ public class Pliage
     public bool isConfirmationPliage = false;
     public bool drawPointSelection = true;
     public bool playBounce = false;
+    public Vector3 offsetPlacementPliage = Vector3.zero;
 
     [Header("Custom Boundary")]
     public AnimationClip handAnim = null;
