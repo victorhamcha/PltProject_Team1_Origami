@@ -12,6 +12,7 @@ public class Pliage
     public AnimationClip animToPlay = null;
     public bool isConfirmationPliage = false;
     public bool drawPointSelection = true;
+    public bool playBounce = false;
 
     [Header("Custom Boundary")]
     public AnimationClip handAnim = null;
@@ -23,8 +24,7 @@ public class Pliage
 
     [Header("Particle Manager")]
     public List<ParticleSystem> listBoundaryParticle = new List<ParticleSystem>();
-    public bool playedParticleOnce = false;
-    public bool playedBounceOnce = false;
+    [HideInInspector] public bool playedParticleOnce = false;
 
     [Header("Auto Complete")]
     //Pourcentage to auto complete le pliage en cours

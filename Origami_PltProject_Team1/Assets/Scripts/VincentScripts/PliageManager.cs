@@ -42,6 +42,7 @@ public class PliageManager : MonoBehaviour
     [Header("Boundary Manager")]
     [SerializeField] private Animator _boundaryAnimator = null;
     [SerializeField] private Transform _maskSprite = null;
+    private float _initScaleXMask = 0;
 
     [Header("Feedback Origami")]
     [SerializeField] private Animator _animatorOrigami = null;
@@ -61,6 +62,7 @@ public class PliageManager : MonoBehaviour
         //Set de la speed de l'animator à 0 pour évitez que l'animations se joue dés le debuts
         _animator.speed = 0;
         _decrementingTimer = _fixingTimer;
+        _initScaleXMask = _maskSprite.localScale.x;
     }
 
     void Update()
@@ -84,9 +86,9 @@ public class PliageManager : MonoBehaviour
                 StartCoroutine("BoundariesFeedback");
                 currentPliage.playedParticleOnce = true;
             }
-            if (currentPliage.playedBounceOnce)
+            if (currentPliage.playBounce)
             {
-                currentPliage.playedBounceOnce = false;
+                currentPliage.playBounce = false;
                 _animatorOrigami.Play(_animFeedBack.name, -1, 0);
             }
         }
@@ -94,7 +96,7 @@ public class PliageManager : MonoBehaviour
         if (_currentFoldIsFinish && !OrigamiIsFinish())
         {
             _decrementingTimer -= Time.deltaTime;
-            _maskSprite.localScale = new Vector3(Mathf.Lerp(1, currentPliage.maxSizeSpriteMask, _animator.GetCurrentAnimatorStateInfo(0).normalizedTime), 1, 1);
+            _maskSprite.localScale = new Vector3(Mathf.Lerp(_initScaleXMask, currentPliage.maxSizeSpriteMask, _animator.GetCurrentAnimatorStateInfo(0).normalizedTime), _maskSprite.localScale.y, _maskSprite.localScale.z);
             currentPliage.boundarySprite.color = Color.Lerp(currentPliage.colorBoundary, currentPliage.colorValidationPliage, _animator.GetCurrentAnimatorStateInfo(0).normalizedTime);
         }
 
@@ -109,7 +111,7 @@ public class PliageManager : MonoBehaviour
             }
             else
             {
-                _boundaryAnimator.Play("Boundary");
+                _boundaryAnimator.Play("BoundaryNone");
                 _origamiIsFinish = true;
             }
         }
@@ -119,7 +121,7 @@ public class PliageManager : MonoBehaviour
 
         if (_reverseAnim && !OrigamiIsFinish() && !_currentFoldIsFinish)
         {
-            _maskSprite.localScale = new Vector3(Mathf.Lerp(currentPliage.maxSizeSpriteMask, 1, _animator.GetCurrentAnimatorStateInfo(0).normalizedTime), 1, 1);
+            _maskSprite.localScale = new Vector3(Mathf.Lerp(currentPliage.maxSizeSpriteMask, _initScaleXMask, _animator.GetCurrentAnimatorStateInfo(0).normalizedTime), _maskSprite.localScale.y, _maskSprite.localScale.z);
             currentPliage.boundarySprite.color = Color.Lerp(currentPliage.colorValidationPliage, currentPliage.colorBoundary, _animator.GetCurrentAnimatorStateInfo(0).normalizedTime);
         }
 
@@ -143,7 +145,7 @@ public class PliageManager : MonoBehaviour
             _animator.speed = currentPliage.speedAnimAutoComplete;
             _reverseAnim = false;
             SetActiveCursor(false);
-            _maskSprite.localScale = new Vector3(Mathf.Lerp(1, currentPliage.maxSizeSpriteMask, prctAvancementSlide), 1, 1);
+            _maskSprite.localScale = new Vector3(Mathf.Lerp(_initScaleXMask, currentPliage.maxSizeSpriteMask, prctAvancementSlide), _maskSprite.localScale.y, _maskSprite.localScale.z);
             currentPliage.boundarySprite.color = Color.Lerp(currentPliage.colorBoundary, currentPliage.colorValidationPliage, prctAvancementSlide);
         }
     }
@@ -158,7 +160,7 @@ public class PliageManager : MonoBehaviour
         if (OrigamiIsFinish())
         {
             _animator.Play(currentPliage.animToPlay.name, -1, 1);
-            _boundaryAnimator.Play("Boundary");
+            _boundaryAnimator.Play("BoundaryNone");
             _handGO.SetActive(false);
             SetActiveCursor(false);
             _animator.speed = 0;
@@ -181,7 +183,7 @@ public class PliageManager : MonoBehaviour
         }
         else
         {
-            _boundaryAnimator.Play("Boundary");
+            _boundaryAnimator.Play("BoundaryNone");
         }
 
         if (currentPliage.isConfirmationPliage)
@@ -243,8 +245,6 @@ public class PliageManager : MonoBehaviour
 
     IEnumerator BoundariesFeedback()
     {
-
-        Debug.Log(currentPliage);
         for (int i = 0; i < currentPliage.listBoundaryParticle.Count; i++)
         {
             currentPliage.listBoundaryParticle[i].Play();

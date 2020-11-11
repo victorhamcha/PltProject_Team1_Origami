@@ -33,7 +33,6 @@ public class TopDownController : MonoBehaviour
                 else
                 {
                     Debug.DrawRay(ray.origin, ray.direction * 1000, Color.red);
-                    Debug.Log("Did not Hit");
                 }
             }
 
