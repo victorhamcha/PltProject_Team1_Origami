@@ -237,7 +237,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _animatorFadeOrigami: {fileID: 0}
   _pliageToDo: {fileID: 0}
-  _origamie: {fileID: 0}
+  _origami: {fileID: 0}
   _posPliageToFaceCam: {fileID: 0}
   _animFadeIn: {fileID: 7400000, guid: d25b576f1e9e9d143bfc43a1741a5077, type: 2}
   _blurMaterial: {fileID: 2100000, guid: 4c98f200583f31c4a881880308964fec, type: 2}
@@ -349,6 +349,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7525816850874228307, guid: 236b52c902b2e4d49ad8118ff0c86ee8,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 24dd7ee0a4b2885468c909e4cecc2b1c, type: 2}
     - target: {fileID: 919132149155446097, guid: 236b52c902b2e4d49ad8118ff0c86ee8,
         type: 3}
       propertyPath: m_Name
