@@ -4,7 +4,7 @@ public class SwitchModePlayerOrigami : MonoBehaviour
 {
     [SerializeField] private Animator _animatorFadeOrigami = null;
     [SerializeField] private GameObject _pliageToDo = null;
-    [SerializeField] private Transform _origamie = null;
+    [SerializeField] private Transform _origami = null;
 
     [SerializeField] private Transform _posPliageToFaceCam = null;
     [SerializeField] private AnimationClip _animFadeIn = null;
@@ -68,7 +68,7 @@ public class SwitchModePlayerOrigami : MonoBehaviour
 
             if (_isOnModeOrigami)
             {
-                _origamie.position = _posPliageToFaceCam.position;
+                _origami.position = _posPliageToFaceCam.position;
                 _pliageToDo.transform.rotation = _posPliageToFaceCam.rotation;
                 _movementPlayer.MoveStop();
                 _animatorFadeOrigami.Play(_animFadeIn.name, -1, 0);
