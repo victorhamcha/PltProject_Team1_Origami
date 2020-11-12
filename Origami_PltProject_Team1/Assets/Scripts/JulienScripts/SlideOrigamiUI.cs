@@ -14,7 +14,7 @@ public class SlideOrigamiUI : MonoBehaviour
     //private SpriteRenderer _spriteRight = null;
     //private SpriteRenderer _spriteMiddle = null;
 
-    [SerializeField] private List<Transform> _spriteList = new List<Transform>();
+    [SerializeField] private List<Transform> _transformList = new List<Transform>();
 
     private int listIndex = 2;
     private float _timer = 0.0f;
@@ -26,9 +26,17 @@ public class SlideOrigamiUI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _spriteList[2].position = _slotMiddle.position;
-        _spriteList[3].position = _slotRight.position;
+        _transformList[2].position = _slotMiddle.position;
+        _transformList[3].position = _slotRight.position;
+        _transformList[2].localScale = Vector3.one * 2;
 
+        foreach (Transform trans in _transformList)
+        {
+            if (trans != _transformList[2] && trans != _transformList[3])
+            {
+                trans.gameObject.SetActive(false);
+            }
+        }
     }
 
     // Update is called once per frame
@@ -36,7 +44,7 @@ public class SlideOrigamiUI : MonoBehaviour
     {
         _timer += Time.deltaTime;
 
-        if((listIndex + 2) == (_spriteList.Count - 1))
+        if((listIndex + 2) == (_transformList.Count - 1))
         {
             goNextIndex = false;
             playedOnce = false;
@@ -60,17 +68,16 @@ public class SlideOrigamiUI : MonoBehaviour
         if(playedOnce)
         {
             // CreateRight to Right
-            SetPosition(_spriteList[listIndex + 2], _spriteList[listIndex + 1], _slotCreateRight, _slotRight);
+            SetPosition(_transformList[listIndex + 2], _transformList[listIndex + 1], _slotCreateRight, _slotRight);
 
             // Right to middle
-            SetPosition(_spriteList[listIndex + 1], _spriteList[listIndex], _slotRight, _slotMiddle);
-
+            SetPositionRightToMiddle();
 
             // Middle to left
-            SetPosition(_spriteList[listIndex], _spriteList[listIndex - 1], _slotMiddle, _slotLeft);
+            SetPositionMiddleToLeft();
 
             // Left to DeleteLeft
-            SetPosition(_spriteList[listIndex - 1], _spriteList[listIndex - 2], _slotLeft, _slotDeleteLeft);
+            SetPosition(_transformList[listIndex - 1], _transformList[listIndex - 2], _slotLeft, _slotDeleteLeft);
         }
     }
 
@@ -83,9 +90,22 @@ public class SlideOrigamiUI : MonoBehaviour
 
     private void SetPosition(Transform startSprite, Transform endSprite, Transform startPos, Transform endPos)
     {
+        startSprite.gameObject.SetActive(true);
+        endSprite.gameObject.SetActive(true);
         startSprite.position = startPos.position;
         endSprite.position = endPos.position;
         MoveSprite(startSprite, endSprite);
         startSprite.position = directionLerp;
+    }
+    private void SetPositionRightToMiddle()
+    {
+        SetPosition(_transformList[listIndex + 1], _transformList[listIndex], _slotRight, _slotMiddle);
+        _transformList[listIndex + 1].localScale = Vector3.Lerp(Vector3.one,Vector3.one * 2, _timer * 2);
+    }
+
+    private void SetPositionMiddleToLeft()
+    {
+        SetPosition(_transformList[listIndex], _transformList[listIndex - 1], _slotMiddle, _slotLeft);
+        _transformList[listIndex].localScale = Vector3.Lerp(Vector3.one * 2, Vector3.one, _timer * 2);
     }
 }

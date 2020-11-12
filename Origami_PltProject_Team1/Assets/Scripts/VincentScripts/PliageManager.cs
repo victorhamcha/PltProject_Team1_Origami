@@ -6,15 +6,17 @@ using UnityEngine;
 [RequireComponent(typeof(SelectPointOrigami))]
 [RequireComponent(typeof(ListePliage))]
 [RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(SlideOrigamiUI))]
 public class PliageManager : MonoBehaviour
 {
-
     //Lien des scripts
     private SelectPointOrigami _pointSelectedOrigami = null;
     private ListePliage _listePliage = null;
+    private SlideOrigamiUI _slideOrigamiUI = null;
 
     //Informations du pliage en cours d'executions
     private Pliage _currentPliage = null;
+    [SerializeField]private Transform pliageObject = null;
 
     //Animator qui va jouez les animations de pliage
     private Animator _animator = null;
@@ -62,6 +64,7 @@ public class PliageManager : MonoBehaviour
     {
         _pointSelectedOrigami = GetComponent<SelectPointOrigami>();
         _listePliage = GetComponent<ListePliage>();
+        _slideOrigamiUI = GetComponent<SlideOrigamiUI>();
         _animator = GetComponent<Animator>();
 
         //Set de la speed de l'animator à 0 pour évitez que l'animations se joue dés le debuts
@@ -119,6 +122,11 @@ public class PliageManager : MonoBehaviour
                 _boundaryAnimator.Play("BoundaryNone");
                 _origamiIsFinish = true;
             }
+
+            if (_currentPliage.isConfirmationPliage)
+            {
+                _slideOrigamiUI.goNextIndex = true;
+            }
         }
 
         //Récupération du pourcentage d'avancement entre le point de début et le point de fin du pliage actuel en cours en fontion du point ou l'on click
@@ -157,7 +165,7 @@ public class PliageManager : MonoBehaviour
         if (_currentPliage != null && _lastPosOrigami != _currentPliage.offsetPlacementPliage && indexPliage > 0)
         {
             _timerTransitionCentrageOrigami += Time.deltaTime;
-            transform.localPosition = Vector3.Lerp(_lastPosOrigami, _currentPliage.offsetPlacementPliage, _timerTransitionCentrageOrigami * _speedAnimCenterOrigami);
+            pliageObject.localPosition = Vector3.Lerp(_lastPosOrigami, _currentPliage.offsetPlacementPliage, _timerTransitionCentrageOrigami * _speedAnimCenterOrigami);
         }
 
     }
@@ -180,7 +188,7 @@ public class PliageManager : MonoBehaviour
         }
 
         _currentPliage = _listePliage.GetPliage(indexPliage);
-        _lastPosOrigami = transform.localPosition;
+        _lastPosOrigami = pliageObject.localPosition;
         _pointSelectedOrigami.SetPointGoodSelection(_currentPliage.goodPointSelection);
         _cursorSelectPoint.transform.position = _currentPliage.goodPointSelection.position;
         _cursorSelectPoint.transform.rotation = _currentPliage.goodPointSelection.rotation;
