@@ -116,7 +116,6 @@ public class Entity : MonoBehaviour
     private void Update()
     {
         //_UpdateRotator();
-        //_animator.Play(animClip.name);
     }
 
     private void OnGUI()
@@ -191,6 +190,8 @@ public class Entity : MonoBehaviour
 
         if (_isMovingToDestination)
         {
+            _animator.speed = 1;
+            _animator.Play(animClip.name);
             if (!usePathFinding)
             {
                 bool hasReachedDestination = false;
@@ -258,6 +259,10 @@ public class Entity : MonoBehaviour
                     }
                 }
             }
+        }
+        else
+        {
+            _animator.speed = 0;
         }
 
         if (isMoving) {
