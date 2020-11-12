@@ -16,7 +16,7 @@ public class SoundManager : MonoBehaviour
                 _i = FindObjectOfType<SoundManager>();
                 if (_i == null)
                 {
-                    _i = new GameObject("SoundManager", typeof(SoundManager)).AddComponent<SoundManager>();
+                    _i = new GameObject("SoundManager", typeof(SoundManager)).GetComponent<SoundManager>();
                 }
             }
 
@@ -46,6 +46,8 @@ public class SoundManager : MonoBehaviour
     private static AudioSource loopSource;
     private static AudioSource musicSource1;
     private static AudioSource musicSource2;
+
+    private static float musicVolume = 1f;
 
     private static Dictionary<Sound, float> lastTimesSound;
 
@@ -99,6 +101,7 @@ public class SoundManager : MonoBehaviour
 
     public void SetVolumeMusic(float volume)
     {
+        musicVolume = volume;
         musicSource1.volume = volume;
         musicSource2.volume = volume;
     }
@@ -115,7 +118,7 @@ public class SoundManager : MonoBehaviour
 
         for (t = 0; t < transitionTime; t += Time.deltaTime)
         {
-            activeSource.volume = 1 - (t / transitionTime);
+            activeSource.volume = (1 - (t / transitionTime)) * musicVolume;
             yield return null;
         }
 
@@ -123,7 +126,7 @@ public class SoundManager : MonoBehaviour
 
         for (t = 0; t < transitionTime; t += Time.deltaTime)
         {
-            activeSource.volume = t / transitionTime;
+            activeSource.volume = musicVolume * t / transitionTime;
             yield return null;
         }
     }

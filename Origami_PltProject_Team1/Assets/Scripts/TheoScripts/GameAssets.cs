@@ -10,7 +10,7 @@ public class GameAssets : MonoBehaviour
     {
         get
         {
-            if (_i = null) _i = Instantiate(Resources.Load<GameAssets>("GameAssets"));
+            if (_i == null) _i = new GameObject("GameAssets", typeof(GameAssets)).GetComponent<GameAssets>();
 
             return _i;
         }
