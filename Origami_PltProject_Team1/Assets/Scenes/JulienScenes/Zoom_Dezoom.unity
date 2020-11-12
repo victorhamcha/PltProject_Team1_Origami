@@ -206,57 +206,57 @@ PrefabInstance:
     - target: {fileID: 1652302673874553942, guid: 6fdfa3207973704449ff05eb63712168,
         type: 3}
       propertyPath: _curve.m_Curve.Array.size
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1652302673874553942, guid: 6fdfa3207973704449ff05eb63712168,
         type: 3}
       propertyPath: _curve.m_Curve.Array.data[0].inSlope
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1652302673874553942, guid: 6fdfa3207973704449ff05eb63712168,
         type: 3}
       propertyPath: _curve.m_Curve.Array.data[0].outSlope
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1652302673874553942, guid: 6fdfa3207973704449ff05eb63712168,
         type: 3}
       propertyPath: _curve.m_Curve.Array.data[1].time
-      value: 0.63700026
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1652302673874553942, guid: 6fdfa3207973704449ff05eb63712168,
         type: 3}
       propertyPath: _curve.m_Curve.Array.data[1].value
-      value: 0.93662685
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1652302673874553942, guid: 6fdfa3207973704449ff05eb63712168,
         type: 3}
       propertyPath: _curve.m_Curve.Array.data[1].inSlope
-      value: 0.593513
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1652302673874553942, guid: 6fdfa3207973704449ff05eb63712168,
         type: 3}
       propertyPath: _curve.m_Curve.Array.data[1].outSlope
-      value: 0.593513
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1652302673874553942, guid: 6fdfa3207973704449ff05eb63712168,
         type: 3}
       propertyPath: _curve.m_Curve.Array.data[0].tangentMode
-      value: 0
+      value: 34
       objectReference: {fileID: 0}
     - target: {fileID: 1652302673874553942, guid: 6fdfa3207973704449ff05eb63712168,
         type: 3}
       propertyPath: _curve.m_Curve.Array.data[1].tangentMode
-      value: 0
+      value: 34
       objectReference: {fileID: 0}
     - target: {fileID: 1652302673874553942, guid: 6fdfa3207973704449ff05eb63712168,
         type: 3}
       propertyPath: _curve.m_Curve.Array.data[1].inWeight
-      value: 0.33333334
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1652302673874553942, guid: 6fdfa3207973704449ff05eb63712168,
         type: 3}
       propertyPath: _curve.m_Curve.Array.data[1].outWeight
-      value: 0.33333334
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1652302673874553942, guid: 6fdfa3207973704449ff05eb63712168,
         type: 3}
@@ -272,6 +272,46 @@ PrefabInstance:
         type: 3}
       propertyPath: _finalSize
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1652302673874553942, guid: 6fdfa3207973704449ff05eb63712168,
+        type: 3}
+      propertyPath: _curve.m_Curve.Array.data[0].outWeight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1652302673874553942, guid: 6fdfa3207973704449ff05eb63712168,
+        type: 3}
+      propertyPath: _curve.m_Curve.Array.data[2].inSlope
+      value: 0.22428036
+      objectReference: {fileID: 0}
+    - target: {fileID: 1652302673874553942, guid: 6fdfa3207973704449ff05eb63712168,
+        type: 3}
+      propertyPath: _curve.m_Curve.Array.data[2].outSlope
+      value: 0.22428036
+      objectReference: {fileID: 0}
+    - target: {fileID: 1652302673874553942, guid: 6fdfa3207973704449ff05eb63712168,
+        type: 3}
+      propertyPath: _curve.m_Curve.Array.data[2].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 1652302673874553942, guid: 6fdfa3207973704449ff05eb63712168,
+        type: 3}
+      propertyPath: _curve.m_Curve.Array.data[2].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1652302673874553942, guid: 6fdfa3207973704449ff05eb63712168,
+        type: 3}
+      propertyPath: _dezoomSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1652302673874553942, guid: 6fdfa3207973704449ff05eb63712168,
+        type: 3}
+      propertyPath: _zooming
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1652302673874553942, guid: 6fdfa3207973704449ff05eb63712168,
+        type: 3}
+      propertyPath: _endSize
+      value: 17.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6fdfa3207973704449ff05eb63712168, type: 3}
