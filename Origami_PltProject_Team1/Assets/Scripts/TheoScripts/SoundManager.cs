@@ -41,20 +41,6 @@ public class SoundManager : MonoBehaviour
         Lake,
         Village
     }
-    int ClosestToZero(List<int> l)
-    {
-        int resu = l[0];
-        foreach (int i in l)
-        {
-            if (Mathf.Abs(i) < Mathf.Abs(resu))
-            {
-                resu = i;
-
-
-            }
-        }
-        return resu;
-    }
 
     private static AudioSource oneShotSource;
     private static AudioSource loopSource;
