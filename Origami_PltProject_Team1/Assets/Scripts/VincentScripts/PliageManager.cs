@@ -13,6 +13,7 @@ public class PliageManager : MonoBehaviour
     private SelectPointOrigami _pointSelectedOrigami = null;
     private ListePliage _listePliage = null;
     private SlideOrigamiUI _slideOrigamiUI = null;
+    [SerializeField] private SwitchModePlayerOrigami _switchModePlayerOrigami = null;
 
     //Informations du pliage en cours d'executions
     private Pliage _currentPliage = null;
@@ -58,6 +59,7 @@ public class PliageManager : MonoBehaviour
     [Header("Séquenceur")]
     [SerializeField] private float _fixingTimer = 1.0f;
     private float _decrementingTimer = 0.0f;
+
 
 
     void Awake()
@@ -166,6 +168,11 @@ public class PliageManager : MonoBehaviour
         {
             _timerTransitionCentrageOrigami += Time.deltaTime;
             pliageObject.localPosition = Vector3.Lerp(_lastPosOrigami, _currentPliage.offsetPlacementPliage, _timerTransitionCentrageOrigami * _speedAnimCenterOrigami);
+        }
+
+        if (OrigamiIsFinish())
+        {
+            _switchModePlayerOrigami._OnModeEnd = true;
         }
 
     }

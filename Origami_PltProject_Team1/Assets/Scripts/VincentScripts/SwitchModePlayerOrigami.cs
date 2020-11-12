@@ -15,15 +15,18 @@ public class SwitchModePlayerOrigami : MonoBehaviour
 
     private PliageManager _pliageManager = null;
 
-    private bool _switchModeOrigami = false;
-    private bool _isOnModeOrigami = false;
+    [HideInInspector] public bool _switchModeOrigami = false;
+    [HideInInspector] public bool _isOnModeOrigami = false;
     private bool _isOnReverseAnim = false;
+    [HideInInspector] public bool _OnModeEnd = false;
 
     private float _timerAnim = 0f;
     private float _timerAnimReverse = 0f;
 
     private Entity _movementPlayer;
     private float _speedMax = 0f;
+
+    [SerializeField] private GameObject celebration = null;
 
     void Start()
     {
@@ -84,6 +87,18 @@ public class SwitchModePlayerOrigami : MonoBehaviour
                 _movementPlayer.MovePlay();
                 _animatorFadeOrigami.Play(_animFadeIn.name+"_reverse", -1, 0);
                 _isOnReverseAnim = true;
+            }
+        }
+
+        if (_OnModeEnd)
+        {
+            _pliageToDo.SetActive(false);
+            celebration.SetActive(true);
+            if (Input.touchCount > 0)
+            {
+                celebration.SetActive(false);
+                _OnModeEnd = false;
+                _switchModeOrigami = true;
             }
         }
 
