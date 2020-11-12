@@ -87,6 +87,9 @@ public class Entity : MonoBehaviour
     private Rigidbody _rigidbody = null;
     public bool moveModeOn = true;
 
+    [SerializeField] private Animator _animator;
+    public AnimationClip animClip;
+
     public Vector2 Position
     {
         get { return transform.position.To2D(); }
@@ -112,7 +115,8 @@ public class Entity : MonoBehaviour
 
     private void Update()
     {
-        _UpdateRotator();
+        //_UpdateRotator();
+        //_animator.Play(animClip.name);
     }
 
     private void OnGUI()
