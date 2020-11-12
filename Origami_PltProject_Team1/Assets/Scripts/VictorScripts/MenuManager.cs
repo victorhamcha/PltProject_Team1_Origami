@@ -14,23 +14,13 @@ public class MenuManager : MonoBehaviour
     
     void Start()
     {
-       // AchievementShow(true);
+       
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (swiping.SwipeLeft)
-        {
-            
-            //AchievementShow(true);
-        }
-            
-        else if (swiping.SwipeRight)
-        {
-            
-           // AchievementShow(false);
-        }
+      
             
 
        

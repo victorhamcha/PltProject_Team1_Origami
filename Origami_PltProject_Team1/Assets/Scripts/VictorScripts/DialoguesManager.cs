@@ -17,6 +17,8 @@ public class DialoguesManager : MonoBehaviour
     private Image arrow = null;
     [SerializeField]
     private Image point = null;
+    [SerializeField]
+    private Image character = null;
     private float timerSwitchDialogue = 0.5f;
 
     private int lastDialogue;
@@ -62,13 +64,14 @@ public class DialoguesManager : MonoBehaviour
     {
         if(!inTyping)
         {
+            character.gameObject.SetActive(true);
             arrow.gameObject.SetActive(true);
             point.gameObject.SetActive(false);
             inTyping = true;
             nextdialogue = nextDialogue;
             lastDialogue = lastdialogue;
             dialogueGui.SetActive(true);
-            dialogueGui.GetComponent<Image>().color = dialogues[nextDialogue].chrColor;
+            //dialogueGui.GetComponent<Image>().color = dialogues[nextDialogue].chrColor;
             nameTxt.text = dialogues[nextDialogue].chrName;
             StartCoroutine(TypeSentence(dialogues[nextDialogue].sentence));
         }
@@ -79,13 +82,14 @@ public class DialoguesManager : MonoBehaviour
     {
         if (!inTyping)
         {
+            character.gameObject.SetActive(true);
             arrow.gameObject.SetActive(true);
             point.gameObject.SetActive(false);
             inTyping = true;
             nextdialogue = nextDialogue;
             lastDialogue = nextDialogue;
             dialogueGui.SetActive(true);
-            dialogueGui.GetComponent<Image>().color = dialogues[nextdialogue].chrColor;
+            //dialogueGui.GetComponent<Image>().color = dialogues[nextdialogue].chrColor;
             nameTxt.text = dialogues[nextDialogue].chrName;
             StopAllCoroutines();
             StartCoroutine(TypeSentence(dialogues[nextDialogue].sentence));
@@ -100,7 +104,7 @@ public class DialoguesManager : MonoBehaviour
         inTyping = true;
         if(nextdialogue<=lastDialogue)
         {
-            dialogueGui.GetComponent<Image>().color = dialogues[nextdialogue].chrColor;
+            //dialogueGui.GetComponent<Image>().color = dialogues[nextdialogue].chrColor;
             nameTxt.text = dialogues[nextdialogue].chrName;
             StopAllCoroutines();
             StartCoroutine(TypeSentence(dialogues[nextdialogue].sentence));
@@ -116,7 +120,7 @@ public class DialoguesManager : MonoBehaviour
             StopAllCoroutines();
             dialogueGui.SetActive(false);
             inTyping = false;
-            
+            character.gameObject.SetActive(false);
         }
        
         
