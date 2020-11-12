@@ -1329,6 +1329,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _timeVibration: 50
+  cubeTest: {fileID: 0}
 --- !u!114 &185755594803667780
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1362,12 +1363,13 @@ MonoBehaviour:
     playedParticleOnce: 0
     prctMinValueToCompleteFold: 0.95
     speedAnimAutoComplete: 0.2
+    yValueWanted: 0
   - goodPointSelection: {fileID: 5069529460451005850}
     endPointSelection: {fileID: 4725617587935316197}
     animToPlay: {fileID: 7400000, guid: e6b23de3bc9432647837f368beb40fa3, type: 2}
     isConfirmationPliage: 1
     drawPointSelection: 0
-    playBounce: 0
+    playBounce: 1
     offsetPlacementPliage: {x: 0, y: 0, z: 0}
     handAnim: {fileID: 7400000, guid: 5a266dc6985ea984cb9c3af667c587fd, type: 2}
     boundaryAnim: {fileID: 7400000, guid: a412ec2cff4859944938fb5ba5c3df38, type: 2}
@@ -1379,6 +1381,7 @@ MonoBehaviour:
     playedParticleOnce: 0
     prctMinValueToCompleteFold: 0.9
     speedAnimAutoComplete: 0.2
+    yValueWanted: 90
   - goodPointSelection: {fileID: 7376465228671316778}
     endPointSelection: {fileID: 7998946857269662474}
     animToPlay: {fileID: 7400000, guid: 89756df70740fea4d87e4b551bad9e29, type: 2}
@@ -1401,12 +1404,13 @@ MonoBehaviour:
     playedParticleOnce: 0
     prctMinValueToCompleteFold: 0.9
     speedAnimAutoComplete: 0.2
+    yValueWanted: 0
   - goodPointSelection: {fileID: 5063103420318426382}
     endPointSelection: {fileID: 8208601974581707507}
     animToPlay: {fileID: 7400000, guid: 50d2ab6f5f162bb4d8871859bc4250cb, type: 2}
     isConfirmationPliage: 1
     drawPointSelection: 0
-    playBounce: 0
+    playBounce: 1
     offsetPlacementPliage: {x: 0, y: 0, z: 0}
     handAnim: {fileID: 7400000, guid: eb33fab71494a9d4ba3a1dfb7386e691, type: 2}
     boundaryAnim: {fileID: 7400000, guid: 21ed1f6accacb124598dda96917ea56c, type: 2}
@@ -1418,6 +1422,7 @@ MonoBehaviour:
     playedParticleOnce: 0
     prctMinValueToCompleteFold: 0.9
     speedAnimAutoComplete: 0.2
+    yValueWanted: 270
 --- !u!114 &4590817003474555770
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1430,6 +1435,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a49eaf1cb4a497148adddad7a873e8cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _switchModePlayerOrigami: {fileID: 0}
   pliageObject: {fileID: 8558302679674015865}
   _timeVibrationEndPliage: 50
   _cursorSelectPoint: {fileID: 1046426742845432611}
@@ -1443,6 +1449,7 @@ MonoBehaviour:
   _animatorOrigami: {fileID: 0}
   _animFeedBack: {fileID: 7400000, guid: 564956b5290eb7846971cef51003ee68, type: 2}
   _fixingTimer: 0.85
+  isRotating: 0
 --- !u!95 &5085844833394679096
 Animator:
   serializedVersion: 3

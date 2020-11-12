@@ -32,6 +32,10 @@ public class Pliage
     [Range(0, 1)] public float prctMinValueToCompleteFold = 0.5f;
     //Vitesse de l'auto Complete
     [Range(0, 1)] public float speedAnimAutoComplete = 0.5f;
+
+    [Header("Rotation")]
+    public float yValueWanted = 0.0f;
+    
 }
 
 public class ListePliage : MonoBehaviour

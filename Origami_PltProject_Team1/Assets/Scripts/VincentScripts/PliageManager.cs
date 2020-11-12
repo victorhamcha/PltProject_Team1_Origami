@@ -60,10 +60,14 @@ public class PliageManager : MonoBehaviour
     [SerializeField] private float _fixingTimer = 1.0f;
     private float _decrementingTimer = 0.0f;
 
-
+    [HideInInspector] public bool isRotating = false;
+    private float _timerRotation = 0.0f;
+    private Vector3 _lastRotation = new Vector3(0, 0, 0);
+    private float _lastOffset = 0.0f;
 
     void Awake()
     {
+        _lastRotation = pliageObject.localEulerAngles;
         _pointSelectedOrigami = GetComponent<SelectPointOrigami>();
         _listePliage = GetComponent<ListePliage>();
         _slideOrigamiUI = GetComponent<SlideOrigamiUI>();
@@ -99,9 +103,18 @@ public class PliageManager : MonoBehaviour
             }
             if (_currentPliage.playBounce)
             {
+                _animatorOrigami.speed = 1.0f;
                 _currentPliage.playBounce = false;
                 _animatorOrigami.Play(_animFeedBack.name, -1, 0);
                 SoundManager.i.PlaySound(SoundManager.Sound.FoldsSucced);
+            }
+            else
+            {
+                if (_animatorOrigami.GetCurrentAnimatorClipInfo(0)[0].clip.name == _animFeedBack.name)
+                {
+                    _animatorOrigami.speed = 0.0f;
+                }
+                
             }
         }
 
@@ -176,6 +189,27 @@ public class PliageManager : MonoBehaviour
         {
             _switchModePlayerOrigami._OnModeEnd = true;
         }
+        Debug.Log(_animatorOrigami.GetCurrentAnimatorStateInfo(0).normalizedTime);
+        // Si c'est une confirmation de pli et que le pliage est fini
+        if (_currentPliage.isConfirmationPliage && CurrentFoldsIsFinish() && _animatorOrigami.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
+        {
+            isRotating = true;
+            _lastOffset = _currentPliage.yValueWanted;
+        }
+
+        // Si la rotation n'est pas égale à la rotation finale et qu'il est en train de rotate
+        if (_timerRotation < 1.0f && isRotating)
+        {
+            // pliageObject.localRotation = Quaternion.Lerp(Quaternion.Euler(lastRotation.x, lastRotation.y, lastRotation.z), Quaternion.Euler(lastRotation.x, _currentPliage.rotationOffset, lastRotation.z), _timerRotation);
+            pliageObject.eulerAngles = Vector3.Lerp(_lastRotation, new Vector3(_lastRotation.x, _lastOffset, _lastRotation.z), _timerRotation);
+            _timerRotation += Time.deltaTime;
+        }
+        else
+        {
+            _lastRotation = pliageObject.localEulerAngles;
+            _timerRotation = 0.0f;
+            isRotating = false;
+        }
 
     }
 
@@ -186,6 +220,12 @@ public class PliageManager : MonoBehaviour
 
     public void SetUpCurrentPliage()
     {
+
+        if(_animatorOrigami.GetCurrentAnimatorClipInfo(0)[0].clip.name == _animFeedBack.name)
+        {
+            _animatorOrigami.speed = 0.0f;
+        }
+
         if (OrigamiIsFinish())
         {
             _animator.Play(_currentPliage.animToPlay.name, -1, 1);
