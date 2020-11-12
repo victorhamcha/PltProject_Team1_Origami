@@ -15,6 +15,8 @@ public class SelectPointOrigami : MonoBehaviour
     //Pour savoir si on à commencez par touchez le bon coin de l'origamie dans notre slide sur l'écran 
     private bool _startWithGoodSelection = false;
 
+    public GameObject cubeTest = null;
+
     private void Update()
     {
         //Si on touche l'écran
@@ -38,6 +40,8 @@ public class SelectPointOrigami : MonoBehaviour
                     _pointSelected = hit.collider.transform;
                 }
                 posHitOrigami = hit.point;
+
+                cubeTest.transform.position = posHitOrigami;
             }
 
             //Debut du touch avec ou sans bonne selection du coin de l'origamie

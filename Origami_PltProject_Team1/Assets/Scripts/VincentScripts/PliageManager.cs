@@ -125,7 +125,7 @@ public class PliageManager : MonoBehaviour
 
             if (_currentPliage.isConfirmationPliage)
             {
-                _slideOrigamiUI.goNextIndex = true;
+                //_slideOrigamiUI.goNextIndex = true;
             }
         }
 
@@ -214,7 +214,10 @@ public class PliageManager : MonoBehaviour
             _handGO.SetActive(true);
 
             // Enable hand's animation
-            _handAnimator.Play(_currentPliage.handAnim.name);
+            if (_currentPliage.handAnim)
+            {
+                _handAnimator.Play(_currentPliage.handAnim.name);
+            }
         }
     }
 
