@@ -41,7 +41,7 @@ public class DialoguesManager : MonoBehaviour
             }
             else
             {
-                StartDialogue(0, 2);
+                StartDialogue(0, 7);
             }
 
         }

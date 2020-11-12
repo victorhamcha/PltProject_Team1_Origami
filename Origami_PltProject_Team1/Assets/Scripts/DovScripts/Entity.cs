@@ -74,9 +74,10 @@ public class Entity : MonoBehaviour
 
     //Pathfinding
     [SerializeField] private bool usePathFinding = false;
-    [SerializeField] private float refreshPathDuration = 0f;
-    [SerializeField] private float refreshPathCountDown = 0f;
-    [SerializeField] private int followPathIndex = 0;
+    [SerializeField] private float refreshPathDuration = 2f;
+    private float pathRange = 0.1f;
+    private float refreshPathCountDown = 0f;
+    private int followPathIndex = 0;
     private NavMeshPath path;
 
     //Debug
@@ -86,6 +87,14 @@ public class Entity : MonoBehaviour
     private Rigidbody _rigidbody = null;
     public bool moveModeOn = true;
 
+    [SerializeField] private Animator _animator;
+    public AnimationClip animClip;
+
+    public Vector2 Position
+    {
+        get { return transform.position.To2D(); }
+        set { transform.position = value.To3D(transform.position.y); }
+    }
 
     #endregion
 
@@ -94,6 +103,7 @@ public class Entity : MonoBehaviour
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
+        path = new NavMeshPath();
     }
 
     private void FixedUpdate()
@@ -105,7 +115,7 @@ public class Entity : MonoBehaviour
 
     private void Update()
     {
-        _UpdateRotator();
+        //_UpdateRotator();
     }
 
     private void OnGUI()
@@ -129,9 +139,9 @@ public class Entity : MonoBehaviour
         if (_accelerationTimer < _accelerationDuration) {
             GUILayout.Label("Acceleration Timer = " + _accelerationTimer, guiStyle);
         }
-        if (_frictionsTimer < _frictionsDuration) {
-            GUILayout.Label("Frictions Timer = " + _accelerationTimer, guiStyle);
-        }
+        //if (_frictionsTimer < _frictionsDuration) {
+        //    GUILayout.Label("Frictions Timer = " + _accelerationTimer, guiStyle);
+        //}
     }
 
     #endregion
@@ -146,7 +156,10 @@ public class Entity : MonoBehaviour
     public void MoveStop()
     {
         moveModeOn = false;
+        _moveDestination = Vector3.zero;
     }
+
+    
     public void MovePlay()
     {
         moveModeOn = true;
@@ -158,6 +171,17 @@ public class Entity : MonoBehaviour
         _moveDestination.y = 0f;
         _isMovingToDestination = true;
         _moveDestinationRefreshDirCountdown = -1f;
+
+        if (usePathFinding)
+        {
+            RefreshPath();
+            refreshPathCountDown = refreshPathDuration;
+            if (followPathIndex < path.corners.Length)
+            {
+                Vector3 moveDir = (path.corners[followPathIndex] - transform.position).normalized;
+                Move(moveDir.Overwrite(Tools.OverwriteType.Y));
+            }
+        }
     }
 
     private void _UpdateMove()
@@ -166,45 +190,89 @@ public class Entity : MonoBehaviour
 
         if (_isMovingToDestination)
         {
-            bool hasReachedDestination = false;
-            float distFromDestination = (_moveDestination - transform.position).magnitude;
-            if (distFromDestination <= _moveDestinationRange)
+            _animator.speed = 1;
+            _animator.Play(animClip.name);
+            if (!usePathFinding)
             {
-                hasReachedDestination = true;
-            }
-            Vector3 dirFromDestination = (_moveDestination - transform.position).normalized;
-            if (Vector3.Dot(_moveDir, dirFromDestination) < 0f)
-            {
-                hasReachedDestination = true;
-            }
+                bool hasReachedDestination = false;
+                float distFromDestination = (_moveDestination - transform.position).magnitude;
+                if (distFromDestination <= _moveDestinationRange)
+                {
+                    hasReachedDestination = true;
+                }
+                Vector3 dirFromDestination = (_moveDestination - transform.position).normalized;
+                if (Vector3.Dot(_moveDir, dirFromDestination) < 0f)
+                {
+                    hasReachedDestination = true;
+                }
 
-            if (hasReachedDestination)
-            {
-                isMoving = false;
-                Move(Vector3.zero);
-                _velocity = Vector3.zero;
-                _isMovingToDestination = false;
+                if (hasReachedDestination)
+                {
+                    isMoving = false;
+                    Move(Vector3.zero);
+                    _velocity = Vector3.zero;
+                    _isMovingToDestination = false;
+                }
+                else
+                {
+                    _moveDestinationRefreshDirCountdown -= Time.fixedDeltaTime;
+                    if (_moveDestinationRefreshDirCountdown <= 0f)
+                    {
+                        Vector3 moveDir = (_moveDestination - transform.position).normalized;
+                        Move(moveDir);
+                        _moveDestinationRefreshDirCountdown = _moveDestinationRefreshDirDuration;
+                    }
+                }
             }
             else
             {
-                _moveDestinationRefreshDirCountdown -= Time.fixedDeltaTime;
-                if (_moveDestinationRefreshDirCountdown <= 0f)
+                if (followPathIndex >= path.corners.Length)
                 {
-                    Vector3 moveDir = (_moveDestination - transform.position).normalized;
-                    Move(moveDir);
-                    _moveDestinationRefreshDirCountdown = _moveDestinationRefreshDirDuration;
+                    _isMovingToDestination = false;
+                    followPathIndex = 0;
+                    _moveDestination = Vector3.zero;
+                    return;
+                }
+
+                refreshPathCountDown -= Time.fixedDeltaTime;
+                if (refreshPathCountDown <= 0)
+                {
+                    refreshPathCountDown = refreshPathDuration;
+                    RefreshPath();
+                }
+
+                if(Vector3.Distance(path.corners[followPathIndex], transform.position) < 2f)
+                {
+                    followPathIndex++;
+                    if (followPathIndex < path.corners.Length)
+                    {
+                        Vector3 moveDir = (path.corners[followPathIndex] - transform.position).normalized;
+                        Move(moveDir.Overwrite(Tools.OverwriteType.Y));
+                    }
+                    if(followPathIndex == path.corners.Length)
+                    {
+                        Debug.Log("sa rentre dedan");
+                        isMoving = false;
+                        Move(Vector3.zero);
+                        _velocity = Vector3.zero;
+                        _isMovingToDestination = false;
+                    }
                 }
             }
+        }
+        else
+        {
+            _animator.speed = 0;
         }
 
         if (isMoving) {
             if (_velocity != Vector3.zero) {
                 if (Vector3.Dot(_previousMoveDir, _moveDir) < 0f) {
-                    _StartTurnAround();
+                    //_StartTurnAround();
                 } else {
                     float angle = Vector3.Angle(_previousMoveDir, _moveDir);
                     if (angle > _turnAngleMin) {
-                        _StartTurn(angle);
+                        //_StartTurn(angle);
                     }
                 }
             } else {
@@ -212,7 +280,7 @@ public class Entity : MonoBehaviour
             }
 
             if (_isTurningAround) {
-                _velocity = _ApplyTurnAround(_velocity);
+                //_velocity = _ApplyTurnAround(_velocity);
             } else {
                 Vector3 velocity = _ApplyAcceleration();
                 _velocity = _ApplyTurn(velocity);
@@ -221,9 +289,9 @@ public class Entity : MonoBehaviour
 
             _previousMoveDir = _moveDir;
         } else {
-            if (_wasMoving) {
+            /*if (_wasMoving) {
                 _StartFrictions();
-            }
+            }*/
 
 
             if (_isMovingToDestination)
@@ -243,11 +311,12 @@ public class Entity : MonoBehaviour
                         _moveDestinationSpeed = moveDestinationSpeedMin;
                     }
                 }
+
             }
             _isTurning = false;
             _isTurningAround = false;
 
-            _velocity = _ApplyFrictions(_velocity);
+            //_velocity = _ApplyFrictions(_velocity);
         }
 
         _wasMoving = isMoving;
@@ -347,6 +416,40 @@ public class Entity : MonoBehaviour
         }
 
         return velocity;
+    }
+
+    public bool IsNearPoint(Vector2 pos, float radius)
+    {
+        if ((pos - Position).sqrMagnitude <= radius * radius)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    private void RefreshPath()
+    {
+        Vector3 originPos = transform.position.Overwrite(Tools.OverwriteType.Y);
+        bool pathFound = NavMesh.CalculatePath(originPos, _moveDestination, NavMesh.AllAreas, path);
+        
+
+        if (pathFound)
+        {
+            followPathIndex = 1;
+            for (int i = 0; i < path.corners.Length - 1; i++)
+            {
+                Debug.DrawLine(path.corners[i], path.corners[i + 1], Color.red, refreshPathDuration);
+            }
+        }
+        else
+        {
+            _isMovingToDestination = false;
+            Move(Vector3.zero);
+            _velocity = Vector3.zero;
+            path.ClearCorners();
+            Debug.LogWarning("Path not found");
+        }
+        //Debug.Break();
     }
 
     private void _UpdateRotator()

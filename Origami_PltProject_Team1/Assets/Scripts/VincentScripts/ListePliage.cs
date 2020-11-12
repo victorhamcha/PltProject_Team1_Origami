@@ -10,16 +10,24 @@ public class Pliage
     public Transform goodPointSelection = null;
     public Transform endPointSelection = null;
     public AnimationClip animToPlay = null;
-
-    [Header("Custom FX")]
     public bool isConfirmationPliage = false;
+    public bool drawPointSelection = true;
+    public bool playBounce = false;
+    public Vector3 offsetPlacementPliage = Vector3.zero;
+
+    [Header("Custom Boundary")]
     public AnimationClip handAnim = null;
     public AnimationClip boundaryAnim = null;
     public SpriteRenderer boundarySprite = null;
+    public float maxSizeSpriteMask = 1f;
     public Color colorValidationPliage = Color.green;
     public Color colorBoundary = Color.red;
-    public bool drawPointSelection = true;
 
+    [Header("Particle Manager")]
+    public List<ParticleSystem> listBoundaryParticle = new List<ParticleSystem>();
+    [HideInInspector] public bool playedParticleOnce = false;
+
+    [Header("Auto Complete")]
     //Pourcentage to auto complete le pliage en cours
     [Range(0, 1)] public float prctMinValueToCompleteFold = 0.5f;
     //Vitesse de l'auto Complete
