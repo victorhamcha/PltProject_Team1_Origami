@@ -48,8 +48,10 @@ public class SelectPointOrigami : MonoBehaviour
             if (_touchPhase == TouchPhase.Began && IsGoodSelections())
             {
                 _startWithGoodSelection = true;
+                SoundManager.i.PlaySound(SoundManager.Sound.FoldsHandling);
                 Vibration.Vibrate(_timeVibration);
-            }else if (_touchPhase == TouchPhase.Began)
+            }
+            else if (_touchPhase == TouchPhase.Began)
             {
                 _startWithGoodSelection = false;
             }
@@ -58,6 +60,10 @@ public class SelectPointOrigami : MonoBehaviour
             if (_touchPhase == TouchPhase.Ended)
             {
                 _pointSelected = null;
+                if (AsStartesGoodSelection())
+                {
+                    SoundManager.i.PlaySound(SoundManager.Sound.FoldsDrop);
+                }
             }
         }
         else

@@ -31,8 +31,9 @@ public class SoundManager : MonoBehaviour
 
     public enum Sound
     {
-        PlayerMove,
-        PlayerAttack
+        FoldsHandling,
+        FoldsSucced,
+        FoldsDrop
     }
 
     public enum Loop
@@ -53,7 +54,7 @@ public class SoundManager : MonoBehaviour
 
     private void Awake()
     {
-        lastTimesSound = new Dictionary<Sound, float> { [Sound.PlayerMove] = 0f };
+        lastTimesSound = new Dictionary<Sound, float> {  };
 
         oneShotSource = this.gameObject.AddComponent<AudioSource>();
         loopSource = this.gameObject.AddComponent<AudioSource>();
@@ -137,7 +138,7 @@ public class SoundManager : MonoBehaviour
         {
             default:
                 return true;
-            case Sound.PlayerMove:
+            /*case Sound.PlayerMove:
                 if (lastTimesSound.ContainsKey(sound))
                 {
                     float cdSoundTimer = .05f;
@@ -154,7 +155,7 @@ public class SoundManager : MonoBehaviour
                 else
                 {
                     return false;
-                }
+                }*/
         }
     }
 

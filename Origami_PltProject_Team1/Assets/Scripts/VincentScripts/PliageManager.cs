@@ -95,11 +95,13 @@ public class PliageManager : MonoBehaviour
             {
                 StartCoroutine("BoundariesFeedback");
                 _currentPliage.playedParticleOnce = true;
+                SoundManager.i.PlaySound(SoundManager.Sound.FoldsSucced);
             }
             if (_currentPliage.playBounce)
             {
                 _currentPliage.playBounce = false;
                 _animatorOrigami.Play(_animFeedBack.name, -1, 0);
+                SoundManager.i.PlaySound(SoundManager.Sound.FoldsSucced);
             }
         }
 

@@ -408,6 +408,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _timeVibration: 50
+  cubeTest: {fileID: 0}
 --- !u!114 &3040872716771874106
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -427,6 +428,7 @@ MonoBehaviour:
     isConfirmationPliage: 0
     drawPointSelection: 1
     playBounce: 0
+    offsetPlacementPliage: {x: 0, y: 0, z: 0}
     handAnim: {fileID: 0}
     boundaryAnim: {fileID: 7400000, guid: 4b46ee181ada4ef4297f9d3ea97616eb, type: 2}
     boundarySprite: {fileID: 4059790225163642522}
@@ -445,6 +447,7 @@ MonoBehaviour:
     isConfirmationPliage: 1
     drawPointSelection: 0
     playBounce: 1
+    offsetPlacementPliage: {x: 0, y: 0, z: 0}
     handAnim: {fileID: 7400000, guid: a4da59fbbada94a4e888c76a3656fe8b, type: 2}
     boundaryAnim: {fileID: 7400000, guid: f25dcb98b15ca24409ce4857ba99ad36, type: 2}
     boundarySprite: {fileID: 7562363009033838606}
@@ -461,6 +464,7 @@ MonoBehaviour:
     isConfirmationPliage: 0
     drawPointSelection: 1
     playBounce: 0
+    offsetPlacementPliage: {x: 0, y: 0, z: 0}
     handAnim: {fileID: 0}
     boundaryAnim: {fileID: 7400000, guid: fa45405d37b946e46be88f0419035ae1, type: 2}
     boundarySprite: {fileID: 6210587978569359486}
@@ -479,6 +483,7 @@ MonoBehaviour:
     isConfirmationPliage: 1
     drawPointSelection: 0
     playBounce: 1
+    offsetPlacementPliage: {x: 0, y: 0, z: 0}
     handAnim: {fileID: 7400000, guid: 5e2e0bf999ab5dd4f87c3295b6ce4103, type: 2}
     boundaryAnim: {fileID: 7400000, guid: c9f4feb7ba7b4744e95f3e88d5525d60, type: 2}
     boundarySprite: {fileID: 7932185876311227956}
@@ -495,6 +500,7 @@ MonoBehaviour:
     isConfirmationPliage: 0
     drawPointSelection: 1
     playBounce: 0
+    offsetPlacementPliage: {x: 0, y: 0, z: 0}
     handAnim: {fileID: 0}
     boundaryAnim: {fileID: 7400000, guid: 7b1c2e1bf6334944fbb2ff77e804c6df, type: 2}
     boundarySprite: {fileID: 4184705615291690354}
@@ -513,6 +519,7 @@ MonoBehaviour:
     isConfirmationPliage: 1
     drawPointSelection: 0
     playBounce: 1
+    offsetPlacementPliage: {x: 0, y: 0, z: 0}
     handAnim: {fileID: 7400000, guid: d399520cc192ef046af7290a2280dd06, type: 2}
     boundaryAnim: {fileID: 7400000, guid: 33d52d6a0c2f8624991c65ec61943090, type: 2}
     boundarySprite: {fileID: 3894834870292962346}
@@ -529,6 +536,7 @@ MonoBehaviour:
     isConfirmationPliage: 0
     drawPointSelection: 1
     playBounce: 0
+    offsetPlacementPliage: {x: 0, y: 0, z: 0}
     handAnim: {fileID: 0}
     boundaryAnim: {fileID: 7400000, guid: af656ee35032330478e5494f6099a82b, type: 2}
     boundarySprite: {fileID: 7600434108807944907}
@@ -547,6 +555,7 @@ MonoBehaviour:
     isConfirmationPliage: 1
     drawPointSelection: 0
     playBounce: 1
+    offsetPlacementPliage: {x: 0, y: 0, z: 0}
     handAnim: {fileID: 7400000, guid: 89a0bac61372d9b4a81ec2a3a223171a, type: 2}
     boundaryAnim: {fileID: 7400000, guid: 0387607a8824b2f4fa845b86df741607, type: 2}
     boundarySprite: {fileID: 5771625211201350675}
@@ -569,10 +578,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a49eaf1cb4a497148adddad7a873e8cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pliageObject: {fileID: 8419759356866002920}
   _timeVibrationEndPliage: 50
   _cursorSelectPoint: {fileID: 2748622600757859677}
   _cursorEndPointSelect: {fileID: 3564655874059905916}
-  speedReverseAnim: 1
+  _speedReverseAnim: 1
+  _speedAnimCenterOrigami: 0.1
   _handAnimator: {fileID: 8822181403923868077}
   _handGO: {fileID: 8782614933801049469}
   _boundaryAnimator: {fileID: 5035238746977355599}

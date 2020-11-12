@@ -10,9 +10,21 @@ public class GameAssets : MonoBehaviour
     {
         get
         {
-            if (_i == null) _i = new GameObject("GameAssets", typeof(GameAssets)).GetComponent<GameAssets>();
+            if (_i == null)
+            {
+                _i = FindObjectOfType<GameAssets>();
+                if (_i == null)
+                {
+                    _i = new GameObject("GameAssets", typeof(GameAssets)).GetComponent<GameAssets>();
+                }
+            }
 
             return _i;
+        }
+
+        private set
+        {
+            _i = value;
         }
     }
 
