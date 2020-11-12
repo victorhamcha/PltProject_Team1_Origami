@@ -157,6 +157,8 @@ public class Entity : MonoBehaviour
     {
         moveModeOn = false;
         _moveDestination = Vector3.zero;
+        Move(Vector3.zero);
+        _velocity = Vector3.zero;
     }
 
     
