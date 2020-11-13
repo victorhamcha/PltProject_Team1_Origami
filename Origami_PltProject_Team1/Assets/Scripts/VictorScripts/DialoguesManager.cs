@@ -134,7 +134,7 @@ public class DialoguesManager : MonoBehaviour
     public void ShowFullDialogue()
     {
         StopAllCoroutines();
-
+        sentenceTxt.text = "";
         string sentences= dialogues[nextdialogue].sentence;
         string tag = "";
         foreach (char letter in sentences.ToCharArray())
