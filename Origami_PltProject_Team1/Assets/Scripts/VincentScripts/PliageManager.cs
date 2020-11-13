@@ -148,9 +148,9 @@ public class PliageManager : MonoBehaviour
                 _origamiIsFinish = true;
             }
 
-            if (_currentPliage.isConfirmationPliage)
+            if (_currentPliage.isConfirmationPliage && _slideOrigamiUI != null)
             {
-                //_slideOrigamiUI.goNextIndex = true;
+                _slideOrigamiUI.goNextIndex = true;
             }
         }
 
@@ -226,7 +226,6 @@ public class PliageManager : MonoBehaviour
         }
         else if (_timerRotation >= 1f && _isRotating)
         {
-            Debug.Log("Stop lerp");
             pliageObject.localEulerAngles = new Vector3(_lastRotation.x, _lastOffset, _lastRotation.z);
             _lastRotation = pliageObject.localEulerAngles;
             _isRotating = false;

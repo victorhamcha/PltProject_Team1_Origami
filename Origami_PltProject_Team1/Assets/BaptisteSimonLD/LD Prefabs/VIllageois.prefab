@@ -203,6 +203,7 @@ GameObject:
   - component: {fileID: 6955456492973564725}
   - component: {fileID: 5882550989612681121}
   - component: {fileID: 6848221126261558974}
+  - component: {fileID: 1370537259930444847}
   - component: {fileID: 3794546285818658794}
   m_Layer: 0
   m_Name: Bateau
@@ -2228,6 +2229,20 @@ MonoBehaviour:
   m_SelectedFaces: 
   m_SelectedEdges: []
   m_SelectedVertices: 
+--- !u!114 &1370537259930444847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3956340761785764164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8de0cf3696829f8459923c0f1ed373a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _changePLiage: {fileID: 0}
+  _namePliage: pliage_bateau
 --- !u!65 &3794546285818658794
 BoxCollider:
   m_ObjectHideFlags: 0

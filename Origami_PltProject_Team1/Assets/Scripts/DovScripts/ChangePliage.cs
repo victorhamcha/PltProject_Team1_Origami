@@ -24,6 +24,6 @@ public class ChangePliage : MonoBehaviour
     {
         switchModePlayerOrigami._pliageToDo = GetPliage(name);
         pliageManager = switchModePlayerOrigami._pliageToDo.GetComponent<PliageManager>();
-        pliageManager.SetUpCurrentPliage();
+        switchModePlayerOrigami.ActiveOrigami();
     }
 }

@@ -20,6 +20,7 @@ public class DialoguesManager : MonoBehaviour
     [SerializeField]
     private Image character = null;
     private float timerSwitchDialogue = 0.5f;
+    private bool oneTime = false;
 
     [SerializeField]
     private Entity playerEntity;
@@ -121,7 +122,6 @@ public class DialoguesManager : MonoBehaviour
         }
         else
         {
-            playerEntity.MovePlay();
             StopAllCoroutines();
             dialogueGui.SetActive(false);
             inTyping = false;

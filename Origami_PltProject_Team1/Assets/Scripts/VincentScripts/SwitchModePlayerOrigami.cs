@@ -71,16 +71,7 @@ public class SwitchModePlayerOrigami : MonoBehaviour
 
             if (_isOnModeOrigami)
             {
-                _origami.position = _posPliageToFaceCam.position;
-                _pliageToDo.transform.rotation = _posPliageToFaceCam.rotation;
-                _movementPlayer.MoveStop();
-                _animatorFadeOrigami.Play(_animFadeIn.name, -1, 0);
-                _animatorFadeOrigami.speed = 1;
-                _pliageToDo.SetActive(true);
-                _isOnReverseAnim = false;
-
-                _pliageManager.SetUpCurrentPliage();
-
+                ActiveOrigami();
             }
             else
             {
@@ -107,5 +98,18 @@ public class SwitchModePlayerOrigami : MonoBehaviour
     public void SwitchMode()
     {
         _switchModeOrigami = true;
+    }
+
+    public void ActiveOrigami()
+    {
+        _origami.position = _posPliageToFaceCam.position;
+        _pliageToDo.transform.rotation = _posPliageToFaceCam.rotation;
+        _movementPlayer.MoveStop();
+        _animatorFadeOrigami.Play(_animFadeIn.name, -1, 0);
+        _animatorFadeOrigami.speed = 1;
+        _pliageToDo.SetActive(true);
+        _isOnReverseAnim = false;
+        _pliageManager = _pliageToDo.GetComponent<PliageManager>();
+        _pliageManager.SetUpCurrentPliage();
     }
 }
