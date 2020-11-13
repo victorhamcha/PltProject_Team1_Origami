@@ -3,7 +3,7 @@
 public class SwitchModePlayerOrigami : MonoBehaviour
 {
     [SerializeField] private Animator _animatorFadeOrigami = null;
-    [SerializeField] private GameObject _pliageToDo = null;
+    [SerializeField] public GameObject _pliageToDo = null;
     [SerializeField] private Transform _origami = null;
 
     [SerializeField] private Transform _posPliageToFaceCam = null;
