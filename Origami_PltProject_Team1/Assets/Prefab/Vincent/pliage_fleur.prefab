@@ -441,6 +441,7 @@ MonoBehaviour:
     playedParticleOnce: 0
     prctMinValueToCompleteFold: 0.95
     speedAnimAutoComplete: 0.2
+    yValueWanted: 0
   - goodPointSelection: {fileID: 7996739316032365540}
     endPointSelection: {fileID: 7580809476961484443}
     animToPlay: {fileID: 7400000, guid: 3d07088187e53554cab38148c8aa08cc, type: 2}
@@ -458,6 +459,7 @@ MonoBehaviour:
     playedParticleOnce: 0
     prctMinValueToCompleteFold: 0.9
     speedAnimAutoComplete: 0.2
+    yValueWanted: 90
   - goodPointSelection: {fileID: 3888018872018861920}
     endPointSelection: {fileID: 3000583506254459368}
     animToPlay: {fileID: 7400000, guid: d6c5e7a16fd50a94fae716aba84069d9, type: 2}
@@ -477,6 +479,7 @@ MonoBehaviour:
     playedParticleOnce: 0
     prctMinValueToCompleteFold: 0.9
     speedAnimAutoComplete: 0.2
+    yValueWanted: 0
   - goodPointSelection: {fileID: 798102684103960547}
     endPointSelection: {fileID: 3916375853171274124}
     animToPlay: {fileID: 7400000, guid: 25e12ffd158ed074cafdcf2823f682db, type: 2}
@@ -494,6 +497,7 @@ MonoBehaviour:
     playedParticleOnce: 0
     prctMinValueToCompleteFold: 0.9
     speedAnimAutoComplete: 0.2
+    yValueWanted: 90
   - goodPointSelection: {fileID: 2159476413938582065}
     endPointSelection: {fileID: 6256922338813516476}
     animToPlay: {fileID: 7400000, guid: 0a743de09e5d8784ab9b3a037d8bd2d5, type: 2}
@@ -513,6 +517,7 @@ MonoBehaviour:
     playedParticleOnce: 0
     prctMinValueToCompleteFold: 0.9
     speedAnimAutoComplete: 0.2
+    yValueWanted: 0
   - goodPointSelection: {fileID: 8678925980469634585}
     endPointSelection: {fileID: 9027415931387512701}
     animToPlay: {fileID: 7400000, guid: 197163cd875bdc749ba641f65c87abc6, type: 2}
@@ -530,6 +535,7 @@ MonoBehaviour:
     playedParticleOnce: 0
     prctMinValueToCompleteFold: 0.9
     speedAnimAutoComplete: 0.2
+    yValueWanted: 90
   - goodPointSelection: {fileID: 7362262345234702511}
     endPointSelection: {fileID: 6969974828926386042}
     animToPlay: {fileID: 7400000, guid: f0ec5631d3d82e04da230c2610bfbac9, type: 2}
@@ -549,6 +555,7 @@ MonoBehaviour:
     playedParticleOnce: 0
     prctMinValueToCompleteFold: 0.9
     speedAnimAutoComplete: 0.2
+    yValueWanted: 0
   - goodPointSelection: {fileID: 625012094706855330}
     endPointSelection: {fileID: 5235840091116026747}
     animToPlay: {fileID: 7400000, guid: 9c65ea3c1fa9ed444a5eebee88216331, type: 2}
@@ -566,6 +573,7 @@ MonoBehaviour:
     playedParticleOnce: 0
     prctMinValueToCompleteFold: 0.9
     speedAnimAutoComplete: 0.2
+    yValueWanted: 90
 --- !u!114 &1663356139298989316
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -578,12 +586,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a49eaf1cb4a497148adddad7a873e8cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _switchModePlayerOrigami: {fileID: 0}
   pliageObject: {fileID: 8419759356866002920}
   _timeVibrationEndPliage: 50
   _cursorSelectPoint: {fileID: 2748622600757859677}
   _cursorEndPointSelect: {fileID: 3564655874059905916}
   _speedReverseAnim: 1
   _speedAnimCenterOrigami: 0.1
+  _timerBounce: 1
+  _timerParticule: 1
   _handAnimator: {fileID: 8822181403923868077}
   _handGO: {fileID: 8782614933801049469}
   _boundaryAnimator: {fileID: 5035238746977355599}

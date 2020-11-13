@@ -35,13 +35,20 @@ public class PliageManager : MonoBehaviour
     [SerializeField] [Range(0, 1)] private float _speedReverseAnim = 1f;
     //Vitesse de l'animations du recentrage de l'origami
     [SerializeField] [Range(0f, 5f)] private float _speedAnimCenterOrigami = 0.1f;
+    [SerializeField] private float _timerBounce = 1.0f;
+    [SerializeField] private float _timerParticule = 1.0f;
 
     //Indicateur du nombre de pliage effectuez pour parcourir la liste de tout les pliages à faires
     private int indexPliage = 0;
 
+    //State origami
     private bool _origamiIsFinish = false;
     private bool _reverseAnim = false;
     private bool _currentFoldIsFinish = false;
+    private bool _bounceIsFinish = false;
+    private bool _particulePlayed = false;
+    private float _tempTimerBounce = 0.0f;
+    private float _tempTimerParticule = 0.0f;
 
     [Header("TUTO")]
     [SerializeField] private Animator _handAnimator = null;
@@ -58,10 +65,12 @@ public class PliageManager : MonoBehaviour
 
     [Header("Séquenceur")]
     [SerializeField] private float _fixingTimer = 1.0f;
-    private float _decrementingTimer = 0.0f;
+    private float _timerEndAutoComplete = 0.0f;
 
-    [HideInInspector] public bool isRotating = false;
-    private float _timerRotation = 0.0f;
+    //Rotator
+    private bool _isRotating = false;
+    private bool _rotatingIsFinish = false;
+    private float _timerRotation = 1.0f;
     private Vector3 _lastRotation = new Vector3(0, 0, 0);
     private float _lastOffset = 0.0f;
 
@@ -75,7 +84,6 @@ public class PliageManager : MonoBehaviour
 
         //Set de la speed de l'animator à 0 pour évitez que l'animations se joue dés le debuts
         _animator.speed = 0;
-        _decrementingTimer = _fixingTimer;
         _initScaleXMask = _maskSprite.localScale.x;
     }
 
@@ -100,34 +108,34 @@ public class PliageManager : MonoBehaviour
                 StartCoroutine("BoundariesFeedback");
                 _currentPliage.playedParticleOnce = true;
                 SoundManager.i.PlaySound(SoundManager.Sound.FoldsSucced);
+                _particulePlayed = true;
+                _tempTimerParticule = _timerParticule;
             }
+
             if (_currentPliage.playBounce)
             {
-                _animatorOrigami.speed = 1.0f;
                 _currentPliage.playBounce = false;
                 _animatorOrigami.Play(_animFeedBack.name, -1, 0);
                 SoundManager.i.PlaySound(SoundManager.Sound.FoldsSucced);
+                _tempTimerBounce = _timerBounce;
             }
             else
             {
-                if (_animatorOrigami.GetCurrentAnimatorClipInfo(0)[0].clip.name == _animFeedBack.name)
-                {
-                    _animatorOrigami.speed = 0.0f;
-                }
-                
+                _tempTimerBounce = 0;
             }
         }
 
         if (_currentFoldIsFinish && !OrigamiIsFinish())
         {
-            _decrementingTimer -= Time.deltaTime;
+            _timerEndAutoComplete -= Time.deltaTime;
             _maskSprite.localScale = new Vector3(Mathf.Lerp(_initScaleXMask, _currentPliage.maxSizeSpriteMask, _animator.GetCurrentAnimatorStateInfo(0).normalizedTime), _maskSprite.localScale.y, _maskSprite.localScale.z);
             _currentPliage.boundarySprite.color = Color.Lerp(_currentPliage.colorBoundary, _currentPliage.colorValidationPliage, _animator.GetCurrentAnimatorStateInfo(0).normalizedTime);
         }
 
-        if (_currentFoldIsFinish && CurrentAnimIsFinish() && !OrigamiIsFinish() && _decrementingTimer <= 0.0f)
+        if (_currentFoldIsFinish && CurrentAnimIsFinish() && !OrigamiIsFinish() && _timerEndAutoComplete <= 0.0f && (_rotatingIsFinish || !_currentPliage.makeRotation ) && _tempTimerParticule <= 0)
         {
-            _decrementingTimer = _fixingTimer;
+            _timerEndAutoComplete = _fixingTimer;
+            _rotatingIsFinish = false;
             Vibration.Vibrate(_timeVibrationEndPliage);
             indexPliage++;
             if (_listePliage.CanGoToFolding(indexPliage))
@@ -182,33 +190,47 @@ public class PliageManager : MonoBehaviour
         if (_currentPliage != null && _lastPosOrigami != _currentPliage.offsetPlacementPliage && indexPliage > 0)
         {
             _timerTransitionCentrageOrigami += Time.deltaTime;
-            pliageObject.localPosition = Vector3.Lerp(_lastPosOrigami, _currentPliage.offsetPlacementPliage, _timerTransitionCentrageOrigami * _speedAnimCenterOrigami);
+            //pliageObject.localPosition = Vector3.Lerp(_lastPosOrigami, _currentPliage.offsetPlacementPliage, _timerTransitionCentrageOrigami * _speedAnimCenterOrigami);
         }
 
         if (OrigamiIsFinish())
         {
             _switchModePlayerOrigami._OnModeEnd = true;
         }
-        Debug.Log(_animatorOrigami.GetCurrentAnimatorStateInfo(0).normalizedTime);
-        // Si c'est une confirmation de pli et que le pliage est fini
-        if (_currentPliage.isConfirmationPliage && CurrentFoldsIsFinish() && _animatorOrigami.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
+
+        if (_tempTimerBounce > 0)
         {
-            isRotating = true;
+            _tempTimerBounce -= Time.deltaTime;
+        }
+
+        if (_particulePlayed && _tempTimerParticule > 0)
+        {
+            _tempTimerParticule -= Time.deltaTime;
+        }
+
+        // Si c'est une confirmation de pli et que le pliage est fini et que le bounce est fini
+        if (_currentPliage.isConfirmationPliage && CurrentFoldsIsFinish() && _tempTimerBounce <= 0 && !_isRotating && !_rotatingIsFinish && _currentPliage.makeRotation )
+        {
+            _isRotating = true;
+            _bounceIsFinish = true;
             _lastOffset = _currentPliage.yValueWanted;
+            _timerRotation = 0f;
         }
 
         // Si la rotation n'est pas égale à la rotation finale et qu'il est en train de rotate
-        if (_timerRotation < 1.0f && isRotating)
+        if (_isRotating && _bounceIsFinish && _timerRotation < 1f)
         {
             // pliageObject.localRotation = Quaternion.Lerp(Quaternion.Euler(lastRotation.x, lastRotation.y, lastRotation.z), Quaternion.Euler(lastRotation.x, _currentPliage.rotationOffset, lastRotation.z), _timerRotation);
-            pliageObject.eulerAngles = Vector3.Lerp(_lastRotation, new Vector3(_lastRotation.x, _lastOffset, _lastRotation.z), _timerRotation);
+            pliageObject.localEulerAngles = Vector3.Lerp(_lastRotation, new Vector3(_lastRotation.x, _lastOffset, _lastRotation.z), _timerRotation);
             _timerRotation += Time.deltaTime;
         }
-        else
+        else if (_timerRotation >= 1f && _isRotating)
         {
+            Debug.Log("Stop lerp");
+            pliageObject.localEulerAngles = new Vector3(_lastRotation.x, _lastOffset, _lastRotation.z);
             _lastRotation = pliageObject.localEulerAngles;
-            _timerRotation = 0.0f;
-            isRotating = false;
+            _isRotating = false;
+            _rotatingIsFinish = true;
         }
 
     }
@@ -220,12 +242,6 @@ public class PliageManager : MonoBehaviour
 
     public void SetUpCurrentPliage()
     {
-
-        if(_animatorOrigami.GetCurrentAnimatorClipInfo(0)[0].clip.name == _animFeedBack.name)
-        {
-            _animatorOrigami.speed = 0.0f;
-        }
-
         if (OrigamiIsFinish())
         {
             _animator.Play(_currentPliage.animToPlay.name, -1, 1);
@@ -259,12 +275,12 @@ public class PliageManager : MonoBehaviour
 
         if (_currentPliage.isConfirmationPliage)
         {
-            // Enable hand's Gameobject
-            _handGO.SetActive(true);
 
+            // Enable hand's Gameobject
             // Enable hand's animation
             if (_currentPliage.handAnim)
             {
+                _handGO.SetActive(true);
                 _handAnimator.Play(_currentPliage.handAnim.name);
             }
         }

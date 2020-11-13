@@ -2255,7 +2255,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &304661274
 PrefabInstance:
@@ -6068,6 +6068,10 @@ PrefabInstance:
       propertyPath: _origami
       value: 
       objectReference: {fileID: 553523007}
+    - target: {fileID: 1105344191, guid: 0bc1af0164357a149a3b43fa33190f8f, type: 3}
+      propertyPath: celebration
+      value: 
+      objectReference: {fileID: 723877802}
     - target: {fileID: 7384846687720814210, guid: 0bc1af0164357a149a3b43fa33190f8f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -6271,6 +6275,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 887b6d1e6adfe18428020b5325466ad9,
     type: 3}
   m_PrefabInstance: {fileID: 718087154}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &723877802 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6195801640809848548, guid: 6fdfa3207973704449ff05eb63712168,
+    type: 3}
+  m_PrefabInstance: {fileID: 2131192454}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &739130309
 GameObject:
@@ -12135,49 +12145,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1651445786}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1654332267
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1654332269}
-  - component: {fileID: 1654332268}
-  m_Layer: 0
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1654332268
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1654332267}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eeb799c0eb9ace043a34bbad847c60a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &1654332269
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1654332267}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.5136328, y: 0.768227, z: 0.66900444}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 12
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1664895718
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15397,6 +15364,16 @@ PrefabInstance:
       propertyPath: speedAnimCenterOrigami
       value: 0.0048
       objectReference: {fileID: 0}
+    - target: {fileID: 4590817003474555770, guid: 1712a9927aa29b047bfaebddc9075874,
+        type: 3}
+      propertyPath: _timerBounce
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4590817003474555770, guid: 1712a9927aa29b047bfaebddc9075874,
+        type: 3}
+      propertyPath: _switchModePlayerOrigami
+      value: 
+      objectReference: {fileID: 1105344191}
     - target: {fileID: 5502300363096646781, guid: 1712a9927aa29b047bfaebddc9075874,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -16013,6 +15990,21 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 7384846688358519091}
+    - target: {fileID: 4392893853622636654, guid: 6fdfa3207973704449ff05eb63712168,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6195801640809848548, guid: 6fdfa3207973704449ff05eb63712168,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6607356438168968843, guid: 6fdfa3207973704449ff05eb63712168,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: eae1bb14ae3c6a546b70b946c710264a, type: 2}
     m_RemovedComponents:
     - {fileID: 593545715, guid: 6fdfa3207973704449ff05eb63712168, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 6fdfa3207973704449ff05eb63712168, type: 3}
@@ -16298,11 +16290,31 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 409593964411859321, guid: caca29b9869b9e9459427bda7421748c,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 409593964411859321, guid: caca29b9869b9e9459427bda7421748c,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 409593964411859321, guid: caca29b9869b9e9459427bda7421748c,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 6490989710581436715, guid: caca29b9869b9e9459427bda7421748c,
         type: 3}
       propertyPath: _animatorOrigami
       value: 
       objectReference: {fileID: 1686573299}
+    - target: {fileID: 6490989710581436715, guid: caca29b9869b9e9459427bda7421748c,
+        type: 3}
+      propertyPath: _switchModePlayerOrigami
+      value: 
+      objectReference: {fileID: 1105344191}
     - target: {fileID: 6895158091517265975, guid: caca29b9869b9e9459427bda7421748c,
         type: 3}
       propertyPath: m_Name
@@ -16372,6 +16384,11 @@ PrefabInstance:
       propertyPath: _animatorOrigami
       value: 
       objectReference: {fileID: 1686573299}
+    - target: {fileID: 1663356139298989316, guid: e5fcc4b82bc1e554e8acfe052dac529a,
+        type: 3}
+      propertyPath: _switchModePlayerOrigami
+      value: 
+      objectReference: {fileID: 1105344191}
     - target: {fileID: 4608257128928743350, guid: e5fcc4b82bc1e554e8acfe052dac529a,
         type: 3}
       propertyPath: cubeTest

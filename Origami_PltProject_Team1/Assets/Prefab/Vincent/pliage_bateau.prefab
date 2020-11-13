@@ -1381,7 +1381,7 @@ MonoBehaviour:
     playedParticleOnce: 0
     prctMinValueToCompleteFold: 0.9
     speedAnimAutoComplete: 0.2
-    yValueWanted: 90
+    yValueWanted: 180
   - goodPointSelection: {fileID: 7376465228671316778}
     endPointSelection: {fileID: 7998946857269662474}
     animToPlay: {fileID: 7400000, guid: 89756df70740fea4d87e4b551bad9e29, type: 2}
@@ -1422,7 +1422,7 @@ MonoBehaviour:
     playedParticleOnce: 0
     prctMinValueToCompleteFold: 0.9
     speedAnimAutoComplete: 0.2
-    yValueWanted: 270
+    yValueWanted: 180
 --- !u!114 &4590817003474555770
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1442,6 +1442,8 @@ MonoBehaviour:
   _cursorEndPointSelect: {fileID: 1862385251504135426}
   _speedReverseAnim: 1
   _speedAnimCenterOrigami: 3
+  _timerBounce: 1
+  _timerParticule: 1
   _handAnimator: {fileID: 5966734164060102611}
   _handGO: {fileID: 5855431467069188867}
   _boundaryAnimator: {fileID: 7872420599066489137}
@@ -1449,7 +1451,6 @@ MonoBehaviour:
   _animatorOrigami: {fileID: 0}
   _animFeedBack: {fileID: 7400000, guid: 564956b5290eb7846971cef51003ee68, type: 2}
   _fixingTimer: 0.85
-  isRotating: 0
 --- !u!95 &5085844833394679096
 Animator:
   serializedVersion: 3

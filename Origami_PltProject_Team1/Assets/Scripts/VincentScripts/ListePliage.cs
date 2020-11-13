@@ -34,6 +34,7 @@ public class Pliage
     [Range(0, 1)] public float speedAnimAutoComplete = 0.5f;
 
     [Header("Rotation")]
+    public bool makeRotation = false;
     public float yValueWanted = 0.0f;
     
 }
