@@ -21,6 +21,9 @@ public class DialoguesManager : MonoBehaviour
     private Image character = null;
     private float timerSwitchDialogue = 0.5f;
 
+    [SerializeField]
+    private Entity playerEntity;
+
     private int lastDialogue;
     private int nextdialogue;
     bool inTyping = false;
@@ -64,6 +67,7 @@ public class DialoguesManager : MonoBehaviour
     {
         if(!inTyping)
         {
+            playerEntity.MoveStop();
             character.gameObject.SetActive(true);
             arrow.gameObject.SetActive(true);
             point.gameObject.SetActive(false);
@@ -117,6 +121,7 @@ public class DialoguesManager : MonoBehaviour
         }
         else
         {
+            playerEntity.MovePlay();
             StopAllCoroutines();
             dialogueGui.SetActive(false);
             inTyping = false;
