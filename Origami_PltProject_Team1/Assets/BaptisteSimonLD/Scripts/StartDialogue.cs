@@ -26,6 +26,7 @@ public class StartDialogue : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("Oui");
+        dialMngr.inDialogue = true;
 
         if(timesTalked == 0)
         {

@@ -29,6 +29,8 @@ public class DialoguesManager : MonoBehaviour
     private int nextdialogue;
     bool inTyping = false;
     bool inTag = false;
+    public bool inDialogue;
+
     void Start()
     {
 
@@ -37,31 +39,34 @@ public class DialoguesManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        timerSwitchDialogue -= Time.deltaTime;
-        if (Input.GetKeyDown(KeyCode.H) && timerSwitchDialogue <= 0)
+        if (inDialogue)
         {
-            timerSwitchDialogue = 0.5f;
-            if (inTyping)
+            timerSwitchDialogue -= Time.deltaTime;
+            if (Input.GetKeyDown(KeyCode.H) && timerSwitchDialogue <= 0)
             {
-                NextDialogue();
-            }
-            else
-            {
-                StartDialogue(0, 7);
-            }
+                timerSwitchDialogue = 0.5f;
+                if (inTyping)
+                {
+                    NextDialogue();
+                }
+                else
+                {
+                    StartDialogue(0, 7);
+                }
 
+            }
+            if (Input.GetMouseButtonDown(0))
+            {
+                if (inTyping)
+                    ShowFullDialogue();
+                else
+                    NextDialogue();
+            }
+            /*if (Input.GetKeyDown(KeyCode.J))
+            {
+                StartDialogue(1);
+            }*/
         }
-        if(Input.GetMouseButtonDown(0))
-        {
-            if (inTyping)
-                ShowFullDialogue();
-            else
-                NextDialogue();
-        }
-        /*if (Input.GetKeyDown(KeyCode.J))
-        {
-            StartDialogue(1);
-        }*/
     }
 
     public void StartDialogue(int nextDialogue, int lastdialogue)
@@ -122,6 +127,8 @@ public class DialoguesManager : MonoBehaviour
         }
         else
         {
+            inDialogue = false;
+            playerEntity.MovePlay();
             StopAllCoroutines();
             dialogueGui.SetActive(false);
             inTyping = false;
