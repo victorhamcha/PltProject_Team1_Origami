@@ -76,14 +76,14 @@ namespace OrigamiEditor
 
         public override void OnInspectorGUI()
         {
-            //base.OnInspectorGUI();
+            base.OnInspectorGUI();
 
-            serializedObject.Update();
+/*            serializedObject.Update();
 
             // Actually draw the list in the inspector
             _reorderableList.DoLayoutList();
 
-            serializedObject.ApplyModifiedProperties();
+            serializedObject.ApplyModifiedProperties();*/
         }
 
     }
