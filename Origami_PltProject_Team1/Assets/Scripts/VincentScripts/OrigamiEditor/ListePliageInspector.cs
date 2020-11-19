@@ -1,91 +1,89 @@
 ﻿using UnityEngine;
 using UnityEditor;
-using Origami;
 using UnityEditorInternal;
 
-namespace OrigamiEditor
+
+[CustomEditor(typeof(ListePliage))]
+public class ListePliageEditor : Editor
 {
-    [CustomEditor(typeof(ListePliage))]
-    public class ListePliageEditor : Editor
+    private ReorderableList _reorderableList = null;
+
+    private ListePliage listePliage
     {
-        private ReorderableList _reorderableList = null;
-
-        private ListePliage listePliage
+        get
         {
-            get
-            {
-                return target as ListePliage;
-            }
+            return target as ListePliage;
         }
+    }
 
-        private void OnEnable()
+    private void OnEnable()
+    {
+        _reorderableList = new ReorderableList(listePliage.GetListPliage(), typeof(Pliage), true, true, true, true);
+
+        _reorderableList.drawHeaderCallback += DrawHeader;
+        _reorderableList.drawElementCallback += DrawElement;
+
+        _reorderableList.onAddCallback += AddItem;
+        _reorderableList.onRemoveCallback += RemoveItem;
+    }
+
+    private void OnDisable()
+    {
+        _reorderableList.drawHeaderCallback -= DrawHeader;
+        _reorderableList.drawElementCallback -= DrawElement;
+
+        _reorderableList.onAddCallback -= AddItem;
+        _reorderableList.onRemoveCallback -= RemoveItem;
+    }
+
+    private void DrawHeader(Rect rect)
+    {
+        GUI.Label(rect, "Our fancy reorderable list");
+    }
+
+    private void DrawElement(Rect rect, int index, bool active, bool focused)
+    {
+        Debug.Log(active);
+        Pliage item = listePliage.GetListPliage()[index];
+        EditorGUI.BeginChangeCheck();
+        EditorGUI.LabelField(rect, "Pliage" + index);
+
+        rect.x += 50;
+        rect.y += 10;
+        item.isConfirmationPliage = EditorGUI.Toggle(new Rect(rect.x, rect.y, 18, rect.height), item.isConfirmationPliage);
+        //item.stringvalue = EditorGUI.TextField(new Rect(rect.x + 18, rect.y, rect.width - 18, rect.height), item.stringvalue);
+        if (EditorGUI.EndChangeCheck())
         {
-            _reorderableList = new ReorderableList(listePliage.GetListPliage(), typeof(Pliage), true, true, true, true);
-
-            _reorderableList.drawHeaderCallback += DrawHeader;
-            _reorderableList.drawElementCallback += DrawElement;
-
-            _reorderableList.onAddCallback += AddItem;
-            _reorderableList.onRemoveCallback += RemoveItem;
-        }
-
-        private void OnDisable()
-        {
-            _reorderableList.drawHeaderCallback -= DrawHeader;
-            _reorderableList.drawElementCallback -= DrawElement;
-
-            _reorderableList.onAddCallback -= AddItem;
-            _reorderableList.onRemoveCallback -= RemoveItem;
-        }
-
-        private void DrawHeader(Rect rect)
-        {
-            GUI.Label(rect, "Our fancy reorderable list");
-        }
-
-        private void DrawElement(Rect rect, int index, bool active, bool focused)
-        {
-            Debug.Log(active);
-            Pliage item = listePliage.GetListPliage()[index];
-            EditorGUI.BeginChangeCheck();
-            EditorGUI.LabelField(rect, "Pliage" + index);
-
-            rect.x += 50; 
-            rect.y += 10;
-            item.isConfirmationPliage = EditorGUI.Toggle(new Rect(rect.x, rect.y, 18, rect.height), item.isConfirmationPliage);
-            //item.stringvalue = EditorGUI.TextField(new Rect(rect.x + 18, rect.y, rect.width - 18, rect.height), item.stringvalue);
-            if (EditorGUI.EndChangeCheck())
-            {
-                EditorUtility.SetDirty(target);
-            }
-        }
-
-        private void AddItem(ReorderableList list)
-        {
-            listePliage.GetListPliage().Add(new Pliage());
-
             EditorUtility.SetDirty(target);
         }
+    }
 
-        private void RemoveItem(ReorderableList list)
-        {
-            listePliage.GetListPliage().RemoveAt(list.index);
+    private void AddItem(ReorderableList list)
+    {
+        listePliage.GetListPliage().Add(new Pliage());
 
-            EditorUtility.SetDirty(target);
-        }
+        EditorUtility.SetDirty(target);
+    }
 
-        public override void OnInspectorGUI()
-        {
-            base.OnInspectorGUI();
+    private void RemoveItem(ReorderableList list)
+    {
+        listePliage.GetListPliage().RemoveAt(list.index);
 
-/*            serializedObject.Update();
+        EditorUtility.SetDirty(target);
+    }
 
-            // Actually draw the list in the inspector
-            _reorderableList.DoLayoutList();
+    public override void OnInspectorGUI()
+    {
+        base.OnInspectorGUI();
 
-            serializedObject.ApplyModifiedProperties();*/
-        }
+        /*            serializedObject.Update();
 
+                    // Actually draw the list in the inspector
+                    _reorderableList.DoLayoutList();
+
+                    serializedObject.ApplyModifiedProperties();*/
     }
 
 }
+
+

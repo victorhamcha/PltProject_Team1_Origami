@@ -3,33 +3,29 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-namespace Origami
+public class ChangePliage : MonoBehaviour
 {
+    [SerializeField] private List<GameObject> listPliage = new List<GameObject>();
+    [SerializeField] private SwitchModePlayerOrigami switchModePlayerOrigami = null;
+    private PliageManager pliageManager = null;
 
-    public class ChangePliage : MonoBehaviour
+    private GameObject GetPliage(string name)
     {
-        [SerializeField] private List<GameObject> listPliage = new List<GameObject>();
-        [SerializeField] private SwitchModePlayerOrigami switchModePlayerOrigami = null;
-        private PliageManager pliageManager = null;
-
-        private GameObject GetPliage(string name)
+        for (int i = 0; i <= listPliage.Count; i++)
         {
-            for (int i = 0; i <= listPliage.Count; i++)
+            if (name == listPliage[i].name)
             {
-                if (name == listPliage[i].name)
-                {
-                    return listPliage[i];
-                }
+                return listPliage[i];
             }
-            return null;
         }
-
-        public void SetUpPliage(string name)
-        {
-            switchModePlayerOrigami._pliageToDo = GetPliage(name);
-            pliageManager = switchModePlayerOrigami._pliageToDo.GetComponent<PliageManager>();
-            switchModePlayerOrigami.ActiveOrigami();
-        }
+        return null;
     }
 
+    public void SetUpPliage(string name)
+    {
+        switchModePlayerOrigami._pliageToDo = GetPliage(name);
+        pliageManager = switchModePlayerOrigami._pliageToDo.GetComponent<PliageManager>();
+        switchModePlayerOrigami.ActiveOrigami();
+    }
 }
+
