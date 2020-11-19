@@ -89,7 +89,8 @@ using UnityEngine.AI;
         public bool moveModeOn = true;
 
         [SerializeField] private Animator _animator;
-        public AnimationClip animClip;
+        public AnimationClip animClipIdle;
+        public AnimationClip animClipForward;
 
         public Vector2 Position
         {
@@ -196,8 +197,8 @@ using UnityEngine.AI;
 
             if (_isMovingToDestination)
             {
-                _animator.speed = 1;
-                _animator.Play(animClip.name);
+                //_animator.speed = 1;
+                _animator.Play(animClipIdle.name);
                 if (!usePathFinding)
                 {
                     bool hasReachedDestination = false;
@@ -268,7 +269,7 @@ using UnityEngine.AI;
             }
             else
             {
-                _animator.speed = 0;
+            _animator.Play(animClipForward.name);
             }
 
             if (isMoving)

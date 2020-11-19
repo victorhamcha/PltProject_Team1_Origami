@@ -14,8 +14,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Entity _entity;
     [SerializeField] private SoundManager _soundManager;
 
-
-
     public static GameManager Instance
     {
         get
@@ -72,4 +70,6 @@ public class GameManager : MonoBehaviour
     {
         return _soundManager;
     }
+
+
 }
