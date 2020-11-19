@@ -1,5 +1,4 @@
 ﻿using UnityEditor;
-using Origami;
 
 [CustomEditor(typeof(Pliage))]
 public class PliageInspector : Editor

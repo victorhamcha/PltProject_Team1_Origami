@@ -22,8 +22,7 @@ public class DialoguesManager : MonoBehaviour
     private float timerSwitchDialogue = 0.5f;
     private bool oneTime = false;
 
-    [SerializeField]
-    private Entity playerEntity;
+    private Entity playerEntity = null;
 
     private int lastDialogue;
     private int nextdialogue;
@@ -31,9 +30,9 @@ public class DialoguesManager : MonoBehaviour
     bool inTag = false;
     public bool inDialogue;
 
-    void Start()
+    private void Awake()
     {
-
+        playerEntity = GameManager.Instance.GetEntity();
     }
 
     // Update is called once per frame
