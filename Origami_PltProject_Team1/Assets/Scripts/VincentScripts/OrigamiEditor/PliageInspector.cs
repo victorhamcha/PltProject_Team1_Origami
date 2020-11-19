@@ -1,6 +1,6 @@
 ﻿using UnityEditor;
 
-[CustomEditor(typeof(Pliage))]
+//[CustomEditor(typeof(Pliage))]
 public class PliageInspector : Editor
 {
     public override void OnInspectorGUI()

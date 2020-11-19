@@ -3,7 +3,7 @@ using UnityEditor;
 using UnityEditorInternal;
 
 
-[CustomEditor(typeof(ListePliage))]
+//[CustomEditor(typeof(ListePliage))]
 public class ListePliageEditor : Editor
 {
     private ReorderableList _reorderableList = null;
@@ -76,13 +76,14 @@ public class ListePliageEditor : Editor
     {
         base.OnInspectorGUI();
 
-        /*            serializedObject.Update();
+/*                   serializedObject.Update();
 
                     // Actually draw the list in the inspector
                     _reorderableList.DoLayoutList();
 
                     serializedObject.ApplyModifiedProperties();*/
     }
+
 
 }
 
