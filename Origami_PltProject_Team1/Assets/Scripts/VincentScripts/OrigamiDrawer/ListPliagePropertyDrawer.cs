@@ -1,6 +1,7 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
+#if UNITY_EDITOR
 [CustomPropertyDrawer(typeof(Pliage))]
 public class ListPliagePropertyDrawer : PropertyDrawer
 {
@@ -131,3 +132,4 @@ public class ListPliagePropertyDrawer : PropertyDrawer
         return EditorGUIUtility.singleLineHeight;
     }
 }
+#endif
