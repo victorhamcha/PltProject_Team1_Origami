@@ -196,7 +196,7 @@ public class DialoguesManager : MonoBehaviour
                 {
 
                     inTag = true;
-                    Debug.Log("entering");
+                    //Debug.Log("entering");
                 }
                 else
                 {
@@ -210,8 +210,8 @@ public class DialoguesManager : MonoBehaviour
                 {
 
                     inTag = false;
-                    Debug.Log("exiting");
-                    Debug.Log(tag);
+                    //Debug.Log("exiting");
+                    //Debug.Log(tag);
                     //fonctions du parser ICI
                     StartFunction(tag);
                     tag = "";

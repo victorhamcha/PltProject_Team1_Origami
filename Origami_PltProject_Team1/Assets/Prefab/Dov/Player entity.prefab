@@ -32,7 +32,6 @@ GameObject:
   - component: {fileID: 369570202}
   - component: {fileID: 1105344191}
   - component: {fileID: 618413904}
-  - component: {fileID: 115487338}
   m_Layer: 10
   m_Name: Player entity
   m_TagString: Player
@@ -222,7 +221,9 @@ MonoBehaviour:
   _guiDebug: 0
   moveModeOn: 1
   _animator: {fileID: 999294472}
-  animClip: {fileID: 4781951162920444690, guid: 62d3ad820c266014d979adb178c1d3e0,
+  animClipIdle: {fileID: 4781951162920444690, guid: 62d3ad820c266014d979adb178c1d3e0,
+    type: 3}
+  animClipForward: {fileID: 4781951162920444690, guid: 31bbbee36c3439f48a91e63cbb584475,
     type: 3}
 --- !u!114 &1105344191
 MonoBehaviour:
@@ -261,23 +262,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 4.754158, y: 2.482689, z: 1}
   m_Center: {x: 0.051833153, y: 2.672079, z: 0}
---- !u!114 &115487338
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7384846687720814212}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33f41be402ea43e4baca606d8f0bdd2d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  listPliage:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  switchModePlayerOrigami: {fileID: 1105344191}
 --- !u!1 &7384846688971100402
 GameObject:
   m_ObjectHideFlags: 0

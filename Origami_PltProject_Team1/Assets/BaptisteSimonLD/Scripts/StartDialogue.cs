@@ -4,46 +4,51 @@ using UnityEngine;
 
 public class StartDialogue : MonoBehaviour
 {
+    [SerializeField] private GameManager _gameManager = null;
     private int timesTalked = 0;
-    private bool isBoatFixed;
+    public GameObject bubule;
+    public List<Vector2> listIndexDialogue = null;
 
-    //[SerializeField]
-    //private Entity plyrtity;
-    
-    [SerializeField]
-    private DialoguesManager dialMngr;
-
-/*    void Start()
+    private void Awake()
     {
-        
+        _gameManager = GameManager.Instance;
     }
-    
-    void Update()
-    {
-        
-    }*/
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Oui");
-        dialMngr.inDialogue = true;
+        if (other.tag == "Player")
+        {
+            bubule.SetActive(true);
+        }
+    }
 
-        if(timesTalked == 0)
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Player")
         {
-            //plyrtity.MoveStop();
-            dialMngr.StartDialogue(0,3);
+            bubule.SetActive(false);
+        }
+    }
+
+    private void ClickClickBubule()
+    {
+        _gameManager.GetDialogueManager().inDialogue = true;
+
+        _gameManager.GetDialogueManager().StartDialogue((int)listIndexDialogue[timesTalked].x, (int)listIndexDialogue[timesTalked].y);
+        if (timesTalked < listIndexDialogue.Count - 1)
+        {
             timesTalked++;
         }
-        else if(timesTalked == 1)
+    }
+
+    private void Update()
+    {
+        ClickClickManager.Instance.RaycastClick(bubule.layer);
+        if (ClickClickManager.Instance.isTouch && ClickClickManager.Instance.isTouchTarget)
         {
-            //plyrtity.MoveStop();
-            dialMngr.StartDialogue(4,6);
-            timesTalked++;
-        }
-        else
-        {
-            //plyrtity.MoveStop();
-            dialMngr.StartDialogue(7, 7);
+            ClickClickBubule();
+            Debug.Log("Sa rentre");
+            
         }
     }
 }
