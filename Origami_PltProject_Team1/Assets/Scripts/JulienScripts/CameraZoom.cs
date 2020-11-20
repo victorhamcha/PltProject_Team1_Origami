@@ -21,7 +21,7 @@ public class CameraZoom : MonoBehaviour
     [Header("Zoom / Dezoom")]
     [SerializeField] private bool _zooming = false;
     [SerializeField] private bool _dezooming = false;
-    [SerializeField] private bool _zoomStopped = false;
+    //[SerializeField] private bool _zoomStopped = false;
 
     // Start is called before the first frame update
     void Start()
@@ -35,8 +35,9 @@ public class CameraZoom : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (_zooming && !_zoomStopped)
+        if (_zooming /*&& !_zoomStopped*/)
         {
+            _dezooming = false;
             _startSize = _originalStartSize;
             _endSize = _originalEndSize;
             _timer += Time.deltaTime;
@@ -45,12 +46,15 @@ public class CameraZoom : MonoBehaviour
         }
         else if (_dezooming)
         {
-            if(_zoomStopped)
+            _zooming = false;
+            _endSize = _cam.orthographicSize;
+            _startSize = _originalStartSize;
+            _timer += Time.deltaTime;
+            _cam.orthographicSize = Mathf.Lerp(_endSize, _startSize, _zoomCurve.Evaluate(_timer / (_dezoomSpeed * 10)));
+
+            /*if(_zoomStopped)
             {
-                _endSize = _cam.orthographicSize;
-                _startSize = _originalStartSize;
-                _timer += Time.deltaTime;
-                _cam.orthographicSize = Mathf.Lerp(_endSize, _startSize, _zoomCurve.Evaluate(_timer / (_dezoomSpeed * 10)));
+                
             }
             else
             {
@@ -58,16 +62,9 @@ public class CameraZoom : MonoBehaviour
                 _startSize = _originalStartSize;
                 _timer += Time.deltaTime;
                 _cam.orthographicSize = Mathf.Lerp(_endSize, _startSize, _zoomCurve.Evaluate(_timer / _dezoomSpeed));
-            }
-            
+            }*/
+
         }
-        /*else if (_zoomStopped)
-        {
-            _timer += Time.deltaTime;
-            _startSize = _cam.orthographicSize;
-            _endSize = _originalSize;
-            _cam.orthographicSize = Mathf.Lerp(_startSize, _endSize, _curve.Evaluate(_timer / _dezoomSpeed / 100));
-        }*/
         else
         {
             _timer = 0.0f;
