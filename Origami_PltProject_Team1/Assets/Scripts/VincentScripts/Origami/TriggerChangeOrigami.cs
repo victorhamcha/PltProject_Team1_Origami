@@ -8,6 +8,7 @@ public class TriggerChangeOrigami : MonoBehaviour
     [SerializeField] private GameObject _bulleOrigami = null;
     [SerializeField] private string _namePliage = null;
     private bool _isTrigger = false;
+    public LayerMask layerBubuleOrigami;
 
     private void Awake()
     {
@@ -20,7 +21,6 @@ public class TriggerChangeOrigami : MonoBehaviour
         {
             _isTrigger = true;
             _bulleOrigami.SetActive(true);
-            _gameManager.SetUpPliage(_namePliage);
         }
     }
 
@@ -30,6 +30,22 @@ public class TriggerChangeOrigami : MonoBehaviour
         {
             _bulleOrigami.SetActive(false);
             _isTrigger = false;
+        }
+    }
+
+    private void ClickClickBubule()
+    {
+        _gameManager.SetUpPliage(_namePliage);
+    }
+
+    private void Update()
+    {
+        ClickClickManager.Instance.RaycastClick(layerBubuleOrigami);
+        Debug.Log(_gameManager.GetDialogueManager().inDialogue);
+        if (ClickClickManager.Instance.isTouch && ClickClickManager.Instance.isTouchTarget && !_gameManager.GetDialogueManager().inDialogue && _isTrigger)
+        {
+            ClickClickBubule();
+
         }
     }
 }
