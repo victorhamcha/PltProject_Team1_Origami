@@ -1329,7 +1329,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _timeVibration: 50
-  cubeTest: {fileID: 0}
+  layerOrigami:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!114 &185755594803667780
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1363,6 +1365,7 @@ MonoBehaviour:
     playedParticleOnce: 0
     prctMinValueToCompleteFold: 0.95
     speedAnimAutoComplete: 0.2
+    makeRotation: 0
     yValueWanted: 0
   - goodPointSelection: {fileID: 5069529460451005850}
     endPointSelection: {fileID: 4725617587935316197}
@@ -1381,6 +1384,7 @@ MonoBehaviour:
     playedParticleOnce: 0
     prctMinValueToCompleteFold: 0.9
     speedAnimAutoComplete: 0.2
+    makeRotation: 0
     yValueWanted: 180
   - goodPointSelection: {fileID: 7376465228671316778}
     endPointSelection: {fileID: 7998946857269662474}
@@ -1404,6 +1408,7 @@ MonoBehaviour:
     playedParticleOnce: 0
     prctMinValueToCompleteFold: 0.9
     speedAnimAutoComplete: 0.2
+    makeRotation: 0
     yValueWanted: 0
   - goodPointSelection: {fileID: 5063103420318426382}
     endPointSelection: {fileID: 8208601974581707507}
@@ -1422,6 +1427,7 @@ MonoBehaviour:
     playedParticleOnce: 0
     prctMinValueToCompleteFold: 0.9
     speedAnimAutoComplete: 0.2
+    makeRotation: 0
     yValueWanted: 180
 --- !u!114 &4590817003474555770
 MonoBehaviour:
@@ -1435,7 +1441,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a49eaf1cb4a497148adddad7a873e8cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _switchModePlayerOrigami: {fileID: 0}
   pliageObject: {fileID: 8558302679674015865}
   _timeVibrationEndPliage: 50
   _cursorSelectPoint: {fileID: 1046426742845432611}

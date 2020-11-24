@@ -15,7 +15,8 @@ public class SelectPointOrigami : MonoBehaviour
     //Pour savoir si on à commencez par touchez le bon coin de l'origamie dans notre slide sur l'écran 
     private bool _startWithGoodSelection = false;
 
-    //public GameObject cubeTest = null;
+    ClickClickManager clickManager = null;
+    [SerializeField] private LayerMask layerOrigami = new LayerMask();
 
     private void Update()
     {
@@ -24,25 +25,19 @@ public class SelectPointOrigami : MonoBehaviour
         //            on fais un Raycast avec notre caméra et la position de notre doigts sur l'écran pour récupérez le point de notre doigts dans le monde 3D
         //Sinon
         //      On met la touche fase à une valeur qu'on dira que c'est la valeur comme null
-        if (Input.touchCount > 0)
+        clickManager = ClickClickManager.Instance;
+        clickManager.RaycastClick(layerOrigami);
+
+        if (clickManager.isTouch && clickManager.isTouchTarget)
         {
-            Touch touch = Input.GetTouch(0);
-            _touchPhase = touch.phase;
+            _touchPhase = clickManager.touchPhase;
 
-            Vector3 touchPos = new Vector3(touch.position.x, touch.position.y, 0);
-            Ray ray = Camera.main.ScreenPointToRay(touchPos);
-            RaycastHit hit;
 
-            if (Physics.Raycast(ray.origin, ray.direction, out hit, Mathf.Infinity))
+            if (_pointSelected == null)
             {
-                if (_pointSelected == null)
-                {
-                    _pointSelected = hit.collider.transform;
-                }
-                posHitOrigami = hit.point;
-
-                //cubeTest.transform.position = posHitOrigami;
+                _pointSelected = clickManager.hit.collider.transform;
             }
+            posHitOrigami = clickManager.hit.point;
 
             //Debut du touch avec ou sans bonne selection du coin de l'origamie
             if (_touchPhase == TouchPhase.Began && IsGoodSelections())

@@ -27,7 +27,12 @@ public class SwitchModePlayerOrigami : MonoBehaviour
     private Entity _movementPlayer;
     private float _speedMax = 0f;
 
-    [SerializeField] private GameObject celebration = null;
+    [SerializeField] private Transform _posCelebration = null;
+    [SerializeField] private GameObject _celebration = null;
+    [SerializeField] private GameObject _celebrationBateau = null;
+    [SerializeField] private GameObject _celebrationOiseau = null;
+    [SerializeField] private GameObject _celebrationFleur = null;
+    private bool iscelebrate = true;
 
     void Start()
     {
@@ -84,11 +89,36 @@ public class SwitchModePlayerOrigami : MonoBehaviour
 
         if (_OnModeEnd)
         {
+            GameObject ob = null;
             _pliageToDo.SetActive(false);
-            celebration.SetActive(true);
+            if (iscelebrate)
+            {
+                if (_pliageToDo.name == "pliage_bateau")
+                {
+                    ob = Instantiate(_celebrationBateau, _posCelebration);
+                    iscelebrate = false;
+                }
+                else if (_pliageToDo.name == "pliage_fleur")
+                {
+                    ob = Instantiate(_celebrationFleur, _posCelebration);
+                    iscelebrate = false;
+                }
+                else if (_pliageToDo.name == "pliage_oiseau")
+                {
+                    ob = Instantiate(_celebrationOiseau, _posCelebration);
+                    iscelebrate = false;
+                }
+                else
+                {
+                    ob = Instantiate(_celebration, _posCelebration);
+                    iscelebrate = false;
+                }
+            }
+            //celebration.SetActive(true);
             if (Input.touchCount > 0)
             {
-                celebration.SetActive(false);
+                //celebration.SetActive(false);
+                Destroy(ob);
                 _OnModeEnd = false;
                 _switchModeOrigami = true;
             }

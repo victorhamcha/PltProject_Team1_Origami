@@ -3144,7 +3144,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _timeVibration: 50
-  cubeTest: {fileID: 0}
+  layerOrigami:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!114 &7436169517703684373
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3501,7 +3503,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a49eaf1cb4a497148adddad7a873e8cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _switchModePlayerOrigami: {fileID: 0}
   pliageObject: {fileID: 8007230500633013699}
   _timeVibrationEndPliage: 50
   _cursorSelectPoint: {fileID: 7720538556682592626}

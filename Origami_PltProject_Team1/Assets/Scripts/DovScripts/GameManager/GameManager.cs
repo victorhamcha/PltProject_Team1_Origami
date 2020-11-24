@@ -9,10 +9,10 @@ public class GameManager : MonoBehaviour
     private GameManager() { }
 
     [SerializeField] private DialoguesManager _dialogueManager;
-    [SerializeField] private PliageManager _pliageManager;
     [SerializeField] private SwitchModePlayerOrigami _switchModeOrigami;
     [SerializeField] private Entity _entity;
     [SerializeField] private SoundManager _soundManager;
+    private PliageManager _pliageManager;
 
     [SerializeField] private List<GameObject> _listPliage = new List<GameObject>();
 
@@ -40,6 +40,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        _pliageManager = _switchModeOrigami._pliageToDo.GetComponent<PliageManager>();
         _soundManager = SoundManager.i;
     }
 
