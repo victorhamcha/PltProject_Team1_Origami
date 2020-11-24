@@ -42,9 +42,8 @@ public class SoundManager : MonoBehaviour
 
     public enum Loop
     {
-        Forest,
-        Lake,
-        Village
+        FoldsMove,
+        FoldsPressure
     }
 
     private static AudioSource oneShotSource;
@@ -86,8 +85,10 @@ public class SoundManager : MonoBehaviour
 
     public void PlayLoop(Loop loop)
     {
-        loopSource.clip = GetAudioClip(loop);
-        loopSource.Play();
+        Debug.Log("playloop");
+        var newClip = GetAudioClip(loop);
+        if (!loopSource.isPlaying || loopSource.clip != newClip)
+            loopSource.Play();
     }
 
     public void PlayMusic(Loop loop)

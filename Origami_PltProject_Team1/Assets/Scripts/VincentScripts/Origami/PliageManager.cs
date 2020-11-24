@@ -182,7 +182,16 @@ public class PliageManager : MonoBehaviour
             // Disable hand's gameobject
             _handGO.SetActive(false);
             _animator.Play(_currentPliage.animToPlay.name, -1, prctAvancementSlide);
+            if (_currentPliage.isConfirmationPliage)
+            {
+                SoundManager.i.PlayLoop(SoundManager.Loop.FoldsPressure);
+            }
+            //else
+            //{
+            //    SoundManager.i.PlayLoop(SoundManager.Loop.FoldsMove);
+            //}
             _animator.speed = _currentPliage.speedAnimAutoComplete;
+
             _reverseAnim = false;
             SetActiveCursor(false);
             _maskSprite.localScale = new Vector3(Mathf.Lerp(_initScaleXMask, _currentPliage.maxSizeSpriteMask, prctAvancementSlide), _maskSprite.localScale.y, _maskSprite.localScale.z);
