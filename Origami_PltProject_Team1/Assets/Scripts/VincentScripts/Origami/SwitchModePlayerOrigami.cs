@@ -142,6 +142,7 @@ public class SwitchModePlayerOrigami : MonoBehaviour
         _isOnReverseAnim = false;
         _pliageManager = _pliageToDo.GetComponent<PliageManager>();
         _pliageManager.SetUpCurrentPliage();
+        _isOnModeOrigami = true;
     }
 }
 
