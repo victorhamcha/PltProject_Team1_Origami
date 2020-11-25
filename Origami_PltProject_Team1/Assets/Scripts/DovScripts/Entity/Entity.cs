@@ -89,8 +89,6 @@ public class Entity : MonoBehaviour
     public bool moveModeOn = true;
 
     [SerializeField] private Animator _animator;
-    public AnimationClip animClipIdle;
-    public AnimationClip animClipForward;
 
     public Vector2 Position
     {
@@ -199,7 +197,6 @@ public class Entity : MonoBehaviour
         {
             //_animator.speed = 1;
             _animator.SetBool("Idle", false);
-            //_animator.Play(animClipForward.name);
             if (!usePathFinding)
             {
                 bool hasReachedDestination = false;
@@ -336,7 +333,6 @@ public class Entity : MonoBehaviour
             //_velocity = _ApplyFrictions(_velocity);
 
             _animator.SetBool("Idle", true);
-            //_animator.Play(animClipIdle.name);
         }
 
         _wasMoving = isMoving;
