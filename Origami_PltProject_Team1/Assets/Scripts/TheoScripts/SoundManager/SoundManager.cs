@@ -52,6 +52,7 @@ public class SoundManager : MonoBehaviour
     private static AudioSource musicSource2;
 
     private static float musicVolume = 1f;
+    private static float sfxVolume = 1f;
 
     private static Dictionary<Sound, float> lastTimesSound;
 
@@ -64,7 +65,8 @@ public class SoundManager : MonoBehaviour
         musicSource1 = this.gameObject.AddComponent<AudioSource>();
         musicSource2 = this.gameObject.AddComponent<AudioSource>();
 
-        loopSource.loop = true;
+        SetVolumeSFX(0.5f);
+
         musicSource1.loop = true;
         musicSource2.loop = true;
     }
@@ -85,10 +87,19 @@ public class SoundManager : MonoBehaviour
 
     public void PlayLoop(Loop loop)
     {
-        Debug.Log("playloop");
-        var newClip = GetAudioClip(loop);
-        if (!loopSource.isPlaying || loopSource.clip != newClip)
+        AudioClip newClip = GetAudioClip(loop);
+        if (!loopSource.isPlaying || loopSource.clip.name != newClip.name)
+        {
+            loopSource.clip = newClip;
             loopSource.Play();
+        }
+    }
+
+    public void PlayLoop(Loop loop, float avgPercent, float framePercent)
+    {
+        loopSource.volume = sfxVolume * (Mathf.Abs(1 - framePercent / avgPercent) + .5f);
+
+        PlayLoop(loop);
     }
 
     public void PlayMusic(Loop loop)
@@ -96,6 +107,7 @@ public class SoundManager : MonoBehaviour
         AudioSource activeSource = musicSource1.isPlaying ? musicSource2 : musicSource1;
 
         activeSource.clip = GetAudioClip(loop);
+        activeSource.Play();
     }
 
     public void PlayMusicWithFade(Loop loop, float transitionTime)
@@ -114,6 +126,7 @@ public class SoundManager : MonoBehaviour
 
     public void SetVolumeSFX(float volume)
     {
+        sfxVolume = volume;
         loopSource.volume = volume;
         oneShotSource.volume = volume;
     }
@@ -143,24 +156,24 @@ public class SoundManager : MonoBehaviour
         {
             default:
                 return true;
-                /*case Sound.PlayerMove:
-                    if (lastTimesSound.ContainsKey(sound))
-                    {
-                        float cdSoundTimer = .05f;
-                        if (lastTimesSound[sound] + cdSoundTimer < Time.time)
-                        {
-                            lastTimesSound[sound] = Time.time;
-                            return true;
-                        }
-                        else
-                        {
-                            return false;
-                        }
-                    }
-                    else
-                    {
-                        return false;
-                    }*/
+                //case Sound.FoldsMove:
+                //    if (lastTimesSound.ContainsKey(sound))
+                //    {
+                //        float cdSoundTimer = .05f;
+                //        if (lastTimesSound[sound] + cdSoundTimer < Time.time)
+                //        {
+                //            lastTimesSound[sound] = Time.time;
+                //            return true;
+                //        }
+                //        else
+                //        {
+                //            return false;
+                //        }
+                //    }
+                //    else
+                //    {
+                //        return false;
+                //    }
         }
     }
 

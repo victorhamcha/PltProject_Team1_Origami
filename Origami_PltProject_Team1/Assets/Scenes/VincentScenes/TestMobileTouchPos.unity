@@ -2306,7 +2306,13 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: b291d4296438fbd429548477d6d68563, type: 3}
   - sound: 2
     clip: {fileID: 8300000, guid: 4559154c45c0d304087d5abfd6bd80a1, type: 3}
-  loopAudioClipArray: []
+  - sound: 3
+    clip: {fileID: 8300000, guid: ddc31ccf58680ba409067592e778ca49, type: 3}
+  loopAudioClipArray:
+  - loop: 1
+    clip: {fileID: 8300000, guid: 01c9870d88b7fec478246b936e577150, type: 3}
+  - loop: 0
+    clip: {fileID: 8300000, guid: ddc31ccf58680ba409067592e778ca49, type: 3}
 --- !u!4 &303763309
 Transform:
   m_ObjectHideFlags: 0
