@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Collectible : MonoBehaviour
 {
-    // Start is called before the first frame update
+    GameObject prefabCollectible;
     void Start()
     {
         
@@ -16,12 +16,13 @@ public class Collectible : MonoBehaviour
         
     }
 
-
-    private void OnCollisionEnter(Collision collision)
+    public void InstantiateCol(bool firstTime,Vector3 offset)
     {
-        if(collision.gameObject.tag=="Player")
+        if(firstTime)
         {
-
+            Instantiate(prefabCollectible, transform.position + offset, Quaternion.identity);
         }
     }
+
+   
 }
