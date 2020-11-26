@@ -11,7 +11,8 @@ public class ItemRotation : MonoBehaviour
 
 	[SerializeField] private float _multiplier = 0.3f;
 	[SerializeField] private float _autoRotationSpeed = 0.1f;
-	[SerializeField] private float _timerAutoRotation = 0.0f;
+	[SerializeField] private float _startRotationTimer = 0.1f;
+	 private float _timerAutoRotation = 0.0f;
 	[SerializeField] private float _smoothRotationDuration = 0.0f;
 	[SerializeField] private AnimationCurve curveRotation;
 	 private float _timerBackToY = 0.0f;
@@ -27,7 +28,7 @@ public class ItemRotation : MonoBehaviour
         {
 			_touch = Input.GetTouch(0);
 			_timerBackToY = 0.0f;
-			_timerAutoRotation = 5.0f;
+			_timerAutoRotation = _startRotationTimer;
 
 			if(_touch.phase == TouchPhase.Began && _hasReset)
             {
