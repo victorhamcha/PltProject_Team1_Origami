@@ -78,6 +78,7 @@ public class SwitchModePlayerOrigami : MonoBehaviour
             if (_isOnModeOrigami)
             {
                 ActiveOrigami();
+                iscelebrate = true;
             }
             else
             {
@@ -114,10 +115,10 @@ public class SwitchModePlayerOrigami : MonoBehaviour
                     iscelebrate = false;
                 }
             }
-            //celebration.SetActive(true);
+
             if (Input.touchCount > 0)
             {
-                //celebration.SetActive(false);
+                Debug.Log(ob);
                 Destroy(ob);
                 _OnModeEnd = false;
                 _switchModeOrigami = true;
