@@ -512,22 +512,46 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  smoothSpeed: 0.125
+  smoothSpeed: 0.95
   offset: {x: 120, y: 104, z: 128}
   _zoomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _endSize: 10
+  speedZoom: 0
+  speedDeZoom: 0
+  _zooming: 0
+  _slowDuration: 0
+  _brakeCurve:
     serializedVersion: 2
     m_Curve: []
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _endSize: 5
-  _zoomSpeed: 10
-  _dezoomSpeed: 5
-  _zooming: 0
-  _wasZooming: 0
   _endPosRotation: {fileID: 0}
-  _durationForward: 0
-  _durationBackward: 0
-  _finalAngle: 0
+  _durationForward: 20
+  _durationBackward: 5
+  _finalAngle: 180
   _rotatingForward: 0
   _rotatingBackward: 0
