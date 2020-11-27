@@ -25,6 +25,8 @@ public class PliageManager : MonoBehaviour
 
     private Vector3 _lastPosOrigami = Vector3.zero;
     private float _timerTransitionCentrageOrigami = 0f;
+    private float averagePrctAvancementSlide;
+    private int updateCtr = 0; // pour calculer la moyenne de prctAvancementSlide sur 10 frames
 
     [Header("Custom OrigamiManager")]
     //Timer de la durée de la vibrations une fois qu'un pliage est fini
@@ -68,6 +70,9 @@ public class PliageManager : MonoBehaviour
     [SerializeField] private float _fixingTimer = 1.0f;
     private float _timerEndAutoComplete = 0.0f;
 
+    [Header("Zoom Camera")]
+
+
     //Rotator
     private bool _isRotating = false;
     private bool _rotatingIsFinish = false;
@@ -99,6 +104,7 @@ public class PliageManager : MonoBehaviour
         //          Alors on réinitialise les variables et on charge les nouvelles informations du prochain pliage
         //      Sinon on dit que l'origami est fini
         //
+        updateCtr++;
         if (CurrentFoldsIsFinish() && !OrigamiIsFinish())
         {
             _currentPliage.boundarySprite.color = _currentPliage.colorValidationPliage;
@@ -182,7 +188,18 @@ public class PliageManager : MonoBehaviour
             // Disable hand's gameobject
             _handGO.SetActive(false);
             _animator.Play(_currentPliage.animToPlay.name, -1, prctAvancementSlide);
+            if (_currentPliage.isConfirmationPliage)
+            {
+                SoundManager.i.PlayLoop(SoundManager.Loop.FoldsPressure, averagePrctAvancementSlide, prctAvancementSlide);
+            }
+            else
+            {
+                SoundManager.i.PlayLoop(SoundManager.Loop.FoldsMove, averagePrctAvancementSlide, prctAvancementSlide);
+            }
+            averagePrctAvancementSlide = AvgPercent(prctAvancementSlide);
+
             _animator.speed = _currentPliage.speedAnimAutoComplete;
+
             _reverseAnim = false;
             SetActiveCursor(false);
             _maskSprite.localScale = new Vector3(Mathf.Lerp(_initScaleXMask, _currentPliage.maxSizeSpriteMask, prctAvancementSlide), _maskSprite.localScale.y, _maskSprite.localScale.z);
@@ -192,7 +209,7 @@ public class PliageManager : MonoBehaviour
         if (_currentPliage != null && _lastPosOrigami != _currentPliage.offsetPlacementPliage && indexPliage > 0)
         {
             _timerTransitionCentrageOrigami += Time.deltaTime;
-            //pliageObject.localPosition = Vector3.Lerp(_lastPosOrigami, _currentPliage.offsetPlacementPliage, _timerTransitionCentrageOrigami * _speedAnimCenterOrigami);
+            pliageObject.localPosition = Vector3.Lerp(_lastPosOrigami, _lastPosOrigami + _currentPliage.offsetPlacementPliage, _timerTransitionCentrageOrigami * _speedAnimCenterOrigami);
         }
 
         if (OrigamiIsFinish())
@@ -234,6 +251,25 @@ public class PliageManager : MonoBehaviour
             _rotatingIsFinish = true;
         }
 
+    }
+
+    private float AvgPercent(float percent)
+    {
+        if (updateCtr > 10)
+        {
+            return averagePrctAvancementSlide +
+                   (percent - averagePrctAvancementSlide) / 11;
+        }
+        else
+        {
+            averagePrctAvancementSlide += percent;
+
+            if (updateCtr == 10)
+            {
+                return averagePrctAvancementSlide / 10;
+            }
+        }
+        return 0;
     }
 
     public bool OrigamiIsFinish()

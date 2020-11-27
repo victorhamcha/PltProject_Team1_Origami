@@ -41,7 +41,7 @@ public class TriggerChangeOrigami : MonoBehaviour
     private void Update()
     {
         ClickClickManager.Instance.RaycastClick(layerBubuleOrigami);
-        if (ClickClickManager.Instance.isTouch && ClickClickManager.Instance.isTouchTarget && !_gameManager.GetDialogueManager().inDialogue && _isTrigger)
+        if (ClickClickManager.Instance.isTouch && ClickClickManager.Instance.isTouchTarget && _isTrigger && !_gameManager.GetSwitchModePlayerOrigami()._isOnModeOrigami)
         {
             ClickClickBubule();
         }

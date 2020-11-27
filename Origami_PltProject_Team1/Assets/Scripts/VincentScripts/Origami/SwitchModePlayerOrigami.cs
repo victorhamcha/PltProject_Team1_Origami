@@ -19,7 +19,7 @@ public class SwitchModePlayerOrigami : MonoBehaviour
     [HideInInspector] public bool _switchModeOrigami = false;
     [HideInInspector] public bool _isOnModeOrigami = false;
     private bool _isOnReverseAnim = false;
-    [HideInInspector] public bool _OnModeEnd = false;
+    public bool _OnModeEnd = false;
 
     private float _timerAnim = 0f;
     private float _timerAnimReverse = 0f;
@@ -32,7 +32,10 @@ public class SwitchModePlayerOrigami : MonoBehaviour
     [SerializeField] private GameObject _celebrationBateau = null;
     [SerializeField] private GameObject _celebrationOiseau = null;
     [SerializeField] private GameObject _celebrationFleur = null;
-    private bool iscelebrate = true;
+    [SerializeField] private GameObject _canvaCelebration = null;
+    private bool _iscelebrate = false;
+    private GameObject _ob = null;
+
 
     void Start()
     {
@@ -86,44 +89,42 @@ public class SwitchModePlayerOrigami : MonoBehaviour
                 _isOnReverseAnim = true;
             }
         }
+        if (_OnModeEnd != _iscelebrate && _isOnModeOrigami)
+        {
+            _iscelebrate = _OnModeEnd;
 
+            if (_pliageToDo.name == "pliage_bateau")
+            {
+                _ob = Instantiate(_celebrationBateau, _posCelebration);
+            }
+            else if (_pliageToDo.name == "pliage_fleur")
+            {
+                _ob = Instantiate(_celebrationFleur, _posCelebration);
+            }
+            else if (_pliageToDo.name == "pliage_oiseau")
+            {
+                _ob = Instantiate(_celebrationOiseau, _posCelebration);
+            }
+            else
+            {
+                _ob = Instantiate(_celebration, _posCelebration);
+            }
+            _canvaCelebration.SetActive(true);
+        }
         if (_OnModeEnd)
         {
-            GameObject ob = null;
             _pliageToDo.SetActive(false);
-            if (iscelebrate)
-            {
-                if (_pliageToDo.name == "pliage_bateau")
-                {
-                    ob = Instantiate(_celebrationBateau, _posCelebration);
-                    iscelebrate = false;
-                }
-                else if (_pliageToDo.name == "pliage_fleur")
-                {
-                    ob = Instantiate(_celebrationFleur, _posCelebration);
-                    iscelebrate = false;
-                }
-                else if (_pliageToDo.name == "pliage_oiseau")
-                {
-                    ob = Instantiate(_celebrationOiseau, _posCelebration);
-                    iscelebrate = false;
-                }
-                else
-                {
-                    ob = Instantiate(_celebration, _posCelebration);
-                    iscelebrate = false;
-                }
-            }
-            //celebration.SetActive(true);
-            if (Input.touchCount > 0)
-            {
-                //celebration.SetActive(false);
-                Destroy(ob);
-                _OnModeEnd = false;
-                _switchModeOrigami = true;
-            }
         }
 
+    }
+
+    public void ClickToContinue()
+    {
+        Destroy(_ob);
+        _canvaCelebration.SetActive(false);
+        _OnModeEnd = false;
+        _iscelebrate = false;
+        SwitchMode();
     }
 
     public void SwitchMode()
@@ -142,6 +143,7 @@ public class SwitchModePlayerOrigami : MonoBehaviour
         _isOnReverseAnim = false;
         _pliageManager = _pliageToDo.GetComponent<PliageManager>();
         _pliageManager.SetUpCurrentPliage();
+        _isOnModeOrigami = true;
     }
 }
 
