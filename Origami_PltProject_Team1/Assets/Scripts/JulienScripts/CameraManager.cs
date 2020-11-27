@@ -30,7 +30,13 @@ public class CameraManager : MonoBehaviour
 
     [SerializeField] private bool _zooming = false;
     [SerializeField] private bool _wasZooming = false;
-    //[SerializeField] private bool _zoomStopped = false;
+
+    [SerializeField] private float _slowDuration = 0.0f;
+    private float _timerSlow = 0.0f;
+    [SerializeField] private float _brakeOffset = 0.0f;
+    private bool _changeDirection = false;
+    private bool _canZoom = true;
+    [SerializeField] private AnimationCurve _brakeCurve = null;
     #endregion
 
     #region Camera Rotation variables
@@ -67,32 +73,58 @@ public class CameraManager : MonoBehaviour
     {
         #region Zoom code
 
-        if(_wasZooming != _zooming)
+        if(_wasZooming != _zooming && (_cam.orthographicSize != _originalStartSize && _cam.orthographicSize != _originalEndSize))
         {
             _startSize = _cam.orthographicSize;
 
+            _changeDirection = true;
+            _canZoom = false;
+        }
+
+        if(_changeDirection)
+        {
+            _timerSlow += Time.deltaTime;
             if(_zooming)
             {
-                _startSize = _originalStartSize;
-                _endSize = _originalEndSize;
-                _timerZoom = _zoomSpeed - Mathf.Lerp(0, _zoomSpeed, _timerDezoom / _dezoomSpeed);
-                Debug.Log("timerZoom : " + _timerZoom);
-                _timerDezoom = 0f;
+                _cam.orthographicSize = Mathf.Lerp(_startSize, _startSize + _brakeOffset, _brakeCurve.Evaluate(_timerSlow / _slowDuration));
             }
             else
             {
-                _startSize = _originalEndSize;
-                _endSize = _originalStartSize;
-                _timerDezoom = _dezoomSpeed - Mathf.Lerp(0, _dezoomSpeed, _timerZoom / _zoomSpeed);
-                Debug.Log("timerDezoom : " + _timerDezoom);
-                _timerZoom = 0f;
+                _cam.orthographicSize = Mathf.Lerp(_startSize, _startSize - _brakeOffset, _brakeCurve.Evaluate(_timerSlow / _slowDuration));
+            }
+
+
+            if (_timerSlow >= _slowDuration)
+            {
+
+                if (_zooming)
+                {
+                    _startSize = _originalStartSize;
+                    _endSize = _originalEndSize;
+                    _timerZoom = _zoomSpeed - Mathf.Lerp(0, _zoomSpeed + _slowDuration, (_timerDezoom + _slowDuration) / _dezoomSpeed);
+                    Debug.Log("timerZoom : " + _timerZoom);
+                    _timerDezoom = 0f;
+                }
+                else
+                {
+                    _startSize = _originalEndSize;
+                    _endSize = _originalStartSize;
+                    _timerDezoom = _dezoomSpeed - Mathf.Lerp(0, _dezoomSpeed + _slowDuration, (_timerZoom + _slowDuration)  / _zoomSpeed);
+                    Debug.Log("timerDezoom : " + _timerDezoom);
+                    _timerZoom = 0f;
+                }
+
+                _changeDirection = false;
+                _canZoom = true;
+                _timerSlow = 0.0f;
             }
         }
-        if (_zooming)
+
+        if (_zooming && _canZoom)
         {
             CameraZoomIn();
         }
-        else 
+        else if(_canZoom)
         {
             CameraZoomOut();
         }
