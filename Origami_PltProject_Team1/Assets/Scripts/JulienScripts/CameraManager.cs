@@ -16,7 +16,6 @@ public class CameraManager : MonoBehaviour
     #region Camera Zoom variables
 
     private Camera _cam = null;
-    private float _timerZoom = 0.0f;
     private float _startSize = 0.0f;
     private float _originalStartSize = 0.0f;
     private float _originalEndSize = 0.0f;
@@ -24,12 +23,19 @@ public class CameraManager : MonoBehaviour
     [Header("Camera Zoom")]
     [SerializeField] private AnimationCurve _zoomCurve = null;
     [SerializeField] [Range(1, 50)] private float _endSize = 5.0f;
-    [SerializeField] [Range(0.1f, 30.0f)] private float _zoomSpeed = 0.0f;
-    [SerializeField] [Range(0.1f, 30.0f)] private float _dezoomSpeed = 0.0f;
+    [SerializeField] [Range(0.1f, 30.0f)] private float speedZoom = 0.0f;
+    [SerializeField] [Range(0.1f, 30.0f)] private float speedDezoom = 0.0f;
 
     [SerializeField] private bool _zooming = false;
-    [SerializeField] private bool _dezooming = false;
-    //[SerializeField] private bool _zoomStopped = false;
+    private bool _wasZooming = false;
+
+    [SerializeField] private float _slowDuration = 0.0f;
+    private float _timerSlow = 0.0f;
+    private bool _changeDirection = false;
+    private bool _canZoom = true;
+    [SerializeField] private AnimationCurve _brakeCurve = null;
+    private float _lastSpeed = 0.0f;
+
     #endregion
 
     #region Camera Rotation variables
@@ -47,14 +53,12 @@ public class CameraManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
 
         #region Zoom variables initialization
-        _cam = Camera.main;
+        _cam = GetComponent<Camera>();
         _cam.transform.position = target.position + offset;
         _originalStartSize = _cam.orthographicSize;
         _originalEndSize = _endSize;
-        _startSize = _originalStartSize;
         #endregion
 
         //_startPosRotation = _cam.transform.position;
@@ -64,21 +68,48 @@ public class CameraManager : MonoBehaviour
     void Update()
     {
         #region Zoom code
-        if (_zooming)
+
+        if (_wasZooming != _zooming && _cam.orthographicSize != _endSize)
         {
-            CameraZoomIn();
+            _changeDirection = true;
+            _canZoom = false;
         }
-        else if (_dezooming)
+
+        if (_changeDirection)
         {
-            CameraZoomOut();
+            _timerSlow += Time.deltaTime;
+
+            if (_zooming)
+            {
+                _cam.orthographicSize += speedDezoom * _lastSpeed * Time.deltaTime * _brakeCurve.Evaluate(_timerSlow / _slowDuration);
+            }
+            else
+            {
+                _cam.orthographicSize -= speedZoom * _lastSpeed * Time.deltaTime * _brakeCurve.Evaluate(_timerSlow / _slowDuration);
+            }
+
+            if (_timerSlow >= _slowDuration)
+            {
+                _changeDirection = false;
+                _canZoom = true;
+                _timerSlow = 0.0f;
+            }
         }
-        else
+
+        if (_canZoom)
         {
-            _zooming = false;
-            _dezooming = false;
-            _timerZoom = 0.0f;
-            _endSize = _cam.orthographicSize;
+            if (_zooming)
+            {
+                CameraZoomIn();
+            }
+            else
+            {
+                CameraZoomOut();
+            }
         }
+
+        _wasZooming = _zooming;
+
         #endregion
 
         #region Rotation code
@@ -90,7 +121,7 @@ public class CameraManager : MonoBehaviour
         {
             RotateBackwardClockwise();
         }
-        else if(_rotatingForward && (-_finalAngle * _timerRotation) / _durationForward < -_finalAngle && _finalAngle < 0 && _finalAngle > -360)
+        else if (_rotatingForward && (-_finalAngle * _timerRotation) / _durationForward < -_finalAngle && _finalAngle < 0 && _finalAngle > -360)
         {
             RotateForwardCounterclockwise();
         }
@@ -100,15 +131,15 @@ public class CameraManager : MonoBehaviour
         }
         else if (_rotatingBackward && _timerRotation > 1.0f)
         {
-            
+
             _rotationEnded = true;
             _rotatingBackward = false;
         }
-        else if(_rotationEnded)
+        else if (_rotationEnded)
         {
             _rotatingForward = false;
             _timerRotation = 0f;
-            
+
         }
         else
         {
@@ -150,7 +181,7 @@ public class CameraManager : MonoBehaviour
         _rotatingForward = false;
         _timerRotation += Time.deltaTime;
         // _cam.transform.position = Vector3.Slerp(_endPosRotation.position, _smoothedPosition, _rotationCurve.Evaluate(_timerRotation * _speedMultiplierBackward));
-        _cam.transform.RotateAround(_endPosRotation.position, Vector3.up, -(_finalAngle * Time.deltaTime) / _durationBackward); 
+        _cam.transform.RotateAround(_endPosRotation.position, Vector3.up, -(_finalAngle * Time.deltaTime) / _durationBackward);
     }
 
     public void RotateBackwardCounterclockwise()
@@ -175,56 +206,25 @@ public class CameraManager : MonoBehaviour
 
     public void CameraZoomIn()
     {
-        if(_timerZoom < _zoomSpeed)
-        {
-            //_dezooming = false;
-            _startSize = _originalStartSize;
-            _endSize = _originalEndSize;
-            _timerZoom += Time.deltaTime;
-            _cam.orthographicSize = Mathf.Lerp(_startSize, _endSize, _zoomCurve.Evaluate(_timerZoom / _zoomSpeed));
 
-            if (_dezooming)
-            {
-                _dezooming = true;
-                _zooming = false;
-                _startSize = _cam.orthographicSize;
-                _endSize = _originalStartSize;
-            }
-        }
-        else
+        _endSize = _originalEndSize;
+        _startSize = _originalStartSize;
+        if (_cam.orthographicSize > _endSize)
         {
-            _startSize = _cam.orthographicSize;
-            _endSize = _originalStartSize;
-            _zooming = false;
-            _timerZoom = 0.0f;
+            _lastSpeed = _zoomCurve.Evaluate(Mathf.InverseLerp(_startSize, _endSize, _cam.orthographicSize - speedZoom * Time.deltaTime));
+            _cam.orthographicSize = Mathf.Lerp(_startSize, _endSize,_lastSpeed );
         }
     }
 
     public void CameraZoomOut()
     {
-        if(_timerZoom < _dezoomSpeed)
+        _endSize = _originalStartSize;
+        _startSize = _originalEndSize;
+        if (_cam.orthographicSize < _endSize)
         {
-            // _zooming = false;
-            _endSize =_originalStartSize;
-            //_startSize = _originalStartSize;
-            _timerZoom += Time.deltaTime;
-            _cam.orthographicSize = Mathf.Lerp(_startSize, _endSize, _zoomCurve.Evaluate(_timerZoom / _dezoomSpeed));
-            
+            _lastSpeed = _zoomCurve.Evaluate(Mathf.InverseLerp(_startSize, _endSize, _cam.orthographicSize + speedDezoom * Time.deltaTime));
+            _cam.orthographicSize = Mathf.Lerp(_startSize, _endSize, _lastSpeed);
+        }
 
-            if (_zooming)
-            {
-                _zooming = true;
-                _dezooming = false;
-                _startSize = _cam.orthographicSize;
-                _endSize = _originalEndSize;
-            }
-        }
-        else
-        {
-            _startSize = _originalStartSize;
-            _endSize = _originalEndSize;
-            _dezooming = false;
-            _timerZoom = 0.0f;
-        }
     }
 }

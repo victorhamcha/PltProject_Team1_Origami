@@ -70,6 +70,9 @@ public class PliageManager : MonoBehaviour
     [SerializeField] private float _fixingTimer = 1.0f;
     private float _timerEndAutoComplete = 0.0f;
 
+    [Header("Zoom Camera")]
+
+
     //Rotator
     private bool _isRotating = false;
     private bool _rotatingIsFinish = false;
@@ -206,7 +209,7 @@ public class PliageManager : MonoBehaviour
         if (_currentPliage != null && _lastPosOrigami != _currentPliage.offsetPlacementPliage && indexPliage > 0)
         {
             _timerTransitionCentrageOrigami += Time.deltaTime;
-            //pliageObject.localPosition = Vector3.Lerp(_lastPosOrigami, _currentPliage.offsetPlacementPliage, _timerTransitionCentrageOrigami * _speedAnimCenterOrigami);
+            pliageObject.localPosition = Vector3.Lerp(_lastPosOrigami, _lastPosOrigami + _currentPliage.offsetPlacementPliage, _timerTransitionCentrageOrigami * _speedAnimCenterOrigami);
         }
 
         if (OrigamiIsFinish())

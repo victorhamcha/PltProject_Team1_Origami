@@ -32,6 +32,9 @@ public class DialoguesManager : MonoBehaviour
 
     private void Awake()
     {
+       
+       
+
         playerEntity = GameManager.Instance.GetEntity();
     }
 
@@ -231,14 +234,21 @@ public class DialoguesManager : MonoBehaviour
 
     public void StartFunction(string function)
     {
-        switch (function)
+        switch (function[0])
         {
-            case "biger" :
-                Debug.Log("bigerFuction");
+            case 'E':
+                
+                function = function.Remove(0, 2);
+                if(function=="SAD")
+                {
+                    Debug.Log("emotion : SAD");
+                }
                 break;
 
-            case "typo":
-                Debug.Log("typoFunction");
+            case 'S':
+                Debug.Log("soundmanager");
+                function = function.Remove(0, 2);
+                SoundManager.i.PlaySound((SoundManager.Sound)System.Enum.Parse(typeof(SoundManager.Sound),function)); 
                 break;
         }
     }
