@@ -24,7 +24,7 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private AnimationCurve _zoomCurve = null;
     [SerializeField] [Range(1, 50)] private float _endSize = 5.0f;
     [SerializeField] [Range(0.1f, 30.0f)] private float speedZoom = 0.0f;
-    [SerializeField] [Range(0.1f, 30.0f)] private float speedDeZoom = 0.0f;
+    [SerializeField] [Range(0.1f, 30.0f)] private float speedDezoom = 0.0f;
 
     [SerializeField] private bool _zooming = false;
     private bool _wasZooming = false;
@@ -34,9 +34,12 @@ public class CameraManager : MonoBehaviour
     private bool _changeDirection = false;
     private bool _canZoom = true;
     [SerializeField] private AnimationCurve _brakeCurve = null;
+    private float _lastSpeed = 0.0f;
+
     #endregion
 
     #region Camera Rotation variables
+
     [Header("Camera rotation")]
     [SerializeField] private Transform _endPosRotation = null;
     [SerializeField] [Range(1.0f, 30.0f)] private float _durationForward = 0f;
@@ -46,6 +49,9 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private bool _rotatingBackward = false;
     private bool _rotationEnded = true;
     private float _timerRotation = 0f;
+    private bool _canRotatingForward = true;
+    private bool _canRotatingBackward = false;
+
     #endregion
 
     // Start is called before the first frame update
@@ -79,11 +85,11 @@ public class CameraManager : MonoBehaviour
 
             if (_zooming)
             {
-                _cam.orthographicSize += speedZoom * Time.deltaTime * _brakeCurve.Evaluate(_timerSlow / _slowDuration);
+                _cam.orthographicSize += speedDezoom * _lastSpeed * Time.deltaTime * _brakeCurve.Evaluate(_timerSlow / _slowDuration);
             }
             else
             {
-                _cam.orthographicSize -= speedDeZoom * Time.deltaTime * _brakeCurve.Evaluate(_timerSlow / _slowDuration);
+                _cam.orthographicSize -= speedZoom * _lastSpeed * Time.deltaTime * _brakeCurve.Evaluate(_timerSlow / _slowDuration);
             }
 
             if (_timerSlow >= _slowDuration)
@@ -111,40 +117,43 @@ public class CameraManager : MonoBehaviour
         #endregion
 
         #region Rotation code
-        if (_rotatingForward && (_finalAngle * _timerRotation) / _durationForward < _finalAngle && _finalAngle > 0 && _finalAngle < 360)
+        if (_rotatingForward && _timerRotation < _durationForward && _canRotatingForward)
         {
-            RotateForwardClockwise();
+            RotateForward();
         }
-        else if (_rotatingBackward && (_finalAngle * _timerRotation) / _durationBackward < _finalAngle && _finalAngle > 0 && _finalAngle < 360)
+        else if (_rotatingBackward && _timerRotation < _durationBackward && _canRotatingBackward)
         {
-            RotateBackwardClockwise();
+            RotateBackward();
         }
-        else if (_rotatingForward && (-_finalAngle * _timerRotation) / _durationForward < -_finalAngle && _finalAngle < 0 && _finalAngle > -360)
-        {
-            RotateForwardCounterclockwise();
-        }
-        else if (_rotatingBackward && (-_finalAngle * _timerRotation) / _durationBackward < -_finalAngle && _finalAngle < 0 && _finalAngle > -360)
-        {
-            RotateBackwardCounterclockwise();
-        }
-        else if (_rotatingBackward && _timerRotation > 1.0f)
-        {
 
-            _rotationEnded = true;
-            _rotatingBackward = false;
-        }
-        else if (_rotationEnded)
+        if ( (_rotatingBackward && _timerRotation > _durationBackward) || (_rotatingForward && _timerRotation > _durationForward))
         {
-            _rotatingForward = false;
             _timerRotation = 0f;
-
+            if (_rotatingForward)
+            {
+                _canRotatingForward = false;
+                _canRotatingBackward = true;
+            }
+            else if (_rotatingBackward)
+            {
+                _rotationEnded = true;
+                _canRotatingForward = true;
+                _canRotatingBackward = false;
+            }
+            _rotatingForward = false;
+            _rotatingBackward = false;
         }
         else
         {
-            _rotatingBackward = false;
-            _rotatingForward = false;
-            _timerRotation = 0f;
+            if (_canRotatingForward && !_rotatingForward && _rotatingBackward)
+            {
+                Debug.Log("Dezoom");
+            }else if (_canRotatingBackward && _rotatingForward && !_rotatingBackward)
+            {
+                Debug.Log("Zoom");
+            }
         }
+
         #endregion
     }
 
@@ -156,37 +165,20 @@ public class CameraManager : MonoBehaviour
     }
 
 
-    public void RotateForwardClockwise()
+    public void RotateForward()
     {
+        _canRotatingForward = true;
         _rotatingBackward = false;
         _rotationEnded = false;
         _timerRotation += Time.deltaTime;
-        //_cam.transform.position = Vector3.Slerp(_smoothedPosition, _endPosRotation.position, _rotationCurve.Evaluate(_timerRotation * _speedMultiplierForward));*/
         _cam.transform.RotateAround(_endPosRotation.position, Vector3.up, (_finalAngle * Time.deltaTime) / _durationForward);
     }
 
-    public void RotateForwardCounterclockwise()
+    public void RotateBackward()
     {
-        _rotatingBackward = false;
-        _rotationEnded = false;
-        _timerRotation += Time.deltaTime;
-        //_cam.transform.position = Vector3.Slerp(_smoothedPosition, _endPosRotation.position, _rotationCurve.Evaluate(_timerRotation * _speedMultiplierForward));*/
-        _cam.transform.RotateAround(_endPosRotation.position, Vector3.up, (_finalAngle * Time.deltaTime) / _durationForward);
-    }
-
-    public void RotateBackwardClockwise()
-    {
+        _canRotatingBackward = true;
         _rotatingForward = false;
         _timerRotation += Time.deltaTime;
-        // _cam.transform.position = Vector3.Slerp(_endPosRotation.position, _smoothedPosition, _rotationCurve.Evaluate(_timerRotation * _speedMultiplierBackward));
-        _cam.transform.RotateAround(_endPosRotation.position, Vector3.up, -(_finalAngle * Time.deltaTime) / _durationBackward);
-    }
-
-    public void RotateBackwardCounterclockwise()
-    {
-        _rotatingForward = false;
-        _timerRotation += Time.deltaTime;
-        // _cam.transform.position = Vector3.Slerp(_endPosRotation.position, _smoothedPosition, _rotationCurve.Evaluate(_timerRotation * _speedMultiplierBackward));
         _cam.transform.RotateAround(_endPosRotation.position, Vector3.up, -(_finalAngle * Time.deltaTime) / _durationBackward);
     }
 
@@ -209,7 +201,8 @@ public class CameraManager : MonoBehaviour
         _startSize = _originalStartSize;
         if (_cam.orthographicSize > _endSize)
         {
-            _cam.orthographicSize = Mathf.Lerp(_startSize, _endSize, _zoomCurve.Evaluate(Mathf.InverseLerp(_startSize,_endSize,_cam.orthographicSize - speedZoom * Time.deltaTime)));
+            _lastSpeed = _zoomCurve.Evaluate(Mathf.InverseLerp(_startSize, _endSize, _cam.orthographicSize - speedZoom * Time.deltaTime));
+            _cam.orthographicSize = Mathf.Lerp(_startSize, _endSize,_lastSpeed );
         }
     }
 
@@ -219,7 +212,8 @@ public class CameraManager : MonoBehaviour
         _startSize = _originalEndSize;
         if (_cam.orthographicSize < _endSize)
         {
-            _cam.orthographicSize = Mathf.Lerp(_startSize, _endSize, _zoomCurve.Evaluate(Mathf.InverseLerp(_startSize, _endSize, _cam.orthographicSize + speedDeZoom * Time.deltaTime)));
+            _lastSpeed = _zoomCurve.Evaluate(Mathf.InverseLerp(_startSize, _endSize, _cam.orthographicSize + speedDezoom * Time.deltaTime));
+            _cam.orthographicSize = Mathf.Lerp(_startSize, _endSize, _lastSpeed);
         }
 
     }

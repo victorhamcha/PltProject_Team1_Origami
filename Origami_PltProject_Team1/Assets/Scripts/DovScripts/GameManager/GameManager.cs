@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private SwitchModePlayerOrigami _switchModeOrigami;
     [SerializeField] private Entity _entity;
     [SerializeField] private SoundManager _soundManager;
+    [SerializeField] private ZoomVignette _zoomVignette;
     private PliageManager _pliageManager;
 
     [SerializeField] private List<GameObject> _listPliage = new List<GameObject>();
@@ -100,6 +101,9 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
-
+    public ZoomVignette GetZoomVignette()
+    {
+        return _zoomVignette;
+    }
 
 }
