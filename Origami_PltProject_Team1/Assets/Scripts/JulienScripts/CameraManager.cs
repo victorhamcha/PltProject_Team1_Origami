@@ -24,7 +24,7 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private AnimationCurve _zoomCurve = null;
     [SerializeField] [Range(1, 50)] private float _endSize = 5.0f;
     [SerializeField] [Range(0.1f, 30.0f)] private float speedZoom = 0.0f;
-    [SerializeField] [Range(0.1f, 30.0f)] private float speedDeZoom = 0.0f;
+    [SerializeField] [Range(0.1f, 30.0f)] private float speedDezoom = 0.0f;
 
     [SerializeField] private bool _zooming = false;
     private bool _wasZooming = false;
@@ -34,6 +34,8 @@ public class CameraManager : MonoBehaviour
     private bool _changeDirection = false;
     private bool _canZoom = true;
     [SerializeField] private AnimationCurve _brakeCurve = null;
+    private float _lastSpeed = 0.0f;
+
     #endregion
 
     #region Camera Rotation variables
@@ -79,11 +81,11 @@ public class CameraManager : MonoBehaviour
 
             if (_zooming)
             {
-                _cam.orthographicSize += speedZoom * Time.deltaTime * _brakeCurve.Evaluate(_timerSlow / _slowDuration);
+                _cam.orthographicSize += speedDezoom * _lastSpeed * Time.deltaTime * _brakeCurve.Evaluate(_timerSlow / _slowDuration);
             }
             else
             {
-                _cam.orthographicSize -= speedDeZoom * Time.deltaTime * _brakeCurve.Evaluate(_timerSlow / _slowDuration);
+                _cam.orthographicSize -= speedZoom * _lastSpeed * Time.deltaTime * _brakeCurve.Evaluate(_timerSlow / _slowDuration);
             }
 
             if (_timerSlow >= _slowDuration)
@@ -209,7 +211,8 @@ public class CameraManager : MonoBehaviour
         _startSize = _originalStartSize;
         if (_cam.orthographicSize > _endSize)
         {
-            _cam.orthographicSize = Mathf.Lerp(_startSize, _endSize, _zoomCurve.Evaluate(Mathf.InverseLerp(_startSize,_endSize,_cam.orthographicSize - speedZoom * Time.deltaTime)));
+            _lastSpeed = _zoomCurve.Evaluate(Mathf.InverseLerp(_startSize, _endSize, _cam.orthographicSize - speedZoom * Time.deltaTime));
+            _cam.orthographicSize = Mathf.Lerp(_startSize, _endSize,_lastSpeed );
         }
     }
 
@@ -219,7 +222,8 @@ public class CameraManager : MonoBehaviour
         _startSize = _originalEndSize;
         if (_cam.orthographicSize < _endSize)
         {
-            _cam.orthographicSize = Mathf.Lerp(_startSize, _endSize, _zoomCurve.Evaluate(Mathf.InverseLerp(_startSize, _endSize, _cam.orthographicSize + speedDeZoom * Time.deltaTime)));
+            _lastSpeed = _zoomCurve.Evaluate(Mathf.InverseLerp(_startSize, _endSize, _cam.orthographicSize + speedDezoom * Time.deltaTime));
+            _cam.orthographicSize = Mathf.Lerp(_startSize, _endSize, _lastSpeed);
         }
 
     }

@@ -501,7 +501,7 @@ PrefabInstance:
     - target: {fileID: 6756491730509600058, guid: 6fdfa3207973704449ff05eb63712168,
         type: 3}
       propertyPath: _slowDuration
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 6756491730509600058, guid: 6fdfa3207973704449ff05eb63712168,
         type: 3}
@@ -546,12 +546,12 @@ PrefabInstance:
     - target: {fileID: 6756491730509600058, guid: 6fdfa3207973704449ff05eb63712168,
         type: 3}
       propertyPath: _brakeCurve.m_Curve.Array.data[0].inSlope
-      value: -0.6008928
+      value: -0.2006675
       objectReference: {fileID: 0}
     - target: {fileID: 6756491730509600058, guid: 6fdfa3207973704449ff05eb63712168,
         type: 3}
       propertyPath: _brakeCurve.m_Curve.Array.data[0].outSlope
-      value: -0.6008928
+      value: -0.2006675
       objectReference: {fileID: 0}
     - target: {fileID: 6756491730509600058, guid: 6fdfa3207973704449ff05eb63712168,
         type: 3}
@@ -561,22 +561,22 @@ PrefabInstance:
     - target: {fileID: 6756491730509600058, guid: 6fdfa3207973704449ff05eb63712168,
         type: 3}
       propertyPath: _brakeCurve.m_Curve.Array.data[1].time
-      value: 0.55252075
+      value: 0.39152455
       objectReference: {fileID: 0}
     - target: {fileID: 6756491730509600058, guid: 6fdfa3207973704449ff05eb63712168,
         type: 3}
       propertyPath: _brakeCurve.m_Curve.Array.data[1].value
-      value: 0.66799426
+      value: 0.92143375
       objectReference: {fileID: 0}
     - target: {fileID: 6756491730509600058, guid: 6fdfa3207973704449ff05eb63712168,
         type: 3}
       propertyPath: _brakeCurve.m_Curve.Array.data[1].inSlope
-      value: -0.9880975
+      value: -0.6191899
       objectReference: {fileID: 0}
     - target: {fileID: 6756491730509600058, guid: 6fdfa3207973704449ff05eb63712168,
         type: 3}
       propertyPath: _brakeCurve.m_Curve.Array.data[1].outSlope
-      value: -0.9880975
+      value: -0.6191899
       objectReference: {fileID: 0}
     - target: {fileID: 6756491730509600058, guid: 6fdfa3207973704449ff05eb63712168,
         type: 3}
@@ -596,12 +596,12 @@ PrefabInstance:
     - target: {fileID: 6756491730509600058, guid: 6fdfa3207973704449ff05eb63712168,
         type: 3}
       propertyPath: _brakeCurve.m_Curve.Array.data[1].inWeight
-      value: 0.33333334
+      value: 0.08218638
       objectReference: {fileID: 0}
     - target: {fileID: 6756491730509600058, guid: 6fdfa3207973704449ff05eb63712168,
         type: 3}
       propertyPath: _brakeCurve.m_Curve.Array.data[1].outWeight
-      value: 0.12315571
+      value: 0.33333334
       objectReference: {fileID: 0}
     - target: {fileID: 6756491730509600058, guid: 6fdfa3207973704449ff05eb63712168,
         type: 3}
@@ -611,12 +611,12 @@ PrefabInstance:
     - target: {fileID: 6756491730509600058, guid: 6fdfa3207973704449ff05eb63712168,
         type: 3}
       propertyPath: _brakeCurve.m_Curve.Array.data[2].inSlope
-      value: -1.4927938
+      value: -1.5143318
       objectReference: {fileID: 0}
     - target: {fileID: 6756491730509600058, guid: 6fdfa3207973704449ff05eb63712168,
         type: 3}
       propertyPath: _brakeCurve.m_Curve.Array.data[2].outSlope
-      value: -1.4927938
+      value: -1.5143318
       objectReference: {fileID: 0}
     - target: {fileID: 6756491730509600058, guid: 6fdfa3207973704449ff05eb63712168,
         type: 3}
@@ -646,6 +646,26 @@ PrefabInstance:
     - target: {fileID: 6756491730509600058, guid: 6fdfa3207973704449ff05eb63712168,
         type: 3}
       propertyPath: speedDeZoom
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 6756491730509600058, guid: 6fdfa3207973704449ff05eb63712168,
+        type: 3}
+      propertyPath: _brakeCurve.m_Curve.Array.data[0].time
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6756491730509600058, guid: 6fdfa3207973704449ff05eb63712168,
+        type: 3}
+      propertyPath: _brakeCurve.m_Curve.Array.data[0].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 6756491730509600058, guid: 6fdfa3207973704449ff05eb63712168,
+        type: 3}
+      propertyPath: _brakeCurve.m_Curve.Array.data[2].outWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 6756491730509600058, guid: 6fdfa3207973704449ff05eb63712168,
+        type: 3}
+      propertyPath: speedDezoom
       value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents:
