@@ -4,10 +4,11 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
+[RequireComponent(typeof(Volume))]
 public class ZoomVignette : MonoBehaviour
 {
     private Vignette _vignette = null;
-    [SerializeField] private Volume _volume;
+    private Volume _volume;
 
     [SerializeField] [Range(0, 100)] private float variablePli = 0.0f;
     [SerializeField] private float _intensityFactor = 0.05f;
@@ -17,13 +18,14 @@ public class ZoomVignette : MonoBehaviour
     [SerializeField] private float _startOrthoSize = 0.0f;
     [SerializeField] private float _endOrthoSize = 0.0f;
     [SerializeField] private float _changedOrthoSize = 0.0f;
-    [SerializeField] private Camera _cam = null;
+    private Camera _cam = null;
 
     private float _timerDezoom = 0.0f;
     public bool _testBool = false;
     // Start is called before the first frame update
     void Start()
     {
+        _cam = GetComponent<Camera>();
         _volume = GetComponent<Volume>();
         _volume.profile.TryGet<Vignette>(out _vignette);
         _startOrthoSize = _cam.orthographicSize;
@@ -64,5 +66,10 @@ public class ZoomVignette : MonoBehaviour
         _timerDezoom += Time.deltaTime;
         _vignette.intensity.value = Mathf.Lerp(_intensityValue, 0, _timerDezoom);        
         _cam.orthographicSize = Mathf.Lerp(_endOrthoSize, _startOrthoSize, _timerDezoom);
+    }
+
+    public void SetVariablePli(float pourcentagePli)
+    {
+        variablePli = pourcentagePli;
     }
 }

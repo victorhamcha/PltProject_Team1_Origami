@@ -165,8 +165,9 @@ public class PliageManager : MonoBehaviour
         //Récupération du pourcentage d'avancement entre le point de début et le point de fin du pliage actuel en cours en fontion du point ou l'on click
         float prctAvancementSlide = GetPourcentageAvancementSlide();
 
-        if (_reverseAnim && !OrigamiIsFinish() && !_currentFoldIsFinish)
+        if (_reverseAnim && !OrigamiIsFinish() && !_currentFoldIsFinish && _animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0)
         {
+            GameManager.Instance.GetZoomVignette().SetVariablePli( (1 - _animator.GetCurrentAnimatorStateInfo(0).normalizedTime) * 100);
             _maskSprite.localScale = new Vector3(Mathf.Lerp(_currentPliage.maxSizeSpriteMask, _initScaleXMask, _animator.GetCurrentAnimatorStateInfo(0).normalizedTime), _maskSprite.localScale.y, _maskSprite.localScale.z);
             _currentPliage.boundarySprite.color = Color.Lerp(_currentPliage.colorValidationPliage, _currentPliage.colorBoundary, _animator.GetCurrentAnimatorStateInfo(0).normalizedTime);
         }
@@ -188,6 +189,7 @@ public class PliageManager : MonoBehaviour
             // Disable hand's gameobject
             _handGO.SetActive(false);
             _animator.Play(_currentPliage.animToPlay.name, -1, prctAvancementSlide);
+            GameManager.Instance.GetZoomVignette().SetVariablePli(prctAvancementSlide * 100);
             if (_currentPliage.isConfirmationPliage)
             {
                 SoundManager.i.PlayLoop(SoundManager.Loop.FoldsPressure, averagePrctAvancementSlide, prctAvancementSlide);
