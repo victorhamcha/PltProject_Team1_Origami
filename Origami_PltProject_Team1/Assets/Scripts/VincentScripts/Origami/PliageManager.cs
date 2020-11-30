@@ -212,6 +212,7 @@ public class PliageManager : MonoBehaviour
         if (OrigamiIsFinish())
         {
             _switchModePlayerOrigami._OnModeEnd = true;
+            CandyCrush();
         }
 
         if (_tempTimerBounce > 0)
@@ -247,6 +248,11 @@ public class PliageManager : MonoBehaviour
             _isRotating = false;
             _rotatingIsFinish = true;
         }
+
+    }
+
+    private void CandyCrush()
+    {
 
     }
 
