@@ -171,7 +171,7 @@ public class DialoguesManager : MonoBehaviour
 /*                    Debug.Log("exiting");
                     Debug.Log(tag);*/
                     //fonctions du parser ICI
-                    StartFunction(tag);
+                    //StartFunction(tag);
                     tag = "";
                 }
                 else
@@ -216,7 +216,7 @@ public class DialoguesManager : MonoBehaviour
                     //Debug.Log("exiting");
                     //Debug.Log(tag);
                     //fonctions du parser ICI
-                    StartFunction(tag);
+                    //StartFunction(tag);
                     tag = "";
                 }
                 else
