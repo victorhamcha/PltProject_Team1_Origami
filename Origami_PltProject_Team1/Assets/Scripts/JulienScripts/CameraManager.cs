@@ -55,7 +55,7 @@ public class CameraManager : MonoBehaviour
     private bool _rotationEnded = true;
     private bool _canRotatingForward = true;
     private bool _canRotatingBackward = false;
-    [SerializeField] private float _currentRotation = 0f;
+    private float _currentRotation = 0f;
     private float _internTimerCurveBrakeSpeedRotation = 0f;
     private float _internTimerCurveSpeedRotation = 0f;
 
