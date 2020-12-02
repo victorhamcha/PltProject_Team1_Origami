@@ -110,7 +110,6 @@ public class GameManager : MonoBehaviour
 
     public void ActivateCandyCrush(string mot)
     {
-        Debug.Log("cc = ");
         candyIsActive = true;
         candyCanvas.GetComponentInChildren<Text>().text = mot;
         candyCanvas.SetActive(true);
