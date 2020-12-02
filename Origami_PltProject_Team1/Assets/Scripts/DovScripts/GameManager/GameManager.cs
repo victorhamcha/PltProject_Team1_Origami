@@ -22,6 +22,9 @@ public class GameManager : MonoBehaviour
     private float candyTimer;
 
 
+=======
+    [SerializeField] private ZoomVignette _zoomVignette;
+>>>>>>> 1d09b771c1bc74b26fd3b3029fd0a6c7276e4a8e
     private PliageManager _pliageManager;
 
     [SerializeField] private List<GameObject> _listPliage = new List<GameObject>();
@@ -139,6 +142,9 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
-
+    public ZoomVignette GetZoomVignette()
+    {
+        return _zoomVignette;
+    }
 
 }

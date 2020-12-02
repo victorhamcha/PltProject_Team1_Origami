@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Collectible : MonoBehaviour
 {
-    GameObject prefabCollectible;
+    public GameObject prefabCollectible;
+    public GameObject test;
     void Start()
     {
         
@@ -12,15 +13,21 @@ public class Collectible : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
+    {   
+        //pas prendre en compte juste pour test
+        if(Input.GetKeyDown(KeyCode.A))
+        {
+            InstantiateCol(true, Vector3.zero,test);
+        }
         
     }
 
-    public void InstantiateCol(bool firstTime,Vector3 offset)
+    public void InstantiateCol(bool firstTime,Vector3 offset,GameObject parabol)
     {
         if(firstTime)
         {
-            Instantiate(prefabCollectible, transform.position + offset, Quaternion.identity);
+          GameObject col= Instantiate(prefabCollectible, transform.position + offset, Quaternion.identity);
+          col.GetComponent<ParabolaController>().ParabolaRoot = parabol;
         }
     }
 

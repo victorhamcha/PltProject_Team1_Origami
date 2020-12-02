@@ -39,15 +39,26 @@ public class CameraManager : MonoBehaviour
     #endregion
 
     #region Camera Rotation variables
+
     [Header("Camera rotation")]
     [SerializeField] private Transform _endPosRotation = null;
-    [SerializeField] [Range(1.0f, 30.0f)] private float _durationForward = 0f;
-    [SerializeField] [Range(1.0f, 30.0f)] private float _durationBackward = 0f;
-    [SerializeField] [Range(-360.0f, 360.0f)] private float _finalAngle = 0f;
+    [SerializeField] private float _finalAngle = 0f;
+    [SerializeField] private float _speedRotationForward = 2f;
+    [SerializeField] private float _speedRotationBackward = 2f;
     [SerializeField] private bool _rotatingForward = false;
     [SerializeField] private bool _rotatingBackward = false;
+    [SerializeField] private AnimationCurve _curveSpeedRotation = AnimationCurve.Linear(0, 0, 1, 1);
+    [SerializeField] private float _durationCurveSpeedRotation = 1f;
+    [SerializeField] private AnimationCurve _brakeCurveSpeedRotation = AnimationCurve.Linear(0, 1, 1, 0);
+    [SerializeField] private float _durationBrakeCurveSpeedRotation = 1f;
+    private bool _waitNewRotation = true;
     private bool _rotationEnded = true;
-    private float _timerRotation = 0f;
+    private bool _canRotatingForward = true;
+    private bool _canRotatingBackward = false;
+    private float _currentRotation = 0f;
+    private float _internTimerCurveBrakeSpeedRotation = 0f;
+    private float _internTimerCurveSpeedRotation = 0f;
+
     #endregion
 
     // Start is called before the first frame update
@@ -113,40 +124,80 @@ public class CameraManager : MonoBehaviour
         #endregion
 
         #region Rotation code
-        if (_rotatingForward && (_finalAngle * _timerRotation) / _durationForward < _finalAngle && _finalAngle > 0 && _finalAngle < 360)
+        if (_rotatingForward && _finalAngle > _currentRotation && _canRotatingForward)
         {
-            RotateForwardClockwise();
+            RotateForward();
         }
-        else if (_rotatingBackward && (_finalAngle * _timerRotation) / _durationBackward < _finalAngle && _finalAngle > 0 && _finalAngle < 360)
+        else if (_rotatingBackward && _currentRotation > 0 && _canRotatingBackward)
         {
-            RotateBackwardClockwise();
+            RotateBackward();
         }
-        else if (_rotatingForward && (-_finalAngle * _timerRotation) / _durationForward < -_finalAngle && _finalAngle < 0 && _finalAngle > -360)
-        {
-            RotateForwardCounterclockwise();
-        }
-        else if (_rotatingBackward && (-_finalAngle * _timerRotation) / _durationBackward < -_finalAngle && _finalAngle < 0 && _finalAngle > -360)
-        {
-            RotateBackwardCounterclockwise();
-        }
-        else if (_rotatingBackward && _timerRotation > 1.0f)
-        {
 
+        if (_rotatingBackward && _currentRotation <= 0)
+        {
             _rotationEnded = true;
-            _rotatingBackward = false;
-        }
-        else if (_rotationEnded)
-        {
+            _canRotatingForward = true;
+            _canRotatingBackward = false;
             _rotatingForward = false;
-            _timerRotation = 0f;
-
+            _rotatingBackward = false;
+            _currentRotation = 0;
+        }
+        else if (_rotatingForward && _currentRotation >= _finalAngle)
+        {
+            _canRotatingForward = false;
+            _canRotatingBackward = true;
+            _rotatingForward = false;
+            _rotatingBackward = false;
+            _currentRotation = _finalAngle;
         }
         else
         {
-            _rotatingBackward = false;
-            _rotatingForward = false;
-            _timerRotation = 0f;
+            if ((_canRotatingForward && !_rotatingForward && _rotatingBackward) || (_canRotatingBackward && _rotatingForward && !_rotatingBackward) || !_rotatingForward && !_rotatingBackward )
+            {
+                _internTimerCurveBrakeSpeedRotation += Time.deltaTime;
+                _internTimerCurveSpeedRotation = 0f;
+                if (_internTimerCurveBrakeSpeedRotation >= _durationBrakeCurveSpeedRotation && !_waitNewRotation)
+                {
+                    _internTimerCurveBrakeSpeedRotation = 0f;
+                    if ((_canRotatingForward && !_rotatingForward && _rotatingBackward))
+                    {
+                        _canRotatingForward = false;
+                        _canRotatingBackward = true;
+                    }
+                    else if (_canRotatingBackward && _rotatingForward && !_rotatingBackward)
+                    {
+                        _canRotatingForward = true;
+                        _canRotatingBackward = false;
+                    }
+                }
+                else
+                {
+                    float curveEvaluate = _brakeCurveSpeedRotation.Evaluate(_internTimerCurveBrakeSpeedRotation / _durationBrakeCurveSpeedRotation);
+                    if (_canRotatingForward && _currentRotation < _finalAngle && _currentRotation > 0)
+                    {
+                        _currentRotation += _speedRotationForward * Time.deltaTime * curveEvaluate;
+                        _cam.transform.RotateAround(_endPosRotation.position, Vector3.up, (_speedRotationForward * Time.deltaTime) * curveEvaluate);
+                    }
+                    else if (_canRotatingBackward && _currentRotation > 0 && _currentRotation < _finalAngle)
+                    {
+                        _currentRotation -= _speedRotationBackward * Time.deltaTime * curveEvaluate;
+                        _cam.transform.RotateAround(_endPosRotation.position, Vector3.up, -(_speedRotationBackward * Time.deltaTime) * curveEvaluate);
+                    }
+                }
+            }
+
+
         }
+
+        if (_rotatingBackward || _rotatingForward)
+        {
+            _waitNewRotation = false;
+        }
+        else
+        {
+            _waitNewRotation = true;
+        }
+
         #endregion
     }
 
@@ -158,38 +209,29 @@ public class CameraManager : MonoBehaviour
     }
 
 
-    public void RotateForwardClockwise()
+    public void RotateForward()
     {
+        _canRotatingForward = true;
         _rotatingBackward = false;
         _rotationEnded = false;
-        _timerRotation += Time.deltaTime;
-        //_cam.transform.position = Vector3.Slerp(_smoothedPosition, _endPosRotation.position, _rotationCurve.Evaluate(_timerRotation * _speedMultiplierForward));*/
-        _cam.transform.RotateAround(_endPosRotation.position, Vector3.up, (_finalAngle * Time.deltaTime) / _durationForward);
+        if (_internTimerCurveSpeedRotation < _durationCurveSpeedRotation)
+        {
+            _internTimerCurveSpeedRotation += Time.deltaTime;
+        }
+        _currentRotation += _speedRotationForward * Time.deltaTime * _curveSpeedRotation.Evaluate(_internTimerCurveSpeedRotation / _durationCurveSpeedRotation);
+        _cam.transform.RotateAround(_endPosRotation.position, Vector3.up, (_speedRotationForward * Time.deltaTime) * _curveSpeedRotation.Evaluate(_internTimerCurveSpeedRotation / _durationCurveSpeedRotation));
     }
 
-    public void RotateForwardCounterclockwise()
+    public void RotateBackward()
     {
-        _rotatingBackward = false;
-        _rotationEnded = false;
-        _timerRotation += Time.deltaTime;
-        //_cam.transform.position = Vector3.Slerp(_smoothedPosition, _endPosRotation.position, _rotationCurve.Evaluate(_timerRotation * _speedMultiplierForward));*/
-        _cam.transform.RotateAround(_endPosRotation.position, Vector3.up, (_finalAngle * Time.deltaTime) / _durationForward);
-    }
-
-    public void RotateBackwardClockwise()
-    {
+        _canRotatingBackward = true;
         _rotatingForward = false;
-        _timerRotation += Time.deltaTime;
-        // _cam.transform.position = Vector3.Slerp(_endPosRotation.position, _smoothedPosition, _rotationCurve.Evaluate(_timerRotation * _speedMultiplierBackward));
-        _cam.transform.RotateAround(_endPosRotation.position, Vector3.up, -(_finalAngle * Time.deltaTime) / _durationBackward);
-    }
-
-    public void RotateBackwardCounterclockwise()
-    {
-        _rotatingForward = false;
-        _timerRotation += Time.deltaTime;
-        // _cam.transform.position = Vector3.Slerp(_endPosRotation.position, _smoothedPosition, _rotationCurve.Evaluate(_timerRotation * _speedMultiplierBackward));
-        _cam.transform.RotateAround(_endPosRotation.position, Vector3.up, -(_finalAngle * Time.deltaTime) / _durationBackward);
+        if (_internTimerCurveSpeedRotation < _durationCurveSpeedRotation)
+        {
+            _internTimerCurveSpeedRotation += Time.deltaTime;
+        }
+        _currentRotation -= _speedRotationBackward * Time.deltaTime * _curveSpeedRotation.Evaluate(_internTimerCurveSpeedRotation / _durationCurveSpeedRotation);
+        _cam.transform.RotateAround(_endPosRotation.position, Vector3.up, -(_speedRotationBackward * Time.deltaTime) * _curveSpeedRotation.Evaluate(_internTimerCurveSpeedRotation / _durationCurveSpeedRotation));
     }
 
     public void CameraFollow()
@@ -212,7 +254,7 @@ public class CameraManager : MonoBehaviour
         if (_cam.orthographicSize > _endSize)
         {
             _lastSpeed = _zoomCurve.Evaluate(Mathf.InverseLerp(_startSize, _endSize, _cam.orthographicSize - speedZoom * Time.deltaTime));
-            _cam.orthographicSize = Mathf.Lerp(_startSize, _endSize,_lastSpeed );
+            _cam.orthographicSize = Mathf.Lerp(_startSize, _endSize, _lastSpeed);
         }
     }
 
