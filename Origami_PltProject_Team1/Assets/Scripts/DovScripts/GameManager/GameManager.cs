@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -12,6 +14,14 @@ public class GameManager : MonoBehaviour
     [SerializeField] private SwitchModePlayerOrigami _switchModeOrigami;
     [SerializeField] private Entity _entity;
     [SerializeField] private SoundManager _soundManager;
+
+    [SerializeField] private GameObject candyCanvas;
+    [SerializeField] private float candyBaseTimer;
+    private CanvasGroup candyCanvasGroup;
+    private bool candyIsActive = false;
+    private float candyTimer;
+
+
     private PliageManager _pliageManager;
 
     [SerializeField] private List<GameObject> _listPliage = new List<GameObject>();
@@ -42,6 +52,27 @@ public class GameManager : MonoBehaviour
     {
         _pliageManager = _switchModeOrigami._pliageToDo.GetComponent<PliageManager>();
         _soundManager = SoundManager.i;
+        candyTimer = candyBaseTimer;
+        candyCanvasGroup = candyCanvas.GetComponent<CanvasGroup>();
+    }
+
+    private void Update()
+    {
+        if (candyIsActive)
+        {
+            if (candyTimer > 0f)
+            {
+                candyTimer -= Time.deltaTime;
+                if (candyBaseTimer - candyTimer > 1f)
+                    candyCanvasGroup.alpha -= Time.deltaTime / candyBaseTimer;
+            }
+            else
+            {
+                candyIsActive = false;
+                candyCanvas.SetActive(false);
+                candyTimer = candyBaseTimer;
+            }
+        }
     }
 
     #region FunctionGet
@@ -74,6 +105,14 @@ public class GameManager : MonoBehaviour
     public SoundManager GetSoundManager()
     {
         return _soundManager;
+    }
+
+    public void ActivateCandyCrush(string mot)
+    {
+        Debug.Log("cc = ");
+        candyIsActive = true;
+        candyCanvas.GetComponentInChildren<Text>().text = mot;
+        candyCanvas.SetActive(true);
     }
 
     #endregion

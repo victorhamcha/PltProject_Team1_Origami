@@ -256,7 +256,9 @@ public class PliageManager : MonoBehaviour
 
     private void CandyCrush()
     {
-
+        string[] mots = { "Incredible!", "Marvelous", "Fabulous!", "Wow!", "Amazing!" };
+        string mot = mots[Random.Range(0, mots.Length)];
+        GameManager.Instance.ActivateCandyCrush(mot);
     }
 
     private float AvgPercent(float percent)
