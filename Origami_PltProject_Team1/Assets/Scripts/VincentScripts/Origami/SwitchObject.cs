@@ -36,11 +36,11 @@ public class SwitchObject : MonoBehaviour
         listObjectToDisplayByOrder[index].SetActive(false);
         if (index - 1 >= 0)
         {
-            index++;
+            index--;
         }
         else
         {
-            index = 0;
+            index = listObjectToDisplayByOrder.Count - 1;
         }
         listObjectToDisplayByOrder[index].SetActive(true);
     }
