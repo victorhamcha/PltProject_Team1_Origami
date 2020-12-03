@@ -1,5 +1,18 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-7960115006921965
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 2
 --- !u!21 &2100000
 Material:
   serializedVersion: 6
@@ -7,53 +20,53 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: lettre_adresse_timbre_cachet
-  m_Shader: {fileID: -6465566751694194690, guid: 4a183405e873aaa4ca9cc7253bc884bd,
-    type: 3}
-  m_ShaderKeywords: _NORMALMAP
+  m_Name: Bateau3D
+  m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
+  m_ShaderKeywords: _NORMALMAP _OCCLUSIONMAP
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 1
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
+  m_CustomRenderQueue: 2000
+  stringTagMap:
+    RenderType: Opaque
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
     - Texture2D_B394DA61:
-        m_Texture: {fileID: 2800000, guid: 868a519c625d963499199df86675c8db, type: 3}
+        m_Texture: {fileID: 2800000, guid: 05c5b422acbb34a4697d3a07fd1c8b04, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - Texture2D_B686CDD:
-        m_Texture: {fileID: 2800000, guid: dc651e9bdc1436a47bd92906cf1815e7, type: 3}
+        m_Texture: {fileID: 2800000, guid: 066b0d08d4d505a47b8ab6f5a17793a4, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - Texture2D_BE695D2C:
-        m_Texture: {fileID: 2800000, guid: 868a519c625d963499199df86675c8db, type: 3}
+        m_Texture: {fileID: 2800000, guid: 87fb3aaa6b240cb43aaf1fe0ea41281f, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - Texture2D_C04A3D7A:
-        m_Texture: {fileID: 2800000, guid: 718de2550650c1d41be750841b68a319, type: 3}
+        m_Texture: {fileID: 2800000, guid: 8074a2c3de7b36f4bb1dd1dcbe9f03d7, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - Texture2D_D742E672:
-        m_Texture: {fileID: 2800000, guid: 3a015b8a01f07b1408ca1031694554ff, type: 3}
+        m_Texture: {fileID: 2800000, guid: 05c5b422acbb34a4697d3a07fd1c8b04, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - Texture2D_D9E00B2A:
-        m_Texture: {fileID: 2800000, guid: 4a8cb5861219ede44b1d30f2a583caba, type: 3}
+        m_Texture: {fileID: 2800000, guid: 87fb3aaa6b240cb43aaf1fe0ea41281f, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - Texture2D_F8A8506D:
-        m_Texture: {fileID: 2800000, guid: 6c448f18a9775ab4999e5784bb319366, type: 3}
+        m_Texture: {fileID: 2800000, guid: 8074a2c3de7b36f4bb1dd1dcbe9f03d7, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:
-        m_Texture: {fileID: 2800000, guid: a350e5d24f57412479a3050b0904d00a, type: 3}
+        m_Texture: {fileID: 2800000, guid: 87fb3aaa6b240cb43aaf1fe0ea41281f, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
-        m_Texture: {fileID: 2800000, guid: 718de2550650c1d41be750841b68a319, type: 3}
+        m_Texture: {fileID: 2800000, guid: 8074a2c3de7b36f4bb1dd1dcbe9f03d7, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
@@ -61,7 +74,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: a350e5d24f57412479a3050b0904d00a, type: 3}
+        m_Texture: {fileID: 2800000, guid: 87fb3aaa6b240cb43aaf1fe0ea41281f, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -69,7 +82,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
-        m_Texture: {fileID: 2800000, guid: 122c11668430637498e56f05605b21ea, type: 3}
+        m_Texture: {fileID: 2800000, guid: 05c5b422acbb34a4697d3a07fd1c8b04, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
@@ -80,7 +93,7 @@ Material:
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
-    - _Cull: 1
+    - _Cull: 0
     - _Cutoff: 0.5
     - _DstBlend: 0
     - _EnvironmentReflections: 1
