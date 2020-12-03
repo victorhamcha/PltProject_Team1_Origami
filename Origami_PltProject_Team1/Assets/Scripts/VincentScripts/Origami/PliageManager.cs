@@ -96,41 +96,12 @@ public class PliageManager : MonoBehaviour
 
     void Update()
     {
-        //TODO UPDATE COM
-        //Si le pliage en cours est fini et que l'origami n'est pas fini
-        //      Alors on fait vibrez le télephone
-        //            on passe au pliage suivant
-        //      Si il y a bien un prochain pliage
-        //          Alors on réinitialise les variables et on charge les nouvelles informations du prochain pliage
-        //      Sinon on dit que l'origami est fini
-        //
         updateCtr++;
+
+        //Si le pliage en cours est fini et que l'origami n'est pas fini
         if (CurrentFoldsIsFinish() && !OrigamiIsFinish())
         {
-            _currentPliage.boundarySprite.color = _currentPliage.colorValidationPliage;
-            _animator.speed = _currentPliage.speedAnimAutoComplete;
-            _currentFoldIsFinish = true;
-            _cursorEndPointSelect.SetActive(false);
-            if (!_currentPliage.playedParticleOnce && !_currentPliage.isConfirmationPliage)
-            {
-                StartCoroutine("BoundariesFeedback");
-                _currentPliage.playedParticleOnce = true;
-                SoundManager.i.PlaySound(SoundManager.Sound.FoldsSucced);
-                _particulePlayed = true;
-                _tempTimerParticule = _timerParticule;
-            }
-
-            if (_currentPliage.playBounce)
-            {
-                _currentPliage.playBounce = false;
-                _animatorOrigami.Play(_animFeedBack.name, -1, 0);
-                SoundManager.i.PlaySound(SoundManager.Sound.FoldsSucced);
-                _tempTimerBounce = _timerBounce;
-            }
-            else
-            {
-                _tempTimerBounce = 0;
-            }
+            ToDoCurrentFoldIsFinish();
         }
 
         if (_currentFoldIsFinish && !OrigamiIsFinish())
@@ -143,34 +114,15 @@ public class PliageManager : MonoBehaviour
 
         if (_currentFoldIsFinish && CurrentAnimIsFinish() && !OrigamiIsFinish() && _timerEndAutoComplete <= 0.0f && (_rotatingIsFinish || !_currentPliage.makeRotation) && _tempTimerParticule <= 0)
         {
-            _timerEndAutoComplete = _fixingTimer;
-            _rotatingIsFinish = false;
-            Vibration.Vibrate(_timeVibrationEndPliage);
-            indexPliage++;
-            if (_listePliage.CanGoToFolding(indexPliage))
-            {
-                SetUpCurrentPliage();
-            }
-            else
-            {
-                _boundaryAnimator.Play("BoundaryNone");
-                _origamiIsFinish = true;
-            }
-
-            if (_currentPliage.isConfirmationPliage && _slideOrigamiUI != null)
-            {
-                _slideOrigamiUI.goNextIndex = true;
-            }
+            ToDoFoldsIsFinish();
         }
 
-        //Récupération du pourcentage d'avancement entre le point de début et le point de fin du pliage actuel en cours en fontion du point ou l'on click
+        //Récupération du pourcentage d'avancement entre le point de début et le point de fin du pliage actuel en cours en fontion du point ou l'on click (Valeur entre 0 et 1)
         float prctAvancementSlide = GetPourcentageAvancementSlide();
 
         if (_reverseAnim && !OrigamiIsFinish() && !_currentFoldIsFinish && _animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1)
         {
-            GameManager.Instance.GetZoomVignette().SetVariablePli( (1 - _animator.GetCurrentAnimatorStateInfo(0).normalizedTime) * 100);
-            _maskSprite.localScale = new Vector3(Mathf.Lerp(_currentPliage.maxSizeSpriteMask, _initScaleXMask, _animator.GetCurrentAnimatorStateInfo(0).normalizedTime), _maskSprite.localScale.y, _maskSprite.localScale.z);
-            _currentPliage.boundarySprite.color = Color.Lerp(_currentPliage.colorValidationPliage, _currentPliage.colorBoundary, _animator.GetCurrentAnimatorStateInfo(0).normalizedTime);
+            ToDoOnReverseAnim();
         }
 
         //Si on arrète de touché l'écran ET qu'on avais bien sélectionnez le bont point de l'origamie ET que l'origamie n'est pas fini
@@ -180,36 +132,14 @@ public class PliageManager : MonoBehaviour
         //
         if (!_currentFoldIsFinish && _pointSelectedOrigami.GetTouchPhase() == TouchPhase.Ended && _pointSelectedOrigami.AsStartesGoodSelection() && !OrigamiIsFinish())
         {
-            _animator.Play(_currentPliage.animToPlay.name + "_reverse", -1, 1 - prctAvancementSlide);
-            _animator.speed = _speedReverseAnim;
-            _reverseAnim = true;
-            SetActiveCursor(true);
+            ToDoToReverseAnim(prctAvancementSlide);
         }
         else if (!_currentFoldIsFinish && _pointSelectedOrigami.IsGoodSelections() && !OrigamiIsFinish())
         {
-            // Disable hand's gameobject
-            _handGO.SetActive(false);
-            _animator.Play(_currentPliage.animToPlay.name, -1, prctAvancementSlide);
-            GameManager.Instance.GetZoomVignette().SetVariablePli(prctAvancementSlide * 100);
-            if (_currentPliage.isConfirmationPliage)
-            {
-                SoundManager.i.PlayLoop(SoundManager.Loop.FoldsPressure, averagePrctAvancementSlide, prctAvancementSlide);
-            }
-            else
-            {
-                SoundManager.i.PlayLoop(SoundManager.Loop.FoldsMove, averagePrctAvancementSlide, prctAvancementSlide);
-            }
-            averagePrctAvancementSlide = AvgPercent(prctAvancementSlide);
-
-            _animator.speed = _currentPliage.speedAnimAutoComplete;
-
-            _reverseAnim = false;
-            SetActiveCursor(false);
-            _maskSprite.localScale = new Vector3(Mathf.Lerp(_initScaleXMask, _currentPliage.maxSizeSpriteMask, prctAvancementSlide), _maskSprite.localScale.y, _maskSprite.localScale.z);
-            _currentPliage.boundarySprite.color = Color.Lerp(_currentPliage.colorBoundary, _currentPliage.colorValidationPliage, prctAvancementSlide);
+            ToDoOnSlideForGoodSelection(prctAvancementSlide);
         }
 
-        if (_currentPliage != null && _lastPosOrigami != _currentPliage.offsetPlacementPliage && indexPliage > 0)
+        if (_currentPliage != null && _lastPosOrigami != _lastPosOrigami + _currentPliage.offsetPlacementPliage && indexPliage > 0)
         {
             _timerTransitionCentrageOrigami += Time.deltaTime;
             pliageObject.localPosition = Vector3.Lerp(_lastPosOrigami, _lastPosOrigami + _currentPliage.offsetPlacementPliage, _timerTransitionCentrageOrigami * _speedAnimCenterOrigami);
@@ -231,8 +161,8 @@ public class PliageManager : MonoBehaviour
             _tempTimerParticule -= Time.deltaTime;
         }
 
-        // Si c'est une confirmation de pli et que le pliage est fini et que le bounce est fini
-        if (_currentPliage.isConfirmationPliage && CurrentFoldsIsFinish() && _tempTimerBounce <= 0 && !_isRotating && !_rotatingIsFinish && _currentPliage.makeRotation)
+        // Si c'est une confirmation de pli et que le pliage est fini et que le bounce est fini et que les particule sont fini
+        if (_currentPliage.isConfirmationPliage && CurrentFoldsIsFinish() && _tempTimerBounce <= 0 && _tempTimerParticule <=0 && !_isRotating && !_rotatingIsFinish && _currentPliage.makeRotation)
         {
             _isRotating = true;
             _bounceIsFinish = true;
@@ -243,7 +173,6 @@ public class PliageManager : MonoBehaviour
         // Si la rotation n'est pas égale à la rotation finale et qu'il est en train de rotate
         if (_isRotating && _bounceIsFinish && _timerRotation < 1f)
         {
-            // pliageObject.localRotation = Quaternion.Lerp(Quaternion.Euler(lastRotation.x, lastRotation.y, lastRotation.z), Quaternion.Euler(lastRotation.x, _currentPliage.rotationOffset, lastRotation.z), _timerRotation);
             pliageObject.localEulerAngles = Vector3.Lerp(_lastRotation, new Vector3(_lastRotation.x, _lastOffset, _lastRotation.z), _timerRotation);
             _timerRotation += Time.deltaTime;
         }
@@ -323,7 +252,6 @@ public class PliageManager : MonoBehaviour
 
         if (_currentPliage.isConfirmationPliage)
         {
-
             // Enable hand's Gameobject
             // Enable hand's animation
             if (_currentPliage.handAnim)
@@ -391,6 +319,95 @@ public class PliageManager : MonoBehaviour
         _currentPliage.playedParticleOnce = false;
         yield return new WaitForSeconds(0.1f);
 
+    }
+
+    private void ToDoCurrentFoldIsFinish()
+    {
+        _currentPliage.boundarySprite.color = _currentPliage.colorValidationPliage;
+        _animator.speed = _currentPliage.speedAnimAutoComplete;
+        _currentFoldIsFinish = true;
+        _cursorEndPointSelect.SetActive(false);
+        if (!_currentPliage.playedParticleOnce && !_currentPliage.isConfirmationPliage)
+        {
+            StartCoroutine("BoundariesFeedback");
+            _currentPliage.playedParticleOnce = true;
+            SoundManager.i.PlaySound(SoundManager.Sound.FoldsSucced);
+            _particulePlayed = true;
+            _tempTimerParticule = _timerParticule;
+        }
+
+        if (_currentPliage.playBounce)
+        {
+            _currentPliage.playBounce = false;
+            _animatorOrigami.Play(_animFeedBack.name, -1, 0);
+            SoundManager.i.PlaySound(SoundManager.Sound.FoldsSucced);
+            _tempTimerBounce = _timerBounce;
+        }
+        else
+        {
+            _tempTimerBounce = 0;
+        }
+    }
+
+    private void ToDoFoldsIsFinish()
+    {
+        _timerEndAutoComplete = _fixingTimer;
+        _rotatingIsFinish = false;
+        Vibration.Vibrate(_timeVibrationEndPliage);
+        indexPliage++;
+        if (_listePliage.CanGoToFolding(indexPliage))
+        {
+            SetUpCurrentPliage();
+        }
+        else
+        {
+            _boundaryAnimator.Play("BoundaryNone");
+            _origamiIsFinish = true;
+        }
+
+        if (_currentPliage.isConfirmationPliage && _slideOrigamiUI != null)
+        {
+            _slideOrigamiUI.goNextIndex = true;
+        }
+    }
+
+    private void ToDoToReverseAnim(float prctAvancementSlide)
+    {
+        _animator.Play(_currentPliage.animToPlay.name + "_reverse", -1, 1 - prctAvancementSlide);
+        _animator.speed = _speedReverseAnim;
+        _reverseAnim = true;
+        SetActiveCursor(true);
+    }
+
+    private void ToDoOnReverseAnim()
+    {
+        GameManager.Instance.GetZoomVignette().SetVariablePli((1 - _animator.GetCurrentAnimatorStateInfo(0).normalizedTime) * 100);
+        _maskSprite.localScale = new Vector3(Mathf.Lerp(_currentPliage.maxSizeSpriteMask, _initScaleXMask, _animator.GetCurrentAnimatorStateInfo(0).normalizedTime), _maskSprite.localScale.y, _maskSprite.localScale.z);
+        _currentPliage.boundarySprite.color = Color.Lerp(_currentPliage.colorValidationPliage, _currentPliage.colorBoundary, _animator.GetCurrentAnimatorStateInfo(0).normalizedTime);
+    }
+
+    private void ToDoOnSlideForGoodSelection(float prctAvancementSlide)
+    {
+        // Disable hand's gameobject
+        _handGO.SetActive(false);
+        _animator.Play(_currentPliage.animToPlay.name, -1, prctAvancementSlide);
+        GameManager.Instance.GetZoomVignette().SetVariablePli(prctAvancementSlide * 100);
+        if (_currentPliage.isConfirmationPliage)
+        {
+            SoundManager.i.PlayLoop(SoundManager.Loop.FoldsPressure, averagePrctAvancementSlide, prctAvancementSlide);
+        }
+        else
+        {
+            SoundManager.i.PlayLoop(SoundManager.Loop.FoldsMove, averagePrctAvancementSlide, prctAvancementSlide);
+        }
+        averagePrctAvancementSlide = AvgPercent(prctAvancementSlide);
+
+        _animator.speed = _currentPliage.speedAnimAutoComplete;
+
+        _reverseAnim = false;
+        SetActiveCursor(false);
+        _maskSprite.localScale = new Vector3(Mathf.Lerp(_initScaleXMask, _currentPliage.maxSizeSpriteMask, prctAvancementSlide), _maskSprite.localScale.y, _maskSprite.localScale.z);
+        _currentPliage.boundarySprite.color = Color.Lerp(_currentPliage.colorBoundary, _currentPliage.colorValidationPliage, prctAvancementSlide);
     }
 }
 
