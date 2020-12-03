@@ -17,7 +17,7 @@ public class TriggerChangeOrigami : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player" && !_isTrigger)
+        if (other.tag == "Player" && !_isTrigger && _gameManager.GetEntity().VerifyCollectibles(3))
         {
             _isTrigger = true;
             _bulleOrigami.SetActive(true);

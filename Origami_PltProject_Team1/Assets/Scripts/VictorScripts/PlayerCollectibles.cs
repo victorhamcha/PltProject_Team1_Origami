@@ -5,19 +5,7 @@ using UnityEngine;
 public class PlayerCollectibles : MonoBehaviour
 {
     [HideInInspector] public int collectibles = 0;
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-
-
+    
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "Collectible")
@@ -33,10 +21,10 @@ public class PlayerCollectibles : MonoBehaviour
         collectibles++;
     }
 
-    //vérifer si assez de collectibles pour origami mettre sur le script d'intéraction avec les origamis
+    
     public bool VerifyCollectibles(int colNeeded)
     {
-        if(collectibles>=colNeeded)
+        if(collectibles >= colNeeded)
         {
             collectibles -= colNeeded;
             return true;
@@ -45,8 +33,6 @@ public class PlayerCollectibles : MonoBehaviour
         {
             return false;
         }
-
-
     }
 
 }
