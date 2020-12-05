@@ -10,12 +10,13 @@ public class GameManager : MonoBehaviour
 
     private GameManager() { }
 
-    [SerializeField] private DialoguesManager _dialogueManager;
-    [SerializeField] private SwitchModePlayerOrigami _switchModeOrigami;
-    [SerializeField] private Entity _entity;
-    [SerializeField] private SoundManager _soundManager;
+    [SerializeField] private DialoguesManager _dialogueManager = null;
+    [SerializeField] private SwitchModePlayerOrigami _switchModeOrigami = null;
+    [SerializeField] private Entity _entity = null;
+    [SerializeField] private SwitchSpritePlayer _switchSpritePlayer = null;
+    [SerializeField] private SoundManager _soundManager = null;
 
-    [SerializeField] private GameObject candyCanvas;
+    [SerializeField] private GameObject candyCanvas = null;
     [SerializeField] private float candyBaseTimer;
     private CanvasGroup candyCanvasGroup;
     private bool candyIsActive = false;
@@ -115,6 +116,16 @@ public class GameManager : MonoBehaviour
         candyCanvas.SetActive(true);
     }
 
+    public ZoomVignette GetZoomVignette()
+    {
+        return _zoomVignette;
+    }
+
+    public SwitchSpritePlayer GetSwitchSpritePlayer()
+    {
+        return _switchSpritePlayer;
+    }
+
     #endregion
 
     #region ChangePliage
@@ -139,9 +150,6 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
-    public ZoomVignette GetZoomVignette()
-    {
-        return _zoomVignette;
-    }
+
 
 }
