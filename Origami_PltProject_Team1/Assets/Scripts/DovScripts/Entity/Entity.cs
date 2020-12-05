@@ -86,6 +86,7 @@ public class Entity : MonoBehaviour
     [SerializeField] private bool _guiDebug = true;
 
     //Collectibles
+    [Header("Collectibles")]
     public int collectibles = 0;
 
     private Rigidbody _rigidbody = null;
