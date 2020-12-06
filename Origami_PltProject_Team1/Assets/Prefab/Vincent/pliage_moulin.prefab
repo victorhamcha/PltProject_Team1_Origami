@@ -1468,12 +1468,15 @@ MonoBehaviour:
   _timerBounce: 1
   _timerParticule: 1
   _timerFadeOutBandeau: 1
+  _timerFadeInOrigami: 1
   _handAnimator: {fileID: 7460554822134934896}
   _handGO: {fileID: 7207314027135818144}
   _boundaryAnimator: {fileID: 6343138508034540434}
   _maskSprite: {fileID: 6566948213542712603}
   _animatorOrigami: {fileID: 0}
   _animFeedBack: {fileID: 7400000, guid: 564956b5290eb7846971cef51003ee68, type: 2}
+  _animBandeauFadeOut: {fileID: 7400000, guid: 1a929ee593b40d34dbfe73ff7d601aa1, type: 2}
+  _videoPlayer: {fileID: 2765804782667291592}
   _fixingTimer: 0.85
 --- !u!95 &8346193620498231195
 Animator:
@@ -4891,7 +4894,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4533013672149600508}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.84, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3020462027641742850}
@@ -7666,8 +7669,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7758302970032499496}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -2.79, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalPosition: {x: -0.0704, y: -1.9831, z: 0}
+  m_LocalScale: {x: 0.29607996, y: 0.29908147, z: 1}
   m_Children: []
   m_Father: {fileID: 2601243908349015388}
   m_RootOrder: 6
@@ -8533,8 +8536,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8164807037469183021}
   m_LocalRotation: {x: -0, y: 0.70710677, z: -0.70710677, w: 0}
-  m_LocalPosition: {x: 0.09, y: 1.839, z: 0}
-  m_LocalScale: {x: 0.41170037, y: 1, z: 0.08582956}
+  m_LocalPosition: {x: -0.3674, y: 1.7454, z: -0}
+  m_LocalScale: {x: 0.31581515, y: 1, z: 0.09795275}
   m_Children: []
   m_Father: {fileID: 6145582776058528139}
   m_RootOrder: 27
@@ -8615,7 +8618,7 @@ VideoPlayer:
   m_EnabledAudioTracks: 
   m_DirectAudioMutes: 
   m_ControlledAudioTrackCount: 0
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_SkipOnDrop: 1
   m_Looping: 0
   m_WaitForFirstFrame: 1
