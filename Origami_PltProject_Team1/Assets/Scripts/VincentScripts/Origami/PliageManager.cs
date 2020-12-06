@@ -100,6 +100,11 @@ public class PliageManager : MonoBehaviour
         _tempTimerFadeInOrigami = _timerFadeInOrigami;
     }
 
+    private void Start()
+    {
+        _videoPlayer.targetTexture.Release();
+    }
+
     void Update()
     {
         _tempTimerFadeInOrigami -= Time.deltaTime;

@@ -644,8 +644,8 @@ MonoBehaviour:
   _maskSprite: {fileID: 5099733600094859718}
   _animatorOrigami: {fileID: 0}
   _animFeedBack: {fileID: 7400000, guid: 564956b5290eb7846971cef51003ee68, type: 2}
-  _animBandeauFadeOut: {fileID: 0}
-  _videoPlayer: {fileID: 0}
+  _animBandeauFadeOut: {fileID: 7400000, guid: 11641aa4baae99b4f9b6ca7a964ce490, type: 2}
+  _videoPlayer: {fileID: 4563410169842168624}
   _fixingTimer: 0.85
 --- !u!95 &7941036687792270150
 Animator:
@@ -1055,8 +1055,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2493069504538566214}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.01, y: -2.79, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalPosition: {x: -0.08, y: -1.982, z: -0}
+  m_LocalScale: {x: 0.29682693, y: 0.2952141, z: 1}
   m_Children: []
   m_Father: {fileID: 8701843855706519992}
   m_RootOrder: 6
@@ -2723,7 +2723,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6234865149352819410}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.1, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3203817688790664121}
@@ -3662,8 +3662,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8209726175351547525}
   m_LocalRotation: {x: -0, y: 0.70710677, z: -0.70710677, w: 0}
-  m_LocalPosition: {x: -0.18, y: 1.63, z: 0}
-  m_LocalScale: {x: 0.5015755, y: 1.0000002, z: 0.11030472}
+  m_LocalPosition: {x: -0.386, y: 1.76, z: 0}
+  m_LocalScale: {x: 0.30894625, y: 1.0000002, z: 0.1}
   m_Children: []
   m_Father: {fileID: 5237377208793957718}
   m_RootOrder: 15
@@ -3744,7 +3744,7 @@ VideoPlayer:
   m_EnabledAudioTracks: 
   m_DirectAudioMutes: 
   m_ControlledAudioTrackCount: 0
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_SkipOnDrop: 1
   m_Looping: 0
   m_WaitForFirstFrame: 1
@@ -4206,8 +4206,8 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights:
   - 0
   - 0
-  - 10
-  - 90
+  - 0
+  - 0
   - 0
   - 0
   - 0
