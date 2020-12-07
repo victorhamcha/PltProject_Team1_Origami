@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 
-
 public class SwitchModePlayerOrigami : MonoBehaviour
 {
     [SerializeField] private Animator _animatorFadeOrigami = null;
@@ -33,9 +32,11 @@ public class SwitchModePlayerOrigami : MonoBehaviour
     [SerializeField] private GameObject _celebrationOiseau = null;
     [SerializeField] private GameObject _celebrationFleur = null;
     [SerializeField] private GameObject _canvaCelebration = null;
+    [SerializeField] private AnimationClip _animationClipFadeOutButton = null;
     private bool _iscelebrate = false;
     private GameObject _ob = null;
-
+    private bool asClickToContinue = false;
+    private AnimCelebrations _objAnimCelebration = null;
 
     void Start()
     {
@@ -113,22 +114,39 @@ public class SwitchModePlayerOrigami : MonoBehaviour
                 SoundManager.i.PlaySound(SoundManager.Sound.SFX_Origami_Bone_Succed);
                 _ob = Instantiate(_celebration, _posCelebration);
             }
+            _objAnimCelebration = _ob.GetComponent<AnimCelebrations>();
             _canvaCelebration.SetActive(true);
         }
+
         if (_OnModeEnd)
         {
             _pliageToDo.SetActive(false);
+        }
+
+        if (asClickToContinue)
+        {
+            asClickToContinue = false;
+            if (_objAnimCelebration != null)
+            {
+                _objAnimCelebration.PlayAnimButtonFadeOut();
+            }
+            _canvaCelebration.GetComponent<Animator>().Play(_animationClipFadeOutButton.name);
+        }
+
+        if (_objAnimCelebration != null && _objAnimCelebration.GetNormalizedTimeAnimator() >= 1)
+        {
+            Destroy(_ob);
+            _canvaCelebration.SetActive(false);
+            _OnModeEnd = false;
+            _iscelebrate = false;
+            SwitchMode();
         }
 
     }
 
     public void ClickToContinue()
     {
-        Destroy(_ob);
-        _canvaCelebration.SetActive(false);
-        _OnModeEnd = false;
-        _iscelebrate = false;
-        SwitchMode();
+        asClickToContinue = true;
     }
 
     public void SwitchMode()

@@ -121,7 +121,6 @@ GameObject:
   - component: {fileID: 1185214263174158237}
   - component: {fileID: 5334723640256262947}
   - component: {fileID: 7349258031604721696}
-  - component: {fileID: 8001811746622570698}
   m_Layer: 0
   m_Name: ODuPuit
   m_TagString: Untagged
@@ -192,20 +191,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &8001811746622570698
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6303852353184975916}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!1 &7214636139887020302
 GameObject:
   m_ObjectHideFlags: 0
@@ -2404,7 +2389,7 @@ PrefabInstance:
     - target: {fileID: 3234863504746984837, guid: f8ba491681effc4438082f00ee07819b,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -4
       objectReference: {fileID: 0}
     - target: {fileID: 3234863504746984837, guid: f8ba491681effc4438082f00ee07819b,
         type: 3}
