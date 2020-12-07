@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2627482290377447388}
   - component: {fileID: 2627482290377447389}
   m_Layer: 0
-  m_Name: pickable
+  m_Name: Fx_pickable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -222,7 +222,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 0.6117647, b: 0.050980397, a: 1}
+      maxColor: {r: 1, g: 0.5909091, b: 0, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -1312,9 +1312,9 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 1, g: 1, b: 1, a: 0.1764706}
+        key0: {r: 1, g: 1, b: 1, a: 0.47058824}
         key1: {r: 1, g: 1, b: 1, a: 1}
-        key2: {r: 1, g: 0.6117647, b: 0.050980397, a: 0.1764706}
+        key2: {r: 1, g: 0.6117647, b: 0.050980397, a: 0.47058824}
         key3: {r: 1, g: 0.6117647, b: 0.050980397, a: 1}
         key4: {r: 1, g: 0.6117647, b: 0.050980397, a: 0}
         key5: {r: 1, g: 0.6117647, b: 0.050980397, a: 0}
