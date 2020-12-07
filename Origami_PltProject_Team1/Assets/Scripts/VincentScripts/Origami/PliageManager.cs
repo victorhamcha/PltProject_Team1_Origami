@@ -186,7 +186,7 @@ public class PliageManager : MonoBehaviour
         }
 
         // Si c'est une confirmation de pli et que le pliage est fini et que le bounce est fini et que les particule sont fini
-        if (_currentPliage.isConfirmationPliage && CurrentFoldsIsFinish() && _tempTimerBounce <= 0 && _tempTimerParticule <=0 && !_isRotating && !_rotatingIsFinish && _currentPliage.makeRotation)
+        if (_currentPliage.isConfirmationPliage && CurrentFoldsIsFinish() && _tempTimerBounce <= 0 && _tempTimerParticule <= 0 && !_isRotating && !_rotatingIsFinish && _currentPliage.makeRotation)
         {
             _isRotating = true;
             _bounceIsFinish = true;
@@ -220,8 +220,7 @@ public class PliageManager : MonoBehaviour
     {
         if (updateCtr > 10)
         {
-            return averagePrctAvancementSlide +
-                   (percent - averagePrctAvancementSlide) / 11;
+            return averagePrctAvancementSlide + (percent - averagePrctAvancementSlide) / 11;
         }
         else
         {
@@ -349,6 +348,7 @@ public class PliageManager : MonoBehaviour
 
     private void ToDoCurrentFoldIsFinish()
     {
+        SoundManager.i.StopOrigamiLoop();
         _currentPliage.boundarySprite.color = _currentPliage.colorValidationPliage;
         _animator.speed = _currentPliage.speedAnimAutoComplete;
         _currentFoldIsFinish = true;
@@ -399,6 +399,7 @@ public class PliageManager : MonoBehaviour
 
     private void ToDoToReverseAnim(float prctAvancementSlide)
     {
+        SoundManager.i.StopOrigamiLoop();
         _animator.Play(_currentPliage.animToPlay.name + "_reverse", -1, 1 - prctAvancementSlide);
         _animator.speed = _speedReverseAnim;
         _reverseAnim = true;

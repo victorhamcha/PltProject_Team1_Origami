@@ -32,8 +32,8 @@ public class DialoguesManager : MonoBehaviour
 
     private void Awake()
     {
-       
-       
+
+
 
         playerEntity = GameManager.Instance.GetEntity();
     }
@@ -73,7 +73,7 @@ public class DialoguesManager : MonoBehaviour
 
     public void StartDialogue(int nextDialogue, int lastdialogue)
     {
-        if(!inTyping)
+        if (!inTyping)
         {
             playerEntity.MoveStop();
             character.gameObject.SetActive(true);
@@ -87,8 +87,8 @@ public class DialoguesManager : MonoBehaviour
             nameTxt.text = dialogues[nextDialogue].chrName;
             StartCoroutine(TypeSentence(dialogues[nextDialogue].sentence));
         }
-       
-       
+
+
     }
     public void StartDialogue(int nextDialogue)
     {
@@ -111,21 +111,21 @@ public class DialoguesManager : MonoBehaviour
     }
     public void NextDialogue()
     {
-       
+        SoundManager.i.PlaySound(SoundManager.Sound.SFX_UI_NextDialogue);
         nextdialogue++;
         inTyping = true;
-        if(nextdialogue<=lastDialogue)
+        if (nextdialogue <= lastDialogue)
         {
             //dialogueGui.GetComponent<Image>().color = dialogues[nextdialogue].chrColor;
             nameTxt.text = dialogues[nextdialogue].chrName;
             StopAllCoroutines();
             StartCoroutine(TypeSentence(dialogues[nextdialogue].sentence));
-            if(nextdialogue==lastDialogue)
+            if (nextdialogue == lastDialogue)
             {
                 arrow.gameObject.SetActive(false);
                 point.gameObject.SetActive(true);
             }
-            
+
         }
         else
         {
@@ -136,15 +136,15 @@ public class DialoguesManager : MonoBehaviour
             inTyping = false;
             character.gameObject.SetActive(false);
         }
-       
-        
+
+
     }
 
     public void ShowFullDialogue()
     {
         StopAllCoroutines();
         sentenceTxt.text = "";
-        string sentences= dialogues[nextdialogue].sentence;
+        string sentences = dialogues[nextdialogue].sentence;
         string tag = "";
         foreach (char letter in sentences.ToCharArray())
         {
@@ -159,7 +159,7 @@ public class DialoguesManager : MonoBehaviour
                 else
                 {
                     sentenceTxt.text += letter;
-                    
+
                 }
             }
             else
@@ -168,8 +168,8 @@ public class DialoguesManager : MonoBehaviour
                 {
 
                     inTag = false;
-/*                    Debug.Log("exiting");
-                    Debug.Log(tag);*/
+                    /*                    Debug.Log("exiting");
+                                        Debug.Log(tag);*/
                     //fonctions du parser ICI
                     //StartFunction(tag);
                     tag = "";
@@ -193,7 +193,7 @@ public class DialoguesManager : MonoBehaviour
         string tag = "";
         foreach (char letter in sentence.ToCharArray())
         {
-            if(!inTag)
+            if (!inTag)
             {
                 if (letter == '<')
                 {
@@ -224,8 +224,8 @@ public class DialoguesManager : MonoBehaviour
                     tag += letter;
                 }
             }
-            
-            
+
+
         }
 
         inTyping = false;
@@ -237,9 +237,9 @@ public class DialoguesManager : MonoBehaviour
         switch (function[0])
         {
             case 'E':
-                
+
                 function = function.Remove(0, 2);
-                if(function=="SAD")
+                if (function == "SAD")
                 {
                     Debug.Log("emotion : SAD");
                 }
@@ -248,7 +248,7 @@ public class DialoguesManager : MonoBehaviour
             case 'S':
                 Debug.Log("soundmanager");
                 function = function.Remove(0, 2);
-                SoundManager.i.PlaySound((SoundManager.Sound)System.Enum.Parse(typeof(SoundManager.Sound),function)); 
+                SoundManager.i.PlaySound((SoundManager.Sound)System.Enum.Parse(typeof(SoundManager.Sound), function));
                 break;
         }
     }

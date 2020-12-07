@@ -38,6 +38,11 @@ public class SoundManager : MonoBehaviour
         SFX_UI_Return,
         SFX_UI_Transition,
         SFX_UI_NextDialogue,
+        SFX_Origami_Boat_Succed,
+        SFX_Origami_Flower_Succed,
+        SFX_Origami_Bird_Succed,
+        SFX_Origami_Bone_Succed,
+
     }
 
     public enum Loop
@@ -105,6 +110,11 @@ public class SoundManager : MonoBehaviour
         loopSource.volume = sfxVolume * (Mathf.Abs(1 - framePercent / avgPercent) + .5f);
 
         PlayLoop(loop);
+    }
+
+    public void StopOrigamiLoop()
+    {
+        loopSource.Stop();
     }
 
     public void PlayMusic(Loop loop)
