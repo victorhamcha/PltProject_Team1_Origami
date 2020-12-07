@@ -6379,6 +6379,10 @@ PrefabInstance:
       propertyPath: _canvaCelebration
       value: 
       objectReference: {fileID: 1891390733}
+    - target: {fileID: 1105344191, guid: 0bc1af0164357a149a3b43fa33190f8f, type: 3}
+      propertyPath: _animationClipFadeOutButton
+      value: 
+      objectReference: {fileID: 7400000, guid: 775994dd825df124ab2bad614b8e0fbf, type: 2}
     - target: {fileID: 1697555186536102375, guid: 0bc1af0164357a149a3b43fa33190f8f,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -7219,7 +7223,7 @@ PrefabInstance:
     - target: {fileID: 8831327080789942775, guid: ba560b4fab1bd6b45bc05643497f1c33,
         type: 3}
       propertyPath: _namePliage
-      value: pliage_moulin
+      value: pliage_bateau
       objectReference: {fileID: 0}
     - target: {fileID: 8831327080789942779, guid: ba560b4fab1bd6b45bc05643497f1c33,
         type: 3}
@@ -16843,6 +16847,11 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1105344191}
+    - target: {fileID: 3042386172377190304, guid: 7b8319758fe4ff1448dbe7ffaf5d2e40,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -500
+      objectReference: {fileID: 0}
     - target: {fileID: 3042386172592278371, guid: 7b8319758fe4ff1448dbe7ffaf5d2e40,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -16952,6 +16961,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: CanvasCelebration
+      objectReference: {fileID: 0}
+    - target: {fileID: 3042386172592278396, guid: 7b8319758fe4ff1448dbe7ffaf5d2e40,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7b8319758fe4ff1448dbe7ffaf5d2e40, type: 3}
