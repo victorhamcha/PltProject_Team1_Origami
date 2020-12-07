@@ -57,6 +57,25 @@ public class ClickClickManager : MonoBehaviour
                 Debug.DrawRay(ray.origin, ray.direction * 1000, Color.red);
             }
         }
+        else if (Input.GetMouseButton(0))
+        {
+            isTouch = true;
+
+            touchPos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0);
+
+            ray = Camera.main.ScreenPointToRay(touchPos);
+
+            if (Physics.Raycast(ray.origin, ray.direction, out hit, Mathf.Infinity, layerMask))
+            {
+                isTouchTarget = true;
+                Debug.DrawRay(ray.origin, ray.direction * hit.distance, Color.green);
+            }
+            else
+            {
+                isTouchTarget = false;
+                Debug.DrawRay(ray.origin, ray.direction * 1000, Color.red);
+            }
+        }
         else
         {
             isTouchTarget = false;
