@@ -527,7 +527,7 @@ PrefabInstance:
     - target: {fileID: 5038363737342068312, guid: c6a27ac7738e092409952cf84a20c928,
         type: 3}
       propertyPath: m_RootOrder
-      value: 14
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 5038363737342068312, guid: c6a27ac7738e092409952cf84a20c928,
         type: 3}
@@ -952,7 +952,7 @@ Transform:
   - {fileID: 1247027959}
   - {fileID: 1939583777}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &152567773
 PrefabInstance:
@@ -2335,7 +2335,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &304661274
 PrefabInstance:
@@ -4125,7 +4125,7 @@ Transform:
   - {fileID: 1005321723}
   - {fileID: 307309131}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &460149008
 PrefabInstance:
@@ -6360,6 +6360,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 369570202, guid: 0bc1af0164357a149a3b43fa33190f8f, type: 3}
+      propertyPath: collectibles
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 1105344191, guid: 0bc1af0164357a149a3b43fa33190f8f, type: 3}
       propertyPath: _animatorFadeOrigami
       value: 
@@ -6451,6 +6455,30 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0bc1af0164357a149a3b43fa33190f8f, type: 3}
+--- !u!1 &705030066 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3517303764904228564, guid: 0bc1af0164357a149a3b43fa33190f8f,
+    type: 3}
+  m_PrefabInstance: {fileID: 705030065}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &705030067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 705030066}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 283f66a34688e2c468fb770972cd64ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  matVide: {fileID: 2100000, guid: ec02fbbaba5f551438af180892a259f1, type: 2}
+  matVideTimbre: {fileID: 2100000, guid: 795e4839a300a364b943fe222997b007, type: 2}
+  matFacteur: {fileID: 2100000, guid: 0c4f1b8a173a5804fb69b8e3418dfd5a, type: 2}
+  matFacteurTimbre: {fileID: 2100000, guid: 7a7d18ca4b5ff5b4aa3b247af705cc21, type: 2}
+  matPecheur: {fileID: 2100000, guid: 17417efd212039141b368b9aec46cdc4, type: 2}
+  matPecheurTimbre: {fileID: 2100000, guid: 1b5caa7fdd934de4390dbf0a779cae40, type: 2}
 --- !u!1001 &713995651
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7196,6 +7224,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TriggerOrigami
+      objectReference: {fileID: 0}
+    - target: {fileID: 8831327080789942775, guid: ba560b4fab1bd6b45bc05643497f1c33,
+        type: 3}
+      propertyPath: _namePliage
+      value: pliage_moulin
       objectReference: {fileID: 0}
     - target: {fileID: 8831327080789942779, guid: ba560b4fab1bd6b45bc05643497f1c33,
         type: 3}
@@ -8063,7 +8096,7 @@ PrefabInstance:
     - target: {fileID: 2045790062644596815, guid: 8341a3aaaa1aa2d4692359cfea8cf400,
         type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 2045790062644596815, guid: 8341a3aaaa1aa2d4692359cfea8cf400,
         type: 3}
@@ -9604,7 +9637,7 @@ RectTransform:
   - {fileID: 408903305}
   - {fileID: 1880354337}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -11329,7 +11362,7 @@ PrefabInstance:
     - target: {fileID: 6831715215731971995, guid: de748ba2d79dd8e4c878baf5e6d17677,
         type: 3}
       propertyPath: m_RootOrder
-      value: 13
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 6831715215731971995, guid: de748ba2d79dd8e4c878baf5e6d17677,
         type: 3}
@@ -11608,7 +11641,7 @@ Transform:
   m_LocalScale: {x: 200, y: 1, z: 200}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1534751435
 PrefabInstance:
@@ -13826,7 +13859,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1001 &1822308479
 PrefabInstance:
@@ -16554,6 +16587,16 @@ PrefabInstance:
       propertyPath: variablePli
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5645418195333363530, guid: 6fdfa3207973704449ff05eb63712168,
+        type: 3}
+      propertyPath: _intensityFactor
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5645418195333363530, guid: 6fdfa3207973704449ff05eb63712168,
+        type: 3}
+      propertyPath: _zoomFactor
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 6195801640809848548, guid: 6fdfa3207973704449ff05eb63712168,
         type: 3}
       propertyPath: m_IsActive
@@ -16847,7 +16890,7 @@ PrefabInstance:
     - target: {fileID: 3042386172592278371, guid: 7b8319758fe4ff1448dbe7ffaf5d2e40,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3042386172592278371, guid: 7b8319758fe4ff1448dbe7ffaf5d2e40,
         type: 3}
@@ -16951,6 +16994,26 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2232906347789059267, guid: 4f69b12cf21f4b242a26e39a4a5cfc0b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4628626973106358836, guid: 4f69b12cf21f4b242a26e39a4a5cfc0b,
+        type: 3}
+      propertyPath: _animBandeauFadeOut
+      value: 
+      objectReference: {fileID: 7400000, guid: e209a088eeeafc74ea21d5231d3f9892, type: 2}
+    - target: {fileID: 9014548055494965770, guid: 4f69b12cf21f4b242a26e39a4a5cfc0b,
+        type: 3}
+      propertyPath: allPliageToDo.Array.data[0].isConfirmationPliage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9022255444818461470, guid: 4f69b12cf21f4b242a26e39a4a5cfc0b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 9190144832747604326, guid: 4f69b12cf21f4b242a26e39a4a5cfc0b,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -16999,7 +17062,7 @@ PrefabInstance:
     - target: {fileID: 9190144833751682733, guid: 4f69b12cf21f4b242a26e39a4a5cfc0b,
         type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 9190144833751682733, guid: 4f69b12cf21f4b242a26e39a4a5cfc0b,
         type: 3}

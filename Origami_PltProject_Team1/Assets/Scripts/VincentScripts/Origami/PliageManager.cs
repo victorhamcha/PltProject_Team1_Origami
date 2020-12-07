@@ -1,8 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-
+using UnityEngine.Video;
 
 [RequireComponent(typeof(SelectPointOrigami))]
 [RequireComponent(typeof(ListePliage))]
@@ -40,6 +39,8 @@ public class PliageManager : MonoBehaviour
     [SerializeField] [Range(0f, 5f)] private float _speedAnimCenterOrigami = 0.1f;
     [SerializeField] private float _timerBounce = 1.0f;
     [SerializeField] private float _timerParticule = 1.0f;
+    [SerializeField] private float _timerFadeOutBandeau = 1.0f;
+    [SerializeField] private float _timerFadeInOrigami = 1.0f;
 
     //Indicateur du nombre de pliage effectuez pour parcourir la liste de tout les pliages à faires
     private int indexPliage = 0;
@@ -50,8 +51,11 @@ public class PliageManager : MonoBehaviour
     private bool _currentFoldIsFinish = false;
     private bool _bounceIsFinish = false;
     private bool _particulePlayed = false;
+    private bool _videoPLayOneTime = false;
     private float _tempTimerBounce = 0.0f;
     private float _tempTimerParticule = 0.0f;
+    private float _tempTimerFadeOutBandeau = 0.0f;
+    private float _tempTimerFadeInOrigami = 0.0f;
 
     [Header("TUTO")]
     [SerializeField] private Animator _handAnimator = null;
@@ -65,14 +69,14 @@ public class PliageManager : MonoBehaviour
     [Header("Feedback Origami")]
     [SerializeField] private Animator _animatorOrigami = null;
     [SerializeField] private AnimationClip _animFeedBack = null;
+    [SerializeField] private AnimationClip _animBandeauFadeOut = null;
+    [SerializeField] private VideoPlayer _videoPlayer = null;
 
     [Header("Séquenceur")]
     [SerializeField] private float _fixingTimer = 1.0f;
     private float _timerEndAutoComplete = 1.0f;
 
     [Header("Zoom Camera")]
-
-
     //Rotator
     private bool _isRotating = false;
     private bool _rotatingIsFinish = false;
@@ -92,12 +96,25 @@ public class PliageManager : MonoBehaviour
         //Set de la speed de l'animator à 0 pour évitez que l'animations se joue dés le debuts
         _animator.speed = 0;
         _initScaleXMask = _maskSprite.localScale.x;
+
+        _tempTimerFadeInOrigami = _timerFadeInOrigami;
+    }
+
+    private void Start()
+    {
+        _videoPlayer.targetTexture.Release();
     }
 
     void Update()
     {
-        updateCtr++;
+        _tempTimerFadeInOrigami -= Time.deltaTime;
+        if (_tempTimerFadeInOrigami <= 0 && !_videoPlayer.isPlaying && !_videoPLayOneTime)
+        {
+            _videoPLayOneTime = true;
+            _videoPlayer.Play();
+        }
 
+        updateCtr++;
         //Si le pliage en cours est fini et que l'origami n'est pas fini
         if (CurrentFoldsIsFinish() && !OrigamiIsFinish())
         {
@@ -147,6 +164,13 @@ public class PliageManager : MonoBehaviour
 
         if (OrigamiIsFinish())
         {
+            _tempTimerFadeOutBandeau -= Time.deltaTime;
+            _animator.Play(_animBandeauFadeOut.name, -1);
+            _animator.speed = 1;
+        }
+
+        if (OrigamiIsFinish() && _tempTimerFadeOutBandeau <= 0f)
+        {
             _switchModePlayerOrigami._OnModeEnd = true;
             CandyCrush();
         }
@@ -183,7 +207,6 @@ public class PliageManager : MonoBehaviour
             _isRotating = false;
             _rotatingIsFinish = true;
         }
-
     }
 
     private void CandyCrush()
@@ -229,6 +252,7 @@ public class PliageManager : MonoBehaviour
             return;
         }
 
+        _tempTimerFadeOutBandeau = _timerFadeOutBandeau;
         _currentPliage = _listePliage.GetPliage(indexPliage);
         _lastPosOrigami = pliageObject.localPosition;
         _pointSelectedOrigami.SetPointGoodSelection(_currentPliage.goodPointSelection);
@@ -237,6 +261,7 @@ public class PliageManager : MonoBehaviour
         _cursorEndPointSelect.transform.position = _currentPliage.endPointSelection.position;
         _cursorEndPointSelect.transform.rotation = _currentPliage.endPointSelection.rotation;
         SetActiveCursor(true);
+
         _animator.speed = 0;
         _animator.Play(_currentPliage.animToPlay.name);
         _currentPliage.boundarySprite.color = _currentPliage.colorBoundary;
@@ -271,6 +296,7 @@ public class PliageManager : MonoBehaviour
         _cursorSelectPoint.transform.rotation = _currentPliage.goodPointSelection.rotation;
         _cursorEndPointSelect.transform.position = _currentPliage.endPointSelection.position;
         _cursorEndPointSelect.transform.rotation = _currentPliage.endPointSelection.rotation;
+
         _animator.speed = 0;
         _animator.Play(_currentPliage.animToPlay.name);
         _origamiIsFinish = false;

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
 public class AchievementsUI : MonoBehaviour
@@ -53,5 +54,11 @@ public class AchievementsUI : MonoBehaviour
                 SoundManager.i.PlaySound(SoundManager.Sound.SFX_UI_NextDialogue);
                 break;
         }
+    }
+
+
+    public void LoadScene(string sceneName)
+    {
+        SceneManager.LoadScene(sceneName);
     }
 }

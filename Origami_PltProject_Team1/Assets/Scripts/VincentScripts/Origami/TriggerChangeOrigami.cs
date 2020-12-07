@@ -1,12 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class TriggerChangeOrigami : MonoBehaviour
 {
     [SerializeField] private GameManager _gameManager = null;
     [SerializeField] private GameObject _bulleOrigami = null;
     [SerializeField] private string _namePliage = null;
+    [SerializeField] private int _collectibleNeeded = 0;
+    [SerializeField] private TextMeshPro _collectibleText = null;
     private bool _isTrigger = false;
     public LayerMask layerBubuleOrigami;
 
@@ -17,8 +20,10 @@ public class TriggerChangeOrigami : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player" && !_isTrigger && _gameManager.GetEntity().VerifyCollectibles(3))
+        if (other.tag == "Player" && !_isTrigger && _gameManager.GetEntity().VerifyCollectibles(_collectibleNeeded))
         {
+            _collectibleText.gameObject.SetActive(true);
+            _collectibleText.text = _gameManager.GetEntity().collectibles + " / " + _collectibleNeeded;
             _isTrigger = true;
             _bulleOrigami.SetActive(true);
         }
@@ -28,6 +33,7 @@ public class TriggerChangeOrigami : MonoBehaviour
     {
         if (other.tag == "Player")
         {
+            _collectibleText.gameObject.SetActive(false);
             _bulleOrigami.SetActive(false);
             _isTrigger = false;
         }
