@@ -28,7 +28,9 @@ public class GameAssets : MonoBehaviour
         }
     }
 
-    public SoundAudioClip[] soundAudioClipArray;
+    public SoundAudioClip[] soundAudioClips;
+    public LoopAudioClip[] loopAudioClips;
+    public LoopAudioClip[] musicAudioClips;
 
     [Serializable]
     public class SoundAudioClip
@@ -36,8 +38,6 @@ public class GameAssets : MonoBehaviour
         public SoundManager.Sound sound;
         public AudioClip clip;
     }
-
-    public LoopAudioClip[] loopAudioClipArray;
 
     [Serializable]
     public class LoopAudioClip

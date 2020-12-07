@@ -43,7 +43,12 @@ public class SoundManager : MonoBehaviour
     public enum Loop
     {
         FoldsMove,
-        FoldsPressure
+        FoldsPressure,
+        MusicFold1,
+        MusicFold2,
+        MusicFold3,
+        MusicFold4,
+        MusicFold5,
     }
 
     private static AudioSource oneShotSource;
@@ -54,11 +59,11 @@ public class SoundManager : MonoBehaviour
     private static float musicVolume = 1f;
     private static float sfxVolume = 1f;
 
-    private static Dictionary<Sound, float> lastTimesSound;
+    //private static Dictionary<Sound, float> lastTimesSound;
 
     private void Awake()
     {
-        lastTimesSound = new Dictionary<Sound, float> { };
+        //lastTimesSound = new Dictionary<Sound, float> { };
 
         oneShotSource = this.gameObject.AddComponent<AudioSource>();
         loopSource = this.gameObject.AddComponent<AudioSource>();
@@ -179,7 +184,7 @@ public class SoundManager : MonoBehaviour
 
     private AudioClip GetAudioClip(Sound sound)
     {
-        foreach (GameAssets.SoundAudioClip soundAudioClip in GameAssets.i.soundAudioClipArray)
+        foreach (GameAssets.SoundAudioClip soundAudioClip in GameAssets.i.soundAudioClips)
         {
             if (soundAudioClip.sound == sound)
             {
@@ -192,7 +197,7 @@ public class SoundManager : MonoBehaviour
 
     private AudioClip GetAudioClip(Loop loop)
     {
-        foreach (GameAssets.LoopAudioClip loopAudioClip in GameAssets.i.loopAudioClipArray)
+        foreach (GameAssets.LoopAudioClip loopAudioClip in GameAssets.i.loopAudioClips)
         {
             if (loopAudioClip.loop == loop)
             {
