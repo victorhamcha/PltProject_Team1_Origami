@@ -19,19 +19,17 @@ public class WindManager : MonoBehaviour
 
     IEnumerator SetupWind()
     {
-
-        
-       
+        GameObject wind = null;
         if (!GameManager.Instance.GetSwitchModePlayerOrigami()._isOnModeOrigami && !PauseScript.paused)
         {
             _randomSpeed = Random.Range(1.0f, 5.0f);
             _screenPoint = new Vector3(Random.Range(0, Screen.width), Random.Range(0, Screen.height), _mainCam.nearClipPlane);
             _worldPos = _mainCam.ScreenToWorldPoint(_screenPoint);
-            GameObject wind = Instantiate(windGo, _worldPos, Quaternion.identity);
-
-            yield return new WaitForSeconds((float)_windClip.length + _randomSpeed);
-            Destroy(wind);
-            StartCoroutine("SetupWind");
+            wind = Instantiate(windGo, _worldPos, Quaternion.identity);
+            
         }
+        yield return new WaitForSeconds((float)_windClip.length + _randomSpeed);
+        Destroy(wind);
+        StartCoroutine("SetupWind");
     }
 }
