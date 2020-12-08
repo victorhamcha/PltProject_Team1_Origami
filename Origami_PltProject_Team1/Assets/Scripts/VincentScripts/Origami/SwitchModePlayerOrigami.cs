@@ -32,6 +32,7 @@ public class SwitchModePlayerOrigami : MonoBehaviour
     [SerializeField] private GameObject _celebrationBateau = null;
     [SerializeField] private GameObject _celebrationOiseau = null;
     [SerializeField] private GameObject _celebrationFleur = null;
+    [SerializeField] private GameObject _celebrationMoulin = null;
     [SerializeField] private GameObject _canvaCelebration = null;
     [SerializeField] private AnimationClip _animationClipFadeOutButton = null;
     private bool _iscelebrate = false;
@@ -109,6 +110,11 @@ public class SwitchModePlayerOrigami : MonoBehaviour
             {
                 SoundManager.i.PlaySound(SoundManager.Sound.SFX_Origami_Bird_Succed);
                 _ob = Instantiate(_celebrationOiseau, _posCelebration);
+            }
+            else if (_pliageToDo.name == "pliage_moulin")
+            {
+                SoundManager.i.PlaySound(SoundManager.Sound.SFX_Origami_Bird_Succed);
+                _ob = Instantiate(_celebrationMoulin, _posCelebration);
             }
             else
             {

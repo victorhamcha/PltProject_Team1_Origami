@@ -20,6 +20,7 @@ public class Entity : MonoBehaviour
     public bool _isMovingToDestination = false;
     private float _moveDestinationRange = 0.25f;
     private float _moveDestinationSpeed = 0f;
+    private Vector3 _lastValidDestination = Vector3.zero;
 
     private float _moveDestinationRefreshDirDuration = 0.1f;
     private float _moveDestinationRefreshDirCountdown = -1f;
@@ -119,7 +120,7 @@ public class Entity : MonoBehaviour
 
     private void Update()
     {
-        //_UpdateRotator();
+        _UpdateRotator();
     }
 
     private void OnGUI()
@@ -462,12 +463,14 @@ public class Entity : MonoBehaviour
 
     private void RefreshPath()
     {
+        path.ClearCorners();
         Vector3 originPos = transform.position.Overwrite(Tools.OverwriteType.Y);
         bool pathFound = NavMesh.CalculatePath(originPos, _moveDestination, NavMesh.AllAreas, path);
 
 
         if (pathFound)
         {
+            _lastValidDestination = _moveDestination;
             followPathIndex = 1;
             for (int i = 0; i < path.corners.Length - 1; i++)
             {
@@ -476,10 +479,8 @@ public class Entity : MonoBehaviour
         }
         else
         {
-            _isMovingToDestination = false;
-            Move(Vector3.zero);
-            _velocity = Vector3.zero;
-            path.ClearCorners();
+            MoveToDestination(_lastValidDestination);
+            //_isMovingToDestination = false;
             Debug.LogWarning("Path not found");
         }
         //Debug.Break();
