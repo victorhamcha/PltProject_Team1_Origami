@@ -8,7 +8,7 @@ public class RotationMoulin : MonoBehaviour
     [SerializeField] private AnimationCurve curveFrein = AnimationCurve.Linear(0,1,1,0);
     [SerializeField] private float _timerFrein = 1f;
     private Transform internalTransform = null;
-    private Touch _touch;
+    private Vector3 _touchDeltaPositionMoulin;
     private float _velocity = 1f;
     private float _maxVelocity = 1f;
     private float _tempTimerFrein = 0f;
@@ -24,11 +24,11 @@ public class RotationMoulin : MonoBehaviour
         ClickClickManager.Instance.RaycastClick(layerMoulin);
         if (ClickClickManager.Instance.isTouchTarget && ClickClickManager.Instance.touchPhase == TouchPhase.Moved)
         {
-            _touch = Input.GetTouch(0);
-            if (_touch.deltaPosition.y * speedRotation * Time.deltaTime >= 0)
+            _touchDeltaPositionMoulin = ClickClickManager.Instance.touchDeltaPosition;
+            if (_touchDeltaPositionMoulin.y * speedRotation * Time.deltaTime > 0)
             {
-                internalTransform.localRotation *= Quaternion.Euler(_touch.deltaPosition.y * speedRotation * Time.deltaTime, 0f, 0f);
-                _velocity = _touch.deltaPosition.y * speedRotation * Time.deltaTime;
+                internalTransform.localRotation *= Quaternion.Euler(_touchDeltaPositionMoulin.y * speedRotation * Time.deltaTime, 0f, 0f);
+                _velocity = _touchDeltaPositionMoulin.y * speedRotation * Time.deltaTime;
                 _maxVelocity = _velocity;
                 _tempTimerFrein = _timerFrein;
             }

@@ -33,6 +33,7 @@ Transform:
   - {fileID: 4204383786085464114}
   - {fileID: 5991943481973048586}
   - {fileID: 6941881112697081419}
+  - {fileID: 1104157621137725218}
   m_Father: {fileID: 6755465986975380273}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -594,6 +595,128 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pathCreator: {fileID: 5859734110574518378}
+  autoUpdate: 0
+  roadWidth: 2
+  thickness: 0.1
+  flattenSurface: 0
+  roadMaterial: {fileID: 2100000, guid: 206c7c4c6ac7f844e971ac1c6338a4c6, type: 2}
+  undersideMaterial: {fileID: 2100000, guid: 206c7c4c6ac7f844e971ac1c6338a4c6, type: 2}
+  textureTiling: 1
+  meshHolder: {fileID: 0}
+--- !u!1 &4762320222338456793
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1104157621137725218}
+  - component: {fileID: 7264344576218999024}
+  - component: {fileID: 9139548887850563317}
+  m_Layer: 0
+  m_Name: Path7
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1104157621137725218
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4762320222338456793}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 432.36, y: 0, z: -58.8}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5474440466265848183}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7264344576218999024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4762320222338456793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e5ac92bc18f545cc84cd886ece82b4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  editorData:
+    _bezierPath:
+      points:
+      - {x: -18.238586, y: 0, z: -7.023014}
+      - {x: -12.777994, y: 0, z: -8.57871}
+      - {x: -7.317401, y: 0, z: -10.134405}
+      - {x: -2.745453, y: 0, z: -11.791962}
+      - {x: 0.4689412, y: 0, z: -12.957338}
+      - {x: 4.359627, y: -0.00000014817186, z: -15.894331}
+      - {x: 7.765167, y: 0, z: -16.198837}
+      - {x: 11.215196, y: 0.0000001501075, z: -16.50732}
+      - {x: 15.575344, y: 0.0000010343998, z: -13.8362875}
+      - {x: 19.036224, y: 0.0000009536743, z: -13.694275}
+      - {x: 21.261253, y: 0.0000009017752, z: -13.602974}
+      - {x: 24.208942, y: 0.00000014336825, z: -14.256073}
+      - {x: 26.390045, y: 0, z: -14.705383}
+      - {x: 30.246946, y: -0.00000025352182, z: -15.499911}
+      - {x: 34.644424, y: -0.00000012676091, z: -16.85123}
+      - {x: 39.0419, y: 0, z: -18.202549}
+      isClosed: 0
+      space: 2
+      controlMode: 3
+      autoControlLength: 0.3
+      boundsUpToDate: 0
+      bounds:
+        m_Center: {x: 0, y: 0, z: 0}
+        m_Extent: {x: 2, y: 0, z: 0}
+      perAnchorNormalsAngle:
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      globalNormalsAngle: 0
+      flipNormals: 0
+    vertexPathUpToDate: 0
+    vertexPathMaxAngleError: 0.3
+    vertexPathMinVertexSpacing: 0.01
+    showTransformTool: 1
+    showPathBounds: 0
+    showPerSegmentBounds: 0
+    displayAnchorPoints: 1
+    displayControlPoints: 1
+    bezierHandleScale: 1
+    globalDisplaySettingsFoldout: 0
+    keepConstantHandleSize: 0
+    showNormalsInVertexMode: 0
+    showBezierPathInVertexMode: 0
+    showDisplayOptions: 0
+    showPathOptions: 1
+    showVertexPathDisplayOptions: 0
+    showVertexPathOptions: 1
+    showNormals: 0
+    showNormalsHelpInfo: 0
+    tabIndex: 0
+  initialized: 1
+--- !u!114 &9139548887850563317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4762320222338456793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b275c3b78f8717c4cbc60f74a3247f67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pathCreator: {fileID: 7264344576218999024}
   autoUpdate: 0
   roadWidth: 2
   thickness: 0.1

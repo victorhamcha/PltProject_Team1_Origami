@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class PauseScript : MonoBehaviour
 {
-    bool paused;
+    public static bool paused;
     // Start is called before the first frame update
     public void LoadScene(string sceneName)
     {

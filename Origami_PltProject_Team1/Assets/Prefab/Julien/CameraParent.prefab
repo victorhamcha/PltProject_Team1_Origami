@@ -444,11 +444,11 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 0
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 28.48
+  orthographic size: 40
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -517,7 +517,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   smoothSpeed: 0.95
-  offset: {x: 120, y: 104, z: 128}
+  offset: {x: -400, y: 200, z: -300}
   _zoomCurve:
     serializedVersion: 2
     m_Curve:
@@ -554,11 +554,61 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   _endPosRotation: {fileID: 0}
-  _durationForward: 20
-  _durationBackward: 5
   _finalAngle: 180
+  _speedRotationForward: 2
+  _speedRotationBackward: 2
   _rotatingForward: 0
   _rotatingBackward: 0
+  _curveSpeedRotation:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 1
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _durationCurveSpeedRotation: 1
+  _brakeCurveSpeedRotation:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: -1
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -1
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _durationBrakeCurveSpeedRotation: 1
 --- !u!114 &2346967273194086260
 MonoBehaviour:
   m_ObjectHideFlags: 0
