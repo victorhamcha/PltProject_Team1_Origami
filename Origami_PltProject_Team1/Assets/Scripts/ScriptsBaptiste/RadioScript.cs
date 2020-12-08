@@ -39,8 +39,9 @@ public class RadioScript : MonoBehaviour
 
     private void ClickClickBubule()
     {
+        Debug.Log("clicked");
         int ClipIndex = Random.Range(0, RadioClips.Length);
-        RadioSource.PlayOneShot(RadioClips[ClipIndex]);
+        //RadioSource.PlayOneShot(RadioClips[ClipIndex]);
         MusicParticles.gameObject.SetActive(true);
     }
 
