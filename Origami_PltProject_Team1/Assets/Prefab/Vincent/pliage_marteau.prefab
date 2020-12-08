@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 283294875993312368}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.016, y: 0.261, z: -0.004}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.45, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6391766677120054446}
   m_RootOrder: 0
@@ -250,7 +250,7 @@ Transform:
   m_GameObject: {fileID: 696014499421965205}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.514, y: 0.025, z: -0.004}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.35, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1657181519457529132}
   m_RootOrder: 0
@@ -502,8 +502,8 @@ MonoBehaviour:
     boundaryAnim: {fileID: 7400000, guid: 496a3edc202f2ff41adfe2d6f4018e45, type: 2}
     boundarySprite: {fileID: 2715914223650939463}
     maxSizeSpriteMask: 0
-    colorValidationPliage: {r: 0.3529412, g: 1, b: 0.3529412, a: 0}
-    colorBoundary: {r: 1, g: 0, b: 0, a: 0}
+    colorValidationPliage: {r: 0.3529412, g: 1, b: 0.3529412, a: 1}
+    colorBoundary: {r: 1, g: 0, b: 0, a: 1}
     listBoundaryParticle:
     - {fileID: 8118133484982642537}
     - {fileID: 8496889219926195047}
@@ -525,8 +525,8 @@ MonoBehaviour:
     boundaryAnim: {fileID: 7400000, guid: db77ffa050e5dc84585060a8e797a106, type: 2}
     boundarySprite: {fileID: 8436773983828468947}
     maxSizeSpriteMask: 0.8
-    colorValidationPliage: {r: 0.3529412, g: 1, b: 0.3529412, a: 0}
-    colorBoundary: {r: 1, g: 0, b: 0, a: 0}
+    colorValidationPliage: {r: 0.3529412, g: 1, b: 0.3529412, a: 1}
+    colorBoundary: {r: 1, g: 0, b: 0, a: 1}
     listBoundaryParticle: []
     playedParticleOnce: 0
     prctMinValueToCompleteFold: 0.95
@@ -544,16 +544,16 @@ MonoBehaviour:
     boundaryAnim: {fileID: 7400000, guid: cb5fee620dbe5244d8f4869dc5e46fff, type: 2}
     boundarySprite: {fileID: 6961976977599859302}
     maxSizeSpriteMask: 0.8
-    colorValidationPliage: {r: 0.3529412, g: 1, b: 0.3529412, a: 0}
-    colorBoundary: {r: 1, g: 0, b: 0, a: 0}
+    colorValidationPliage: {r: 0.3529412, g: 1, b: 0.3529412, a: 1}
+    colorBoundary: {r: 1, g: 0, b: 0, a: 1}
     listBoundaryParticle:
     - {fileID: 5854304502846068572}
     - {fileID: 9128017194247071707}
     - {fileID: 6252726543329509220}
     - {fileID: 6297558632356230979}
     playedParticleOnce: 0
-    prctMinValueToCompleteFold: 0.95
-    speedAnimAutoComplete: 0.2
+    prctMinValueToCompleteFold: 0.6
+    speedAnimAutoComplete: 0.4
     makeRotation: 0
     yValueWanted: 0
   - goodPointSelection: {fileID: 3234835746527372244}
@@ -567,8 +567,8 @@ MonoBehaviour:
     boundaryAnim: {fileID: 7400000, guid: 54a8049ccd8208545a5d28451655a86e, type: 2}
     boundarySprite: {fileID: 885066761279072599}
     maxSizeSpriteMask: 0.8
-    colorValidationPliage: {r: 0.3529412, g: 1, b: 0.3529412, a: 0}
-    colorBoundary: {r: 1, g: 0, b: 0, a: 0}
+    colorValidationPliage: {r: 0.3529412, g: 1, b: 0.3529412, a: 1}
+    colorBoundary: {r: 1, g: 0, b: 0, a: 1}
     listBoundaryParticle:
     - {fileID: 5854304502846068572}
     - {fileID: 9128017194247071707}
@@ -590,8 +590,8 @@ MonoBehaviour:
     boundaryAnim: {fileID: 7400000, guid: 7637a82eff1b1134493d60f86d5db15b, type: 2}
     boundarySprite: {fileID: 653885476635257759}
     maxSizeSpriteMask: 0.8
-    colorValidationPliage: {r: 0.3529412, g: 1, b: 0.3529412, a: 0}
-    colorBoundary: {r: 1, g: 0, b: 0, a: 0}
+    colorValidationPliage: {r: 0.3529412, g: 1, b: 0.3529412, a: 1}
+    colorBoundary: {r: 1, g: 0, b: 0, a: 1}
     listBoundaryParticle:
     - {fileID: 3182923164410458458}
     - {fileID: 3813729555291547359}
@@ -613,8 +613,8 @@ MonoBehaviour:
     boundaryAnim: {fileID: 7400000, guid: fd1c18a0859e6294eab8407d9fbef389, type: 2}
     boundarySprite: {fileID: 1285390908738173601}
     maxSizeSpriteMask: 0.27
-    colorValidationPliage: {r: 0.3529412, g: 1, b: 0.3529412, a: 0}
-    colorBoundary: {r: 1, g: 0, b: 0, a: 0}
+    colorValidationPliage: {r: 0.3529412, g: 1, b: 0.3529412, a: 1}
+    colorBoundary: {r: 1, g: 0, b: 0, a: 1}
     listBoundaryParticle:
     - {fileID: 3182923164410458458}
     - {fileID: 3813729555291547359}
@@ -636,8 +636,8 @@ MonoBehaviour:
     boundaryAnim: {fileID: 7400000, guid: bc9dda79bc88b8c41b63e5181c3d67be, type: 2}
     boundarySprite: {fileID: 3675795018571270125}
     maxSizeSpriteMask: 0.27
-    colorValidationPliage: {r: 0.3529412, g: 1, b: 0.3529412, a: 0}
-    colorBoundary: {r: 1, g: 0, b: 0, a: 0}
+    colorValidationPliage: {r: 0.3529412, g: 1, b: 0.3529412, a: 1}
+    colorBoundary: {r: 1, g: 0, b: 0, a: 1}
     listBoundaryParticle:
     - {fileID: 7748931729844799227}
     - {fileID: 823698184167533255}
@@ -658,8 +658,8 @@ MonoBehaviour:
     boundaryAnim: {fileID: 7400000, guid: cf1467aba41932d4084a11ba9ef4fa08, type: 2}
     boundarySprite: {fileID: 1806362397183025692}
     maxSizeSpriteMask: 0.29
-    colorValidationPliage: {r: 0.3529412, g: 1, b: 0.3529412, a: 0}
-    colorBoundary: {r: 1, g: 0, b: 0, a: 0}
+    colorValidationPliage: {r: 0.3529412, g: 1, b: 0.3529412, a: 1}
+    colorBoundary: {r: 1, g: 0, b: 0, a: 1}
     listBoundaryParticle:
     - {fileID: 7748931729844799227}
     - {fileID: 823698184167533255}
@@ -680,16 +680,16 @@ MonoBehaviour:
     boundaryAnim: {fileID: 7400000, guid: 191e4e2191bb1804580528be87c0bb02, type: 2}
     boundarySprite: {fileID: 1259376911847029206}
     maxSizeSpriteMask: 0.29
-    colorValidationPliage: {r: 0.3529412, g: 1, b: 0.3529412, a: 0}
-    colorBoundary: {r: 1, g: 0, b: 0, a: 0}
+    colorValidationPliage: {r: 0.3529412, g: 1, b: 0.3529412, a: 1}
+    colorBoundary: {r: 1, g: 0, b: 0, a: 1}
     listBoundaryParticle:
     - {fileID: 2255640630064700627}
     - {fileID: 5085857418299181243}
     - {fileID: 2476677085804653266}
     - {fileID: 9096662718631187665}
     playedParticleOnce: 0
-    prctMinValueToCompleteFold: 0.95
-    speedAnimAutoComplete: 0.2
+    prctMinValueToCompleteFold: 0.5
+    speedAnimAutoComplete: 0.4
     makeRotation: 0
     yValueWanted: 0
   - goodPointSelection: {fileID: 5876147234788302019}
@@ -703,8 +703,8 @@ MonoBehaviour:
     boundaryAnim: {fileID: 7400000, guid: 0455c12409771b847a1a56406efa0076, type: 2}
     boundarySprite: {fileID: 1850632210521504152}
     maxSizeSpriteMask: 0.29
-    colorValidationPliage: {r: 0.3529412, g: 1, b: 0.3529412, a: 0}
-    colorBoundary: {r: 1, g: 0, b: 0, a: 0}
+    colorValidationPliage: {r: 0.3529412, g: 1, b: 0.3529412, a: 1}
+    colorBoundary: {r: 1, g: 0, b: 0, a: 1}
     listBoundaryParticle:
     - {fileID: 2255640630064700627}
     - {fileID: 5085857418299181243}
@@ -901,7 +901,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8907511992556992739
 Transform:
   m_ObjectHideFlags: 0
@@ -1149,7 +1149,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2735376978044233229}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.43, y: 0.251, z: -0.004}
+  m_LocalPosition: {x: 0.43, y: 0.261, z: -0.004}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6391766677120054446}
@@ -3594,7 +3594,7 @@ Transform:
   m_GameObject: {fileID: 8815098357502891608}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.5, y: 0.004, z: -0.004}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.35, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8352287016910367595}
   m_RootOrder: 0
