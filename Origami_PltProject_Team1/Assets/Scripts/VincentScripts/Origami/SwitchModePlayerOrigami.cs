@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Runtime.Remoting.Metadata.W3cXsd2001;
+using UnityEngine;
 
 public class SwitchModePlayerOrigami : MonoBehaviour
 {
@@ -146,6 +147,7 @@ public class SwitchModePlayerOrigami : MonoBehaviour
 
     public void ClickToContinue()
     {
+        // SoundManager.i.PlayMusicWithFade(SoundManager.Loop.MusicVillage);
         asClickToContinue = true;
     }
 

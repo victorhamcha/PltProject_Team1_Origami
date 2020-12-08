@@ -49,6 +49,7 @@ public class SoundManager : MonoBehaviour
     {
         FoldsMove,
         FoldsPressure,
+        // music
         MusicFold1,
         MusicFold2,
         MusicFold3,
@@ -119,31 +120,28 @@ public class SoundManager : MonoBehaviour
 
     public void PlayMusic(Loop loop)
     {
-        AudioSource activeSource = musicSource1.isPlaying ? musicSource2 : musicSource1;
+        AudioSource activeSource = musicSource1.isPlaying ? musicSource1 : musicSource2;
 
-        activeSource.clip = GetAudioClip(loop);
+        activeSource.clip = GetMusicAudioClip(loop);
         activeSource.Play();
+    }
+
+    public void ReplaceMusic(Loop loop)
+    {
+        AudioSource activeSource = musicSource1.isPlaying ? musicSource1 : musicSource2;
+        AudioSource inactiveSource = musicSource1.isPlaying ? musicSource2 : musicSource1;
+
+        inactiveSource.clip = GetMusicAudioClip(loop);
+        inactiveSource.time = activeSource.time;
+        inactiveSource.Play();
+        activeSource.Stop();
     }
 
     public void PlayMusicWithFade(Loop loop, float transitionTime)
     {
-        AudioSource activeSource = musicSource1.isPlaying ? musicSource2 : musicSource1;
+        AudioSource activeSource = musicSource1.isPlaying ? musicSource1 : musicSource2;
 
-        StartCoroutine(UpdateMusicWithFade(activeSource, GetAudioClip(loop), transitionTime));
-    }
-
-    public void SetVolumeMusic(float volume)
-    {
-        musicVolume = volume;
-        musicSource1.volume = volume;
-        musicSource2.volume = volume;
-    }
-
-    public void SetVolumeSFX(float volume)
-    {
-        sfxVolume = volume;
-        loopSource.volume = volume;
-        oneShotSource.volume = volume;
+        StartCoroutine(UpdateMusicWithFade(activeSource, GetMusicAudioClip(loop), transitionTime));
     }
 
     private IEnumerator UpdateMusicWithFade(AudioSource activeSource, AudioClip newClip, float transitionTime)
@@ -163,6 +161,200 @@ public class SoundManager : MonoBehaviour
             activeSource.volume = musicVolume * t / transitionTime;
             yield return null;
         }
+    }
+
+    public void PlayOrigamiMusic(int pliCount, int indexPliage)
+    {
+        if (indexPliage % 2 == 0)
+        {
+            switch (pliCount / 2)
+            {
+                case 2:
+                    PlayMusic2Folds(indexPliage);
+                    break;
+                case 4:
+                    PlayMusic4Folds(indexPliage);
+                    break;
+                case 5:
+                    PlayMusic5Folds(indexPliage);
+                    break;
+                case 8:
+                    PlayMusic8Folds(indexPliage);
+                    break;
+                case 10:
+                    PlayMusic10Folds(indexPliage);
+                    break;
+                case 14:
+                    PlayMusic14Folds(indexPliage);
+                    break;
+            }
+        }
+    }
+
+    #region RepartitionMusiquePlis
+
+    private void PlayMusic2Folds(int indexPliage)
+    {
+        if (indexPliage < 2)
+        {
+            PlayMusic(Loop.MusicFold2);
+            return;
+        }
+        if (indexPliage < 4)
+        {
+            ReplaceMusic(Loop.MusicFold4);
+        }
+        else
+        {
+            ReplaceMusic(Loop.MusicFold5);
+        }
+    }
+
+    private void PlayMusic4Folds(int indexPliage)
+    {
+        if (indexPliage < 2)
+        {
+            PlayMusic(Loop.MusicFold2);
+            return;
+        }
+        if (indexPliage < 4)
+        {
+            ReplaceMusic(Loop.MusicFold3);
+            return;
+        }
+        if (indexPliage < 6)
+        {
+            ReplaceMusic(Loop.MusicFold4);
+        }
+        else
+        {
+            ReplaceMusic(Loop.MusicFold5);
+        }
+    }
+
+    private void PlayMusic5Folds(int indexPliage)
+    {
+        if (indexPliage < 2)
+        {
+            PlayMusic(Loop.MusicFold1);
+            return;
+        }
+        if (indexPliage < 4)
+        {
+            ReplaceMusic(Loop.MusicFold2);
+            return;
+        }
+        if (indexPliage < 6)
+        {
+            ReplaceMusic(Loop.MusicFold3);
+            return;
+        }
+        if (indexPliage < 8)
+        {
+            ReplaceMusic(Loop.MusicFold4);
+        }
+        else
+        {
+            ReplaceMusic(Loop.MusicFold5);
+        }
+    }
+
+    private void PlayMusic8Folds(int indexPliage)
+    {
+        if (indexPliage < 2)
+        {
+            PlayMusic(Loop.MusicFold1);
+            return;
+        }
+        if (indexPliage < 4)
+        {
+            ReplaceMusic(Loop.MusicFold2);
+            return;
+        }
+        if (indexPliage < 8)
+        {
+            ReplaceMusic(Loop.MusicFold3);
+            return;
+        }
+        if (indexPliage < 12)
+        {
+            ReplaceMusic(Loop.MusicFold4);
+        }
+        else
+        {
+            ReplaceMusic(Loop.MusicFold5);
+        }
+    }
+
+    private void PlayMusic10Folds(int indexPliage)
+    {
+        if (indexPliage < 4)
+        {
+            PlayMusic(Loop.MusicFold1);
+            return;
+        }
+        if (indexPliage < 8)
+        {
+            ReplaceMusic(Loop.MusicFold2);
+            return;
+        }
+        if (indexPliage < 12)
+        {
+            ReplaceMusic(Loop.MusicFold3);
+            return;
+        }
+        if (indexPliage < 16)
+        {
+            ReplaceMusic(Loop.MusicFold4);
+        }
+        else
+        {
+            ReplaceMusic(Loop.MusicFold5);
+        }
+    }
+
+    private void PlayMusic14Folds(int indexPliage)
+    {
+        if (indexPliage < 4)
+        {
+            PlayMusic(Loop.MusicFold1);
+            return;
+        }
+        if (indexPliage < 10)
+        {
+            ReplaceMusic(Loop.MusicFold2);
+            return;
+        }
+        if (indexPliage < 16)
+        {
+            ReplaceMusic(Loop.MusicFold3);
+            return;
+        }
+        if (indexPliage < 22)
+        {
+            ReplaceMusic(Loop.MusicFold4);
+        }
+        else
+        {
+            ReplaceMusic(Loop.MusicFold5);
+        }
+    }
+
+    #endregion
+
+
+    public void SetVolumeMusic(float volume)
+    {
+        musicVolume = volume;
+        musicSource1.volume = volume;
+        musicSource2.volume = volume;
+    }
+
+    public void SetVolumeSFX(float volume)
+    {
+        sfxVolume = volume;
+        loopSource.volume = volume;
+        oneShotSource.volume = volume;
     }
 
     private bool CanPlaySound(Sound sound)
@@ -212,6 +404,19 @@ public class SoundManager : MonoBehaviour
             if (loopAudioClip.loop == loop)
             {
                 return loopAudioClip.clip;
+            }
+        }
+        Debug.LogError("Loop " + loop + " not found!");
+        return null;
+    }
+
+    private AudioClip GetMusicAudioClip(Loop loop)
+    {
+        foreach (GameAssets.LoopAudioClip musicAudioClip in GameAssets.i.musicAudioClips)
+        {
+            if (musicAudioClip.loop == loop)
+            {
+                return musicAudioClip.clip;
             }
         }
         Debug.LogError("Loop " + loop + " not found!");
