@@ -422,5 +422,11 @@ public class SoundManager : MonoBehaviour
         Debug.LogError("Loop " + loop + " not found!");
         return null;
     }
+
+    public void StopMusic()
+    {
+        AudioSource active = musicSource1.isPlaying ? musicSource1 : musicSource2;
+        active.Stop();
+    }
 }
 

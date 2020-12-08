@@ -148,6 +148,7 @@ public class SwitchModePlayerOrigami : MonoBehaviour
     public void ClickToContinue()
     {
         // SoundManager.i.PlayMusicWithFade(SoundManager.Loop.MusicVillage);
+        SoundManager.i.StopMusic();
         asClickToContinue = true;
     }
 
