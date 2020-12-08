@@ -8,7 +8,7 @@ using Rewired;
 public class DialoguesManager : MonoBehaviour
 {
     [SerializeField]
-    private List<Dialogue> dialogues = null;
+    public List<Dialogue> dialogues = null;
     [SerializeField]
     private TextMeshProUGUI nameTxt = null, sentenceTxt = null;
     [SerializeField]
