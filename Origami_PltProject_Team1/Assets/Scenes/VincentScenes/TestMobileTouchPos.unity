@@ -7236,7 +7236,7 @@ PrefabInstance:
     - target: {fileID: 8831327080789942775, guid: ba560b4fab1bd6b45bc05643497f1c33,
         type: 3}
       propertyPath: _namePliage
-      value: pliage_bateau
+      value: pliage_marteau
       objectReference: {fileID: 0}
     - target: {fileID: 8831327080789942779, guid: ba560b4fab1bd6b45bc05643497f1c33,
         type: 3}
@@ -11284,6 +11284,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6831715215731971994, guid: de748ba2d79dd8e4c878baf5e6d17677,
         type: 3}
+      propertyPath: _listPliage.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6831715215731971994, guid: de748ba2d79dd8e4c878baf5e6d17677,
+        type: 3}
       propertyPath: _dialogueManager
       value: 
       objectReference: {fileID: 785767178}
@@ -11332,6 +11337,11 @@ PrefabInstance:
       propertyPath: candyBaseTimer
       value: 1.5
       objectReference: {fileID: 0}
+    - target: {fileID: 6831715215731971994, guid: de748ba2d79dd8e4c878baf5e6d17677,
+        type: 3}
+      propertyPath: _listPliage.Array.data[4]
+      value: 
+      objectReference: {fileID: 2069339435}
     - target: {fileID: 6831715215731971995, guid: de748ba2d79dd8e4c878baf5e6d17677,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -16033,6 +16043,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: d65570657b713234485418e34d96fa89,
     type: 3}
   m_PrefabInstance: {fileID: 2049266904}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2069339435 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4267972694109185141, guid: 4f69b12cf21f4b242a26e39a4a5cfc0b,
+    type: 3}
+  m_PrefabInstance: {fileID: 9190144833226217874}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2080334428
 PrefabInstance:
