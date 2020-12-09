@@ -122,7 +122,6 @@ public class ClickClickManager : MonoBehaviour
 
             if (Physics.Raycast(ray.origin, ray.direction, out hit, Mathf.Infinity, layerHit + layerObstacle))
             {
-                
                 if (hit.transform.gameObject.layer == layerHit)
                 {
                     isTouchTarget = true;
@@ -166,8 +165,7 @@ public class ClickClickManager : MonoBehaviour
 
             if (Physics.Raycast(ray.origin, ray.direction, out hit, Mathf.Infinity, layerHit + layerObstacle))
             {
-
-                if (hit.transform.gameObject.layer == layerHit)
+                if (layerHit == (layerHit | (1 << hit.transform.gameObject.layer)))
                 {
                     isTouchTarget = true;
                     Debug.DrawRay(ray.origin, ray.direction * hit.distance, Color.green);
