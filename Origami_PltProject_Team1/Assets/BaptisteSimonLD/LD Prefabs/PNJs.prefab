@@ -304,14 +304,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1538329678573041721}
-  m_LocalRotation: {x: -0.000000014901159, y: 0.47131553, z: 0.0000000074505797, w: 0.8819646}
-  m_LocalPosition: {x: 486.42374, y: 2, z: -67.02078}
+  m_LocalRotation: {x: 0.06975512, y: 0.86012244, z: -0.08428085, w: 0.49821714}
+  m_LocalPosition: {x: 463.29, y: 6.4, z: -65.32}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2023558780665656872}
   m_Father: {fileID: 3354645074688845860}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 12.386, y: 120.067, z: 2.113}
 --- !u!1 &1971715963898098499
 GameObject:
   m_ObjectHideFlags: 0
@@ -7600,6 +7600,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3354645074688845860}
     m_Modifications:
+    - target: {fileID: 586822643547541045, guid: ba560b4fab1bd6b45bc05643497f1c33,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4225959597544959881, guid: ba560b4fab1bd6b45bc05643497f1c33,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 4398524221467159785, guid: ba560b4fab1bd6b45bc05643497f1c33,
         type: 3}
       propertyPath: m_IsActive
@@ -8970,6 +8980,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3354645074688845860}
     m_Modifications:
+    - target: {fileID: 586822643547541045, guid: ba560b4fab1bd6b45bc05643497f1c33,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4225959597544959881, guid: ba560b4fab1bd6b45bc05643497f1c33,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 4398524221467159785, guid: ba560b4fab1bd6b45bc05643497f1c33,
         type: 3}
       propertyPath: m_IsActive
@@ -9125,6 +9145,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3354645074688845860}
     m_Modifications:
+    - target: {fileID: 586822643547541045, guid: ba560b4fab1bd6b45bc05643497f1c33,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4225959597544959881, guid: ba560b4fab1bd6b45bc05643497f1c33,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 4398524221467159785, guid: ba560b4fab1bd6b45bc05643497f1c33,
         type: 3}
       propertyPath: m_IsActive

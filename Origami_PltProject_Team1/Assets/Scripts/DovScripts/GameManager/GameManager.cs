@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Entity _entity = null;
     [SerializeField] private SwitchSpritePlayer _switchSpritePlayer = null;
     [SerializeField] private SoundManager _soundManager = null;
+    [SerializeField] private CameraManager _cameraManager = null;
 
     [SerializeField] private GameObject candyCanvas = null;
     [SerializeField] private float candyBaseTimer;
@@ -50,7 +51,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void Awake()
+ /*   private void Awake()
     {
         _pliageManager = _switchModeOrigami._pliageToDo.GetComponent<PliageManager>();
         _soundManager = SoundManager.i;
@@ -75,7 +76,7 @@ public class GameManager : MonoBehaviour
                 candyTimer = candyBaseTimer;
             }
         }
-    }
+    }*/
 
     #region FunctionGet
 
@@ -124,6 +125,11 @@ public class GameManager : MonoBehaviour
     public SwitchSpritePlayer GetSwitchSpritePlayer()
     {
         return _switchSpritePlayer;
+    }
+
+    public CameraManager GetCameraManager()
+    {
+        return _cameraManager;
     }
 
     #endregion

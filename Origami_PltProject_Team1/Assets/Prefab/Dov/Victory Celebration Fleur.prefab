@@ -4963,8 +4963,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: baf2d40f5a19bf04ab897acf29bee846, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _animator: {fileID: 0}
-  _animFadeOut: {fileID: 7400000, guid: bfa51890d2939c1449cb2d877068d3cf, type: 2}
+  _animator: {fileID: 5277642870921428194}
+  _animFadeOut: {fileID: 7400000, guid: 2acfb8ca48a1ebe4faa455b95e499f27, type: 2}
   _videoPlayer: {fileID: 5438457379153772888}
 --- !u!1 &1747954509251377168
 GameObject:
@@ -5138,7 +5138,7 @@ VideoPlayer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1824584916205982798}
   m_Enabled: 1
-  m_VideoClip: {fileID: 32900000, guid: 1f892b265a2764748a53aefef8b02b49, type: 3}
+  m_VideoClip: {fileID: 32900000, guid: 16bcb5de5cf1cd44bb9502c0169ad75d, type: 3}
   m_TargetCameraAlpha: 1
   m_TargetCamera3DLayout: 0
   m_TargetCamera: {fileID: 0}
@@ -5173,6 +5173,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4109936204787726508}
   - component: {fileID: 6683242490968746798}
+  - component: {fileID: 5277642870921428194}
   m_Layer: 8
   m_Name: GameObject
   m_TagString: Untagged
@@ -5235,6 +5236,25 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!95 &5277642870921428194
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3509625552538758073}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: aa6aff6984b61344ba0be1e312dfdf7d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &2753291706992094501
 PrefabInstance:
   m_ObjectHideFlags: 0

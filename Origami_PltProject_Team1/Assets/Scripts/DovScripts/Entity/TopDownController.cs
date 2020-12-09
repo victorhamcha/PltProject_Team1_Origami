@@ -11,14 +11,9 @@ public class TopDownController : MonoBehaviour
     public Entity entity;
     public LayerMask playerMask;
     public LayerMask obstacleMask;
-    public LayerMask additionMask;
     private float _timer = 0.2f;
     private float duration = 0.2f;
 
-    private void Start()
-    {
-        additionMask = playerMask + obstacleMask;
-    }
 
     void Update()
     {

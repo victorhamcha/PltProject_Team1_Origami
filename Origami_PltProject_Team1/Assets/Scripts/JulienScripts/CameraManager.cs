@@ -15,18 +15,18 @@ public class CameraManager : MonoBehaviour
 
     #region Camera Zoom variables
 
-    private Camera _cam = null;
+    [HideInInspector] public Camera _cam = null;
     private float _startSize = 0.0f;
-    private float _originalStartSize = 0.0f;
-    private float _originalEndSize = 0.0f;
+    [HideInInspector] public float _originalStartSize = 0.0f;
+    [HideInInspector] public float _originalEndSize = 0.0f;
 
     [Header("Camera Zoom")]
     [SerializeField] private AnimationCurve _zoomCurve = null;
     [SerializeField] [Range(1, 50)] private float _endSize = 5.0f;
-    [SerializeField] [Range(0.1f, 30.0f)] private float speedZoom = 0.0f;
-    [SerializeField] [Range(0.1f, 30.0f)] private float speedDezoom = 0.0f;
+    [Range(0.1f, 30.0f)] public float speedZoom = 0.0f;
+    [Range(0.1f, 30.0f)] public float speedDezoom = 0.0f;
 
-    [SerializeField] private bool _zooming = false;
+    public bool _zooming = false;
     private bool _wasZooming = false;
 
     [SerializeField] private float _slowDuration = 0.0f;
@@ -41,18 +41,18 @@ public class CameraManager : MonoBehaviour
     #region Camera Rotation variables
 
     [Header("Camera rotation")]
-    [SerializeField] private Transform _endPosRotation = null;
-    [SerializeField] private float _finalAngle = 0f;
-    [SerializeField] private float _speedRotationForward = 2f;
-    [SerializeField] private float _speedRotationBackward = 2f;
-    [SerializeField] private bool _rotatingForward = false;
-    [SerializeField] private bool _rotatingBackward = false;
+    public Transform _endPosRotation = null;
     [SerializeField] private AnimationCurve _curveSpeedRotation = AnimationCurve.Linear(0, 0, 1, 1);
     [SerializeField] private float _durationCurveSpeedRotation = 1f;
     [SerializeField] private AnimationCurve _brakeCurveSpeedRotation = AnimationCurve.Linear(0, 1, 1, 0);
     [SerializeField] private float _durationBrakeCurveSpeedRotation = 1f;
+    public float _finalAngle = 0f;
+    public float _speedRotationBackward = 2f;
+    public float _speedRotationForward = 2f;
+    [HideInInspector] public bool _rotatingForward = false;
+    [HideInInspector] public bool _rotatingBackward = false;
     private bool _waitNewRotation = true;
-    private bool _rotationEnded = true;
+    [HideInInspector] public bool _rotationEnded = true;
     private bool _canRotatingForward = true;
     private bool _canRotatingBackward = false;
     private float _currentRotation = 0f;
@@ -62,7 +62,7 @@ public class CameraManager : MonoBehaviour
     #endregion
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
 
         #region Zoom variables initialization
@@ -248,12 +248,13 @@ public class CameraManager : MonoBehaviour
 
     public void CameraZoomIn()
     {
-
         _endSize = _originalEndSize;
         _startSize = _originalStartSize;
+        
         if (_cam.orthographicSize > _endSize)
         {
             _lastSpeed = _zoomCurve.Evaluate(Mathf.InverseLerp(_startSize, _endSize, _cam.orthographicSize - speedZoom * Time.deltaTime));
+            Debug.Log(_lastSpeed);
             _cam.orthographicSize = Mathf.Lerp(_startSize, _endSize, _lastSpeed);
         }
     }
