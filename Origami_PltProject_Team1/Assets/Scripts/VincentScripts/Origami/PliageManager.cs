@@ -388,13 +388,13 @@ public class PliageManager : MonoBehaviour
         if (_listePliage.CanGoToFolding(indexPliage))
         {
             SetUpCurrentPliage();
+            SoundManager.i.PlayOrigamiMusic(_listePliage.GetListPliage().Count, indexPliage);
         }
         else
         {
             _boundaryAnimator.Play("BoundaryNone");
             _origamiIsFinish = true;
         }
-        SoundManager.i.PlayOrigamiMusic(_listePliage.GetListPliage().Count, indexPliage);
 
         if (_currentPliage.isConfirmationPliage && _slideOrigamiUI != null)
         {
