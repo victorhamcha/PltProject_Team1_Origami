@@ -39,7 +39,7 @@ public class RadioScript : MonoBehaviour
         if (_bubuleCount == 0)
         {
             //Activer son
-            SoundManager.i.PlayLoop(SoundManager.Loop.MusicRadio);
+            SoundManager.i.PlayMusic(SoundManager.Loop.MusicRadio);
             MusicParticles.gameObject.SetActive(true);
             _bubuleCount++;
         }
@@ -47,7 +47,6 @@ public class RadioScript : MonoBehaviour
         {
             //Désactiver son
             SoundManager.i.StopMusic();
-            Debug.Log("Désactive");
             MusicParticles.gameObject.SetActive(false);
             _bubuleCount = 0;
         }
