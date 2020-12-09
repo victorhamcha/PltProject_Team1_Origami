@@ -7,6 +7,9 @@ using UnityEngine.Rendering.Universal;
 [RequireComponent(typeof(Volume))]
 public class ZoomVignette : MonoBehaviour
 {
+   // private CameraManager _cameraManager = null;
+
+
     private Vignette _vignette = null;
     private Volume _volume;
 
@@ -25,11 +28,13 @@ public class ZoomVignette : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //_cameraManager = GameManager.Instance.GetCameraManager();
+
         _cam = GetComponent<Camera>();
         _volume = GetComponent<Volume>();
         _volume.profile.TryGet<Vignette>(out _vignette);
-        _startOrthoSize = _cam.orthographicSize;
-        _changedOrthoSize = _startOrthoSize;
+       // _startOrthoSize = _cam.orthographicSize;
+       // _changedOrthoSize = _startOrthoSize;
     }
 
     // Update is called once per frame
@@ -54,10 +59,10 @@ public class ZoomVignette : MonoBehaviour
     {
         _intensityValue = (variablePli / 100) * _intensityFactor;
         _vignette.intensity.value = _intensityValue;
-        _changedOrthoSize -= (variablePli / 100) * _zoomFactor;
-        _cam.orthographicSize = _changedOrthoSize;
-        _endOrthoSize = _changedOrthoSize;
-        _changedOrthoSize = _startOrthoSize;
+        //_changedOrthoSize -= (variablePli / 100) * _zoomFactor;
+        //_cam.orthographicSize = _changedOrthoSize;
+        //_endOrthoSize = _changedOrthoSize;
+        //_changedOrthoSize = _startOrthoSize;
 
     }
 
@@ -65,7 +70,7 @@ public class ZoomVignette : MonoBehaviour
     {
         _timerDezoom += Time.deltaTime;
         _vignette.intensity.value = Mathf.Lerp(_intensityValue, 0, _timerDezoom);        
-        _cam.orthographicSize = Mathf.Lerp(_endOrthoSize, _startOrthoSize, _timerDezoom);
+       // _cam.orthographicSize = Mathf.Lerp(_endOrthoSize, _startOrthoSize, _timerDezoom);
     }
 
     public void SetVariablePli(float pourcentagePli)
