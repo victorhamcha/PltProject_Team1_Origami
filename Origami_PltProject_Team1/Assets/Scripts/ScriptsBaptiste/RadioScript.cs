@@ -17,7 +17,7 @@ public class RadioScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player" && !_isTrigger )
+        if (other.tag == "Player" && !_isTrigger)
         {
             _isTrigger = true;
             _bulle.SetActive(true);
@@ -39,12 +39,14 @@ public class RadioScript : MonoBehaviour
         if (_bubuleCount == 0)
         {
             //Activer son
+            SoundManager.i.PlayLoop(SoundManager.Loop.MusicRadio);
             MusicParticles.gameObject.SetActive(true);
             _bubuleCount++;
         }
         else if (_bubuleCount == 1)
         {
             //Désactiver son
+            SoundManager.i.StopMusic();
             Debug.Log("Désactive");
             MusicParticles.gameObject.SetActive(false);
             _bubuleCount = 0;
