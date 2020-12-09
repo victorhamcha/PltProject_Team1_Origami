@@ -62,6 +62,45 @@ MonoBehaviour:
     m_Value: 0
     min: -180
     max: 180
+--- !u!114 &-7934396004802927618
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 558a8e2b6826cf840aae193990ba9f2e, type: 3}
+  m_Name: ShadowsMidtonesHighlights
+  m_EditorClassIdentifier: 
+  active: 1
+  m_AdvancedMode: 0
+  shadows:
+    m_OverrideState: 1
+    m_Value: {x: 0.8529177, y: 0.60152495, z: 1, w: 0}
+  midtones:
+    m_OverrideState: 0
+    m_Value: {x: 1, y: 0.9871964, z: 0.97354376, w: 0}
+  highlights:
+    m_OverrideState: 0
+    m_Value: {x: 0.9666972, y: 1, z: 0.89854497, w: 0}
+  shadowsStart:
+    m_OverrideState: 1
+    m_Value: 0
+    min: 0
+  shadowsEnd:
+    m_OverrideState: 0
+    m_Value: 0.3
+    min: 0
+  highlightsStart:
+    m_OverrideState: 0
+    m_Value: 0.55
+    min: 0
+  highlightsEnd:
+    m_OverrideState: 0
+    m_Value: 1
+    min: 0
 --- !u!114 &-5421938553242438790
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -84,7 +123,7 @@ MonoBehaviour:
     m_Value: 2
   intensity:
     m_OverrideState: 1
-    m_Value: 0.589
+    m_Value: 0.528
     min: 0
     max: 1
   clamp:
@@ -105,11 +144,13 @@ MonoBehaviour:
   m_Name: Global Volume Profile
   m_EditorClassIdentifier: 
   components:
-  - {fileID: 8760097484891211044}
-  - {fileID: -5421938553242438790}
   - {fileID: 8800327599029047443}
   - {fileID: 1036807036729221076}
   - {fileID: 1061944942212370648}
+  - {fileID: 8760097484891211044}
+  - {fileID: 3706737061397300981}
+  - {fileID: -5421938553242438790}
+  - {fileID: -7934396004802927618}
 --- !u!114 &1036807036729221076
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -125,11 +166,11 @@ MonoBehaviour:
   active: 1
   m_AdvancedMode: 0
   postExposure:
-    m_OverrideState: 0
-    m_Value: 0
+    m_OverrideState: 1
+    m_Value: 0.4
   contrast:
     m_OverrideState: 1
-    m_Value: 2
+    m_Value: 5
     min: -100
     max: 100
   colorFilter:
@@ -145,7 +186,7 @@ MonoBehaviour:
     max: 180
   saturation:
     m_OverrideState: 1
-    m_Value: 20
+    m_Value: 2
     min: -100
     max: 100
 --- !u!114 &1061944942212370648
@@ -164,13 +205,49 @@ MonoBehaviour:
   m_AdvancedMode: 0
   lift:
     m_OverrideState: 1
-    m_Value: {x: 0.9500729, y: 0.9678305, z: 1, w: 0}
+    m_Value: {x: 0.94895005, y: 0.97326547, z: 1, w: 0}
   gamma:
     m_OverrideState: 1
-    m_Value: {x: 1, y: 0.9469726, z: 0.96208787, w: 0}
+    m_Value: {x: 1, y: 0.86925894, z: 0.8178495, w: 0}
   gain:
     m_OverrideState: 1
-    m_Value: {x: 0.89509696, y: 0.9160563, z: 1, w: 0}
+    m_Value: {x: 0.7334784, y: 0.7606937, z: 1, w: 0}
+--- !u!114 &3706737061397300981
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 899c54efeace73346a0a16faa3afe726, type: 3}
+  m_Name: Vignette
+  m_EditorClassIdentifier: 
+  active: 1
+  m_AdvancedMode: 0
+  color:
+    m_OverrideState: 1
+    m_Value: {r: 0, g: 0, b: 0, a: 1}
+    hdr: 0
+    showAlpha: 0
+    showEyeDropper: 1
+  center:
+    m_OverrideState: 1
+    m_Value: {x: 0.5, y: 0.5}
+  intensity:
+    m_OverrideState: 1
+    m_Value: 0.15
+    min: 0
+    max: 1
+  smoothness:
+    m_OverrideState: 1
+    m_Value: 0.15
+    min: 0.01
+    max: 1
+  rounded:
+    m_OverrideState: 1
+    m_Value: 1
 --- !u!114 &8760097484891211044
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -187,15 +264,15 @@ MonoBehaviour:
   m_AdvancedMode: 0
   threshold:
     m_OverrideState: 1
-    m_Value: 1.5
+    m_Value: 0.9
     min: 0
   intensity:
     m_OverrideState: 1
-    m_Value: 0.25
+    m_Value: 0.08
     min: 0
   scatter:
     m_OverrideState: 0
-    m_Value: 0.7
+    m_Value: 0
     min: 0
     max: 1
   clamp:
@@ -204,7 +281,7 @@ MonoBehaviour:
     min: 0
   tint:
     m_OverrideState: 1
-    m_Value: {r: 1, g: 1, b: 1, a: 1}
+    m_Value: {r: 0.989796, g: 0.8349056, b: 1, a: 1}
     hdr: 0
     showAlpha: 0
     showEyeDropper: 1
