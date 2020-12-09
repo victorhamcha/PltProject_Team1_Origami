@@ -51,7 +51,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
- /*   private void Awake()
+    private void Awake()
     {
         _pliageManager = _switchModeOrigami._pliageToDo.GetComponent<PliageManager>();
         _soundManager = SoundManager.i;
@@ -76,7 +76,7 @@ public class GameManager : MonoBehaviour
                 candyTimer = candyBaseTimer;
             }
         }
-    }*/
+    }
 
     #region FunctionGet
 
