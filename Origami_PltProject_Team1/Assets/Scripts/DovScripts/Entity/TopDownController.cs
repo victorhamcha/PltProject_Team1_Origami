@@ -28,7 +28,8 @@ public class TopDownController : MonoBehaviour
                 if (_timer <= 0)
                 {
                     Destroy(_ob);
-                    _ob = Instantiate(_moveParticle, ClickClickManager.Instance.hit.point, Quaternion.identity);
+                    Vector3 hitpos = new Vector3(ClickClickManager.Instance.hit.point.x, ClickClickManager.Instance.hit.point.y + 0.01f, ClickClickManager.Instance.hit.point.z);
+                    _ob = Instantiate(_moveParticle, hitpos, Quaternion.identity);
                     _timer = duration;
                 }
             }
