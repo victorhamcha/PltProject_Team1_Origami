@@ -125,6 +125,12 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 23800000, guid: 2d2ca75bbf8c1d24c95e3b7a621e6839, type: 2}
+--- !u!1 &32370860 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9092483386899632949, guid: 4f69b12cf21f4b242a26e39a4a5cfc0b,
+    type: 3}
+  m_PrefabInstance: {fileID: 9190144833226217874}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &41952332
 GameObject:
   m_ObjectHideFlags: 0
@@ -7238,7 +7244,7 @@ PrefabInstance:
     - target: {fileID: 8831327080789942775, guid: ba560b4fab1bd6b45bc05643497f1c33,
         type: 3}
       propertyPath: _namePliage
-      value: pliage_marteau
+      value: pliage_os
       objectReference: {fileID: 0}
     - target: {fileID: 8831327080789942779, guid: ba560b4fab1bd6b45bc05643497f1c33,
         type: 3}
@@ -11287,7 +11293,7 @@ PrefabInstance:
     - target: {fileID: 6831715215731971994, guid: de748ba2d79dd8e4c878baf5e6d17677,
         type: 3}
       propertyPath: _listPliage.Array.size
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6831715215731971994, guid: de748ba2d79dd8e4c878baf5e6d17677,
         type: 3}
@@ -11344,6 +11350,11 @@ PrefabInstance:
       propertyPath: _listPliage.Array.data[4]
       value: 
       objectReference: {fileID: 2069339435}
+    - target: {fileID: 6831715215731971994, guid: de748ba2d79dd8e4c878baf5e6d17677,
+        type: 3}
+      propertyPath: _listPliage.Array.data[5]
+      value: 
+      objectReference: {fileID: 32370860}
     - target: {fileID: 6831715215731971995, guid: de748ba2d79dd8e4c878baf5e6d17677,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -17033,6 +17044,16 @@ PrefabInstance:
     - target: {fileID: 268231955553520983, guid: 4f69b12cf21f4b242a26e39a4a5cfc0b,
         type: 3}
       propertyPath: allPliageToDo.Array.data[2].speedAnimAutoComplete
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 469172572370484671, guid: 4f69b12cf21f4b242a26e39a4a5cfc0b,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 469172572370484671, guid: 4f69b12cf21f4b242a26e39a4a5cfc0b,
+        type: 3}
+      propertyPath: m_LocalScale.y
       value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 2191840608018143619, guid: 4f69b12cf21f4b242a26e39a4a5cfc0b,
