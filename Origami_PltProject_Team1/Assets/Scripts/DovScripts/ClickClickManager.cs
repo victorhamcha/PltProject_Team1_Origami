@@ -105,4 +105,91 @@ public class ClickClickManager : MonoBehaviour
         }
     }
 
+    public void RaycastClickWithObstacle(LayerMask layerHit, LayerMask layerObstacle)
+    {
+        Vector3 touchPos = Vector3.zero;
+
+        if (Input.touchCount > 0)
+        {
+            onMobile = true;
+            isTouch = true;
+            Touch touch = Input.GetTouch(0);
+            touchPhase = touch.phase;
+            lastPos = touchPos;
+            touchPos = new Vector3(touch.position.x, touch.position.y, 0);
+            touchDeltaPosition = touch.deltaPosition;
+            ray = Camera.main.ScreenPointToRay(touchPos);
+
+            if (Physics.Raycast(ray.origin, ray.direction, out hit, Mathf.Infinity, layerHit + layerObstacle))
+            {
+                
+                if (hit.transform.gameObject.layer == layerHit)
+                {
+                    isTouchTarget = true;
+                    Debug.DrawRay(ray.origin, ray.direction * hit.distance, Color.green);
+                }
+                else
+                {
+                    isTouchTarget = false;
+                    Debug.DrawRay(ray.origin, ray.direction * 1000, Color.red);
+                }
+            }
+            else
+            {
+                isTouchTarget = false;
+                Debug.DrawRay(ray.origin, ray.direction * 1000, Color.red);
+            }
+        }
+        else if (Input.GetMouseButton(0))
+        {
+            onMobile = false;
+            isTouch = true;
+            touchPos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0);
+
+            if (touchPos != lastPos)
+            {
+                touchDeltaPosition = new Vector3(touchPos.x - lastPos.x, touchPos.y - lastPos.y, touchPos.z - lastPos.z);
+            }
+
+            if (Input.GetMouseButtonDown(0))
+            {
+                touchPhase = TouchPhase.Began;
+                touchDeltaPosition = Vector3.zero;
+            }
+            else
+            {
+                touchPhase = TouchPhase.Moved;
+            }
+
+            lastPos = touchPos;
+            ray = Camera.main.ScreenPointToRay(touchPos);
+
+            if (Physics.Raycast(ray.origin, ray.direction, out hit, Mathf.Infinity, layerHit + layerObstacle))
+            {
+
+                if (hit.transform.gameObject.layer == layerHit)
+                {
+                    isTouchTarget = true;
+                    Debug.DrawRay(ray.origin, ray.direction * hit.distance, Color.green);
+                }
+                else
+                {
+                    isTouchTarget = false;
+                    Debug.DrawRay(ray.origin, ray.direction * 1000, Color.red);
+                }
+            }
+            else
+            {
+                isTouchTarget = false;
+                Debug.DrawRay(ray.origin, ray.direction * 1000, Color.red);
+            }
+        }
+        else
+        {
+            isTouchTarget = false;
+            isTouch = false;
+            touchPhase = TouchPhase.Canceled;
+        }
+    }
+
 }
