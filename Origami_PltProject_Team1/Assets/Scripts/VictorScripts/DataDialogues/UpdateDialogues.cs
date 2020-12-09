@@ -14,9 +14,9 @@ public class UpdateDialogues : ScriptableObject
 {
     public Feuille1 sheettest;
     public List<Dialogue> dialogues;
-   // public List<CardScriptableObject> cardsPlace;
-    
+    // public List<CardScriptableObject> cardsPlace;
 
+    public DialoguesManager dialoguesManager;
 
 
     public void CreateCards()
@@ -108,11 +108,14 @@ public class UpdateDialogues : ScriptableObject
 #if UNITY_EDITOR
                 EditorUtility.SetDirty(change);
 #endif
-            }
         }
+    }
     
 
-
+    public void UpdateListDialogue()
+    {
+        dialoguesManager.dialogues = dialogues;
+    }
     
 
   
@@ -142,9 +145,12 @@ public class CardsEditor : Editor
         {
             script.CreateCards();
         }
+        if (GUILayout.Button("Update List Dialogues"))
+        {
+            script.UpdateListDialogue();
+        }
 
-       
-       
+
     }
 }
 #endif

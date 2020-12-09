@@ -103,6 +103,8 @@ public class PliageManager : MonoBehaviour
     private void Start()
     {
         _videoPlayer.targetTexture.Release();
+
+        SoundManager.i.PlayOrigamiMusic(_listePliage.GetListPliage().Count, 0);
     }
 
     void Update()
@@ -390,6 +392,7 @@ public class PliageManager : MonoBehaviour
             _boundaryAnimator.Play("BoundaryNone");
             _origamiIsFinish = true;
         }
+        SoundManager.i.PlayOrigamiMusic(_listePliage.GetListPliage().Count, indexPliage);
 
         if (_currentPliage.isConfirmationPliage && _slideOrigamiUI != null)
         {

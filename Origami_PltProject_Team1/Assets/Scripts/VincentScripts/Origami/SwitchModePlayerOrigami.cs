@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Runtime.Remoting.Metadata.W3cXsd2001;
+using UnityEngine;
 
 public class SwitchModePlayerOrigami : MonoBehaviour
 {
@@ -31,6 +32,7 @@ public class SwitchModePlayerOrigami : MonoBehaviour
     [SerializeField] private GameObject _celebrationBateau = null;
     [SerializeField] private GameObject _celebrationOiseau = null;
     [SerializeField] private GameObject _celebrationFleur = null;
+    [SerializeField] private GameObject _celebrationMoulin = null;
     [SerializeField] private GameObject _canvaCelebration = null;
     [SerializeField] private AnimationClip _animationClipFadeOutButton = null;
     private bool _iscelebrate = false;
@@ -109,6 +111,11 @@ public class SwitchModePlayerOrigami : MonoBehaviour
                 SoundManager.i.PlaySound(SoundManager.Sound.SFX_Origami_Bird_Succed);
                 _ob = Instantiate(_celebrationOiseau, _posCelebration);
             }
+            else if (_pliageToDo.name == "pliage_moulin")
+            {
+                SoundManager.i.PlaySound(SoundManager.Sound.SFX_Origami_Bird_Succed);
+                _ob = Instantiate(_celebrationMoulin, _posCelebration);
+            }
             else
             {
                 SoundManager.i.PlaySound(SoundManager.Sound.SFX_Origami_Bone_Succed);
@@ -146,6 +153,8 @@ public class SwitchModePlayerOrigami : MonoBehaviour
 
     public void ClickToContinue()
     {
+        // SoundManager.i.PlayMusicWithFade(SoundManager.Loop.MusicVillage);
+        SoundManager.i.StopMusic();
         asClickToContinue = true;
     }
 
