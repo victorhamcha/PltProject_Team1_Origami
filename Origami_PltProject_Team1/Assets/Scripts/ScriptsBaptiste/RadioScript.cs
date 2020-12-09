@@ -36,9 +36,9 @@ public class RadioScript : MonoBehaviour
     private void ClickClickBubule()
     {
         Debug.Log("Active");
-        //Activer son
         if (_bubuleCount == 0)
         {
+            //Activer son
             MusicParticles.gameObject.SetActive(true);
             _bubuleCount++;
         }
