@@ -519,6 +519,9 @@ MonoBehaviour:
   target: {fileID: 0}
   smoothSpeed: 0.95
   offset: {x: -400, y: 200, z: -300}
+  _cam: {fileID: 0}
+  _originalStartSize: 0
+  _originalEndSize: 0
   _zoomCurve:
     serializedVersion: 2
     m_Curve:
@@ -555,11 +558,6 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   _endPosRotation: {fileID: 0}
-  _finalAngle: 180
-  _speedRotationForward: 2
-  _speedRotationBackward: 2
-  _rotatingForward: 0
-  _rotatingBackward: 0
   _curveSpeedRotation:
     serializedVersion: 2
     m_Curve:
@@ -610,6 +608,12 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   _durationBrakeCurveSpeedRotation: 1
+  _finalAngle: 180
+  _speedRotationBackward: 2
+  _speedRotationForward: 2
+  _rotatingForward: 0
+  _rotatingBackward: 0
+  _rotationEnded: 1
 --- !u!114 &2346967273194086260
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -660,7 +664,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _mainCam: {fileID: 1373722586243731216}
   _windClip: {fileID: 32900000, guid: df26249341bfb90469cabb3c876cd557, type: 3}
-  windGo: {fileID: 7718546230337849248, guid: 63076dddd0004694e92df6fdce325c6a, type: 3}
+  windGo: {fileID: 6404302850542613077, guid: da9a9f3a3da244e4a97292de815d4a4b, type: 3}
 --- !u!1 &4582506887028276773
 GameObject:
   m_ObjectHideFlags: 0
