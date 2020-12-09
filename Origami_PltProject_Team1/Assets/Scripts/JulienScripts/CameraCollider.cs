@@ -98,6 +98,7 @@ public class CameraCollider : MonoBehaviour
                 _cameraManager._speedRotationBackward = _speedRotationBackward;
                 _cameraManager._endPosRotation = _endPosRotation;
                 _cameraManager._rotatingForward = true;
+                _cameraManager._rotatingBackward = false;
             }
             else if (!rotating && !onlyZoom)
             {
@@ -106,6 +107,7 @@ public class CameraCollider : MonoBehaviour
                 _cameraManager._speedRotationBackward = _speedRotationBackward;
                 _cameraManager._endPosRotation = _endPosRotation;
                 _cameraManager._rotatingBackward = true;
+                _cameraManager._rotatingForward = false;
             }
         }
         
