@@ -1,5 +1,4 @@
-﻿using System.Runtime.Remoting.Metadata.W3cXsd2001;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class SwitchModePlayerOrigami : MonoBehaviour
 {

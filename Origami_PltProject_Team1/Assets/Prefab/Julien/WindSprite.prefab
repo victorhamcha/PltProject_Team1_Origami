@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 7718546230337849248}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -16.34, y: 0.887, z: 7.2312117}
-  m_LocalScale: {x: 5, y: 5, z: 0.1}
+  m_LocalScale: {x: 2, y: 2, z: 0.1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -51,7 +51,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8bc5617dab0ddd3459d97927f2e3eebd, type: 2}
+  - {fileID: 2100000, guid: 26d2735bd280ecf43aa30416b56d08a7, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 066b0d08d4d505a47b8ab6f5a17793a4, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -91,11 +91,11 @@ VideoPlayer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7718546230337849248}
   m_Enabled: 1
-  m_VideoClip: {fileID: 32900000, guid: df26249341bfb90469cabb3c876cd557, type: 3}
+  m_VideoClip: {fileID: 32900000, guid: c5e1b05549a0c72468621299df15d6c0, type: 3}
   m_TargetCameraAlpha: 1
   m_TargetCamera3DLayout: 0
   m_TargetCamera: {fileID: 0}
-  m_TargetTexture: {fileID: 8400000, guid: b6e76a2b0671c334c8070e76a2626b80, type: 2}
+  m_TargetTexture: {fileID: 8400000, guid: a77cde7d98141334da197e7d646f6bde, type: 2}
   m_TimeReference: 0
   m_TargetMaterialRenderer: {fileID: 0}
   m_TargetMaterialProperty: _MainTex

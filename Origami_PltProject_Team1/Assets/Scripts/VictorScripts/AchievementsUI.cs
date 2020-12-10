@@ -11,7 +11,9 @@ public class AchievementsUI : MonoBehaviour
     [SerializeField] private Image[] logos;
     [SerializeField] private Image[] locks;
     [SerializeField] private Achievements[] achievements;
-
+    private bool next = false;
+    private bool onetTime = false;
+    private float _timer = 0f;
 
     void Start()
     {
@@ -31,10 +33,13 @@ public class AchievementsUI : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-
+        _timer += Time.deltaTime;
+        if (_timer>2f && !onetTime){
+            onetTime = true;
+            StartCoroutine("LoadSceneI");
+        }
     }
 
     public void PlayUISound(string sound)
@@ -59,7 +64,21 @@ public class AchievementsUI : MonoBehaviour
 
     public void LoadScene(string sceneName)
     {
-        //SceneManager.LoadScene(sceneName);
-        SceneManager.LoadScene("LDScene");
+        next = true;
+    }
+
+    IEnumerator LoadSceneI()
+    {
+        yield return null;
+        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync("LDScene");
+        asyncOperation.allowSceneActivation = false;
+        while (!asyncOperation.isDone)
+        {
+            if (next)
+            {
+                asyncOperation.allowSceneActivation = true;
+            }
+            yield return null;
+        }
     }
 }
