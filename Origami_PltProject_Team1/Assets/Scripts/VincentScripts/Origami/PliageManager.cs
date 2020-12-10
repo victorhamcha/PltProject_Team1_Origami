@@ -7,6 +7,7 @@ using UnityEngine.Video;
 [RequireComponent(typeof(ListePliage))]
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(SlideOrigamiUI))]
+[RequireComponent(typeof(SwitchObject))]
 public class PliageManager : MonoBehaviour
 {
     //Lien des scripts
@@ -14,6 +15,7 @@ public class PliageManager : MonoBehaviour
     private ListePliage _listePliage = null;
     private SlideOrigamiUI _slideOrigamiUI = null;
     private SwitchModePlayerOrigami _switchModePlayerOrigami = null;
+    private SwitchObject _switchObject = null;
 
     //Informations du pliage en cours d'executions
     private Pliage _currentPliage = null;
@@ -92,6 +94,7 @@ public class PliageManager : MonoBehaviour
         _listePliage = GetComponent<ListePliage>();
         _slideOrigamiUI = GetComponent<SlideOrigamiUI>();
         _animator = GetComponent<Animator>();
+        _switchObject = GetComponent<SwitchObject>();
 
         //Set de la speed de l'animator à 0 pour évitez que l'animations se joue dés le debuts
         _animator.speed = 0;
@@ -392,6 +395,7 @@ public class PliageManager : MonoBehaviour
         }
         else
         {
+            _switchObject.DisplayNextObject();
             SoundManager.i.PlayMusicWithFade(SoundManager.Loop.MusicVillage, 1f);
             _boundaryAnimator.Play("BoundaryNone");
             _origamiIsFinish = true;
