@@ -143,7 +143,6 @@ public class SoundManager : MonoBehaviour
 
     public void PlayMusicWithFade(Loop loop, float transitionTime)
     {
-        Debug.Log(musicSource1.isPlaying);
         AudioSource activeSource = musicSource1.isPlaying ? musicSource1 : musicSource2;
 
         StartCoroutine(UpdateMusicWithFade(activeSource, GetMusicAudioClip(loop), transitionTime));
