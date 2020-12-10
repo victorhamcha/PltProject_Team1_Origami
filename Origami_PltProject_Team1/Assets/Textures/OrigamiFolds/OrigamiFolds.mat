@@ -21,15 +21,15 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: OrigamiFolds
-  m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 2832362806a750e4581afebabb5dc084,
+    type: 3}
   m_ShaderKeywords: _EMISSION _NORMALMAP _OCCLUSIONMAP _RECEIVE_SHADOWS_OFF _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
     _SPECULAR_SETUP
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 1
-  m_CustomRenderQueue: 2000
-  stringTagMap:
-    RenderType: Opaque
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
@@ -144,10 +144,12 @@ Material:
     - _WorkflowMode: 0
     - _ZWrite: 1
     m_Colors:
+    - Color_481C0BDE: {r: 1, g: 1, b: 1, a: 1}
     - Color_64D9793C: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - Color_8545E2: {r: 0.195372, g: 0.9245283, b: 0.2366329, a: 0}
+    - Color_94DBF67F: {r: 1, g: 1, b: 1, a: 1}
     - Color_997E8A5: {r: 0.6509434, g: 0.6509434, b: 0.6509434, a: 1}
-    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
+    - _BaseColor: {r: 0.9811321, g: 0.36561054, b: 0.36561054, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0.43529412, g: 0.43529412, b: 0.43529412, a: 1}
     - _SpecColor: {r: 0, g: 0, b: 0, a: 1}
