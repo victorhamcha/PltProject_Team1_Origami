@@ -19,7 +19,7 @@ public class Dialogue : ScriptableObject
     [TextArea(5, 1)] public string sentence;
 
     [Space(10)]
-    public Color chrColor;
+    public Sprite chr;
 
 
   

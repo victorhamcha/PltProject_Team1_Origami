@@ -19,6 +19,8 @@ public class DialoguesManager : MonoBehaviour
     private Image point = null;
     [SerializeField]
     private Image character = null;
+    [SerializeField]
+    private Image lettre = null;
     private float timerSwitchDialogue = 0.5f;
     private bool oneTime = false;
 
@@ -100,6 +102,7 @@ public class DialoguesManager : MonoBehaviour
             inTyping = true;
             nextdialogue = nextDialogue;
             lastDialogue = nextDialogue;
+            character.sprite = dialogues[nextDialogue].chr;
             dialogueGui.SetActive(true);
             //dialogueGui.GetComponent<Image>().color = dialogues[nextdialogue].chrColor;
             nameTxt.text = dialogues[nextDialogue].chrName;

@@ -95,8 +95,10 @@ public class UpdateDialogues : ScriptableObject
 
                 change.chrName = dialogue.name;
                 change.sentence = dialogue.sentence;
-                
-               
+#if UNITY_EDITOR
+                change.chr = (Sprite)AssetDatabase.LoadAssetAtPath("Assets/AssetsGraphiques/Cards_Game/" + dialogue.eventName + ".png", typeof(Sprite));
+#endif
+
 
 
 
@@ -106,7 +108,7 @@ public class UpdateDialogues : ScriptableObject
 
             }
 #if UNITY_EDITOR
-                EditorUtility.SetDirty(change);
+            EditorUtility.SetDirty(change);
 #endif
         }
     }
