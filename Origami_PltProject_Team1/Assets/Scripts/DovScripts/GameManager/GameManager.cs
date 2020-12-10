@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     private CanvasGroup candyCanvasGroup;
     private bool candyIsActive = false;
     private float candyTimer;
+    public Dictionary<string, bool> pliagesAreFinish = new Dictionary<string, bool>();
 
     [SerializeField] private ZoomVignette _zoomVignette;
 
@@ -55,6 +56,13 @@ public class GameManager : MonoBehaviour
         candyCanvasGroup = candyCanvas.GetComponent<CanvasGroup>();
 
         SoundManager.i.PlayMusic(SoundManager.Loop.MusicVillage);
+
+        pliagesAreFinish.Add("pliage_bateau", false);
+        pliagesAreFinish.Add("pliage_oiseau", false);
+        pliagesAreFinish.Add("pliage_moulin", false);
+        pliagesAreFinish.Add("pliage_fleur", false);
+        pliagesAreFinish.Add("pliage_marteau", false);
+        pliagesAreFinish.Add("pliage_os", false);
     }
 
     private void Update()
