@@ -138,4 +138,28 @@ public class CameraCollider : MonoBehaviour
             _cameraManager._rotatingBackward = false;
         }
     }
+
+    public void ExitCollider()
+    {
+        hasExited = true;
+        if (zooming && !onlyRotation)
+        {
+            _cameraManager._zooming = false;
+        }
+        else if (!zooming && !onlyRotation)
+        {
+            _cameraManager._zooming = true;
+        }
+
+        if (rotating && !onlyZoom)
+        {
+            _cameraManager._rotatingBackward = true;
+            _cameraManager._rotatingForward = false;
+        }
+        else if (!rotating && !onlyZoom)
+        {
+            _cameraManager._rotatingForward = true;
+            _cameraManager._rotatingBackward = false;
+        }
+    }
 }

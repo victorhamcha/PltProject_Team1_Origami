@@ -254,7 +254,7 @@ public class CameraManager : MonoBehaviour
         if (_cam.orthographicSize > _endSize)
         {
             _lastSpeed = _zoomCurve.Evaluate(Mathf.InverseLerp(_startSize, _endSize, _cam.orthographicSize - speedZoom * Time.deltaTime));
-            Debug.Log(_lastSpeed);
+            //Debug.Log(_lastSpeed);
             _cam.orthographicSize = Mathf.Lerp(_startSize, _endSize, _lastSpeed);
         }
     }
