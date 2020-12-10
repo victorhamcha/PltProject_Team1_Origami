@@ -12,7 +12,7 @@ public class Interactible : MonoBehaviour
         Chien
     }
 
-    [SerializeField] private Animation _animation;
+    [SerializeField] private AnimationClip _animation;
     [SerializeField] private GameObject _bulle = null;
     [SerializeField] private TypeInteraction typeInteraction;
     [SerializeField] private Collectible col;
@@ -25,8 +25,10 @@ public class Interactible : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log("Inside Daddy");
         if (other.tag == "Player" && !_isTrigger)
         {
+            Debug.Log("C'est le player");
             _isTrigger = true;
             _bulle.SetActive(true);
         }
@@ -73,6 +75,7 @@ public class Interactible : MonoBehaviour
     private void ClickClickBubule()
     {
         isInAnim = true;
+        Debug.Log("Trop content le chien");
         // Activer son
         // Lancer l'anim
     }
