@@ -55,7 +55,8 @@ public class SoundManager : MonoBehaviour
         MusicFold3,
         MusicFold4,
         MusicFold5,
-        MusicRadio
+        MusicRadio,
+        MusicVillage
     }
 
     private static AudioSource oneShotSource;
@@ -79,6 +80,8 @@ public class SoundManager : MonoBehaviour
 
         SetVolumeSFX(0.5f);
 
+        musicSource1.Stop();
+        musicSource2.Stop();
         musicSource1.loop = true;
         musicSource2.loop = true;
     }
@@ -140,6 +143,7 @@ public class SoundManager : MonoBehaviour
 
     public void PlayMusicWithFade(Loop loop, float transitionTime)
     {
+        Debug.Log(musicSource1.isPlaying);
         AudioSource activeSource = musicSource1.isPlaying ? musicSource1 : musicSource2;
 
         StartCoroutine(UpdateMusicWithFade(activeSource, GetMusicAudioClip(loop), transitionTime));
@@ -147,17 +151,16 @@ public class SoundManager : MonoBehaviour
 
     private IEnumerator UpdateMusicWithFade(AudioSource activeSource, AudioClip newClip, float transitionTime)
     {
-        float t = 0f;
-
-        for (t = 0; t < transitionTime; t += Time.deltaTime)
+        for (float t = 0; t < transitionTime; t += Time.deltaTime)
         {
             activeSource.volume = (1 - (t / transitionTime)) * musicVolume;
             yield return null;
         }
 
         activeSource.clip = newClip;
+        activeSource.Play();
 
-        for (t = 0; t < transitionTime; t += Time.deltaTime)
+        for (float t = 0; t < transitionTime; t += Time.deltaTime)
         {
             activeSource.volume = musicVolume * t / transitionTime;
             yield return null;

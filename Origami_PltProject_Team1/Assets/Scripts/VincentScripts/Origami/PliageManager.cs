@@ -392,6 +392,7 @@ public class PliageManager : MonoBehaviour
         }
         else
         {
+            SoundManager.i.PlayMusicWithFade(SoundManager.Loop.MusicVillage, 1f);
             _boundaryAnimator.Play("BoundaryNone");
             _origamiIsFinish = true;
         }

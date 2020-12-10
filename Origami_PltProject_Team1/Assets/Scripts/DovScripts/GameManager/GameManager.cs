@@ -12,7 +12,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private SwitchModePlayerOrigami _switchModeOrigami = null;
     [SerializeField] private Entity _entity = null;
     [SerializeField] private SwitchSpritePlayer _switchSpritePlayer = null;
-    [SerializeField] private SoundManager _soundManager = null;
     [SerializeField] private CameraManager _cameraManager = null;
 
     [SerializeField] private GameObject candyCanvas = null;
@@ -52,9 +51,10 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         _pliageManager = _switchModeOrigami._pliageToDo.GetComponent<PliageManager>();
-        _soundManager = SoundManager.i;
         candyTimer = candyBaseTimer;
         candyCanvasGroup = candyCanvas.GetComponent<CanvasGroup>();
+
+        SoundManager.i.PlayMusic(SoundManager.Loop.MusicVillage);
     }
 
     private void Update()
@@ -101,11 +101,6 @@ public class GameManager : MonoBehaviour
     public Entity GetEntity()
     {
         return _entity;
-    }
-
-    public SoundManager GetSoundManager()
-    {
-        return _soundManager;
     }
 
     public void ActivateCandyCrush(string mot)
