@@ -12,7 +12,6 @@ public class Interactible : MonoBehaviour
         Chien
     }
 
-    [SerializeField] private AnimationClip _animation;
     [SerializeField] private GameObject _bulle = null;
     [SerializeField] private TypeInteraction typeInteraction;
     [SerializeField] private Collectible col;
@@ -22,6 +21,28 @@ public class Interactible : MonoBehaviour
     private float _timer = 0.2f;
     private float duration = 0.2f;
     private bool isInAnim = false;
+
+    private Animator _animator;
+
+    void Start()
+    {
+        _animator = GameManager.Instance.GetEntity()._animator;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        _timer -= Time.deltaTime;
+        ClickClickManager.Instance.RaycastClick(layerBubule);
+        if (ClickClickManager.Instance.isTouch && ClickClickManager.Instance.isTouchTarget && _isTrigger)
+        {
+            if (_timer <= 0)
+            {
+                ClickClickBubule();
+                _timer = duration;
+            }
+        }
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -44,11 +65,18 @@ public class Interactible : MonoBehaviour
             if (isInAnim)
             {
                 isInAnim = false;
-                //stop l'anim
+                _animator.SetBool(GetAnimatorBool(), false);
                 HandleDialogue();
                 col.InstantiateCol(true, Vector3.zero, this.gameObject);
             }
         }
+    }
+
+    private void ClickClickBubule()
+    {
+        isInAnim = true;
+        // Activer son
+        _animator.SetBool(GetAnimatorBool(), true);
     }
 
     private void HandleDialogue()
@@ -72,26 +100,19 @@ public class Interactible : MonoBehaviour
         }
     }
 
-    private void ClickClickBubule()
+    private string GetAnimatorBool()
     {
-        isInAnim = true;
-        Debug.Log("Trop content le chien");
-        // Activer son
-        // Lancer l'anim
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        _timer -= Time.deltaTime;
-        ClickClickManager.Instance.RaycastClick(layerBubule);
-        if (ClickClickManager.Instance.isTouch && ClickClickManager.Instance.isTouchTarget && _isTrigger)
+        switch (typeInteraction)
         {
-            if (_timer <= 0)
-            {
-                ClickClickBubule();
-                _timer = duration;
-            }
+            case TypeInteraction.Feu:
+                return "Idle";
+            case TypeInteraction.Chien:
+                return "Caresser";
+            case TypeInteraction.Trefles:
+                return "Trefles";
+            case TypeInteraction.Yoga:
+                return "Stretch";
         }
+        return null;
     }
 }

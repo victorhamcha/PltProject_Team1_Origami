@@ -93,7 +93,7 @@ public class Entity : MonoBehaviour
     private Rigidbody _rigidbody = null;
     public bool moveModeOn = true;
 
-    [SerializeField] private Animator _animator;
+    public Animator _animator;
 
     public Vector2 Position
     {
