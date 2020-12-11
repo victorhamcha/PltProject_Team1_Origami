@@ -97,31 +97,31 @@ public class SwitchModePlayerOrigami : MonoBehaviour
 
             if (_pliageToDo.name == "pliage_bateau")
             {
-                SoundManager.i.PlaySound(SoundManager.Sound.SFX_Origami_Boat_Succed);
+                //SoundManager.i.PlaySound(SoundManager.Sound.SFX_Origami_Boat_Succed);
                 _ob = Instantiate(_celebrationBateau, _posCelebration);
                 GameManager.Instance.pliagesAreFinish[_pliageToDo.name] = true;
             }
             else if (_pliageToDo.name == "pliage_fleur")
             {
-                SoundManager.i.PlaySound(SoundManager.Sound.SFX_Origami_Flower_Succed);
+                //SoundManager.i.PlaySound(SoundManager.Sound.SFX_Origami_Flower_Succed);
                 _ob = Instantiate(_celebrationFleur, _posCelebration);
                 GameManager.Instance.pliagesAreFinish[_pliageToDo.name] = true;
             }
             else if (_pliageToDo.name == "pliage_oiseau")
             {
-                SoundManager.i.PlaySound(SoundManager.Sound.SFX_Origami_Bird_Succed);
+                //SoundManager.i.PlaySound(SoundManager.Sound.SFX_Origami_Bird_Succed);
                 _ob = Instantiate(_celebrationOiseau, _posCelebration);
                 GameManager.Instance.pliagesAreFinish[_pliageToDo.name] = true;
             }
             else if (_pliageToDo.name == "pliage_moulin")
             {
-                SoundManager.i.PlaySound(SoundManager.Sound.SFX_Origami_Bird_Succed);
+                //SoundManager.i.PlaySound(SoundManager.Sound.SFX_Origami_Bird_Succed);
                 _ob = Instantiate(_celebrationMoulin, _posCelebration);
                 GameManager.Instance.pliagesAreFinish[_pliageToDo.name] = true;
             }
             else
             {
-                SoundManager.i.PlaySound(SoundManager.Sound.SFX_Origami_Bone_Succed);
+                //SoundManager.i.PlaySound(SoundManager.Sound.SFX_Origami_Bone_Succed);
                 _ob = Instantiate(_celebration, _posCelebration);
                 GameManager.Instance.pliagesAreFinish[_pliageToDo.name] = true;
             }
