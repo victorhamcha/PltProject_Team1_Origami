@@ -27,11 +27,12 @@ public class SwitchModePlayerOrigami : MonoBehaviour
     private float _speedMax = 0f;
 
     [SerializeField] private Transform _posCelebration = null;
-    [SerializeField] private GameObject _celebration = null;
     [SerializeField] private GameObject _celebrationBateau = null;
     [SerializeField] private GameObject _celebrationOiseau = null;
     [SerializeField] private GameObject _celebrationFleur = null;
     [SerializeField] private GameObject _celebrationMoulin = null;
+    [SerializeField] private GameObject _celebrationMarteau = null;
+    [SerializeField] private GameObject _celebrationOs = null;
     [SerializeField] private GameObject _canvaCelebration = null;
     [SerializeField] private AnimationClip _animationClipFadeOutButton = null;
     private bool _iscelebrate = false;
@@ -115,8 +116,20 @@ public class SwitchModePlayerOrigami : MonoBehaviour
             }
             else if (_pliageToDo.name == "pliage_moulin")
             {
-                SoundManager.i.PlaySound(SoundManager.Sound.SFX_Origami_Bird_Succed);
+                SoundManager.i.PlaySound(SoundManager.Sound.SFX_Origami_Mill_Succed);
                 _ob = Instantiate(_celebrationMoulin, _posCelebration);
+                GameManager.Instance.pliagesAreFinish[_pliageToDo.name] = true;
+            }
+            else if (_pliageToDo.name == "pliage_marteau")
+            {
+                SoundManager.i.PlaySound(SoundManager.Sound.SFX_Origami_Hammer_Succed);
+                _ob = Instantiate(_celebrationMarteau, _posCelebration);
+                GameManager.Instance.pliagesAreFinish[_pliageToDo.name] = true;
+            }
+            else if (_pliageToDo.name == "pliage_os")
+            {
+                SoundManager.i.PlaySound(SoundManager.Sound.SFX_Origami_Bone_Succed);
+                _ob = Instantiate(_celebrationOs, _posCelebration);
                 GameManager.Instance.pliagesAreFinish[_pliageToDo.name] = true;
             }
             else
