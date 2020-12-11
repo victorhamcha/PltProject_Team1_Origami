@@ -207,6 +207,24 @@ public class Entity : MonoBehaviour
                 }
             }
         }
+        else if (pontreparer)
+        {
+            _moveDestination = destination;
+            _moveDestination.y = 0f;
+            _isMovingToDestination = true;
+            _moveDestinationRefreshDirCountdown = -1f;
+
+            if (usePathFinding)
+            {
+                RefreshPath();
+                refreshPathCountDown = refreshPathDuration;
+                if (followPathIndex < path.corners.Length)
+                {
+                    Vector3 moveDir = (path.corners[followPathIndex] - transform.position).normalized;
+                    Move(moveDir.Overwrite(Tools.OverwriteType.Y));
+                }
+            }
+        }
     }
 
     private void _UpdateMove()

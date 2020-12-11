@@ -121,8 +121,8 @@ public class SwitchModePlayerOrigami : MonoBehaviour
             }
             else
             {
-                SoundManager.i.PlaySound(SoundManager.Sound.SFX_Origami_Bone_Succed);
-                _ob = Instantiate(_celebration, _posCelebration);
+                //SoundManager.i.PlaySound(SoundManager.Sound.SFX_Origami_Bone_Succed);
+                _ob = Instantiate(_celebrationFleur, _posCelebration);
                 GameManager.Instance.pliagesAreFinish[_pliageToDo.name] = true;
             }
             _objAnimCelebration = _ob.GetComponent<AnimCelebrations>();
