@@ -42,6 +42,7 @@ public class BenchScript : MonoBehaviour
             //Activer son
             GameManager.Instance.GetEntity().MoveStop();
             _posPlayer.position = _posBench.position;
+            _posPlayer.rotation = _posBench.rotation;
             _cameraCollider.SetActive(true);
             _bubuleCount++;
         }

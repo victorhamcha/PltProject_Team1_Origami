@@ -15,6 +15,7 @@ public class CameraManager : MonoBehaviour
 
     #region Camera Zoom variables
 
+    [SerializeField] private Camera _blurCam = null;
     [HideInInspector] public Camera _cam = null;
     private float _startSize = 0.0f;
     [HideInInspector] public float _originalStartSize = 0.0f;
@@ -118,6 +119,8 @@ public class CameraManager : MonoBehaviour
                 CameraZoomOut();
             }
         }
+
+        _blurCam.orthographicSize = _cam.orthographicSize;
 
         _wasZooming = _zooming;
 

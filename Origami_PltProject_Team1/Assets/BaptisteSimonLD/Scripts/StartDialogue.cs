@@ -12,7 +12,7 @@ public class StartDialogue : MonoBehaviour
     public List<Vector2> endlistIndexDialogue = null;
     public GameObject bubule;
     public LayerMask layerBubule;
-    private string _namePliage = "pliage_";
+    [SerializeField] private string _namePliage = "pliage_";
     private bool _tValue = false;
 
     private void Awake()
