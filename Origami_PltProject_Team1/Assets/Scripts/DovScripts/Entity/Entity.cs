@@ -185,29 +185,50 @@ public class Entity : MonoBehaviour
 
     public void MoveToDestination(Vector3 destination)
     {
-        Vector3 playerToBrokenBridge = behindBridge.position - transform.position;
-        Vector3 destinationToBrokenBridge = behindBridge.position - destination;
-        bool pontreparer = false;
-        GameManager.Instance.pliagesAreFinish.TryGetValue("pliage_marteau", out pontreparer);
-        if (!pontreparer && Vector3.Dot(behindBridge.forward.normalized, destinationToBrokenBridge.normalized) > 0)
+        if (behindBridge != null)
         {
-            _moveDestination = destination;
-            _moveDestination.y = 0f;
-            _isMovingToDestination = true;
-            _moveDestinationRefreshDirCountdown = -1f;
-
-            if (usePathFinding)
+            Vector3 playerToBrokenBridge = behindBridge.position - transform.position;
+            Vector3 destinationToBrokenBridge = behindBridge.position - destination;
+            bool pontreparer = false;
+            GameManager.Instance.pliagesAreFinish.TryGetValue("pliage_marteau", out pontreparer);
+            if (!pontreparer && Vector3.Dot(behindBridge.forward.normalized, destinationToBrokenBridge.normalized) > 0)
             {
-                RefreshPath();
-                refreshPathCountDown = refreshPathDuration;
-                if (followPathIndex < path.corners.Length)
+                _moveDestination = destination;
+                _moveDestination.y = 0f;
+                _isMovingToDestination = true;
+                _moveDestinationRefreshDirCountdown = -1f;
+
+                if (usePathFinding)
                 {
-                    Vector3 moveDir = (path.corners[followPathIndex] - transform.position).normalized;
-                    Move(moveDir.Overwrite(Tools.OverwriteType.Y));
+                    RefreshPath();
+                    refreshPathCountDown = refreshPathDuration;
+                    if (followPathIndex < path.corners.Length)
+                    {
+                        Vector3 moveDir = (path.corners[followPathIndex] - transform.position).normalized;
+                        Move(moveDir.Overwrite(Tools.OverwriteType.Y));
+                    }
+                }
+            }
+            else if (pontreparer)
+            {
+                _moveDestination = destination;
+                _moveDestination.y = 0f;
+                _isMovingToDestination = true;
+                _moveDestinationRefreshDirCountdown = -1f;
+
+                if (usePathFinding)
+                {
+                    RefreshPath();
+                    refreshPathCountDown = refreshPathDuration;
+                    if (followPathIndex < path.corners.Length)
+                    {
+                        Vector3 moveDir = (path.corners[followPathIndex] - transform.position).normalized;
+                        Move(moveDir.Overwrite(Tools.OverwriteType.Y));
+                    }
                 }
             }
         }
-        else if (pontreparer)
+        else
         {
             _moveDestination = destination;
             _moveDestination.y = 0f;
