@@ -17,7 +17,7 @@ public class AnimCelebrations : MonoBehaviour
         _animator.speed = 1;
         _animator.Play(_animFadeOut.name);
 
-        //_videoPlayer.targetTexture.Release();
+        _videoPlayer.targetTexture.Release();
         _videoPlayer.Play();
    }
 
