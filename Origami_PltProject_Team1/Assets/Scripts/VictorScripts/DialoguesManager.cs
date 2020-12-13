@@ -59,19 +59,19 @@ public class DialoguesManager : MonoBehaviour
         if (inDialogue)
         {
             timerSwitchDialogue -= Time.deltaTime;
-            if (Input.GetKeyDown(KeyCode.H) && timerSwitchDialogue <= 0)
-            {
-                timerSwitchDialogue = 0.5f;
-                if (inTyping)
-                {
-                    NextDialogue();
-                }
-                else
-                {
-                    StartDialogue(0, 7);
-                }
+            //if (Input.GetKeyDown(KeyCode.H) && timerSwitchDialogue <= 0)
+            //{
+            //    timerSwitchDialogue = 0.5f;
+            //    if (inTyping)
+            //    {
+            //        NextDialogue();
+            //    }
+            //    else
+            //    {
+            //        StartDialogue(0, 7);
+            //    }
 
-            }
+            //}
             if (Input.GetMouseButtonDown(0))
             {
                 if (inTyping)
@@ -187,7 +187,7 @@ public class DialoguesManager : MonoBehaviour
                     /*                    Debug.Log("exiting");
                                         Debug.Log(tag);*/
                     //fonctions du parser ICI
-                    //StartFunction(tag);
+                    StartFunction(tag);
                     tag = "";
                 }
                 else
@@ -232,7 +232,7 @@ public class DialoguesManager : MonoBehaviour
                     //Debug.Log("exiting");
                     //Debug.Log(tag);
                     //fonctions du parser ICI
-                    //StartFunction(tag);
+                    StartFunction(tag);
                     tag = "";
                 }
                 else
