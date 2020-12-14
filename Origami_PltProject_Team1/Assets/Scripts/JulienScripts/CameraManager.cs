@@ -27,6 +27,7 @@ public class CameraManager : MonoBehaviour
     [SerializeField] [Range(1, 50)] private float _endSize = 5.0f;
     [Range(0.1f, 30.0f)] public float speedZoom = 0.0f;
     [Range(0.1f, 30.0f)] public float speedDezoom = 0.0f;
+    public float sizeNearPLane = 0f;
 
     public bool _zooming = false;
     private bool _wasZooming = false;
@@ -411,6 +412,7 @@ public class CameraManager : MonoBehaviour
     {
         _endSize = _originalEndSize;
         _startSize = _originalStartSize;
+        _cam.nearClipPlane = sizeNearPLane;
 
         if (_cam.orthographicSize > _endSize)
         {
@@ -423,6 +425,7 @@ public class CameraManager : MonoBehaviour
     {
         _endSize = _originalStartSize;
         _startSize = _originalEndSize;
+        _cam.nearClipPlane = 0;
         if (_cam.orthographicSize < _endSize)
         {
             _lastSpeed = _zoomCurve.Evaluate(Mathf.InverseLerp(_startSize, _endSize, _cam.orthographicSize + speedDezoom * Time.deltaTime));

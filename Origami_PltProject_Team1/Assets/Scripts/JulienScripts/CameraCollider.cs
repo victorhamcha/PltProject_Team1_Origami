@@ -19,7 +19,9 @@ public class CameraCollider : MonoBehaviour
     private float _speedRotationDownTemp = 0.0f;
     private bool _startRotatingUpTemp = false;
     private bool _StartRotatingLeftTemp = false;
+    private float _nearClipPlaneTemp = 0f;
 
+    [SerializeField] private float _nearClipPlane = 0.0f;
     [SerializeField] private float _originalEndSize = 0.0f;
     [SerializeField] private float _originalStartSize = 0.0f;
     [SerializeField] private float _speedZoom = 0.0f;
@@ -67,6 +69,7 @@ public class CameraCollider : MonoBehaviour
         _speedRotationBackwardTemp = _cameraManager._speedRotationDown;
         _startRotatingUpTemp = _cameraManager._rotationUp;
         _StartRotatingLeftTemp = _cameraManager._rotationLeft;
+        _nearClipPlaneTemp = _cameraManager.sizeNearPLane;
     }
 
     private void Update()
@@ -108,6 +111,7 @@ public class CameraCollider : MonoBehaviour
                 _cameraManager.speedZoom = _speedZoom;
                 _cameraManager.speedDezoom = _speedDezoom;
                 _cameraManager._zooming = true;
+                _cameraManager.sizeNearPLane = _nearClipPlane;
             }
             else if (!zooming && !onlyRotation)
             {
@@ -166,6 +170,8 @@ public class CameraCollider : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         hasExited = true;
+
+        _cameraManager.sizeNearPLane = _nearClipPlaneTemp;
         if (zooming && !onlyRotation)
         {
             _cameraManager._zooming = false;
