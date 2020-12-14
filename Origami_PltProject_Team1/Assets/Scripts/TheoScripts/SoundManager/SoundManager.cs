@@ -42,7 +42,7 @@ public class SoundManager : MonoBehaviour
         SFX_Origami_Flower_Succed,
         SFX_Origami_Bird_Succed,
         SFX_Origami_Bone_Succed,
-        SFX_Origami_Hammer_Succed,
+        SFX_Origami_StoneBridge_Succed,
         SFX_Origami_Mill_Succed,
 
     }

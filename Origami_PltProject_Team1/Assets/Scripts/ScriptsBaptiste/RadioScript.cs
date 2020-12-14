@@ -38,15 +38,13 @@ public class RadioScript : MonoBehaviour
         Debug.Log("Active");
         if (_bubuleCount == 0)
         {
-            //Activer son
             SoundManager.i.PlayMusic(SoundManager.Loop.MusicRadio);
             MusicParticles.gameObject.SetActive(true);
             _bubuleCount++;
         }
         else if (_bubuleCount == 1)
         {
-            //Désactiver son
-            SoundManager.i.StopMusic();
+            SoundManager.i.PlayMusicWithFade(SoundManager.Loop.MusicVillage, 1f);
             MusicParticles.gameObject.SetActive(false);
             _bubuleCount = 0;
         }
