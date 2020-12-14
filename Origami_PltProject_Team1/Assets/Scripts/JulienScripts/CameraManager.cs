@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -22,7 +23,7 @@ public class CameraManager : MonoBehaviour
     [HideInInspector] public float _originalEndSize = 0.0f;
 
     [Header("Camera Zoom")]
-    [SerializeField] private AnimationCurve _zoomCurve = null;
+    private AnimationCurve _zoomCurve = AnimationCurve.Linear(0, 0, 1, 1);
     [SerializeField] [Range(1, 50)] private float _endSize = 5.0f;
     [Range(0.1f, 30.0f)] public float speedZoom = 0.0f;
     [Range(0.1f, 30.0f)] public float speedDezoom = 0.0f;
@@ -42,23 +43,38 @@ public class CameraManager : MonoBehaviour
     #region Camera Rotation variables
 
     [Header("Camera rotation")]
-    public Transform _endPosRotation = null;
+    public Transform _pivotPosRotation = null;
     [SerializeField] private AnimationCurve _curveSpeedRotation = AnimationCurve.Linear(0, 0, 1, 1);
     [SerializeField] private float _durationCurveSpeedRotation = 1f;
     [SerializeField] private AnimationCurve _brakeCurveSpeedRotation = AnimationCurve.Linear(0, 1, 1, 0);
     [SerializeField] private float _durationBrakeCurveSpeedRotation = 1f;
-    public float _finalAngle = 0f;
+    public float _finalAngleX = 0f;
+    public float _finalAngleY = 0f;
     public float _speedRotationBackward = 2f;
     public float _speedRotationForward = 2f;
-    [HideInInspector] public bool _rotatingForward = false;
-    [HideInInspector] public bool _rotatingBackward = false;
-    private bool _waitNewRotation = true;
-    [HideInInspector] public bool _rotationEnded = true;
+    public float _speedRotationUp = 2f;
+    public float _speedRotationDown = 2f;
+    public bool _rotatingForward = false;
+    public bool _rotatingBackward = false;
+    public bool _rotatingUp = false;
+    public bool _rotatingDown = false;
+    private bool _waitNewRotationX = true;
+    private bool _waitNewRotationY = true;
+    [HideInInspector] public bool _rotationEndedX = true;
+    [HideInInspector] public bool _rotationEndedY = true;
     private bool _canRotatingForward = true;
     private bool _canRotatingBackward = false;
-    private float _currentRotation = 0f;
-    private float _internTimerCurveBrakeSpeedRotation = 0f;
-    private float _internTimerCurveSpeedRotation = 0f;
+    private bool _canRotatingUp = true;
+    private bool _canRotatingDown = false;
+    private float _currentRotationX = 0f;
+    private float _currentRotationY = 0f;
+    private float _internTimerCurveBrakeSpeedRotationX = 0f;
+    private float _internTimerCurveBrakeSpeedRotationY = 0f;
+    private float _internTimerCurveSpeedRotationX = 0f;
+    private float _internTimerCurveSpeedRotationY = 0f;
+
+    public bool _rotationLeft = false;
+    public bool _rotationUp = true;
 
     #endregion
 
@@ -127,78 +143,157 @@ public class CameraManager : MonoBehaviour
         #endregion
 
         #region Rotation code
-        if (_rotatingForward && _finalAngle > _currentRotation && _canRotatingForward)
+        if (_rotationLeft)
         {
-            RotateForward();
-        }
-        else if (_rotatingBackward && _currentRotation > 0 && _canRotatingBackward)
-        {
-            RotateBackward();
-        }
+            if (_rotatingForward && _finalAngleX > _currentRotationX && _canRotatingForward)
+            {
+                RotateForward();
+            }
+            else if (_rotatingBackward && _currentRotationX > 0 && _canRotatingBackward)
+            {
+                RotateBackward();
+            }
 
-        if (_rotatingBackward && _currentRotation <= 0)
-        {
-            _rotationEnded = true;
-            _canRotatingForward = true;
-            _canRotatingBackward = false;
-            _rotatingForward = false;
-            _rotatingBackward = false;
-            _currentRotation = 0;
-        }
-        else if (_rotatingForward && _currentRotation >= _finalAngle)
-        {
-            _canRotatingForward = false;
-            _canRotatingBackward = true;
-            _rotatingForward = false;
-            _rotatingBackward = false;
-            _currentRotation = _finalAngle;
+            if (_rotatingBackward && _currentRotationX <= 0)
+            {
+                _rotationEndedX = true;
+                _canRotatingForward = true;
+                _canRotatingBackward = false;
+                _rotatingForward = false;
+                _rotatingBackward = false;
+                _currentRotationX = 0;
+            }
+            else if (_rotatingForward && _currentRotationX >= _finalAngleX)
+            {
+                _canRotatingForward = false;
+                _canRotatingBackward = true;
+                _rotatingForward = false;
+                _rotatingBackward = false;
+                _currentRotationX = _finalAngleX;
+            }
+            else
+            {
+                FreinLeft();
+            }
         }
         else
         {
-            if ((_canRotatingForward && !_rotatingForward && _rotatingBackward) || (_canRotatingBackward && _rotatingForward && !_rotatingBackward) || !_rotatingForward && !_rotatingBackward )
+            if (_rotatingForward && -_finalAngleX < _currentRotationX && _canRotatingForward)
             {
-                _internTimerCurveBrakeSpeedRotation += Time.deltaTime;
-                _internTimerCurveSpeedRotation = 0f;
-                if (_internTimerCurveBrakeSpeedRotation >= _durationBrakeCurveSpeedRotation && !_waitNewRotation)
-                {
-                    _internTimerCurveBrakeSpeedRotation = 0f;
-                    if ((_canRotatingForward && !_rotatingForward && _rotatingBackward))
-                    {
-                        _canRotatingForward = false;
-                        _canRotatingBackward = true;
-                    }
-                    else if (_canRotatingBackward && _rotatingForward && !_rotatingBackward)
-                    {
-                        _canRotatingForward = true;
-                        _canRotatingBackward = false;
-                    }
-                }
-                else
-                {
-                    float curveEvaluate = _brakeCurveSpeedRotation.Evaluate(_internTimerCurveBrakeSpeedRotation / _durationBrakeCurveSpeedRotation);
-                    if (_canRotatingForward && _currentRotation < _finalAngle && _currentRotation > 0)
-                    {
-                        _currentRotation += _speedRotationForward * Time.deltaTime * curveEvaluate;
-                        _cam.transform.RotateAround(_endPosRotation.position, Vector3.up, (_speedRotationForward * Time.deltaTime) * curveEvaluate);
-                    }
-                    else if (_canRotatingBackward && _currentRotation > 0 && _currentRotation < _finalAngle)
-                    {
-                        _currentRotation -= _speedRotationBackward * Time.deltaTime * curveEvaluate;
-                        _cam.transform.RotateAround(_endPosRotation.position, Vector3.up, -(_speedRotationBackward * Time.deltaTime) * curveEvaluate);
-                    }
-                }
+                RotateBackward();
+            }
+            else if (_rotatingBackward && _currentRotationX < 0 && _canRotatingBackward)
+            {
+                RotateForward();
             }
 
+            if (_rotatingBackward && _currentRotationX >= 0)
+            {
+                _rotationEndedX = true;
+                _canRotatingForward = true;
+                _canRotatingBackward = false;
+                _rotatingForward = false;
+                _rotatingBackward = false;
+                _currentRotationX = 0;
+            }
+            else if (_rotatingForward && _currentRotationX <= -_finalAngleX)
+            {
+                _canRotatingForward = false;
+                _canRotatingBackward = true;
+                _rotatingForward = false;
+                _rotatingBackward = false;
+                _currentRotationX = -_finalAngleX;
+            }
+            else
+            {
+                FreinRight();
+            }
+        }
 
+
+        if (_rotationUp)
+        {
+            if (_rotatingUp && _finalAngleY > _currentRotationY && _canRotatingUp)
+            {
+                RotateUp();
+            }
+            else if (_rotatingDown && _currentRotationY > 0 && _canRotatingDown)
+            {
+                RotateDown();
+            }
+
+            if (_rotatingDown && _currentRotationY <= 0)
+            {
+                _rotationEndedY = true;
+                _canRotatingUp = true;
+                _canRotatingDown = false;
+                _rotatingUp = false;
+                _rotatingDown = false;
+                _currentRotationY = 0;
+            }
+            else if (_rotatingUp && _currentRotationY >= _finalAngleY)
+            {
+                _canRotatingUp = false;
+                _canRotatingDown = true;
+                _rotatingUp = false;
+                _rotatingDown = false;
+                _currentRotationY = _finalAngleY;
+            }
+            else
+            {
+                FreinUp();
+            }
+        }
+        else
+        {
+            if (_rotatingUp && -_finalAngleY < _currentRotationY && _canRotatingUp)
+            {
+                RotateDown();
+            }
+            else if (_rotatingDown && _currentRotationY < 0 && _canRotatingDown)
+            {
+                RotateUp();
+            }
+
+            if (_rotatingDown && _currentRotationY >= 0)
+            {
+                _rotationEndedY = true;
+                _canRotatingUp = true;
+                _canRotatingDown = false;
+                _rotatingUp = false;
+                _rotatingDown = false;
+                _currentRotationY = 0;
+            }
+            else if (_rotatingUp && _currentRotationY <= -_finalAngleY)
+            {
+                _canRotatingUp = false;
+                _canRotatingDown = true;
+                _rotatingUp = false;
+                _rotatingDown = false;
+                _currentRotationY = -_finalAngleY;
+            }
+            else
+            {
+                FreinDown();
+            }
         }
 
         if (_rotatingBackward || _rotatingForward)
         {
-            _waitNewRotation = false;
+            _waitNewRotationX = false;
         }
         else
         {
-            _waitNewRotation = true;
+            _waitNewRotationX = true;
+        }
+        
+        if (_rotatingDown || _rotatingUp)
+        {
+            _waitNewRotationY = false;
+        }
+        else
+        {
+            _waitNewRotationY = true;
         }
 
         #endregion
@@ -214,32 +309,95 @@ public class CameraManager : MonoBehaviour
 
     public void RotateForward()
     {
-        _canRotatingForward = true;
-        _rotatingBackward = false;
-        _rotationEnded = false;
-        if (_internTimerCurveSpeedRotation < _durationCurveSpeedRotation)
+        if (_rotationLeft)
         {
-            _internTimerCurveSpeedRotation += Time.deltaTime;
+            _canRotatingForward = true;
+            _rotatingBackward = false;
+            _rotationEndedX = false;
         }
-        _currentRotation += _speedRotationForward * Time.deltaTime * _curveSpeedRotation.Evaluate(_internTimerCurveSpeedRotation / _durationCurveSpeedRotation);
-        _cam.transform.RotateAround(_endPosRotation.position, Vector3.up, (_speedRotationForward * Time.deltaTime) * _curveSpeedRotation.Evaluate(_internTimerCurveSpeedRotation / _durationCurveSpeedRotation));
+        else
+        {
+            _canRotatingBackward = true;
+            _rotatingForward = false;
+        }
+        
+        if (_internTimerCurveSpeedRotationX < _durationCurveSpeedRotation)
+        {
+            _internTimerCurveSpeedRotationX += Time.deltaTime;
+        }
+        _currentRotationX += _speedRotationForward * Time.deltaTime * _curveSpeedRotation.Evaluate(_internTimerCurveSpeedRotationX / _durationCurveSpeedRotation);
+        _cam.transform.RotateAround(_pivotPosRotation.position, Vector3.up, (_speedRotationForward * Time.deltaTime) * _curveSpeedRotation.Evaluate(_internTimerCurveSpeedRotationX / _durationCurveSpeedRotation));
+    }
+
+    public void RotateUp()
+    {
+        if (_rotationUp)
+        {
+            _canRotatingUp = true;
+            _rotatingDown = false;
+            _rotationEndedY = false;
+        }
+        else
+        {
+            _canRotatingDown = true;
+            _rotatingUp = false;
+        }
+        if (_internTimerCurveSpeedRotationY < _durationCurveSpeedRotation)
+        {
+            _internTimerCurveSpeedRotationY += Time.deltaTime;
+        }
+
+        _currentRotationY += _speedRotationUp * Time.deltaTime * _curveSpeedRotation.Evaluate(_internTimerCurveSpeedRotationY / _durationCurveSpeedRotation);
+        _cam.transform.RotateAround(_pivotPosRotation.position, Vector3.back, (_speedRotationUp * Time.deltaTime) * _curveSpeedRotation.Evaluate(_internTimerCurveSpeedRotationY / _durationCurveSpeedRotation));
     }
 
     public void RotateBackward()
     {
-        _canRotatingBackward = true;
-        _rotatingForward = false;
-        if (_internTimerCurveSpeedRotation < _durationCurveSpeedRotation)
+        if (_rotationLeft)
         {
-            _internTimerCurveSpeedRotation += Time.deltaTime;
+            _canRotatingBackward = true;
+            _rotatingForward = false;
         }
-        _currentRotation -= _speedRotationBackward * Time.deltaTime * _curveSpeedRotation.Evaluate(_internTimerCurveSpeedRotation / _durationCurveSpeedRotation);
-        _cam.transform.RotateAround(_endPosRotation.position, Vector3.up, -(_speedRotationBackward * Time.deltaTime) * _curveSpeedRotation.Evaluate(_internTimerCurveSpeedRotation / _durationCurveSpeedRotation));
+        else
+        {
+            _canRotatingForward = true;
+            _rotatingBackward = false;
+            _rotationEndedX = false;
+        }
+        if (_internTimerCurveSpeedRotationX < _durationCurveSpeedRotation)
+        {
+            _internTimerCurveSpeedRotationX += Time.deltaTime;
+        }
+        _currentRotationX -= _speedRotationBackward * Time.deltaTime * _curveSpeedRotation.Evaluate(_internTimerCurveSpeedRotationX / _durationCurveSpeedRotation);
+        _cam.transform.RotateAround(_pivotPosRotation.position, Vector3.up, -(_speedRotationBackward * Time.deltaTime) * _curveSpeedRotation.Evaluate(_internTimerCurveSpeedRotationX / _durationCurveSpeedRotation));
+    }
+
+    public void RotateDown()
+    {
+
+        if (_rotationUp)
+        {
+            _canRotatingDown = true;
+            _rotatingUp = false;
+        }
+        else
+        {
+            _canRotatingUp = true;
+            _rotatingDown = false;
+            _rotationEndedY = false;
+        }
+        
+        if (_internTimerCurveSpeedRotationY < _durationCurveSpeedRotation)
+        {
+            _internTimerCurveSpeedRotationY += Time.deltaTime;
+        }
+        _currentRotationY -= _speedRotationDown * Time.deltaTime * _curveSpeedRotation.Evaluate(_internTimerCurveSpeedRotationY / _durationCurveSpeedRotation);
+        _cam.transform.RotateAround(_pivotPosRotation.position, Vector3.back, -(_speedRotationDown * Time.deltaTime) * _curveSpeedRotation.Evaluate(_internTimerCurveSpeedRotationY / _durationCurveSpeedRotation));
     }
 
     public void CameraFollow()
     {
-        if (_rotationEnded)
+        if (_rotationEndedX && _rotationEndedY)
         {
             Vector3 desiredPosition = target.position + offset;
             _smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
@@ -253,11 +411,10 @@ public class CameraManager : MonoBehaviour
     {
         _endSize = _originalEndSize;
         _startSize = _originalStartSize;
-        
+
         if (_cam.orthographicSize > _endSize)
         {
             _lastSpeed = _zoomCurve.Evaluate(Mathf.InverseLerp(_startSize, _endSize, _cam.orthographicSize - speedZoom * Time.deltaTime));
-            //Debug.Log(_lastSpeed);
             _cam.orthographicSize = Mathf.Lerp(_startSize, _endSize, _lastSpeed);
         }
     }
@@ -273,4 +430,153 @@ public class CameraManager : MonoBehaviour
         }
 
     }
+
+    private void FreinLeft()
+    {
+        if ((_canRotatingForward && !_rotatingForward && _rotatingBackward) || (_canRotatingBackward && _rotatingForward && !_rotatingBackward) || !_rotatingForward && !_rotatingBackward)
+        {
+            _internTimerCurveBrakeSpeedRotationX += Time.deltaTime;
+            _internTimerCurveSpeedRotationX = 0f;
+            if (_internTimerCurveBrakeSpeedRotationX >= _durationBrakeCurveSpeedRotation && !_waitNewRotationX)
+            {
+                _internTimerCurveBrakeSpeedRotationX = 0f;
+                if ((_canRotatingForward && !_rotatingForward && _rotatingBackward))
+                {
+                    _canRotatingForward = false;
+                    _canRotatingBackward = true;
+                }
+                else if (_canRotatingBackward && _rotatingForward && !_rotatingBackward)
+                {
+                    _canRotatingForward = true;
+                    _canRotatingBackward = false;
+                }
+            }
+            else
+            {
+                float curveEvaluate = _brakeCurveSpeedRotation.Evaluate(_internTimerCurveBrakeSpeedRotationX / _durationBrakeCurveSpeedRotation);
+                if (_canRotatingForward && _currentRotationX < _finalAngleX && _currentRotationX > 0)
+                {
+                    _currentRotationX += _speedRotationForward * Time.deltaTime * curveEvaluate;
+                    _cam.transform.RotateAround(_pivotPosRotation.position, Vector3.up, (_speedRotationForward * Time.deltaTime) * curveEvaluate);
+                }
+                else if (_canRotatingBackward && _currentRotationX > 0 && _currentRotationX < _finalAngleX)
+                {
+                    _currentRotationX -= _speedRotationBackward * Time.deltaTime * curveEvaluate;
+                    _cam.transform.RotateAround(_pivotPosRotation.position, Vector3.up, -(_speedRotationBackward * Time.deltaTime) * curveEvaluate);
+                }
+            }
+        }
+    }
+
+    private void FreinRight()
+    {
+        if ((_canRotatingForward && !_rotatingForward && _rotatingBackward) || (_canRotatingBackward && _rotatingForward && !_rotatingBackward) || !_rotatingForward && !_rotatingBackward)
+        {
+            _internTimerCurveBrakeSpeedRotationX += Time.deltaTime;
+            _internTimerCurveSpeedRotationX = 0f;
+            if (_internTimerCurveBrakeSpeedRotationX >= _durationBrakeCurveSpeedRotation && !_waitNewRotationX)
+            {
+                _internTimerCurveBrakeSpeedRotationX = 0f;
+                if ((_canRotatingForward && !_rotatingForward && _rotatingBackward))
+                {
+                    _canRotatingForward = false;
+                    _canRotatingBackward = true;
+                }
+                else if (_canRotatingBackward && _rotatingForward && !_rotatingBackward)
+                {
+                    _canRotatingForward = true;
+                    _canRotatingBackward = false;
+                }
+            }
+            else
+            {
+                float curveEvaluate = _brakeCurveSpeedRotation.Evaluate(_internTimerCurveBrakeSpeedRotationX / _durationBrakeCurveSpeedRotation);
+                if (_canRotatingForward && _currentRotationX > -_finalAngleX && _currentRotationX < 0)
+                {
+                    _currentRotationX -= _speedRotationForward * Time.deltaTime * curveEvaluate;
+                    _cam.transform.RotateAround(_pivotPosRotation.position, Vector3.up, -(_speedRotationForward * Time.deltaTime) * curveEvaluate);
+                }
+                else if (_canRotatingBackward && _currentRotationX < 0 && _currentRotationX > -_finalAngleX)
+                {
+                    _currentRotationX += _speedRotationBackward * Time.deltaTime * curveEvaluate;
+                    _cam.transform.RotateAround(_pivotPosRotation.position, Vector3.up, (_speedRotationBackward * Time.deltaTime) * curveEvaluate);
+                }
+            }
+        }
+    }
+
+    private void FreinUp()
+    {
+        if ((_canRotatingUp && !_rotatingUp && _rotatingDown) || (_canRotatingDown && _rotatingUp && !_rotatingDown) || !_rotatingUp && !_rotatingDown)
+        {
+            _internTimerCurveBrakeSpeedRotationY += Time.deltaTime;
+            _internTimerCurveSpeedRotationY = 0f;
+            if (_internTimerCurveBrakeSpeedRotationY >= _durationBrakeCurveSpeedRotation && !_waitNewRotationY)
+            {
+                _internTimerCurveBrakeSpeedRotationY = 0f;
+                if ((_canRotatingUp && !_rotatingUp && _rotatingDown))
+                {
+                    _canRotatingUp = false;
+                    _canRotatingDown = true;
+                }
+                else if (_canRotatingDown && _rotatingUp && !_rotatingDown)
+                {
+                    _canRotatingUp = true;
+                    _canRotatingDown = false;
+                }
+            }
+            else
+            {
+                float curveEvaluate = _brakeCurveSpeedRotation.Evaluate(_internTimerCurveBrakeSpeedRotationY / _durationBrakeCurveSpeedRotation);
+                if (_canRotatingUp && _currentRotationY < _finalAngleY && _currentRotationY > 0)
+                {
+                    _currentRotationY += _speedRotationUp * Time.deltaTime * curveEvaluate;
+                    _cam.transform.RotateAround(_pivotPosRotation.position, Vector3.back, (_speedRotationUp * Time.deltaTime) * curveEvaluate);
+                }
+                else if (_canRotatingDown && _currentRotationY > 0 && _currentRotationY < _finalAngleY)
+                {
+                    _currentRotationY -= _speedRotationDown * Time.deltaTime * curveEvaluate;
+                    _cam.transform.RotateAround(_pivotPosRotation.position, Vector3.back, -(_speedRotationDown * Time.deltaTime) * curveEvaluate);
+                }
+            }
+        }
+    }
+
+    private void FreinDown()
+    {
+        if ((_canRotatingUp && !_rotatingUp && _rotatingDown) || (_canRotatingDown && _rotatingUp && !_rotatingDown) || !_rotatingUp && !_rotatingDown)
+        {
+            _internTimerCurveBrakeSpeedRotationY += Time.deltaTime;
+            _internTimerCurveSpeedRotationY = 0f;
+            if (_internTimerCurveBrakeSpeedRotationY >= _durationBrakeCurveSpeedRotation && !_waitNewRotationY)
+            {
+                _internTimerCurveBrakeSpeedRotationY = 0f;
+                if ((_canRotatingUp && !_rotatingUp && _rotatingDown))
+                {
+                    _canRotatingUp = false;
+                    _canRotatingDown = true;
+                }
+                else if (_canRotatingDown && _rotatingUp && !_rotatingDown)
+                {
+                    _canRotatingUp = true;
+                    _canRotatingDown = false;
+                }
+            }
+            else
+            {
+                float curveEvaluate = _brakeCurveSpeedRotation.Evaluate(_internTimerCurveBrakeSpeedRotationY / _durationBrakeCurveSpeedRotation);
+                if (_canRotatingUp && _currentRotationY > -_finalAngleY && _currentRotationY < 0)
+                {
+                    _currentRotationY -= _speedRotationUp * Time.deltaTime * curveEvaluate;
+                    _cam.transform.RotateAround(_pivotPosRotation.position, Vector3.back, -(_speedRotationUp * Time.deltaTime) * curveEvaluate);
+                }
+                else if (_canRotatingDown && _currentRotationY < 0 && _currentRotationY > -_finalAngleY)
+                {
+                    _currentRotationY += _speedRotationDown * Time.deltaTime * curveEvaluate;
+                    _cam.transform.RotateAround(_pivotPosRotation.position, Vector3.back, (_speedRotationDown * Time.deltaTime) * curveEvaluate);
+                }
+            }
+        }
+    }
+
 }

@@ -61,6 +61,7 @@ public class BenchScript : MonoBehaviour
         if (_bubuleCount == 1)
         {
             _timer = 0.01f;
+            _bubuleCount = 0;
             //Désactiver son
         }
     }
