@@ -99,24 +99,6 @@ MonoBehaviour:
   matFacteurTimbre: {fileID: 2100000, guid: 7a7d18ca4b5ff5b4aa3b247af705cc21, type: 2}
   matPecheur: {fileID: 2100000, guid: 17417efd212039141b368b9aec46cdc4, type: 2}
   matPecheurTimbre: {fileID: 2100000, guid: 1b5caa7fdd934de4390dbf0a779cae40, type: 2}
---- !u!114 &2490715374889696563
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3517303764904228564}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 283f66a34688e2c468fb770972cd64ee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  matVide: {fileID: 2100000, guid: ec02fbbaba5f551438af180892a259f1, type: 2}
-  matVideTimbre: {fileID: 2100000, guid: 795e4839a300a364b943fe222997b007, type: 2}
-  matFacteur: {fileID: 2100000, guid: 0c4f1b8a173a5804fb69b8e3418dfd5a, type: 2}
-  matFacteurTimbre: {fileID: 2100000, guid: 7a7d18ca4b5ff5b4aa3b247af705cc21, type: 2}
-  matPecheur: {fileID: 2100000, guid: 17417efd212039141b368b9aec46cdc4, type: 2}
-  matPecheurTimbre: {fileID: 2100000, guid: 1b5caa7fdd934de4390dbf0a779cae40, type: 2}
 --- !u!1 &4146273090846416107
 GameObject:
   m_ObjectHideFlags: 0
@@ -313,7 +295,6 @@ GameObject:
   - component: {fileID: 1105344191}
   - component: {fileID: 618413904}
   - component: {fileID: 115487338}
-  - component: {fileID: 2875458514757453344}
   m_Layer: 0
   m_Name: Player entity
   m_TagString: Player
@@ -559,23 +540,6 @@ BoxCollider:
   m_Size: {x: 4.754158, y: 2.482689, z: 1}
   m_Center: {x: 0.051833153, y: 2.672079, z: 0}
 --- !u!114 &115487338
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7384846687720814212}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33f41be402ea43e4baca606d8f0bdd2d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  listPliage:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  switchModePlayerOrigami: {fileID: 1105344191}
---- !u!114 &2875458514757453344
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
