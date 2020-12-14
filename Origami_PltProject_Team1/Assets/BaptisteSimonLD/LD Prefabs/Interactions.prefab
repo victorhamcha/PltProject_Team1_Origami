@@ -531,6 +531,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8114728281156760313, guid: dc4c6f66c11d9a944a231140180c3ea2,
+        type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4079861759922803777, guid: dc4c6f66c11d9a944a231140180c3ea2, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: dc4c6f66c11d9a944a231140180c3ea2, type: 3}
@@ -793,6 +798,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: RadioInteraction
       objectReference: {fileID: 0}
+    - target: {fileID: 5083584635748321680, guid: 00ad62e153e741c40bf3cafb78aa06cd,
+        type: 3}
+      propertyPath: layerBubule.m_Bits
+      value: 8192
+      objectReference: {fileID: 0}
     - target: {fileID: 5279714226148369719, guid: 00ad62e153e741c40bf3cafb78aa06cd,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -808,13 +818,19 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6748460573866361412, guid: 00ad62e153e741c40bf3cafb78aa06cd,
+        type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
     - target: {fileID: 8307569455827358036, guid: 00ad62e153e741c40bf3cafb78aa06cd,
         type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: a9eb046fd08d93f45bb52ef4d87d07c5,
         type: 3}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3985912984830178654, guid: 00ad62e153e741c40bf3cafb78aa06cd, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 00ad62e153e741c40bf3cafb78aa06cd, type: 3}
 --- !u!4 &2910760355834309269 stripped
 Transform:
@@ -1239,6 +1255,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8114728281156760313, guid: dc4c6f66c11d9a944a231140180c3ea2,
+        type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4079861759922803777, guid: dc4c6f66c11d9a944a231140180c3ea2, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: dc4c6f66c11d9a944a231140180c3ea2, type: 3}
@@ -1475,6 +1496,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7998631325138676595, guid: 1698218ff972d2847bfecebe7d7c3994,
+        type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 8284043562410593025, guid: 1698218ff972d2847bfecebe7d7c3994,
+        type: 3}
+      propertyPath: layerBubule.m_Bits
+      value: 8192
       objectReference: {fileID: 0}
     - target: {fileID: 8853186772403177671, guid: 1698218ff972d2847bfecebe7d7c3994,
         type: 3}
@@ -1860,6 +1891,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8114728281156760313, guid: dc4c6f66c11d9a944a231140180c3ea2,
+        type: 3}
+      propertyPath: m_Layer
+      value: 13
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4079861759922803777, guid: dc4c6f66c11d9a944a231140180c3ea2, type: 3}
@@ -2548,6 +2584,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8114728281156760313, guid: dc4c6f66c11d9a944a231140180c3ea2,
+        type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dc4c6f66c11d9a944a231140180c3ea2, type: 3}
 --- !u!4 &4871813016924485521 stripped
@@ -2793,6 +2834,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7998631325138676595, guid: 1698218ff972d2847bfecebe7d7c3994,
+        type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 8284043562410593025, guid: 1698218ff972d2847bfecebe7d7c3994,
+        type: 3}
+      propertyPath: layerBubule.m_Bits
+      value: 8192
       objectReference: {fileID: 0}
     - target: {fileID: 8853186772403177671, guid: 1698218ff972d2847bfecebe7d7c3994,
         type: 3}
