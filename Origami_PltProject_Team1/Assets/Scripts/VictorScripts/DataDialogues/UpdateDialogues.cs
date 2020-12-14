@@ -96,7 +96,7 @@ public class UpdateDialogues : ScriptableObject
                 change.chrName = dialogue.name;
                 change.sentence = dialogue.sentence;
 #if UNITY_EDITOR
-                change.chr = (Sprite)AssetDatabase.LoadAssetAtPath("Assets/AssetsGraphiques/Cards_Game/" + dialogue.eventName + ".png", typeof(Sprite));
+                change.chr = (Sprite)AssetDatabase.LoadAssetAtPath("Assets/GraphicAssets/VictorAssets/Faces/" + dialogue.nameImg + ".png", typeof(Sprite));
 #endif
 
 

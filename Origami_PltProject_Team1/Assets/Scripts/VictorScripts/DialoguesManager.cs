@@ -100,6 +100,7 @@ public class DialoguesManager : MonoBehaviour
             dialogueGui.SetActive(true);
             //dialogueGui.GetComponent<Image>().color = dialogues[nextDialogue].chrColor;
             nameTxt.text = dialogues[nextDialogue].chrName;
+            character.sprite = dialogues[nextDialogue].chr;
             StartCoroutine(TypeSentence(dialogues[nextDialogue].sentence));
         }
 
@@ -134,8 +135,10 @@ public class DialoguesManager : MonoBehaviour
         {
             //dialogueGui.GetComponent<Image>().color = dialogues[nextdialogue].chrColor;
             nameTxt.text = dialogues[nextdialogue].chrName;
+            character.sprite = dialogues[nextdialogue].chr;
             StopAllCoroutines();
             StartCoroutine(TypeSentence(dialogues[nextdialogue].sentence));
+
             if (nextdialogue == lastDialogue)
             {
                 arrow.gameObject.SetActive(false);
