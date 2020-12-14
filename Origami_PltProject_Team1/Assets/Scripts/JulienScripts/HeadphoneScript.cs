@@ -36,14 +36,14 @@ public class HeadphoneScript : MonoBehaviour
     {
         if (_lerpTimer < _fadeDuration && _isFadeIn)
         {
-            Debug.Log("FadeIn");
+            //Debug.Log("FadeIn");
             _lerpTimer += Time.deltaTime;
             _headphoneText.faceColor = new Color(_headphoneText.faceColor.r, _headphoneText.faceColor.g, _headphoneText.faceColor.b, Mathf.Lerp(0, 1, _lerpTimer / _fadeDuration));
             _headphoneImage.color = new Color(_headphoneImage.color.r, _headphoneImage.color.g, _headphoneImage.color.b, Mathf.Lerp(0, 1, _lerpTimer / _fadeDuration));
         }
         else
         {
-            Debug.Log("ici");
+            //Debug.Log("ici");
             _lerpTimer = 0.0f;
             _isFadeIn = false;
         }
@@ -53,7 +53,7 @@ public class HeadphoneScript : MonoBehaviour
     {
         if (_lerpTimer < _fadeDuration && _isFadeOut)
         {
-            Debug.Log("FadeOut");
+            //Debug.Log("FadeOut");
             _lerpTimer += Time.deltaTime;
             _headphoneText.faceColor = new Color(_headphoneText.faceColor.r, _headphoneText.faceColor.g, _headphoneText.faceColor.b, Mathf.Lerp(1, 0, _lerpTimer / _fadeDuration));
             _headphoneImage.color = new Color(_headphoneImage.color.r, _headphoneImage.color.g, _headphoneImage.color.b, Mathf.Lerp(1, 0, _lerpTimer / _fadeDuration));
@@ -62,7 +62,7 @@ public class HeadphoneScript : MonoBehaviour
         {
             _lerpTimer = 0.0f;
             _isFadeOut = false;
-            Debug.Log("ici");
+            //Debug.Log("ici");
         }
     }
 
@@ -70,10 +70,10 @@ public class HeadphoneScript : MonoBehaviour
     {
         if (_lerpTimer < _fadeDuration && _isFadeBackground)
         {
-            Debug.Log("FadeBackGround");
+            //Debug.Log("FadeBackGround");
             _lerpTimer += Time.deltaTime;
             _headphoneBackground.color = new Color(_headphoneBackground.color.r, _headphoneBackground.color.g, _headphoneBackground.color.b, Mathf.Lerp(1, 0, _lerpTimer / _fadeDuration));
-            Debug.Log(_headphoneBackground.color.a);
+            //Debug.Log(_headphoneBackground.color.a);
         }
         else
         {

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,6 +12,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] private DialoguesManager _dialogueManager = null;
     [SerializeField] private SwitchModePlayerOrigami _switchModeOrigami = null;
     [SerializeField] private Entity _entity = null;
+    [SerializeField] private Texture _textureTransparente = null;
+
+    internal Texture GetTextureTransparente()
+    {
+        return _textureTransparente;
+    }
+
     [SerializeField] private SwitchSpritePlayer _switchSpritePlayer = null;
     [SerializeField] private CameraManager _cameraManager = null;
 

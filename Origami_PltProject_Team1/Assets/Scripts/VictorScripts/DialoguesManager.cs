@@ -25,6 +25,8 @@ public class DialoguesManager : MonoBehaviour
     private bool oneTime = false;
 
     private Entity playerEntity = null;
+    private float _timerAfterDialogue = 0f;
+    private bool _finishDialogue = false;
 
     private int lastDialogue;
     private int nextdialogue;
@@ -43,22 +45,33 @@ public class DialoguesManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (_finishDialogue)
+        {
+            _timerAfterDialogue += Time.deltaTime;
+            if (_timerAfterDialogue >= 0.5f)
+            {
+                playerEntity.MovePlay();
+                _finishDialogue = false;
+                _timerAfterDialogue = 0f;
+            }
+        }
+
         if (inDialogue)
         {
             timerSwitchDialogue -= Time.deltaTime;
-            if (Input.GetKeyDown(KeyCode.H) && timerSwitchDialogue <= 0)
-            {
-                timerSwitchDialogue = 0.5f;
-                if (inTyping)
-                {
-                    NextDialogue();
-                }
-                else
-                {
-                    StartDialogue(0, 7);
-                }
+            //if (Input.GetKeyDown(KeyCode.H) && timerSwitchDialogue <= 0)
+            //{
+            //    timerSwitchDialogue = 0.5f;
+            //    if (inTyping)
+            //    {
+            //        NextDialogue();
+            //    }
+            //    else
+            //    {
+            //        StartDialogue(0, 7);
+            //    }
 
-            }
+            //}
             if (Input.GetMouseButtonDown(0))
             {
                 if (inTyping)
@@ -133,7 +146,7 @@ public class DialoguesManager : MonoBehaviour
         else
         {
             inDialogue = false;
-            playerEntity.MovePlay();
+            _finishDialogue = true;
             StopAllCoroutines();
             dialogueGui.SetActive(false);
             inTyping = false;
@@ -174,7 +187,7 @@ public class DialoguesManager : MonoBehaviour
                     /*                    Debug.Log("exiting");
                                         Debug.Log(tag);*/
                     //fonctions du parser ICI
-                    //StartFunction(tag);
+                    StartFunction(tag);
                     tag = "";
                 }
                 else
@@ -219,7 +232,7 @@ public class DialoguesManager : MonoBehaviour
                     //Debug.Log("exiting");
                     //Debug.Log(tag);
                     //fonctions du parser ICI
-                    //StartFunction(tag);
+                    StartFunction(tag);
                     tag = "";
                 }
                 else

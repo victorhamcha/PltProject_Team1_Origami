@@ -8,6 +8,7 @@ public class BenchScript : MonoBehaviour
     [SerializeField] private Transform _posBench = null;
     [SerializeField] private Transform _posEndBench = null;
     [SerializeField] private Transform _posPlayer = null;
+    private Vector3 _posPlayerY = Vector3.zero;
     [SerializeField] private GameObject _cameraCollider = null;
     private bool _isTrigger = false;
     private float _timer = 0.0f;
@@ -41,6 +42,7 @@ public class BenchScript : MonoBehaviour
         {
             //Activer son
             GameManager.Instance.GetEntity().MoveStop();
+            _posPlayerY = new Vector3(0, _posPlayer.position.y, 0);
             _posPlayer.position = _posBench.position;
             _posPlayer.rotation = _posBench.rotation;
             _cameraCollider.SetActive(true);
@@ -95,6 +97,7 @@ public class BenchScript : MonoBehaviour
         {
             _cameraCollider.GetComponent<CameraCollider>().ExitCollider();
             _cameraCollider.SetActive(false);
+            _posEndBench.position = new Vector3(_posEndBench.position.x, _posPlayerY.y, _posEndBench.position.z);
             _posPlayer.position = _posEndBench.position;
             GameManager.Instance.GetEntity().MovePlay();
             _timer = 0f;

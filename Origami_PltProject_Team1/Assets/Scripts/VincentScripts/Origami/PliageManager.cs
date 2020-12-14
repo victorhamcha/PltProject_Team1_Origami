@@ -105,10 +105,6 @@ public class PliageManager : MonoBehaviour
 
     private void Start()
     {
-        _videoPlayer.targetTexture.Release();
-        _videoPlayer.Play();
-        _videoPlayer.Pause();
-
         SoundManager.i.PlayOrigamiMusic(_listePliage.GetListPliage().Count, 0);
     }
 

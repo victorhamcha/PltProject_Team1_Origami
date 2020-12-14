@@ -32,7 +32,7 @@ public class CameraCollider : MonoBehaviour
     public bool onlyRotation = false;
     public bool onlyZoom = false;
 
-    public bool hasExited = false;
+    [HideInInspector] public bool hasExited = false;
 
 
     void Start()
