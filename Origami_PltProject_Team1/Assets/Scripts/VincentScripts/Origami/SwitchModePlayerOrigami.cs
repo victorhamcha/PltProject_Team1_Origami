@@ -123,7 +123,7 @@ public class SwitchModePlayerOrigami : MonoBehaviour
             else if (_pliageToDo.name == "pliage_marteau")
             {
                 SoundManager.i.PlaySound(SoundManager.Sound.SFX_Origami_StoneBridge_Succed);
-                _ob = Instantiate(_celebrationMarteau, _posCelebration);
+                _ob = Instantiate(_celebrationBateau, _posCelebration);
                 GameManager.Instance.pliagesAreFinish[_pliageToDo.name] = true;
             }
             else if (_pliageToDo.name == "pliage_os")
