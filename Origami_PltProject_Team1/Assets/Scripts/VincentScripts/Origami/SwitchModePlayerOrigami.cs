@@ -40,6 +40,15 @@ public class SwitchModePlayerOrigami : MonoBehaviour
     private bool asClickToContinue = false;
     private AnimCelebrations _objAnimCelebration = null;
 
+
+    //TriggerOrigami
+    [SerializeField] private GameObject _bateau = null;
+    [SerializeField] private GameObject _oiseau = null;
+    [SerializeField] private GameObject _fleur = null;
+    [SerializeField] private GameObject _moulin = null;
+    [SerializeField] private GameObject _marteau = null;
+    [SerializeField] private GameObject _os = null;
+
     void Start()
     {
         _movementPlayer = GetComponent<Entity>();
@@ -102,6 +111,7 @@ public class SwitchModePlayerOrigami : MonoBehaviour
                 _ob = Instantiate(_celebrationBateau, _posCelebration);
                 GameManager.Instance.pliagesAreFinish[_pliageToDo.name] = true;
                 GameManager.Instance.GetSucces("Fisherman's friend");
+                Destroy(_bateau);
             }
             else if (_pliageToDo.name == "pliage_fleur")
             {
@@ -109,12 +119,14 @@ public class SwitchModePlayerOrigami : MonoBehaviour
                 _ob = Instantiate(_celebrationFleur, _posCelebration);
                 GameManager.Instance.pliagesAreFinish[_pliageToDo.name] = true;
                 GameManager.Instance.GetSucces("Getting started");
+                Destroy(_fleur);
             }
             else if (_pliageToDo.name == "pliage_oiseau")
             {
                 SoundManager.i.PlaySound(SoundManager.Sound.SFX_Origami_Bird_Succed);
                 _ob = Instantiate(_celebrationOiseau, _posCelebration);
                 GameManager.Instance.pliagesAreFinish[_pliageToDo.name] = true;
+                Destroy(_oiseau);
             }
             else if (_pliageToDo.name == "pliage_moulin")
             {
@@ -122,18 +134,21 @@ public class SwitchModePlayerOrigami : MonoBehaviour
                 _ob = Instantiate(_celebrationMoulin, _posCelebration);
                 GameManager.Instance.pliagesAreFinish[_pliageToDo.name] = true;
                 GameManager.Instance.GetSucces("The Miller is sleeping");
+                Destroy(_moulin);
             }
             else if (_pliageToDo.name == "pliage_marteau")
             {
                 SoundManager.i.PlaySound(SoundManager.Sound.SFX_Origami_StoneBridge_Succed);
                 _ob = Instantiate(_celebrationMarteau, _posCelebration);
                 GameManager.Instance.pliagesAreFinish[_pliageToDo.name] = true;
+                Destroy(_marteau);
             }
             else if (_pliageToDo.name == "pliage_os")
             {
                 SoundManager.i.PlaySound(SoundManager.Sound.SFX_Origami_Bone_Succed);
                 _ob = Instantiate(_celebrationOs, _posCelebration);
                 GameManager.Instance.pliagesAreFinish[_pliageToDo.name] = true;
+                Destroy(_os);
             }
             else
             {
