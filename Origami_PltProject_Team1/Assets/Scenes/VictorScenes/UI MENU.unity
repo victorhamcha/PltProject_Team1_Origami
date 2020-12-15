@@ -3360,6 +3360,8 @@ MonoBehaviour:
   - {fileID: 1378185488}
   achievements:
   - {fileID: 11400000, guid: 30d1cf9db21255d4bb8003f8deaff975, type: 2}
+  musicToggle: {fileID: 1405373635}
+  sfxToggle: {fileID: 1307960605}
   _cinematicCanvas: {fileID: 2036282884}
   _cinematicClip: {fileID: 32900000, guid: ead59165478ec1a4ab4ad042de4dd0bb, type: 3}
 --- !u!114 &745652401
@@ -5628,7 +5630,19 @@ MonoBehaviour:
   m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 745652400}
+        m_TargetAssemblyTypeName: AchievementsUI, Assembly-CSharp
+        m_MethodName: SetSFXVolume
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_IsOn: 1
 --- !u!1 &1309634006
 GameObject:
@@ -6074,7 +6088,19 @@ MonoBehaviour:
   m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 745652400}
+        m_TargetAssemblyTypeName: AchievementsUI, Assembly-CSharp
+        m_MethodName: SetMusicVolume
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_IsOn: 1
 --- !u!1 &1459515400
 GameObject:

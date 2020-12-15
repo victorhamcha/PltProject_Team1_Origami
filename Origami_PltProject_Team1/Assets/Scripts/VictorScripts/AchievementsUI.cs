@@ -12,6 +12,10 @@ public class AchievementsUI : MonoBehaviour
     [SerializeField] private Image[] logos;
     [SerializeField] private Image[] locks;
     [SerializeField] private Achievements[] achievements;
+
+    [SerializeField] private Toggle musicToggle;
+    [SerializeField] private Toggle sfxToggle;
+
     private bool next = false;
     private bool onetTime = false;
     private float _timer = 0f;
@@ -66,16 +70,19 @@ public class AchievementsUI : MonoBehaviour
         }
     }
 
-    public void SetMusicVolume(bool value)
+    public void SetMusicVolume()
     {
-        float volume = value ? 1f : 0f;
+        bool isOn = !musicToggle.isOn;
+        float volume = isOn ? 1f : 0f;
+        Debug.Log("musicVol = " + volume);
         PlayerPrefs.SetFloat("MusicVolume", volume);
         SoundManager.i.SetVolumeMusic(volume);
     }
 
-    public void SetSFXVolume(bool value)
+    public void SetSFXVolume()
     {
-        float volume = value ? 1f : 0f;
+        bool isOn = !sfxToggle.isOn;
+        float volume = isOn ? 1f : 0f;
         PlayerPrefs.SetFloat("SFXVolume", volume);
         SoundManager.i.SetVolumeSFX(volume);
     }
@@ -96,6 +103,7 @@ public class AchievementsUI : MonoBehaviour
             {
                 _timerCinematic += Time.deltaTime;
                 _cinematicCanvas.gameObject.SetActive(true);
+                _cinematicCanvas.transform.GetChild(0).GetComponent<VideoPlayer>().SetDirectAudioVolume(0, PlayerPrefs.GetFloat("MusicVolume"));
 
                 if (_timerCinematic > (_cinematicClip.length - 12.0f))
                 {
