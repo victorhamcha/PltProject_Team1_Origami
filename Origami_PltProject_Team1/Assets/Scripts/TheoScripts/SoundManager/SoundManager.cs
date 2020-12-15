@@ -177,7 +177,8 @@ public class SoundManager : MonoBehaviour
         musicSource1 = this.gameObject.AddComponent<AudioSource>();
         musicSource2 = this.gameObject.AddComponent<AudioSource>();
 
-        SetVolumeSFX(0.5f);
+        SetVolumeMusic(PlayerPrefs.GetFloat("MusicVolume"));
+        SetVolumeSFX(PlayerPrefs.GetFloat("SFXVolume"));
 
         musicSource1.Stop();
         musicSource2.Stop();

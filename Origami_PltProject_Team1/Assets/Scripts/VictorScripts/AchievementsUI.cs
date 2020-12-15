@@ -40,7 +40,8 @@ public class AchievementsUI : MonoBehaviour
     private void Update()
     {
         _timer += Time.deltaTime;
-        if (_timer>2f && !onetTime){
+        if (_timer > 2f && !onetTime)
+        {
             onetTime = true;
             StartCoroutine("LoadSceneI");
         }
@@ -65,6 +66,17 @@ public class AchievementsUI : MonoBehaviour
         }
     }
 
+    public void SetMusicVolume(bool value)
+    {
+        float volume = value ? 1f : 0f;
+        PlayerPrefs.SetFloat("MusicVolume", volume);
+    }
+
+    public void SetSFXVolume(bool value)
+    {
+        float volume = value ? 1f : 0f;
+        PlayerPrefs.SetFloat("SFXVolume", volume);
+    }
 
     public void LoadScene(string sceneName)
     {
@@ -83,7 +95,7 @@ public class AchievementsUI : MonoBehaviour
                 _timerCinematic += Time.deltaTime;
                 _cinematicCanvas.gameObject.SetActive(true);
 
-                if(_timerCinematic > (_cinematicClip.length - 12.0f))
+                if (_timerCinematic > (_cinematicClip.length - 12.0f))
                 {
                     DontDestroyOnLoad(_cinematicCanvas);
                     asyncOperation.allowSceneActivation = true;
@@ -99,6 +111,6 @@ public class AchievementsUI : MonoBehaviour
 
     IEnumerator WaitForEndOfCinematic()
     {
-       yield return new WaitForSeconds((float)_cinematicClip.length);
+        yield return new WaitForSeconds((float)_cinematicClip.length);
     }
 }
