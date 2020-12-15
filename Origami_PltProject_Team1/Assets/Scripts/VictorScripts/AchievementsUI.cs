@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Video;
 public class AchievementsUI : MonoBehaviour
 {
     [SerializeField] private TMP_Text[] titleTxTs;
@@ -14,7 +15,10 @@ public class AchievementsUI : MonoBehaviour
     private bool next = false;
     private bool onetTime = false;
     private float _timer = 0f;
+    private float _timerCinematic = 0.0f;
 
+    [SerializeField] private Canvas _cinematicCanvas = null;
+    [SerializeField] private VideoClip _cinematicClip = null;
     void Start()
     {
         for (int i = 0; i < achievements.Length; i++)
@@ -76,9 +80,25 @@ public class AchievementsUI : MonoBehaviour
         {
             if (next)
             {
-                asyncOperation.allowSceneActivation = true;
+                _timerCinematic += Time.deltaTime;
+                _cinematicCanvas.gameObject.SetActive(true);
+
+                if(_timerCinematic > (_cinematicClip.length - 12.0f))
+                {
+                    DontDestroyOnLoad(_cinematicCanvas);
+                    asyncOperation.allowSceneActivation = true;
+                }
+                /*
+                _cinematicCanvas.gameObject.SetActive(true);
+                DontDestroyOnLoad(_cinematicCanvas);
+                asyncOperation.allowSceneActivation = true;*/
             }
             yield return null;
         }
+    }
+
+    IEnumerator WaitForEndOfCinematic()
+    {
+       yield return new WaitForSeconds((float)_cinematicClip.length);
     }
 }
