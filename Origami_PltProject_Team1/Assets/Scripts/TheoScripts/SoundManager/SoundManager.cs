@@ -141,7 +141,7 @@ public class SoundManager : MonoBehaviour
         VOC_Villager_LongMan_02,
         VOC_Villager_LongMan_03,
         VOC_Villager_LongMan_04,
-
+        VOC_SFX_Dog_Yap_03,
     }
 
     public enum Loop
