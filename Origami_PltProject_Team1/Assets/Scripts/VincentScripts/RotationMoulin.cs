@@ -12,6 +12,7 @@ public class RotationMoulin : MonoBehaviour
     private float _velocity = 1f;
     private float _maxVelocity = 1f;
     private float _tempTimerFrein = 0f;
+    private float _velocityStock = 0f;
 
     private void Awake()
     {
@@ -29,6 +30,7 @@ public class RotationMoulin : MonoBehaviour
             {
                 internalTransform.localRotation *= Quaternion.Euler(_touchDeltaPositionMoulin.y * speedRotation * Time.deltaTime, 0f, 0f);
                 _velocity = _touchDeltaPositionMoulin.y * speedRotation * Time.deltaTime;
+                _velocityStock += _velocity;
                 _maxVelocity = _velocity;
                 _tempTimerFrein = _timerFrein;
             }
@@ -41,6 +43,11 @@ public class RotationMoulin : MonoBehaviour
                 _velocity = Mathf.Lerp(_maxVelocity, 1,curveFrein.Evaluate(_tempTimerFrein / _timerFrein ));
             }
             internalTransform.localRotation *= Quaternion.Euler(speedRotation * _velocity * Time.deltaTime, 0f, 0f);
+        }
+
+        if (_velocityStock > 200)
+        {
+            GameManager.Instance.GetSucces("Waking up the Miller");
         }
     }
 }

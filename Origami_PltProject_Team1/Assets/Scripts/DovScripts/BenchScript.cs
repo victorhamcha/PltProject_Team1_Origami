@@ -38,6 +38,7 @@ public class BenchScript : MonoBehaviour
 
     private void ClickClickBubule()
     {
+        GameManager.Instance.GetSucces("resting");
         if (_bubuleCount == 0)
         {
             //Activer son

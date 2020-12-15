@@ -165,6 +165,9 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
-
+    public void GetSucces(string succes)
+    {
+        PlayerPrefs.SetInt(succes, 1);
+    }
 
 }

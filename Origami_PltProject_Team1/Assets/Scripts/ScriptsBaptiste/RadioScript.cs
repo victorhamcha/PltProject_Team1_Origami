@@ -35,7 +35,7 @@ public class RadioScript : MonoBehaviour
 
     private void ClickClickBubule()
     {
-        Debug.Log("Active");
+        GameManager.Instance.GetSucces("Radio");
         if (_bubuleCount == 0)
         {
             SoundManager.i.PlayMusic(SoundManager.Loop.MusicRadio);

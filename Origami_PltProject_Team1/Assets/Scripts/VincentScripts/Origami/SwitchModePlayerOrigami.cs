@@ -101,12 +101,14 @@ public class SwitchModePlayerOrigami : MonoBehaviour
                 SoundManager.i.PlaySound(SoundManager.Sound.SFX_Origami_Boat_Succed);
                 _ob = Instantiate(_celebrationBateau, _posCelebration);
                 GameManager.Instance.pliagesAreFinish[_pliageToDo.name] = true;
+                GameManager.Instance.GetSucces("Fisherman's friend");
             }
             else if (_pliageToDo.name == "pliage_fleur")
             {
                 SoundManager.i.PlaySound(SoundManager.Sound.SFX_Origami_Flower_Succed);
                 _ob = Instantiate(_celebrationFleur, _posCelebration);
                 GameManager.Instance.pliagesAreFinish[_pliageToDo.name] = true;
+                GameManager.Instance.GetSucces("Getting started");
             }
             else if (_pliageToDo.name == "pliage_oiseau")
             {
@@ -119,6 +121,7 @@ public class SwitchModePlayerOrigami : MonoBehaviour
                 SoundManager.i.PlaySound(SoundManager.Sound.SFX_Origami_Mill_Succed);
                 _ob = Instantiate(_celebrationMoulin, _posCelebration);
                 GameManager.Instance.pliagesAreFinish[_pliageToDo.name] = true;
+                GameManager.Instance.GetSucces("The Miller is sleeping");
             }
             else if (_pliageToDo.name == "pliage_marteau")
             {
