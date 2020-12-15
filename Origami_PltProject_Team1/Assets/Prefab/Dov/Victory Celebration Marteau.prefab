@@ -4963,8 +4963,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: baf2d40f5a19bf04ab897acf29bee846, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _animator: {fileID: 0}
-  _animFadeOut: {fileID: 7400000, guid: bfa51890d2939c1449cb2d877068d3cf, type: 2}
+  _animator: {fileID: 3688443135897338868}
+  _animFadeOut: {fileID: 7400000, guid: 15421dfe6b9885c4abaa56c0b29aa052, type: 2}
   _videoPlayer: {fileID: 8657369614818568652}
 --- !u!1 &1747954509251377168
 GameObject:
@@ -5154,6 +5154,25 @@ VideoPlayer:
   m_WaitForFirstFrame: 1
   m_FrameReadyEventEnabled: 0
   m_VideoShaders: []
+--- !u!95 &3688443135897338868
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4972088368726021942}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8996e5e35035bd045be4ade3cc05a5ea, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &4418104172774684889
 MonoBehaviour:
   m_ObjectHideFlags: 0
