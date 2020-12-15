@@ -22,6 +22,7 @@ public class Interactible : MonoBehaviour
     private float duration = 0.2f;
     private bool isInAnim = false;
     private int _DoggoCount = 0;
+    public bool SpawnCollectible = false;
 
     private Animator _animator;
 
@@ -68,7 +69,14 @@ public class Interactible : MonoBehaviour
                 isInAnim = false;
                 _animator.SetBool(GetAnimatorBool(), false);
                 HandleDialogue();
-                col.InstantiateCol(true, Vector3.zero, this.gameObject);
+
+                if (SpawnCollectible)
+                {
+                col = gameObject.GetComponent<Collectible>();
+                col.InstantiateCol(SpawnCollectible, Vector3.zero, col.collectibleCurve);
+                SpawnCollectible = false;
+                    Debug.Log("SpawnCollectible");
+                }
             }
         }
     }
@@ -78,6 +86,10 @@ public class Interactible : MonoBehaviour
         isInAnim = true;
         // Activer son
         _animator.SetBool(GetAnimatorBool(), true);
+        if (typeInteraction == TypeInteraction.Chien)
+        {
+            SoundManager.i.PlaySound(SoundManager.Sound.VOC_SFX_Dog_Yap_03);
+        }
     }
 
     private void HandleDialogue()
