@@ -85,6 +85,7 @@ public class Entity : MonoBehaviour
     //Debug
     [Header("Debug")]
     [SerializeField] private bool _guiDebug = true;
+    private float deltaTime = 0.0f;
 
     //Collectibles
     [Header("Collectibles")]
@@ -126,6 +127,7 @@ public class Entity : MonoBehaviour
     private void Update()
     {
         _UpdateRotator();
+        deltaTime += (Time.unscaledDeltaTime - deltaTime) * 0.1f;
     }
 
     private void OnGUI()
@@ -136,7 +138,7 @@ public class Entity : MonoBehaviour
         guiStyle.normal.textColor = Color.white;
         guiStyle.fontSize = 40;
 
-        GUILayout.Label("MoveDir = " + _moveDir, guiStyle);
+        /*GUILayout.Label("MoveDir = " + _moveDir, guiStyle);
         GUILayout.Label("PrevMoveDir = " + _previousMoveDir, guiStyle);
         GUILayout.Label("Velocity = " + _velocity, guiStyle);
         if (_isTurning)
@@ -151,7 +153,11 @@ public class Entity : MonoBehaviour
         if (_accelerationTimer < _accelerationDuration)
         {
             GUILayout.Label("Acceleration Timer = " + _accelerationTimer, guiStyle);
-        }
+        }*/
+        float msec = deltaTime * 1000.0f;
+        float fps = 1.0f / deltaTime;
+        string text = string.Format("{0:0.0} ms ({1:0.} fps)", msec, fps);
+        GUILayout.Label(text, guiStyle);
         //if (_frictionsTimer < _frictionsDuration) {
         //    GUILayout.Label("Frictions Timer = " + _accelerationTimer, guiStyle);
         //}
