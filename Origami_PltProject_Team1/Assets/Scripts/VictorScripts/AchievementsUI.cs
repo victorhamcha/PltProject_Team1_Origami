@@ -10,8 +10,12 @@ public class AchievementsUI : MonoBehaviour
     [SerializeField] private TMP_Text[] titleTxTs;
     [SerializeField] private TMP_Text[] descTxTs;
     [SerializeField] private Image[] logos;
-    [SerializeField] private Image[] locks;
+    [SerializeField] private Sprite locks;
     [SerializeField] private Achievements[] achievements;
+
+    [SerializeField] private Toggle musicToggle;
+    [SerializeField] private Toggle sfxToggle;
+
     private bool next = false;
     private bool onetTime = false;
     private float _timer = 0f;
@@ -26,21 +30,27 @@ public class AchievementsUI : MonoBehaviour
             titleTxTs[i].text = achievements[i].nameSucces;
             descTxTs[i].text = achievements[i].descriptionSucces;
             logos[i].sprite = achievements[i]._sprtSucces;
-            if (achievements[i]._isLock)
+            if (PlayerPrefs.HasKey(achievements[i].nameSucces))
             {
-                locks[i].gameObject.SetActive(true);
+                if (PlayerPrefs.GetInt(achievements[i].nameSucces) == 1)
+                    logos[i].sprite = locks;
+                else
+                    logos[i].sprite = locks;
             }
             else
             {
-                locks[i].gameObject.SetActive(false);
+                logos[i].sprite = locks;
             }
         }
+        SetMusicVolume();
+        SetSFXVolume();
     }
 
     private void Update()
     {
         _timer += Time.deltaTime;
-        if (_timer>2f && !onetTime){
+        if (_timer > 2f && !onetTime)
+        {
             onetTime = true;
             StartCoroutine("LoadSceneI");
         }
@@ -65,6 +75,21 @@ public class AchievementsUI : MonoBehaviour
         }
     }
 
+    public void SetMusicVolume()
+    {
+        bool isOn = !musicToggle.isOn;
+        float volume = isOn ? 1f : 0f;
+        PlayerPrefs.SetFloat("MusicVolume", volume);
+        SoundManager.i.SetVolumeMusic(volume);
+    }
+
+    public void SetSFXVolume()
+    {
+        bool isOn = !sfxToggle.isOn;
+        float volume = isOn ? 1f : 0f;
+        PlayerPrefs.SetFloat("SFXVolume", volume);
+        SoundManager.i.SetVolumeSFX(volume);
+    }
 
     public void LoadScene(string sceneName)
     {
@@ -82,8 +107,9 @@ public class AchievementsUI : MonoBehaviour
             {
                 _timerCinematic += Time.deltaTime;
                 _cinematicCanvas.gameObject.SetActive(true);
+                _cinematicCanvas.transform.GetChild(0).GetComponent<VideoPlayer>().SetDirectAudioVolume(0, PlayerPrefs.GetFloat("MusicVolume"));
 
-                if(_timerCinematic > (_cinematicClip.length - 12.0f))
+                if (_timerCinematic > (_cinematicClip.length - 12.0f))
                 {
                     DontDestroyOnLoad(_cinematicCanvas);
                     asyncOperation.allowSceneActivation = true;
@@ -99,6 +125,6 @@ public class AchievementsUI : MonoBehaviour
 
     IEnumerator WaitForEndOfCinematic()
     {
-       yield return new WaitForSeconds((float)_cinematicClip.length);
+        yield return new WaitForSeconds((float)_cinematicClip.length);
     }
 }
