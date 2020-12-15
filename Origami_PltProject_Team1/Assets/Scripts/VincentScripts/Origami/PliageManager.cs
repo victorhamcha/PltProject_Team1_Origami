@@ -397,7 +397,7 @@ public class PliageManager : MonoBehaviour
             _origamiIsFinish = true;
         }
 
-        if (_currentPliage.isConfirmationPliage && _slideOrigamiUI != null)
+        if (!_currentPliage.isConfirmationPliage && _slideOrigamiUI != null)
         {
             _slideOrigamiUI.goNextIndex = true;
         }
