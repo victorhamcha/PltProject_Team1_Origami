@@ -32,7 +32,7 @@ public class AchievementsUI : MonoBehaviour
             logos[i].sprite = achievements[i]._sprtSucces;
             if (PlayerPrefs.HasKey(achievements[i].nameSucces))
             {
-                if(PlayerPrefs.GetInt(achievements[i].nameSucces)==1)
+                if (PlayerPrefs.GetInt(achievements[i].nameSucces) == 1)
                     logos[i].sprite = locks;
                 else
                     logos[i].sprite = locks;
@@ -42,6 +42,8 @@ public class AchievementsUI : MonoBehaviour
                 logos[i].sprite = locks;
             }
         }
+        SetMusicVolume();
+        SetSFXVolume();
     }
 
     private void Update()
@@ -77,7 +79,6 @@ public class AchievementsUI : MonoBehaviour
     {
         bool isOn = !musicToggle.isOn;
         float volume = isOn ? 1f : 0f;
-        Debug.Log("musicVol = " + volume);
         PlayerPrefs.SetFloat("MusicVolume", volume);
         SoundManager.i.SetVolumeMusic(volume);
     }
