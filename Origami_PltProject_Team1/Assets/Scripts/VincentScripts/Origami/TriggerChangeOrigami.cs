@@ -20,7 +20,7 @@ public class TriggerChangeOrigami : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player" && !_isTrigger && _gameManager.GetEntity().VerifyCollectibles(_collectibleNeeded))
+        if (other.tag == "Player" && !_isTrigger)
         {
             _collectibleText.gameObject.SetActive(true);
             _collectibleText.text = _gameManager.GetEntity().collectibles + " / " + _collectibleNeeded;
@@ -41,7 +41,10 @@ public class TriggerChangeOrigami : MonoBehaviour
 
     private void ClickClickBubule()
     {
-        _gameManager.SetUpPliage(_namePliage);
+        if (_gameManager.GetEntity().VerifyCollectibles(_collectibleNeeded))
+        {
+            _gameManager.SetUpPliage(_namePliage);
+        }
     }
 
     private void Update()
