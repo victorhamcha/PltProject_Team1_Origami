@@ -6,15 +6,16 @@ public class PlayerCollectibles : MonoBehaviour
 {
     [HideInInspector] public int collectibles = 0;
     
-    private void OnCollisionEnter(Collision collision)
+    
+
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.tag == "Collectible")
+        if (other.gameObject.tag == "Collectible")
         {
-            Destroy(collision.gameObject);
+            Destroy(other.gameObject);
             GetCollectible();
         }
     }
-
 
     public void GetCollectible()
     {
