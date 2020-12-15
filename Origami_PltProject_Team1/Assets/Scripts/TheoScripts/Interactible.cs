@@ -21,6 +21,7 @@ public class Interactible : MonoBehaviour
     private float _timer = 0.2f;
     private float duration = 0.2f;
     private bool isInAnim = false;
+    private int _DoggoCount = 0;
 
     private Animator _animator;
 
@@ -87,15 +88,26 @@ public class Interactible : MonoBehaviour
                 string[] dialoguesFeu = { "Pas assez cuit...", "Parfait !", "Cramé..." };
                 string dialFeu = dialoguesFeu[Random.Range(0, dialoguesFeu.Length)];
                 //GameManager.Instance.GetDialogueManager().StartDialogue();
+                GameManager.Instance.GetSucces("Hmmmm.....");
                 break;
             case TypeInteraction.Trefles:
                 string[] dialoguesTrefles = { "Pas de chance...", "Wow la chance !" };
                 string dialTrefle = dialoguesTrefles[Random.Range(0, dialoguesTrefles.Length)];
+                GameManager.Instance.GetSucces("It's your lucky day !");
                 //Lance le dialogue
                 break;
             case TypeInteraction.Yoga:
                 string dialYoga = "Aah... Ca détend";
+                GameManager.Instance.GetSucces("Zen");
                 //Lance le dialogue
+                break;
+            case TypeInteraction.Chien:
+                GameManager.Instance.GetSucces("Who's a good boy ?");
+                _DoggoCount++;
+                if (_DoggoCount >= 5)
+                {
+                    GameManager.Instance.GetSucces("Best Doggo");
+                }
                 break;
         }
     }
