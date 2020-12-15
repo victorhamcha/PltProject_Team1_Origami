@@ -70,12 +70,14 @@ public class AchievementsUI : MonoBehaviour
     {
         float volume = value ? 1f : 0f;
         PlayerPrefs.SetFloat("MusicVolume", volume);
+        SoundManager.i.SetVolumeMusic(volume);
     }
 
     public void SetSFXVolume(bool value)
     {
         float volume = value ? 1f : 0f;
         PlayerPrefs.SetFloat("SFXVolume", volume);
+        SoundManager.i.SetVolumeSFX(volume);
     }
 
     public void LoadScene(string sceneName)
