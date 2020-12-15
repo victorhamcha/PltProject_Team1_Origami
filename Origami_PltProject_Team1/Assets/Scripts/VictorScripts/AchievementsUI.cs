@@ -114,6 +114,11 @@ public class AchievementsUI : MonoBehaviour
                     DontDestroyOnLoad(_cinematicCanvas);
                     asyncOperation.allowSceneActivation = true;
                 }
+                else if(_timerCinematic > _cinematicClip.length)
+                {
+                    Destroy(_cinematicCanvas);
+                }
+
                 /*
                 _cinematicCanvas.gameObject.SetActive(true);
                 DontDestroyOnLoad(_cinematicCanvas);
