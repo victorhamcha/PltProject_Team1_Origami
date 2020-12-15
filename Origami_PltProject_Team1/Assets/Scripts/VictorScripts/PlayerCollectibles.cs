@@ -5,9 +5,12 @@ using UnityEngine;
 public class PlayerCollectibles : MonoBehaviour
 {
     [HideInInspector] public int collectibles = 0;
-    
-    
+    Entity entity;
 
+    private void Awake()
+    {
+        entity = gameObject.GetComponent<Entity>();
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Collectible")
@@ -19,7 +22,7 @@ public class PlayerCollectibles : MonoBehaviour
 
     public void GetCollectible()
     {
-        collectibles++;
+        entity.collectibles++;
     }
 
     
@@ -27,7 +30,7 @@ public class PlayerCollectibles : MonoBehaviour
     {
         if(collectibles >= colNeeded)
         {
-            collectibles -= colNeeded;
+            entity.collectibles -= colNeeded;
             return true;
         }
         else
