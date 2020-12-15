@@ -78,6 +78,10 @@ public class Interactible : MonoBehaviour
         isInAnim = true;
         // Activer son
         _animator.SetBool(GetAnimatorBool(), true);
+        if (typeInteraction == TypeInteraction.Chien)
+        {
+            SoundManager.i.PlaySound(SoundManager.Sound.VOC_SFX_Dog_Yap_03);
+        }
     }
 
     private void HandleDialogue()
