@@ -10,7 +10,7 @@ public class AchievementsUI : MonoBehaviour
     [SerializeField] private TMP_Text[] titleTxTs;
     [SerializeField] private TMP_Text[] descTxTs;
     [SerializeField] private Image[] logos;
-    [SerializeField] private Image[] locks;
+    [SerializeField] private Sprite locks;
     [SerializeField] private Achievements[] achievements;
     private bool next = false;
     private bool onetTime = false;
@@ -26,13 +26,16 @@ public class AchievementsUI : MonoBehaviour
             titleTxTs[i].text = achievements[i].nameSucces;
             descTxTs[i].text = achievements[i].descriptionSucces;
             logos[i].sprite = achievements[i]._sprtSucces;
-            if (achievements[i]._isLock)
+            if (PlayerPrefs.HasKey(achievements[i].nameSucces))
             {
-                locks[i].gameObject.SetActive(true);
+                if(PlayerPrefs.GetInt(achievements[i].nameSucces)==1)
+                    logos[i].sprite = locks;
+                else
+                    logos[i].sprite = locks;
             }
             else
             {
-                locks[i].gameObject.SetActive(false);
+                logos[i].sprite = locks;
             }
         }
     }
