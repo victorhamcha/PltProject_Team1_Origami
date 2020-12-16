@@ -21,6 +21,5 @@ public class DestroyObjectEndVIdeo : MonoBehaviour
                 Destroy(_cinematicCanvas.gameObject);
             }
         }
-        Debug.Log("Timer : " + timer);
     }
 }
