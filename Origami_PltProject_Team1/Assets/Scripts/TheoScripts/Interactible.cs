@@ -15,6 +15,7 @@ public class Interactible : MonoBehaviour
     [SerializeField] private GameObject _bulle = null;
     [SerializeField] private TypeInteraction typeInteraction;
     [SerializeField] private Collectible col;
+    [SerializeField] private GameObject _fxTrefles;
     public LayerMask layerBubule;
 
     private bool _isTrigger = false;
@@ -87,6 +88,11 @@ public class Interactible : MonoBehaviour
         isInAnim = true;
         // Activer son
         _animator.SetBool(GetAnimatorBool(), true);
+        if (typeInteraction == TypeInteraction.Trefles)
+        {
+            _fxTrefles.transform.position = GameManager.Instance.GetEntity().transform.position;
+            _fxTrefles.SetActive(true);
+        }
         if (typeInteraction == TypeInteraction.Chien)
         {
             SoundManager.i.PlaySound(SoundManager.Sound.VOC_SFX_Dog_Yap_03);
@@ -106,6 +112,7 @@ public class Interactible : MonoBehaviour
             case TypeInteraction.Trefles:
                 string[] dialoguesTrefles = { "Pas de chance...", "Wow la chance !" };
                 string dialTrefle = dialoguesTrefles[Random.Range(0, dialoguesTrefles.Length)];
+                _fxTrefles.SetActive(false);
                 GameManager.Instance.GetSucces("It's your lucky day !");
                 //Lance le dialogue
                 break;
