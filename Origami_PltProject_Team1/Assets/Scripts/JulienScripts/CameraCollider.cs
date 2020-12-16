@@ -55,7 +55,7 @@ public class CameraCollider : MonoBehaviour
     {
         _cameraManager = GameManager.Instance.GetCameraManager();
 
-        _originalEndSizeTemp = _cameraManager._originalEndSize;
+/*        _originalEndSizeTemp = _cameraManager._originalEndSize;
         _originalStartSizeTemp = _cameraManager._originalStartSize;
         _speedZoomTemp = _cameraManager.speedZoom;
         _speedDezoomTemp = _cameraManager.speedDezoom;
@@ -69,10 +69,10 @@ public class CameraCollider : MonoBehaviour
         _speedRotationBackwardTemp = _cameraManager._speedRotationDown;
         _startRotatingUpTemp = _cameraManager._rotationUp;
         _StartRotatingLeftTemp = _cameraManager._rotationLeft;
-        _nearClipPlaneTemp = _cameraManager.sizeNearPLane;
+        _nearClipPlaneTemp = _cameraManager.sizeNearPLane;*/
     }
 
-    private void Update()
+    /*private void Update()
     {
         if (hasExited)
         {
@@ -95,15 +95,12 @@ public class CameraCollider : MonoBehaviour
                 _cameraManager._rotationLeft = _StartRotatingLeftTemp;
             }
         }
-    }
+    }*/
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-
-            hasExited = false;
-
             if (zooming && !onlyRotation)
             {
                 _cameraManager._originalEndSize = _originalEndSize;
@@ -169,8 +166,6 @@ public class CameraCollider : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        hasExited = true;
-
         _cameraManager.sizeNearPLane = _nearClipPlaneTemp;
         if (zooming && !onlyRotation)
         {
@@ -206,7 +201,6 @@ public class CameraCollider : MonoBehaviour
 
     public void ExitCollider()
     {
-        hasExited = true;
         if (zooming && !onlyRotation)
         {
             _cameraManager._zooming = false;
