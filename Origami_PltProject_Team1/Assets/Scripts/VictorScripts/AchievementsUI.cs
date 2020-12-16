@@ -45,6 +45,7 @@ public class AchievementsUI : MonoBehaviour
         }
         SetMusicVolume();
         SetSFXVolume();
+        SoundManager.i.PlayMusic(SoundManager.Loop.MusicMenu);
     }
 
     private void Update()
@@ -108,6 +109,7 @@ public class AchievementsUI : MonoBehaviour
             {
                 _timerCinematic += Time.deltaTime;
                 _cinematicCanvas.gameObject.SetActive(true);
+                SoundManager.i.StopMusic();
                 _cinematicCanvas.transform.GetChild(0).GetComponent<VideoPlayer>().SetDirectAudioVolume(0, PlayerPrefs.GetFloat("MusicVolume"));
                 _endVideo.isPlaying = true;
 

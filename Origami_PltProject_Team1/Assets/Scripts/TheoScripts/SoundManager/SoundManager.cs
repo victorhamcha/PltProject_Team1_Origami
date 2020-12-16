@@ -155,7 +155,8 @@ public class SoundManager : MonoBehaviour
         MusicFold4,
         MusicFold5,
         MusicRadio,
-        MusicVillage
+        MusicVillage,
+        MusicMenu
     }
 
     private static AudioSource oneShotSource;
