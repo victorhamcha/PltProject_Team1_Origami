@@ -73,9 +73,9 @@ public class Interactible : MonoBehaviour
                 if (SpawnCollectible)
                 {
                     Debug.Log("Oui ca spawn");
-                col = gameObject.GetComponent<Collectible>();
-                col.InstantiateCol(SpawnCollectible, Vector3.zero, col.collectibleCurve);
-                SpawnCollectible = false;
+                    col = gameObject.GetComponent<Collectible>();
+                    col.InstantiateCol(SpawnCollectible, Vector3.zero, col.collectibleCurve);
+                    SpawnCollectible = false;
                     Debug.Log("SpawnCollectible");
                 }
             }
@@ -100,19 +100,16 @@ public class Interactible : MonoBehaviour
             case TypeInteraction.Feu:
                 string[] dialoguesFeu = { "Pas assez cuit...", "Parfait !", "Cramé..." };
                 string dialFeu = dialoguesFeu[Random.Range(0, dialoguesFeu.Length)];
-                //GameManager.Instance.GetDialogueManager().StartDialogue();
                 GameManager.Instance.GetSucces("Hmmmm.....");
                 break;
             case TypeInteraction.Trefles:
                 string[] dialoguesTrefles = { "Pas de chance...", "Wow la chance !" };
                 string dialTrefle = dialoguesTrefles[Random.Range(0, dialoguesTrefles.Length)];
                 GameManager.Instance.GetSucces("It's your lucky day !");
-                //Lance le dialogue
                 break;
             case TypeInteraction.Yoga:
                 string dialYoga = "Aah... Ca détend";
                 GameManager.Instance.GetSucces("Zen");
-                //Lance le dialogue
                 break;
             case TypeInteraction.Chien:
                 GameManager.Instance.GetSucces("Who's a good boy ?");
