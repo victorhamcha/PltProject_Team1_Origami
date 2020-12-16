@@ -22,7 +22,7 @@ public class TriggerChangeOrigami : MonoBehaviour
     {
         if (other.tag == "Player" && !_isTrigger)
         {
-            _collectibleText.gameObject.SetActive(true);
+            //_collectibleText.gameObject.SetActive(true);
             _collectibleText.text = _gameManager.GetEntity().collectibles + " / " + _collectibleNeeded;
             _isTrigger = true;
             _bulleOrigami.SetActive(true);

@@ -483,7 +483,7 @@ MonoBehaviour:
   usePathFinding: 1
   refreshPathDuration: 2
   _guiDebug: 0
-  collectibles: 0
+  collectibles: 10
   _rangeToBridge: 0.3
   moveModeOn: 1
   behindBridge: {fileID: 0}
@@ -533,6 +533,8 @@ MonoBehaviour:
   _moulin: {fileID: 0}
   _marteau: {fileID: 0}
   _os: {fileID: 0}
+  _cam: {fileID: 0}
+  _blurcam: {fileID: 0}
 --- !u!65 &618413904
 BoxCollider:
   m_ObjectHideFlags: 0
