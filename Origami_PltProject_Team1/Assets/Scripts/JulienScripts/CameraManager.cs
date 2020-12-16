@@ -370,7 +370,7 @@ public class CameraManager : MonoBehaviour
             _internTimerCurveSpeedRotationX += Time.deltaTime;
         }
         _currentRotationX -= _speedRotationBackward * Time.deltaTime * _curveSpeedRotation.Evaluate(_internTimerCurveSpeedRotationX / _durationCurveSpeedRotation);
-        if (_currentRotationX < 0)
+        if ( (_currentRotationX < 0 && _rotationLeft) || (_currentRotationX < -_finalAngleX && !_rotationLeft))
         {
             _currentRotationX = 0;
         }
