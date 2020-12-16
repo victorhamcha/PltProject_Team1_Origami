@@ -87,6 +87,7 @@ public class GameManager : MonoBehaviour
             {
                 candyIsActive = false;
                 candyCanvas.SetActive(false);
+                candyCanvasGroup.alpha = 1f;
                 candyTimer = candyBaseTimer;
             }
         }
