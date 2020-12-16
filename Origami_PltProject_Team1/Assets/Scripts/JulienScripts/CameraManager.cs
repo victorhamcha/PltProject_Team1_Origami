@@ -370,7 +370,14 @@ public class CameraManager : MonoBehaviour
             _internTimerCurveSpeedRotationX += Time.deltaTime;
         }
         _currentRotationX -= _speedRotationBackward * Time.deltaTime * _curveSpeedRotation.Evaluate(_internTimerCurveSpeedRotationX / _durationCurveSpeedRotation);
-        _cam.transform.RotateAround(_pivotPosRotation.position, Vector3.up, -(_speedRotationBackward * Time.deltaTime) * _curveSpeedRotation.Evaluate(_internTimerCurveSpeedRotationX / _durationCurveSpeedRotation));
+        if (_currentRotationX < 0)
+        {
+            _currentRotationX = 0;
+        }
+        else
+        {
+            _cam.transform.RotateAround(_pivotPosRotation.position, Vector3.up, -(_speedRotationBackward * Time.deltaTime) * _curveSpeedRotation.Evaluate(_internTimerCurveSpeedRotationX / _durationCurveSpeedRotation));
+        }
     }
 
     public void RotateDown()
