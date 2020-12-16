@@ -287,7 +287,7 @@ public class CameraManager : MonoBehaviour
         {
             _waitNewRotationX = true;
         }
-        
+
         if (_rotatingDown || _rotatingUp)
         {
             _waitNewRotationY = false;
@@ -321,14 +321,14 @@ public class CameraManager : MonoBehaviour
             _canRotatingBackward = true;
             _rotatingForward = false;
         }
-        
+
         if (_internTimerCurveSpeedRotationX < _durationCurveSpeedRotation)
         {
             _internTimerCurveSpeedRotationX += Time.deltaTime;
         }
         _currentRotationX += _speedRotationForward * Time.deltaTime * _curveSpeedRotation.Evaluate(_internTimerCurveSpeedRotationX / _durationCurveSpeedRotation);
-        if (!((_currentRotationX > 0 && _rotationLeft) || (_currentRotationX > -_finalAngleX && !_rotationLeft)))
-            _cam.transform.RotateAround(_pivotPosRotation.position, Vector3.up, (_speedRotationForward * Time.deltaTime) * _curveSpeedRotation.Evaluate(_internTimerCurveSpeedRotationX / _durationCurveSpeedRotation));
+
+        _cam.transform.RotateAround(_pivotPosRotation.position, Vector3.up, (_speedRotationForward * Time.deltaTime) * _curveSpeedRotation.Evaluate(_internTimerCurveSpeedRotationX / _durationCurveSpeedRotation));
     }
 
     public void RotateUp()
@@ -350,11 +350,11 @@ public class CameraManager : MonoBehaviour
         }
 
         _currentRotationY += _speedRotationUp * Time.deltaTime * _curveSpeedRotation.Evaluate(_internTimerCurveSpeedRotationY / _durationCurveSpeedRotation);
-        
-        
-            if (!((_currentRotationY > 0 && _rotationUp) || (_currentRotationY > -_finalAngleY && !_rotationUp)))
-                _cam.transform.RotateAround(_pivotPosRotation.position, Vector3.back, (_speedRotationUp * Time.deltaTime) * _curveSpeedRotation.Evaluate(_internTimerCurveSpeedRotationY / _durationCurveSpeedRotation));
-        
+
+
+
+        _cam.transform.RotateAround(_pivotPosRotation.position, Vector3.back, (_speedRotationUp * Time.deltaTime) * _curveSpeedRotation.Evaluate(_internTimerCurveSpeedRotationY / _durationCurveSpeedRotation));
+
     }
 
     public void RotateBackward()
@@ -375,9 +375,8 @@ public class CameraManager : MonoBehaviour
             _internTimerCurveSpeedRotationX += Time.deltaTime;
         }
         _currentRotationX -= _speedRotationBackward * Time.deltaTime * _curveSpeedRotation.Evaluate(_internTimerCurveSpeedRotationX / _durationCurveSpeedRotation);
-        if ( !((_currentRotationX < 0 && _rotationLeft) || (_currentRotationX < -_finalAngleX && !_rotationLeft))) {
-            _cam.transform.RotateAround(_pivotPosRotation.position, Vector3.up, -(_speedRotationBackward * Time.deltaTime) * _curveSpeedRotation.Evaluate(_internTimerCurveSpeedRotationX / _durationCurveSpeedRotation));
-        }
+        _cam.transform.RotateAround(_pivotPosRotation.position, Vector3.up, -(_speedRotationBackward * Time.deltaTime) * _curveSpeedRotation.Evaluate(_internTimerCurveSpeedRotationX / _durationCurveSpeedRotation));
+
     }
 
     public void RotateDown()
@@ -394,16 +393,14 @@ public class CameraManager : MonoBehaviour
             _rotatingDown = false;
             _rotationEndedY = false;
         }
-        
+
         if (_internTimerCurveSpeedRotationY < _durationCurveSpeedRotation)
         {
             _internTimerCurveSpeedRotationY += Time.deltaTime;
         }
         _currentRotationY -= _speedRotationDown * Time.deltaTime * _curveSpeedRotation.Evaluate(_internTimerCurveSpeedRotationY / _durationCurveSpeedRotation);
-        if (!((_currentRotationY < 0 && _rotationUp) || (_currentRotationY < -_finalAngleY && !_rotationUp)))
-        { 
-            _cam.transform.RotateAround(_pivotPosRotation.position, Vector3.back, -(_speedRotationDown * Time.deltaTime) * _curveSpeedRotation.Evaluate(_internTimerCurveSpeedRotationY / _durationCurveSpeedRotation));
-        }
+        _cam.transform.RotateAround(_pivotPosRotation.position, Vector3.back, -(_speedRotationDown * Time.deltaTime) * _curveSpeedRotation.Evaluate(_internTimerCurveSpeedRotationY / _durationCurveSpeedRotation));
+
     }
 
     public void CameraFollow()
