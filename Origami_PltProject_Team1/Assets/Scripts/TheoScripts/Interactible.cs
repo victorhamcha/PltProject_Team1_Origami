@@ -72,6 +72,7 @@ public class Interactible : MonoBehaviour
 
                 if (SpawnCollectible)
                 {
+                    Debug.Log("Oui ca spawn");
                 col = gameObject.GetComponent<Collectible>();
                 col.InstantiateCol(SpawnCollectible, Vector3.zero, col.collectibleCurve);
                 SpawnCollectible = false;
