@@ -20,6 +20,7 @@ public class LaunchEndCinematique : MonoBehaviour
         if (!_canvas.gameObject.activeSelf && _dialogue.OrigamiPnjFinish() && _dialogue.EndedAllConversation() && !_dialogueManager.inDialogue)
         {
             _canvas.gameObject.SetActive(true);
+            SoundManager.i.StopMusic();
         }
 
 
