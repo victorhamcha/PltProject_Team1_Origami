@@ -13,7 +13,7 @@ public class StartDialogue : MonoBehaviour
     public GameObject bubule;
     public LayerMask layerBubule;
     [SerializeField] private string _namePliage = "pliage_";
-    private bool _tValue = false;
+    private bool _origamiPNJFinish = false;
 
     private void Awake()
     {
@@ -41,9 +41,9 @@ public class StartDialogue : MonoBehaviour
     private void ClickClickBubule()
     {
         _gameManager.GetDialogueManager().inDialogue = true;
-        _gameManager.pliagesAreFinish.TryGetValue(_namePliage, out _tValue);
+        _gameManager.pliagesAreFinish.TryGetValue(_namePliage, out _origamiPNJFinish);
 
-        if (!_tValue)
+        if (!_origamiPNJFinish)
         {
             _gameManager.GetDialogueManager().StartDialogue((int)startlistIndexDialogue[_startTimesTalked].x, (int)startlistIndexDialogue[_startTimesTalked].y);
             if (_startTimesTalked < startlistIndexDialogue.Count - 1)
@@ -68,5 +68,15 @@ public class StartDialogue : MonoBehaviour
         {
             ClickClickBubule();
         }
+    }
+
+    public bool EndedAllConversation()
+    {
+        return _endTimesTalked == endlistIndexDialogue.Count - 1;
+    }
+
+    public bool OrigamiPnjFinish()
+    {
+        return _origamiPNJFinish;
     }
 }
