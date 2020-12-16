@@ -130,7 +130,7 @@ public class Interactible : MonoBehaviour
         switch (typeInteraction)
         {
             case TypeInteraction.Feu:
-                return "Idle";
+                return "FeuDeCamp";
             case TypeInteraction.Chien:
                 return "Caresser";
             case TypeInteraction.Trefles:
