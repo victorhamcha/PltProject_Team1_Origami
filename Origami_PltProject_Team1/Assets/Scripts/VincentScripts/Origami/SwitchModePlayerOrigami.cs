@@ -49,6 +49,10 @@ public class SwitchModePlayerOrigami : MonoBehaviour
     [SerializeField] private GameObject _marteau = null;
     [SerializeField] private GameObject _os = null;
 
+    //cam
+    [SerializeField] private Camera _cam;
+    [SerializeField] private Camera _blurcam;
+
     void Start()
     {
         _movementPlayer = GetComponent<Entity>();
@@ -96,6 +100,8 @@ public class SwitchModePlayerOrigami : MonoBehaviour
             }
             else
             {
+                //_cam.enabled = true;
+                //_blurcam.enabled = false;
                 _movementPlayer.MovePlay();
                 _animatorFadeOrigami.Play(_animFadeIn.name + "_reverse", -1, 0);
                 _isOnReverseAnim = true;
@@ -198,6 +204,8 @@ public class SwitchModePlayerOrigami : MonoBehaviour
 
     public void ActiveOrigami()
     {
+        //_cam.enabled = false;
+        //_blurcam.enabled = true;
         _origami.position = _posPliageToFaceCam.position;
         _pliageToDo.transform.rotation = _posPliageToFaceCam.rotation;
         _movementPlayer.MoveStop();

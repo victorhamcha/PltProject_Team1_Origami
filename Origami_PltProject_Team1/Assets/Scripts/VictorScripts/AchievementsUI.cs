@@ -23,6 +23,7 @@ public class AchievementsUI : MonoBehaviour
 
     [SerializeField] private Canvas _cinematicCanvas = null;
     [SerializeField] private VideoClip _cinematicClip = null;
+    [SerializeField] private DestroyObjectEndVIdeo _endVideo = null;
     void Start()
     {
         for (int i = 0; i < achievements.Length; i++)
@@ -103,21 +104,18 @@ public class AchievementsUI : MonoBehaviour
         asyncOperation.allowSceneActivation = false;
         while (!asyncOperation.isDone)
         {
-            if (next)
+            if (next && asyncOperation.progress >= 0.9f)
             {
                 _timerCinematic += Time.deltaTime;
                 _cinematicCanvas.gameObject.SetActive(true);
                 _cinematicCanvas.transform.GetChild(0).GetComponent<VideoPlayer>().SetDirectAudioVolume(0, PlayerPrefs.GetFloat("MusicVolume"));
+                _endVideo.isPlaying = true;
 
                 if (_timerCinematic > (_cinematicClip.length - 12.0f))
                 {
                     DontDestroyOnLoad(_cinematicCanvas);
                     asyncOperation.allowSceneActivation = true;
                 }
-                /*
-                _cinematicCanvas.gameObject.SetActive(true);
-                DontDestroyOnLoad(_cinematicCanvas);
-                asyncOperation.allowSceneActivation = true;*/
             }
             yield return null;
         }
