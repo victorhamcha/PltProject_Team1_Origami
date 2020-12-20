@@ -135,7 +135,7 @@ public class Entity : MonoBehaviour
         if (!_guiDebug) return;
 
         GUIStyle guiStyle = new GUIStyle();
-        guiStyle.normal.textColor = Color.white;
+        guiStyle.normal.textColor = Color.black;
         guiStyle.fontSize = 40;
 
         /*GUILayout.Label("MoveDir = " + _moveDir, guiStyle);
@@ -158,6 +158,7 @@ public class Entity : MonoBehaviour
         float fps = 1.0f / deltaTime;
         string text = string.Format("{0:0.0} ms ({1:0.} fps)", msec, fps);
         GUILayout.Label(text, guiStyle);
+        GUILayout.Label("Screen size : " + Screen.width + " / " + Screen.height, guiStyle);
         //if (_frictionsTimer < _frictionsDuration) {
         //    GUILayout.Label("Frictions Timer = " + _accelerationTimer, guiStyle);
         //}

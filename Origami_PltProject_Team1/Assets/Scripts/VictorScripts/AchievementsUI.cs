@@ -20,10 +20,19 @@ public class AchievementsUI : MonoBehaviour
     private bool onetTime = false;
     private float _timer = 0f;
     private float _timerCinematic = 0.0f;
+    private AsyncOperation asyncOperation = null;
 
-    [SerializeField] private Canvas _cinematicCanvas = null;
+    [SerializeField] private GameObject _cinematicCanvas = null;
+    [SerializeField] private GameObject _frontScene = null;
+    [SerializeField] private GameObject _background = null;
     [SerializeField] private VideoClip _cinematicClip = null;
     [SerializeField] private DestroyObjectEndVIdeo _endVideo = null;
+
+    private void Awake()
+    {
+        DontDestroyOnLoad(_cinematicCanvas);
+    }
+
     void Start()
     {
         for (int i = 0; i < achievements.Length; i++)
@@ -46,6 +55,20 @@ public class AchievementsUI : MonoBehaviour
         SetMusicVolume();
         SetSFXVolume();
         SoundManager.i.PlayMusic(SoundManager.Loop.MusicMenu);
+    }
+
+    private void OnGUI()
+    {
+        if (asyncOperation == null)
+            return;
+
+        GUIStyle guiStyle = new GUIStyle();
+        guiStyle.normal.textColor = Color.red;
+        guiStyle.fontSize = 40;
+        guiStyle.contentOffset = new Vector2(100,100);
+
+        GUILayout.Label( (asyncOperation.progress * 100) + "%", guiStyle);
+
     }
 
     private void Update()
@@ -101,30 +124,29 @@ public class AchievementsUI : MonoBehaviour
     IEnumerator LoadSceneI()
     {
         yield return null;
-        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync("LDScene");
+        asyncOperation = SceneManager.LoadSceneAsync(1);
         asyncOperation.allowSceneActivation = false;
         while (!asyncOperation.isDone)
         {
             if (next && asyncOperation.progress >= 0.9f)
             {
                 _timerCinematic += Time.deltaTime;
-                _cinematicCanvas.gameObject.SetActive(true);
+                
+                _endVideo.gameObject.SetActive(true);
+                _frontScene.SetActive(false);
+                _background.SetActive(false);
                 SoundManager.i.StopMusic();
-                _cinematicCanvas.transform.GetChild(0).GetComponent<VideoPlayer>().SetDirectAudioVolume(0, PlayerPrefs.GetFloat("MusicVolume"));
+                _endVideo.gameObject.GetComponent<VideoPlayer>().SetDirectAudioVolume(0, PlayerPrefs.GetFloat("MusicVolume"));
                 _endVideo.isPlaying = true;
 
                 if (_timerCinematic > (_cinematicClip.length - 12.0f))
                 {
-                    DontDestroyOnLoad(_cinematicCanvas);
                     asyncOperation.allowSceneActivation = true;
+                    StopCoroutine("LoadSceneI");
                 }
             }
             yield return null;
         }
     }
 
-    IEnumerator WaitForEndOfCinematic()
-    {
-        yield return new WaitForSeconds((float)_cinematicClip.length);
-    }
 }
