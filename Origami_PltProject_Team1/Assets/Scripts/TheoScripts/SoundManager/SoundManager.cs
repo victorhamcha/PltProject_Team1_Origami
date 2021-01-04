@@ -180,7 +180,7 @@ public class SoundManager : MonoBehaviour
 
         SetVolumeMusic(PlayerPrefs.GetFloat("MusicVolume"));
         SetVolumeSFX(PlayerPrefs.GetFloat("SFXVolume"));
-        Debug.Log(PlayerPrefs.GetFloat("MusicVolume"));
+        //Debug.Log(PlayerPrefs.GetFloat("MusicVolume"));
 
         musicSource1.Stop();
         musicSource2.Stop();

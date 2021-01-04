@@ -57,20 +57,6 @@ public class AchievementsUI : MonoBehaviour
         SoundManager.i.PlayMusic(SoundManager.Loop.MusicMenu);
     }
 
-    private void OnGUI()
-    {
-        if (asyncOperation == null)
-            return;
-
-        GUIStyle guiStyle = new GUIStyle();
-        guiStyle.normal.textColor = Color.red;
-        guiStyle.fontSize = 40;
-        guiStyle.contentOffset = new Vector2(100,100);
-
-        GUILayout.Label( (asyncOperation.progress * 100) + "%", guiStyle);
-
-    }
-
     private void Update()
     {
         _timer += Time.deltaTime;
