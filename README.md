@@ -22,8 +22,8 @@ Chill and relax ! <br />
 
 <div align="center"> <img src="https://img.itch.zone/aW1nLzQ4MTY3NjcucG5n/original/kpkMdb.png" width="380" height="100" /> </div> <br />
 <div align="center"> <img src="https://img.itch.zone/aW1nLzQ4MTY3NDIuZ2lm/original/9hpZ4T.gif" /> </div> <br />
-<div align="center"> <img src="https://img.itch.zone/aW1nLzQ4MTg0NzQuZ2lm/original/WWNZLZ.gif" /> </div>
-<div align="center"> <img src="https://img.itch.zone/aW1nLzQ4MTg0ODQuZ2lm/original/mSqbUk.gif" /> </div> <br />
+<div align="center"> <img src="https://img.itch.zone/aW1nLzQ4MTg0NzQuZ2lm/original/WWNZLZ.gif" />
+<img style="margin-left:10px" src="https://img.itch.zone/aW1nLzQ4MTg0ODQuZ2lm/original/mSqbUk.gif" /> </div> <br />
 <div align="center"> <img src="https://img.itch.zone/aW1nLzQ4MTY4MTYucG5n/original/2i%2BQZ%2F.png" /> </div> <br />
 
 <div align="center"> <img src="https://img.itch.zone/aW1nLzQ4MTY3NzMucG5n/original/UdACmW.png" width="380" height="100" /> </div>
